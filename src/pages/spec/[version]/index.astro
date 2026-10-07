@@ -52,11 +52,11 @@ export function getStaticPaths() {
   <h2>URL policy</h2>
   <ul>
     <li>
-      <code>/spec/{SPEC_VERSION}/…</code> is the permanent address for this major version. A page here changes only when
+      <code>/spec/{SPEC_VERSION}/...</code> is the permanent address for this major version. A page here changes only when
       the canonical registry of the same major changes, and every page names the commit it was generated from.
     </li>
     <li>
-      <code>/spec/latest/…</code> is an alias. It redirects to the newest major and is never the canonical URL — link
+      <code>/spec/latest/...</code> is an alias. It redirects to the newest major and is never the canonical URL — link
       to the versioned address when the meaning must not move.
     </li>
     <li>When a new major ships, it gets its own <code>/spec/v&lt;N&gt;/</code> tree; the old one is kept.</li>

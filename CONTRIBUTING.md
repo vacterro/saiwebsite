@@ -25,7 +25,7 @@ npm run build    # Static build -> dist/
 
 This site adheres strictly to `WINTAGE_WEB_CONTRACT` and SAIPEN `UI.md`:
 
-1. **No anti-aliasing on text.** Every face (`SAI Pixel 10/11/12/14/16`, `Spleen 6x12`) is rendered at its native integer pixel grid with zero smoothing.
+1. **No anti-aliasing on text.** Every face (`SAI Pixel 10/11/12/14/16`, and `SAI Pixel Mono 12`: Spleen 6x12 with a DejaVu Sans Mono 2.37 supplement on the same 6x12 grid) is rendered at its native integer pixel grid with zero smoothing.
 2. **21-token color palette only.** No arbitrary hex codes, no gradients, no shadows, no blur, no opacity transitions.
 3. **2px stepped bevels.** Raised and sunken states form the tactile geometry.
 4. **All 16 Wintage themes supported.** Every layout and component must render flawlessly across all 16 palettes.
@@ -38,7 +38,7 @@ This site adheres strictly to `WINTAGE_WEB_CONTRACT` and SAIPEN `UI.md`:
 Certain files are deterministically produced from canonical sources or scripts:
 
 - `src/data/canonical/*.json` & `public/spec/v8/*.json`: Synchronized from canonical SAIPEN releases (`npm run canonical:sync`).
-- `public/fonts/*`: Built from open sources (`DejaVu Sans 2.37`, `Spleen 6x12`) by `npm run fonts:build`.
+- `public/fonts/*`: Built from open sources (`DejaVu Sans 2.37`, `Spleen 6x12`, `DejaVu Sans Mono 2.37`) by `npm run fonts:build`.
 - `public/social/card.png`: Rendered from open fonts and brand tokens by `npm run social:build`.
 - `public/media/*`: Built from brand vectors by `npm run media:build`.
 - `tests/baselines/MANIFEST.json`: Generated visual regression baseline hashes.

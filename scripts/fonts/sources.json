@@ -28,7 +28,20 @@
     "sha256": "fc0743d164690f99b7e2e1b9d503180e4c719a9831ae03fd8f6da18c857dee27",
     "licence": "BSD 2-Clause",
     "licenceFile": "scripts/fonts/src/LICENSE-spleen.txt",
-    "shippedLicence": "LICENSE-spleen.txt"
+    "shippedLicence": "LICENSE-spleen.txt",
+    "role": "primary",
+    "supplement": {
+      "file": "scripts/fonts/src/DejaVuSansMono.ttf",
+      "name": "DejaVu Sans Mono",
+      "version": "2.37",
+      "upstream": "https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37",
+      "sha256": "b4a6c3e4faab8773f4ff761d56451646409f29abedd68f05d38c2df667d3c582",
+      "licence": "Bitstream Vera / DejaVu font licence",
+      "licenceFile": "scripts/fonts/src/LICENSE-dejavu.txt",
+      "shippedLicence": "LICENSE-dejavu.txt",
+      "role": "missing-glyph supplement",
+      "note": "Spleen stays the primary code-face design and every glyph Spleen draws wins. This monospaced source only fills code points Spleen does not map, rasterized onto the same 6x12 grid, so no code-face character ever reaches a browser fallback font."
+    }
   },
   "forbidden": ["Verdana", "Microsoft", "Tahoma", "MS Sans Serif"]
 }

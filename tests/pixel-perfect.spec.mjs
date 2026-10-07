@@ -270,3 +270,90 @@ test.describe('pixel-perfect: instrument controls', () => {
     expect(offPalette(shot, GOLDEN).total, 'a fractional text origin must produce smoothed pixels').toBeGreaterThan(0);
   });
 });
+
+/**
+ * Code-face (mono) coverage. The face-pairing sweep proves no built page falls
+ * back to a system font; this proves the face itself, including the composite
+ * supplement, and that the probe still notices a code point the face does not
+ * map. The required characters are the contracted specimen plus every code
+ * point the generated coverage metadata records as supplemented, so a build
+ * that quietly drops one fails here rather than in a visitor's browser.
+ */
+const MONO_COVERAGE = JSON.parse(readFileSync('src/content-engine/i18n/font-coverage.json', 'utf8')).mono;
+const MONO_SPECIMEN = [
+  'A a 0 _ -',
+  '– — … “ ” ‘ ’',
+  '→ ← ↑ ↓',
+  'Š š Ţ ţ ŕ ķ ĝ ĵ ł ż',
+  'ș ț ı',
+  '€ № ™',
+  '─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ ═ ║',
+].join(' ');
+
+/** Lay text out on the code face and report every code point a fallback drew. */
+async function probeCodeSpecimen(page, text) {
+  await page.evaluate((value) => {
+    document.getElementById('mono-specimen')?.remove();
+    const pre = document.createElement('pre');
+    pre.id = 'mono-specimen';
+    pre.className = 'w-code';
+    pre.textContent = value;
+    document.querySelector('main')?.append(pre);
+  }, text);
+  await settle(page);
+  return page.evaluate(() => {
+    const el = document.getElementById('mono-specimen');
+    const cs = getComputedStyle(el);
+    const face = cs.fontFamily.split(',')[0].trim().replace(/^["']|["']$/g, '');
+    const ctx = document.createElement('canvas').getContext('2d');
+    const width = (font, ch) => {
+      ctx.font = font;
+      return ctx.measureText(ch).width;
+    };
+    const base = `${cs.fontWeight} ${cs.fontStyle} ${parseFloat(cs.fontSize)}px "${face}"`;
+    const missing = [];
+    for (const ch of new Set(el.textContent)) {
+      if (!/\S/.test(ch)) continue;
+      const widths = ['monospace', 'serif', 'sans-serif'].map((generic) => width(`${base}, ${generic}`, ch));
+      if (widths.some((w) => w !== widths[0])) {
+        missing.push(`U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')} ${ch}`);
+      }
+    }
+    return { face, size: cs.fontSize, missing };
+  });
+}
+
+test.describe('mono coverage: the code face draws every required glyph', () => {
+  test('specimen: ASCII, punctuation, arrows, extended Latin, box drawing', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'computed-style check; one engine is enough');
+    await page.goto('/');
+    await settle(page);
+    const probe = await probeCodeSpecimen(page, MONO_SPECIMEN);
+    expect(probe.face, 'the specimen must be laid out on the code face').toBe('SAI Pixel Mono 12');
+    expect(probe.missing).toEqual([]);
+  });
+
+  test('every code point the coverage metadata records as supplemented is really drawn', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'computed-style check; one engine is enough');
+    const codepoints = MONO_COVERAGE.supplement.codepoints;
+    expect(codepoints.length, 'the composite code face records its supplemented code points').toBeGreaterThan(0);
+    await page.goto('/');
+    await settle(page);
+    const probe = await probeCodeSpecimen(page, codepoints.map((cp) => String.fromCodePoint(cp)).join(' '));
+    expect(probe.missing).toEqual([]);
+  });
+
+  test('coverage metadata keeps Spleen primary and names the approved supplement', () => {
+    expect(MONO_COVERAGE.primary.source).toBe('Spleen 6x12');
+    expect(MONO_COVERAGE.supplement.source).toBe('DejaVu Sans Mono');
+    expect(MONO_COVERAGE.primary.glyphs + MONO_COVERAGE.supplement.glyphs).toBe(MONO_COVERAGE.glyphs);
+  });
+
+  test('control: a code point the code face does not map is reported', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'computed-style check; one engine is enough');
+    await page.goto('/');
+    await settle(page);
+    const probe = await probeCodeSpecimen(page, 'α');
+    expect(probe.missing, 'missing-glyph detection must still fire on this face').toEqual(['U+03B1 α']);
+  });
+});

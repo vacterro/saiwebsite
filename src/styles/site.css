@@ -1716,6 +1716,20 @@ main blockquote > :last-child,
   max-width: 400px;
 }
 
+/* The separator between two command tokens is HUMAN PROSE inside the command
+   line, and it is translated. It uses the proportional face so a translated or
+   pseudo-localized phrase never inherits the code face, which is a narrower
+   contract: canonical commands and literal notation, not sentences. */
+.hero__cmd-or {
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  /* 12px, not --lh-code: the proportional face (asc 10 / desc 2) inside the
+     mono strut (asc 9 / desc 3) at 14px line height would grow the line box by
+     one pixel and shift the rest of the page. The face's own content box keeps
+     the command line exactly as tall as it was. */
+  line-height: 12px;
+}
+
 .home__pair {
   margin: 0 0 var(--gap-7);
 }

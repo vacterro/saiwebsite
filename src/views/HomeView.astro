@@ -57,7 +57,7 @@ const core = projectsIn('core');
     <p class="hero__tagline" lang={en}>{SITE.tagline}</p>
     <p class="hero__motto" lang={en}>{SITE.motto}</p>
     <p class="hero__lead" set:html={tx.html('home.hero.lead')}></p>
-    <pre class="w-code hero__cmd"><code>saipen continue        <Fragment set:html={tx.html('home.hero.cmd-or')} />  cc</code></pre>
+    <pre class="w-code hero__cmd"><code>saipen continue        <span class="hero__cmd-or" set:html={tx.html('home.hero.cmd-or')} />  cc</code></pre>
     <div class="row">
       <WintageButton href={tx.href('/docs/getting-started/quickstart/')} variant="primary"><Fragment set:html={tx.html('home.action.start')} /></WintageButton>
       <WintageButton href={tx.href('/spec/')}><Fragment set:html={tx.html('home.action.spec')} /></WintageButton>

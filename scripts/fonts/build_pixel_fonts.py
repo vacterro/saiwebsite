@@ -24,7 +24,14 @@ Inputs (only the approved, redistributable sources in scripts/fonts/sources.json
   rows. The family name "SAI Pixel" carries none of the reserved names
   (Bitstream, Vera, DejaVu), as the licence requires for derivatives.
 * Code face: Spleen 6x12 (BSD 2-Clause, Frederic Cambus), a true bitmap
-  monospace, read from its BDF source.
+  monospace, read from its BDF source. Spleen is the PRIMARY design and every
+  glyph it draws wins. Code points Spleen does not map (typographic dashes,
+  ellipsis and quotes, arrows, Latin Extended-A/B, the rest of the Cyrillic
+  block, the full box-drawing set) are supplemented from DejaVu Sans Mono 2.37
+  (Bitstream Vera / DejaVu licence), rasterized onto the same 6x12 grid, so the
+  one shipped family "SAI Pixel Mono 12" draws code with no browser fallback.
+  A code point neither source can draw is a build failure, never a silent
+  fallback (see MONO_REQUIRED and scripts/fonts/coverage.py).
 
 Every input is checked against the SHA-256 recorded in sources.json before it
 is used, and the output manifest records the source, version, licence and hash
@@ -43,6 +50,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import unicodedata
 from pathlib import Path
 
 from fontTools.fontBuilder import FontBuilder
@@ -74,6 +82,40 @@ UNICODE_RANGES = (
 
 def wanted(cp: int) -> bool:
     return any(lo <= cp <= hi for lo, hi in UNICODE_RANGES)
+
+
+# The code face has its own coverage contract, separate from the proportional
+# faces: code, commands, file trees and literal notation. The supplement covers
+# the Latin/Cyrillic/typographic/tabular space a code payload can legitimately
+# contain in the languages this project intends to support (roadmap M50/M51).
+MONO_SUPPLEMENT_RANGES = (
+    (0x00A0, 0x00FF),  # Latin-1 Supplement (fill Spleen gaps)
+    (0x0100, 0x017F),  # Latin Extended-A (Estonian, Czech, Turkish, Polish)
+    (0x0218, 0x021B),  # Romanian S/T with comma below, outside Extended-A
+    (0x0400, 0x045F),  # Cyrillic (Spleen ships 0x410-0x44F; fill the rest)
+    (0x2010, 0x2027),  # General Punctuation: dashes, quotes, ellipsis
+    (0x2030, 0x203A),  # per mille, single guillemets
+    (0x20AC, 0x20AC),  # euro sign
+    (0x2116, 0x2122),  # numero sign, trade mark
+    (0x2190, 0x2199),  # arrows
+    (0x2500, 0x257F),  # Box Drawing (Spleen ships a subset)
+)
+
+# Code points the shipped code face MUST draw. ASCII comes from Spleen; the
+# rest is what this site has ever rendered inside code/kbd/samp/pre, what the
+# pseudo-localizer's accent alphabet needs, and the punctuation the docs use.
+# The build fails when one of these cannot be drawn on the 6x12 grid.
+MONO_REQUIRED = (
+    0x0020, 0x0041, 0x0061, 0x0030, 0x005F, 0x002D,  # ASCII sample
+    0x2013, 0x2014, 0x2026, 0x2192, 0x2190,  # typography and arrows
+    0x0160, 0x0161, 0x0162, 0x0163, 0x0155, 0x0137, 0x011D,  # pseudo alphabet
+    0x0135, 0x013A, 0x0142, 0x0175,  # more of the pseudo alphabet (ĵ ĺ ł ŵ)
+    0x20AC, 0x2500, 0x2502,  # euro, box drawing
+)
+
+
+def supplement_wanted(cp: int) -> bool:
+    return any(lo <= cp <= hi for lo, hi in MONO_SUPPLEMENT_RANGES)
 
 
 class Glyph:
@@ -240,6 +282,79 @@ def open_raster(path: Path, ppem: int, style: str = "regular", calibration: dict
 
         glyphs[cp] = Glyph(rows, bx, by, adv)
     return glyphs
+
+
+def mono_supplement(
+    path: Path,
+    taken: set[int],
+    adv: int = 6,
+    ascent: int = 10,
+    descent: int = 2,
+) -> tuple[dict[int, Glyph], dict[int, int]]:
+    """Rasterize a monospaced supplement onto the code face's 6x12 grid.
+
+    The grid law: advance 6 px, integer bearings, ink on whole pixels, top of
+    ink at or below the ascent, bottom at or above the descent. A glyph wider
+    than the cell is re-rasterized one pixel smaller rather than clipped or
+    squeezed; if no step fits, the build fails and names the code point, which
+    is the signal that the character needs a different code-face profile.
+
+    `taken` are the code points the primary source already draws: the primary
+    always wins, so those are never replaced here.
+    """
+    from PIL import Image, ImageDraw, ImageFont
+
+    cmap = TTFont(path).getBestCmap()
+    glyphs: dict[int, Glyph] = {}
+    ppem_used: dict[int, int] = {}
+    failures: list[int] = []
+
+    for cp in sorted(cmap):
+        if cp in taken or not supplement_wanted(cp):
+            continue
+        ch = chr(cp)
+        chosen: Glyph | None = None
+        for ppem in (12, 11, 10, 9):
+            font = ImageFont.truetype(str(path), ppem)
+            canvas = Image.new("1", (ppem * 4, ppem * 4), 0)
+            draw = ImageDraw.Draw(canvas)
+            draw.fontmode = "1"
+            ox, oy = ppem, ppem * 3
+            draw.text((ox, oy), ch, font=font, fill=1, anchor="ls")
+            box = canvas.getbbox()
+            if not box:
+                chosen = Glyph([], 0, 0, adv)  # blank by design (space-like)
+                ppem_used[cp] = ppem
+                break
+            x0, y0, x1, y1 = box
+            width, height = x1 - x0, y1 - y0
+            if width > adv or height > ascent + descent:
+                continue
+            by = oy - y0
+            # Keep the ink inside the line box; a supplement accent that sits a
+            # pixel high is shifted onto the grid rather than clipped.
+            by = min(by, ascent)
+            by = max(by, height - descent)
+            rows = [
+                "".join("#" if canvas.getpixel((x, y)) else "." for x in range(x0, x1))
+                for y in range(y0, y1)
+            ]
+            chosen = Glyph(rows, max(0, (adv - width) // 2), by, adv)  # centred in the cell, like Spleen
+            ppem_used[cp] = ppem
+            break
+        if chosen is None:
+            failures.append(cp)
+        else:
+            glyphs[cp] = chosen
+
+    if failures:
+        names = ", ".join(f"U+{cp:04X} {chr(cp)!r}" for cp in failures)
+        raise SystemExit(
+            "code face: no approved source can draw "
+            f"{names} on the {adv}x{ascent + descent} grid — this character needs "
+            "a different code-face profile (see MONO_SUPPLEMENT_RANGES)"
+        )
+    return glyphs, ppem_used
 
 
 # --------------------------------------------------------------------------
@@ -525,9 +640,11 @@ def main() -> None:
 
     sources = json.loads((ROOT / "scripts/fonts/sources.json").read_text(encoding="utf-8"))
     ui, code = sources["ui"], sources["code"]
+    supplement = code["supplement"]
     regular_src = approved(ui["regular"])
     bold_src = approved(ui["bold"])
     spleen_src = approved(code)
+    supplement_src = approved(supplement)
 
     ui_copyright = "Glyphs rasterized from DejaVu Sans 2.37 (Bitstream Vera derivative) and converted to pixel outlines."
     ui_licence = f"{ui['licence']}; see {ui['shippedLicence']}."
@@ -562,18 +679,53 @@ def main() -> None:
                 "licence": ui["licence"],
             })
 
-    glyphs, asc, desc, s_copyright = bdf_font(spleen_src)
+    primary, asc, desc, s_copyright = bdf_font(spleen_src)
+    extra, ppem_used = mono_supplement(supplement_src, set(primary), adv=6, ascent=asc, descent=desc)
+    glyphs = {**primary, **extra}  # primary wins: `extra` skips what Spleen draws
+    missing_required = [cp for cp in MONO_REQUIRED if cp not in glyphs]
+    if missing_required:
+        raise SystemExit(
+            "code face: required code point(s) "
+            + ", ".join(f"U+{cp:04X} {chr(cp)!r}" for cp in missing_required)
+            + " are drawn by neither the primary nor the supplement source"
+        )
     font = build(glyphs, 12, asc, desc, "SAI Pixel Mono 12", "Regular", 400,
-                 s_copyright + " (Spleen 6x12, converted to pixel outlines)",
-                 f"{code['licence']}; see {code['shippedLicence']}.")
+                 s_copyright + " with DejaVu Sans Mono missing-glyph supplementation"
+                 " (Spleen 6x12 and DejaVu Sans Mono 2.37, converted to pixel outlines)",
+                 f"{code['licence']} and {supplement['licence']}; see "
+                 f"{code['shippedLicence']} and {supplement['shippedLicence']}.")
     emit(font, "sai-pixel-mono-12-regular.woff2", {
         "family": "SAI Pixel Mono 12", "style": "Regular", "weight": 400, "size_px": 12,
         "ascent_px": asc, "descent_px": desc, "glyphs": len(glyphs),
         "source": code["name"], "source_version": code["version"], "source_sha256": code["sha256"],
-        "licence": code["licence"],
+        "licence": f"{code['licence']} + {supplement['licence']}",
+        "sources": [
+            {"name": code["name"], "role": code["role"], "version": code["version"],
+             "sha256": code["sha256"], "licence": code["licence"]},
+            {"name": supplement["name"], "role": supplement["role"], "version": supplement["version"],
+             "sha256": supplement["sha256"], "licence": supplement["licence"]},
+        ],
+        "primary_glyphs": len(primary),
+        "supplement_glyphs": len(extra),
+        "supplemented": sorted(extra),
     })
+    print(f"mono  Spleen primary glyphs: {len(primary)}")
+    print(f"mono  Supplement glyphs: {len(extra)}")
+    print(f"mono  Final mono cmap: {len(glyphs)}")
+    # List supplemented code points while the list is small enough to read; a
+    # large coverage gain prints a count instead of hundreds of lines.
+    listed = sorted(extra)
+    if len(listed) <= 40:
+        for cp in listed:
+            name = unicodedata.name(chr(cp), "<unnamed>")
+            note = "" if ppem_used.get(cp, 12) == 12 else f" (rasterized at {ppem_used[cp]}px to fit the cell)"
+            print(f"  SUPPLEMENT U+{cp:04X} {name}{note}")
+    elif listed:
+        adapted = sorted(cp for cp in listed if ppem_used.get(cp, 12) != 12)
+        print(f"  SUPPLEMENT {len(listed)} code points listed in manifest.json"
+              f" ({len(adapted)} rasterized below 12px to fit the cell)")
 
-    for entry in (ui, code):
+    for entry in (ui, code, supplement):
         (out / entry["shippedLicence"]).write_bytes((ROOT / entry["licenceFile"]).read_bytes())
 
     manifest = {

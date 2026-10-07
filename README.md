@@ -79,9 +79,14 @@ DejaVu Sans 2.37 (Regular & Bold)
     │
     ▼ public/fonts/*.woff2  (governed by Bitstream Vera / DejaVu font licence)
 
-Spleen 6x12 2.2.0 (BSD 2-Clause)
+Spleen 6x12 2.2.0 (BSD 2-Clause)  ← primary code design: every glyph it draws wins
     │
     ▼ BDF bitmap extraction
+    │
+DejaVu Sans Mono 2.37 (Bitstream Vera / DejaVu font licence)
+    │                                  ← missing-glyph supplement (Latin Extended-A/B,
+    │                                    Cyrillic, general punctuation, arrows, box drawing)
+    ▼ 1-bit rasterization fitted to the same 6x12 grid (advance 6 px, integer bearings)
     │
     ▼ SAI Pixel Mono 12  (public/fonts/sai-pixel-mono-12-regular.woff2)
 ```
@@ -146,7 +151,7 @@ npm test                    # Full Playwright test suite
 ### Deterministic Asset Generators
 
 ```bash
-npm run fonts:build         # Rebuild SAI Pixel WOFF2 faces from DejaVu & Spleen sources
+npm run fonts:build         # Rebuild SAI Pixel WOFF2 faces from DejaVu Sans, Spleen & DejaVu Sans Mono sources
 npm run social:build        # Regenerate public/social/card.png and MANIFEST.json
 npm run media:build         # Regenerate 1-bit brand masks and golden favicon
 npm run canonical:sync      # Re-fetch canonical protocol snapshot from GitHub

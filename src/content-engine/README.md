@@ -55,7 +55,7 @@ one view renders every locale. Docs pages are translated as whole documents.
 | `npm run site:drift` | Meaningful source and translation drift as a ready-to-file SAIPEN ticket | no |
 | `npm run validate:registry` | Registry schema, built routes, discovery flags, inventory; 14 red controls | no |
 | `npm run i18n:status` / `i18n:export` / `i18n:import` / `i18n:validate` / `i18n:memory` / `i18n:add` / `i18n:enable` | Translation workflow, see `i18n/TRANSLATING.md` | `src/locales/`, `locales.json` |
-| `npm run fonts:coverage` | Regenerate the glyph coverage of the pixel faces | `i18n/font-coverage.json` |
+| `npm run fonts:coverage` | Regenerate the glyph coverage of the pixel faces: `common` (what every proportional face draws, the contract translated prose must stay inside) and the separate `mono` code-face contract, including every code point the DejaVu Sans Mono supplement had to add to Spleen | `i18n/font-coverage.json` |
 
 ## After you change something
 

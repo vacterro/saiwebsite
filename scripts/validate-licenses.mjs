@@ -10,6 +10,9 @@
  *               its bytes changed
  *   face        a required production face is missing, its bytes differ from
  *               the manifest, or its recorded source is not an approved one
+ *   supplement  the composite code face records a missing-glyph supplement
+ *               that is not the approved, hash-pinned DejaVu Sans Mono, or
+ *               describes its glyph split dishonestly
  *   lineage     a forbidden font name (Verdana, Microsoft, ...) appears in a
  *               font manifest, a decompressed WOFF2, the social-card provenance
  *               or a shipped file name
@@ -33,17 +36,21 @@ const json = (path) => JSON.parse(readFileSync(path, 'utf8'));
 
 const SOURCES = json('scripts/fonts/sources.json');
 const FORBIDDEN = SOURCES.forbidden;
+// The code face is composite: Spleen 6x12 primary, DejaVu Sans Mono 2.37 for
+// the code points Spleen does not map. Both are approved, hash-pinned sources.
+const MONO_SUPPLEMENT = SOURCES.code.supplement;
+const MONO_SUPPLEMENT_ROLE = MONO_SUPPLEMENT.role;
 const APPROVED = new Map(
-  [SOURCES.ui.regular, SOURCES.ui.bold, SOURCES.code].map((s) => [s.sha256, s.name]),
+  [SOURCES.ui.regular, SOURCES.ui.bold, SOURCES.code, MONO_SUPPLEMENT].map((s) => [s.sha256, s.name]),
 );
 const UI_APPROVED = new Set([SOURCES.ui.regular.sha256, SOURCES.ui.bold.sha256]);
 
 // ── 1. approved sources ────────────────────────────────────────────────────
-for (const src of [SOURCES.ui.regular, SOURCES.ui.bold, SOURCES.code]) {
+for (const src of [SOURCES.ui.regular, SOURCES.ui.bold, SOURCES.code, MONO_SUPPLEMENT]) {
   if (!existsSync(src.file)) fail('source', `${src.file} is missing`);
   else if (sha(src.file) !== src.sha256) fail('source', `${src.file} does not match its approved SHA-256`);
 }
-for (const lic of [SOURCES.ui.licenceFile, SOURCES.code.licenceFile]) {
+for (const lic of [SOURCES.ui.licenceFile, SOURCES.code.licenceFile, MONO_SUPPLEMENT.licenceFile]) {
   if (!existsSync(lic)) fail('source', `licence text ${lic} is missing`);
 }
 
@@ -119,6 +126,27 @@ for (const file of REQUIRED_FACES) {
   if (!APPROVED.has(face.source_sha256)) fail('face', `${file} claims source "${face.source}" which is not an approved source`);
   if (file.startsWith('sai-pixel-mono') ? face.source_sha256 !== SOURCES.code.sha256 : !UI_APPROVED.has(face.source_sha256)) {
     fail('face', `${file} comes from the wrong approved source for its role`);
+  }
+  if (file.startsWith('sai-pixel-mono')) {
+    // Composite provenance must be stated honestly: Spleen stays primary, the
+    // supplement names the approved monospaced source, and the glyph counts
+    // add up to the shipped cmap.
+    const declared = Array.isArray(face.sources) ? face.sources : [];
+    const primary = declared.find((s) => s.role === 'primary');
+    const supplement = declared.find((s) => s.role === MONO_SUPPLEMENT_ROLE);
+    if (!primary || !supplement) {
+      fail('supplement', `${file}: a composite code face must record both its primary and its missing-glyph supplement source`);
+    } else {
+      if (primary.sha256 !== SOURCES.code.sha256) fail('supplement', `${file}: primary source is not the approved Spleen 6x12`);
+      if (supplement.sha256 !== MONO_SUPPLEMENT.sha256) {
+        fail('supplement', `${file}: supplement source "${supplement.name}" (${String(supplement.sha256).slice(0, 12)}…) is not the approved ${MONO_SUPPLEMENT.name} ${MONO_SUPPLEMENT.version} (${MONO_SUPPLEMENT.sha256.slice(0, 12)}…)`);
+      }
+    }
+    const supplemented = face.supplemented ?? [];
+    if (!supplemented.length) fail('supplement', `${file}: records no supplemented code points, so the composite face is not described by the manifest`);
+    if ((face.primary_glyphs ?? 0) + supplemented.length !== (face.glyphs ?? -1)) {
+      fail('supplement', `${file}: ${face.primary_glyphs ?? 0} primary + ${supplemented.length} supplement glyphs do not add up to ${face.glyphs ?? 'an unrecorded'} glyph count`);
+    }
   }
   if (/bitstream|vera|dejavu/i.test(face.family)) fail('face', `${file}: family "${face.family}" uses a name the DejaVu licence reserves`);
   try {
@@ -204,11 +232,17 @@ else {
   for (const word of ['DejaVu', 'Spleen', 'Astro']) if (!notices.includes(word)) fail('notices', `THIRD_PARTY_NOTICES.md does not mention ${word}`);
 }
 
+if (existsSync(join(FONT_DIR, MONO_SUPPLEMENT.shippedLicence))) {
+  if (!existsSync(join(FONT_DIR, SOURCES.ui.shippedLicence)) || sha(join(FONT_DIR, MONO_SUPPLEMENT.shippedLicence)) !== sha(join(FONT_DIR, SOURCES.ui.shippedLicence))) {
+    fail('notice', `${MONO_SUPPLEMENT.shippedLicence} must ship the same DejaVu licence text the composite code face is built under`);
+  }
+}
+
 if (problems.length) {
   for (const p of problems) console.log(`  FAIL ${p}`);
   console.log(`\nFAILED: ${problems.length} licence/provenance problem(s)`);
   process.exit(1);
 }
 console.log(
-  `OK: ${REQUIRED_FACES.length} faces from approved sources (DejaVu Sans 2.37, Spleen 6x12 2.2.0), notices shipped, social card provenance intact, no forbidden lineage; ${distNote}`,
+  `OK: ${REQUIRED_FACES.length} faces from approved sources (DejaVu Sans 2.37 for the UI, Spleen 6x12 2.2.0 primary + DejaVu Sans Mono 2.37 supplement for the code face), notices shipped, social card provenance intact, no forbidden lineage; ${distNote}`,
 );

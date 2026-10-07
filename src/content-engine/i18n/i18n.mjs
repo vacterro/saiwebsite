@@ -150,7 +150,10 @@ export function markdownSignature(md) {
   const src = String(md).replace(/\r\n/g, '\n');
   const fences = [...src.matchAll(/^```[^\n]*\n[\s\S]*?^```/gm)].map((m) => m[0]);
   const rest = src.replace(/^```[^\n]*\n[\s\S]*?^```/gm, '');
-  const code = [...rest.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
+  // A Markdown code span MAY wrap across lines (`` `INIT → PLAN →\n  SCOUT` ``),
+  // so the extraction has to allow newlines: a signature that missed those
+  // spans would accept a translation that rewrote code.
+  const code = [...rest.matchAll(/`([^`]+)`/g)].map((m) => m[1]);
   const links = [...rest.matchAll(/\]\(([^)\s]+)\)/g)].map((m) => m[1]);
   const headings = [...rest.matchAll(/^(#{1,6}) /gm)].map((m) => m[1].length);
   return JSON.stringify({ fences, code: code.sort(), links: links.sort(), headings });
@@ -184,7 +187,7 @@ export function pseudoLocalize(text, glossary, type = 'inline') {
   const terms = (glossary?.terms ?? []).filter((t) => !t.translate).map((t) => t.en).sort((a, b) => b.length - a.length);
   const keep = terms.length ? `|${terms.map(escapeRegExp).join('|')}` : '';
   const pattern = type === 'markdown'
-    ? new RegExp(`(^\`\`\`[\\s\\S]*?^\`\`\`$|\`[^\`\\n]+\`|\\]\\([^)]*\\)|\\{[a-zA-Z0-9]+\\}|https?:\\/\\/\\S+|<[^>]+>|^#{1,6} |^\\s*[-*] |^\\s*\\d+\\. |\\*\\*|\\[${keep})`, 'gm')
+    ? new RegExp(`(^\`\`\`[\\s\\S]*?^\`\`\`$|\`[^\`]+\`|\\]\\([^)]*\\)|\\{[a-zA-Z0-9]+\\}|https?:\\/\\/\\S+|<[^>]+>|^#{1,6} |^\\s*[-*] |^\\s*\\d+\\. |\\*\\*|\\[${keep})`, 'gm')
     : new RegExp(`(\`[^\`]+\`|\\]\\([^)]*\\)|\\{[a-zA-Z0-9]+\\}|https?:\\/\\/\\S+|\\*\\*|\\[${keep})`, 'g');
   const parts = String(text).split(pattern);
   const body = parts.map((part, i) => (i % 2 === 1 ? part : pseudoWords(part))).join('');

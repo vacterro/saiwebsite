@@ -23,7 +23,7 @@
     },
     "notfound.panel.body": {
       "type": "inline",
-      "text": "The address was mistyped, or it pointed at a page that has moved. Specification pages keep their versioned addresses (`/spec/v8/…`) permanently; if you followed an old link, the spec index lists every version."
+      "text": "The address was mistyped, or it pointed at a page that has moved. Specification pages keep their versioned addresses (`/spec/v8/...`) permanently; if you followed an old link, the spec index lists every version."
     },
     "notfound.action.home": {
       "type": "text",
