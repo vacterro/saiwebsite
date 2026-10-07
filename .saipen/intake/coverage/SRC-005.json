@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-005:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-6 closed with verification evidence in LOG: verify -> PASS [target: T-6] conf: high -- /ecosystem/ and /downloads/ built; validate:content OK; pixel gate passes both pages chromium+webkit; maturity rule (supported only SAIPEN, planned SAICODE) matches evidence field; release tags/digests from GitHub API 2026-10-07",
+      "text": "Survey github.com/vacterro and integrate the relevant SAIPEN ecosystem projects harmoniously (no 40-repo dump), plus own improvements without harming the site",
+      "verification": "the Work this request created reached its own verification gate; see the T-6 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-6"
+    }
+  },
+  "schema_version": 1
+}

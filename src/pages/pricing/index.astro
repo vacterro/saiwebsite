@@ -1,0 +1,70 @@
+---
+/**
+ * Pricing (MASTER_ROADMAP M22, §9; FUTURE_GATES FG-007, FG-009). A plain
+ * statement, deliberately not fictional commerce: no price, plan or
+ * entitlement exists, so none is shown.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SITE } from '../../data/site';
+---
+
+<SiteLayout
+  title="Pricing"
+  tag="/pricing/"
+  description="SAIPEN is free and open. There is no hosted service and no paid plan today; this page says exactly that."
+>
+  <h1>Pricing</h1>
+  <p><MaturityBadge level="stable" note="a statement of fact, not a price list" /></p>
+
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Offering</th>
+          <th scope="col">State</th>
+          <th scope="col">What that means today</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Protocol, docs and specification</th>
+          <td><span class="w-badge w-badge--ok">free</span></td>
+          <td>
+            MIT-licensed, <a href={SITE.repository!} rel="noopener" data-external>public on GitHub</a>. Never paywalled,
+            never behind an account.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Local and self-hosted use</th>
+          <td><span class="w-badge w-badge--ok">free</span></td>
+          <td>Everything runs on your machine. There is no entitlement check and none is planned.</td>
+        </tr>
+        <tr>
+          <th scope="row">Ecosystem tools</th>
+          <td><span class="w-badge w-badge--ok">free</span></td>
+          <td>The <a href="/ecosystem/">ecosystem</a> projects are public repositories; see each one's licence.</td>
+        </tr>
+        <tr>
+          <th scope="row">Hosted SAIPEN service</th>
+          <td><span class="w-badge w-badge--info">none</span></td>
+          <td>Does not exist. No endpoint, account or billing surface.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>If a hosted service ever exists</h2>
+  <p>
+    It would charge for optional managed infrastructure — hosted execution, persistent shared state, relay, evidence
+    retention, observability, organisation controls, support — and never for access to the protocol or its
+    specification. The local, open path would not be weakened to push anyone towards it. Until such a service exists,
+    this page will not show a monthly price, a seat count or a "contact sales" button.
+  </p>
+
+  <h2>Supporting the work</h2>
+  <p>
+    Support is optional and buys nothing: nothing is locked behind a donation. The author's ways to chip in are listed
+    on <a href={SITE.author} rel="noopener" data-external>github.com/vacterro</a>.
+  </p>
+</SiteLayout>

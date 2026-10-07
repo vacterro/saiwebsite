@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "reason": "STOP_HANDBACK",
+  "facts": {
+    "phase": "BUILD",
+    "task": "T-3",
+    "next_action": "PHASE BUILD T-3",
+    "blocker": "none",
+    "agent": "saipen",
+    "saipen_version": 8,
+    "schema_version": 3,
+    "style_contract": "ded-069a4c52",
+    "saipen_home": "V:/___VAC/__K/__CODE/_AI_STUFF_AGENTIC/_SAIPEN",
+    "mode": "full",
+    "transition_from": "SCOUT",
+    "updated": "2026-10-07T03:50:06Z",
+    "last_event": 36,
+    "execution_intent": "converge",
+    "converge_target": "done",
+    "validation": "STALE_PASS",
+    "completed": [
+      "T-1",
+      "T-2"
+    ],
+    "automation": {},
+    "operator_due": false,
+    "blockers": [],
+    "evidence": [],
+    "test_groups": [],
+    "response_reason": "stop",
+    "operator_action": "NONE"
+  },
+  "delivery": "STATUS: BUILD T-3\nRESULT: Peatatud operaatori soovil; 2 lõpetatud\nNEXT EXACT ACTION: PHASE BUILD T-3\nVALIDATION: STALE_PASS",
+  "event": 36
+}

@@ -1,0 +1,81 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { SPEC_VERSION, TICKET_STATES } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('board')!;
+const states = TICKET_STATES as unknown as {
+  sections: string[];
+  checkboxes: Record<string, string>;
+  required_fields: string[];
+  known_fields?: string[];
+};
+const known = states.known_fields ?? [];
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="board"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — ticket_states' },
+    { path: 'saipen/CORE.md', label: 'CORE.md §1.2 — BOARD.md' },
+  ]}
+>
+  <h2 id="sections">Sections and checkboxes</h2>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Section</th><th scope="col">Checkbox</th></tr>
+      </thead>
+      <tbody>
+        {
+          states.sections.map((s) => (
+            <tr>
+              <th scope="row"><code>## {s}</code></th>
+              <td><code>{states.checkboxes[s]}</code></td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="required">Required on every ticket</h2>
+  <p>
+    An id (<code>T-###</code>) plus
+    {
+      states.required_fields.map((f, i) => (
+        <>
+          {i > 0 && ', '}
+          <code>{f}</code>
+        </>
+      ))
+    }.
+  </p>
+
+  <h2 id="fields">Optional fields</h2>
+  {
+    known.length > 0 ? (
+      <>
+        <p>{known.length} fields in the closed list. Anything else on a ticket line is rejected.</p>
+        <ul class="reflist plain">
+          {known.map((f) => (
+            <li>
+              <code>{f}</code>
+            </li>
+          ))}
+        </ul>
+      </>
+    ) : (
+      <p>
+        The registry at this commit declares the sections, checkboxes and required fields above; it does not publish a
+        separate list of optional ticket fields. CORE.md states that unknown ticket fields are rejected.
+      </p>
+    )
+  }
+</SpecLayout>

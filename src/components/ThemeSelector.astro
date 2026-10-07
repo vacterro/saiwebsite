@@ -1,0 +1,32 @@
+---
+/**
+ * Site-wide palette control. One native <select>, populated from the canonical
+ * registry in registry order, labelled and keyboard-operable with no script at
+ * all — the script only has to keep it in step with the active theme.
+ *
+ * No framework island, no rounded dropdown library: a real <label>/<select>
+ * pair reuses the existing .w-select-wrap / .w-select primitives.
+ */
+import { themes, defaultTheme } from '../themes';
+import { THEME_SELECT_ATTR, THEME_SELECT_ID } from '../themes/runtime';
+---
+
+<div class="w-themebar">
+  <label class="w-themebar__label" for={THEME_SELECT_ID}>Theme:</label>
+  <span class="w-select-wrap w-themebar__control">
+    <select
+      class="w-select w-themebar__select"
+      id={THEME_SELECT_ID}
+      {...{ [THEME_SELECT_ATTR]: '' }}
+    >
+      {
+        themes.map((pack) => (
+          <option value={pack.slug} selected={pack.slug === defaultTheme.slug}>
+            {pack.label}
+          </option>
+        ))
+      }
+    </select>
+  </span>
+  <span class="w-panel__note w-themebar__note">16 palettes · stored locally</span>
+</div>

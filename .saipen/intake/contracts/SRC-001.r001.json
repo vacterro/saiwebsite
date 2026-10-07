@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-001:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "SAI_WEBSITE bootstrap: Astro+TS static site, Wintage Golden Default token foundation, core visual primitives, initial routes, debug/components acceptance bench"
+    }
+  },
+  "derived_at": "2026-10-07T01:38:05Z",
+  "derived_from": "SRC-001",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "d9793413e53091466824cdbaf0f8df48f6eb918bd48c5e09f7163068dbb6c44d"
+}

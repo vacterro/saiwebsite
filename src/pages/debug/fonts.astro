@@ -1,0 +1,112 @@
+---
+/**
+ * Production pixel font verification: every face the site ships, at its own
+ * size, with its provenance read from public/fonts/manifest.json — the same
+ * file `npm run validate:licenses` checks. Nothing here is a decision still to
+ * make; it documents the one that was made.
+ */
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+type Face = { file: string; family: string; style: string; size_px: number; glyphs: number; bytes: number; sha256: string; source: string; source_version: string; licence: string };
+const manifest = JSON.parse(readFileSync(join(process.cwd(), 'public/fonts/manifest.json'), 'utf8')) as { faces: Face[]; licences: string[] };
+
+const ROLE: Record<number, string> = { 10: 't-meta', 11: 't-compact', 12: 't-body', 14: 't-heading', 16: 't-title' };
+const SIZES = [10, 11, 12, 14, 16];
+const LATIN = 'The quick brown fox jumps over the lazy dog. 0123456789 next_action';
+const EXTENDED = 'Ä Ö Ü ß é è ê ñ ç Ł ś ž č ő — “quotes” → ← ┌─┐ │ └─┘';
+const CYRILLIC = 'Съешь же ещё этих мягких французских булок. Агент забывает, проект помнит.';
+const UI = 'Get started  Read the spec  STABLE  PHASE BUILD T-8';
+const kb = (n: number) => `${(n / 1024).toFixed(1)} KB`;
+---
+
+<SiteLayout title="Font bench" tag="/debug/fonts/" description="Production pixel font verification: every shipped face at its own size, with source, licence and provenance.">
+  <h1>Font bench</h1>
+  <p class="prose">
+    The production faces, each at the one size it is drawn for. UI text uses <strong>SAI Pixel</strong>, rasterized from
+    DejaVu Sans 2.37 into whole-pixel outlines; code uses <strong>SAI Pixel Mono 12</strong> from Spleen 6x12. Every
+    face, licence notice and hash below comes from <code>public/fonts/manifest.json</code>.
+  </p>
+
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">File</th>
+          <th scope="col">Family / style</th>
+          <th scope="col">Source</th>
+          <th scope="col">Licence</th>
+          <th scope="col">Glyphs</th>
+          <th scope="col">Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          manifest.faces.map((f) => (
+            <tr>
+              <th scope="row"><code>{f.file}</code></th>
+              <td>{f.family} {f.style}</td>
+              <td>{f.source} {f.source_version}</td>
+              <td>{f.licence}</td>
+              <td>{f.glyphs}</td>
+              <td>{kb(f.bytes)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="w-panel__note">
+    Shipped notices: {manifest.licences.map((l, i) => <>{i > 0 && ', '}<a href={`/fonts/${l}`}>{l}</a></>)}. Regenerate
+    with <code>npm run fonts:build</code> (deterministic: the same sources give byte-identical files).
+  </p>
+
+  {
+    SIZES.map((size) => (
+      <section class="fb" aria-labelledby={`fb-${size}`}>
+        <h2 id={`fb-${size}`}>SAI Pixel {size}</h2>
+        <p class={ROLE[size]}>{LATIN}</p>
+        <p class={ROLE[size]}>{EXTENDED}</p>
+        <p class={ROLE[size]} lang="ru">{CYRILLIC}</p>
+        <p class={`${ROLE[size]} t-bold`}>{UI}</p>
+        {size === 12 && (
+          <p class="t-body">
+            <em>Italic: a whole-pixel shear of the regular face, used for emphasis in prose.</em>
+          </p>
+        )}
+      </section>
+    ))
+  }
+
+  <section class="fb" aria-labelledby="fb-mono">
+    <h2 id="fb-mono">SAI Pixel Mono 12</h2>
+    <pre class="w-code"><code>{`saipen continue --json
+{ "phase": "VERIFY", "next_action": "PHASE REVIEW T-8" }
+0O 1lI {} [] () <> /\\ | _ - + = * # @ $ %`}</code></pre>
+  </section>
+
+  <h2>Rendering limits</h2>
+  <ul>
+    <li>Canonical condition: 100% zoom, integer device pixel ratio. Fractional zoom or OS scaling resamples every page.</li>
+    <li>Each face is correct only at its own size; the face-pairing check in <code>npm run test:pixel</code> fails any text element on the wrong face.</li>
+    <li>Coverage: Latin, Latin-1, Latin Extended-A, Cyrillic, punctuation, arrows and box drawing. Other scripts fall back to system fonts.</li>
+  </ul>
+
+  <h2>History</h2>
+  <p class="w-panel__note">
+    Until site v1.1.0 a local build used faces made from the Verdana_m1 bitmaps that Wintage references. Their
+    redistribution rights were never verified, so they were replaced; no Verdana-derived file is generated, shipped or
+    needed by the build, and <code>npm run validate:licenses</code> fails if one comes back.
+  </p>
+</SiteLayout>
+
+<style>
+  .fb {
+    margin: 0 0 var(--gap-7);
+  }
+
+  .fb p {
+    margin: 0 0 var(--gap-3);
+  }
+</style>

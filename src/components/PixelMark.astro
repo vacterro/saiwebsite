@@ -1,0 +1,30 @@
+---
+/**
+ * A SAIPEN brand mark as Class A pixel art (WINTAGE_WEB_CONTRACT §8, §23).
+ *
+ * The asset in /media/ is a 1-bit alpha mask drawn at exactly this size
+ * (scripts/media/build_media.py). The element paints a palette token through
+ * it, so the mark follows every theme, never scales and has no edge for a
+ * rasterizer to smooth. With a label it is an image to assistive technology;
+ * without one it is decoration and hidden from it.
+ */
+interface Props {
+  name: string;
+  width: number;
+  height: number;
+  label?: string;
+  tone?: 'accent' | 'text' | 'dim';
+  class?: string;
+}
+
+const { name, width, height, label, tone = 'accent', class: className = '' } = Astro.props;
+const style = `width:${width}px;height:${height}px;--mark:url("/media/${name}.png")`;
+---
+
+{
+  label ? (
+    <span class={`mark mark--${tone} ${className}`} style={style} role="img" aria-label={label} />
+  ) : (
+    <span class={`mark mark--${tone} ${className}`} style={style} aria-hidden="true" />
+  )
+}

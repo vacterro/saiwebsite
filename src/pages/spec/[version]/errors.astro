@@ -1,0 +1,45 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { ERROR_CODES, SPEC_VERSION } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('errors')!;
+const groups = new Map<string, string[]>();
+for (const code of ERROR_CODES) {
+  const prefix = code.split('_')[0];
+  groups.set(prefix, [...(groups.get(prefix) ?? []), code]);
+}
+const ordered = [...groups.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="errors"
+  sources={[{ path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — error_codes' }]}
+>
+  <p>
+    {ERROR_CODES.length} codes, grouped by their first word. A refusal names its code; each code has a stable anchor on
+    this page, for example <a href="#STALE_STATE">#STALE_STATE</a>.
+  </p>
+  {
+    ordered.map(([prefix, codes]) => (
+      <section aria-labelledby={`err-${prefix}`}>
+        <h2 id={`err-${prefix}`}>
+          {prefix} <span class="w-panel__note">({codes.length})</span>
+        </h2>
+        <ul class="reflist plain">
+          {codes.map((c) => (
+            <li id={c}>
+              <code>{c}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</SpecLayout>

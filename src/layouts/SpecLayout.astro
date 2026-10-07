@@ -1,0 +1,95 @@
+---
+/**
+ * Specification surface layout (MASTER_ROADMAP M7).
+ *
+ * Every page under /spec/<version>/ renders protocol facts directly from the
+ * canonical registry snapshot. The header states which SAIPEN version and
+ * commit the page was generated from, so an external link to a spec page
+ * always says exactly what it describes.
+ */
+import MaturityBadge from '../components/MaturityBadge.astro';
+import SiteLayout from './SiteLayout.astro';
+import { SHORT_COMMIT, SPEC_VERSION, meta, sourceUrl } from '../lib/canonical';
+import { SPEC_TOPICS } from '../lib/spec';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Topic slug, '' for the version overview. */
+  topic: string;
+  /** Canonical repository files this page is generated from. */
+  sources: { path: string; label: string }[];
+  canonicalPath?: string;
+}
+
+const { title, description, topic, sources, canonicalPath } = Astro.props;
+const base = `/spec/${SPEC_VERSION}/`;
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Spec', href: '/spec/' },
+  { label: SPEC_VERSION, href: topic ? base : undefined },
+  ...(topic ? [{ label: title }] : []),
+];
+---
+
+<SiteLayout title={title} tag={`/spec/${SPEC_VERSION}/`} description={description} crumbs={crumbs} canonicalPath={canonicalPath}>
+  <div class="docs docs--spec">
+    <nav class="tree docs__tree" aria-label="Specification contents">
+      <p class="tree__title">Spec {SPEC_VERSION}</p>
+      <div class="tree__group">
+        <p class="tree__group-title">Reference</p>
+        <ul>
+          <li><a href={base} aria-current={topic === '' ? 'page' : undefined}>Overview</a></li>
+          {
+            SPEC_TOPICS.map((t) => (
+              <li>
+                <a href={`${base}${t.slug}/`} aria-current={t.slug === topic ? 'page' : undefined}>
+                  {t.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="tree__group">
+        <p class="tree__group-title">Machine-readable</p>
+        <ul>
+          <li><a href={`${base}registry.json`}>registry.json</a></li>
+          <li><a href={`${base}state.schema.json`}>state.schema.json</a></li>
+          <li><a href={`${base}adapters.json`}>adapters.json</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <article class="docs__article docs__article--wide">
+      <h1>{title}</h1>
+      <div class="docs__meta">
+        <MaturityBadge level="stable" />
+        <span class="w-panel__note">
+          reference — generated from SAIPEN {meta.version} @ {SHORT_COMMIT}; the repository is normative
+        </span>
+      </div>
+      <p class="docs__lead">{description}</p>
+      <slot />
+      <section class="w-panel w-panel--sunken docs__sources" aria-labelledby="spec-sources">
+        <h2 class="w-panel__title" id="spec-sources">Generated from</h2>
+        <ul>
+          {
+            sources.map((s) => (
+              <li>
+                <a href={sourceUrl(s.path)} rel="noopener" data-external>
+                  {s.label}
+                </a>{' '}
+                <span class="w-panel__note">{s.path} @ {SHORT_COMMIT}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="w-panel__note">
+          Snapshot integrity is checked by <code>npm run validate:canonical</code> (SHA-256 per file). Commit date
+          {meta.commitDate.slice(0, 10)}.
+        </p>
+      </section>
+    </article>
+  </div>
+</SiteLayout>

@@ -1,0 +1,135 @@
+---
+/**
+ * Ecosystem catalogue (MASTER_ROADMAP M10).
+ *
+ * Membership and layers come from the SAIPEN HQ project map; each project's
+ * relation to SAIPEN from its own README; release facts from GitHub. See
+ * src/data/ecosystem.ts for the sourcing rules. The page explains how the
+ * projects relate to a SAIPEN project rather than dumping repository names,
+ * and the wider author network is linked, not mirrored.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { ECOSYSTEM_SNAPSHOT, LAYERS, PROJECTS, projectsIn } from '../../data/ecosystem';
+
+const touching = PROJECTS.filter((p) => p.touches && p.name !== 'SAIPEN' && !/^Nothing/.test(p.touches));
+---
+
+<SiteLayout
+  title="Ecosystem"
+  tag="/ecosystem/"
+  description="The SAIPEN ecosystem: the protocol, its operator tools and the agent infrastructure around it, each with an honest maturity label."
+>
+  <h1>Ecosystem</h1>
+  <p>
+    <MaturityBadge level="preview" note={`catalogue snapshot ${ECOSYSTEM_SNAPSHOT.date} — facts change, check each repository`} />
+  </p>
+  <p>
+    SAIPEN is the umbrella for a small set of tools around practical AI-agent work: persistent project state,
+    continuation across cold sessions, multi-agent operation, auditing, packaging, communication and human-visible
+    control. This page lists the projects the
+    <a href={ECOSYSTEM_SNAPSHOT.map} rel="noopener" data-external>SAIPEN HQ project map</a> places in the ecosystem — not
+    every repository the author publishes.
+  </p>
+
+  <h2>How they touch a SAIPEN project</h2>
+  <p>
+    The protocol owns <code>.saipen/</code>. Everything else either reads it, works through the SAIPEN CLI, or nudges
+    an agent to continue — none of them is a second authority over project state.
+  </p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Project</th>
+          <th scope="col">What it does with a SAIPEN project</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><a href="#saipen">SAIPEN</a></th>
+          <td>Owns <code>.saipen/</code>: STATE, BOARD, LOG, KNOWLEDGE. The only writer of canonical state.</td>
+        </tr>
+        {
+          touching.map((p) => (
+            <tr>
+              <th scope="row">
+                <a href={`#${p.name.toLowerCase()}`}>{p.name}</a>
+              </th>
+              <td>{p.touches}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {
+    LAYERS.map((layer) => (
+      <section aria-labelledby={`layer-${layer.id}`}>
+        <h2 id={`layer-${layer.id}`}>{layer.title}</h2>
+        <p>{layer.lead}</p>
+        <div class="cards">
+          {projectsIn(layer.id).map((p) => (
+            <article class="card" id={p.name.toLowerCase()} aria-labelledby={`p-${p.name}`}>
+              <header class="card__head">
+                <h3 class="card__title" id={`p-${p.name}`}>
+                  {p.name}
+                </h3>
+                <MaturityBadge level={p.maturity} />
+              </header>
+              <div class="card__body">
+                <p class="card__role">{p.role}</p>
+                <p>{p.relation}</p>
+                <dl class="card__facts">
+                  <dt>Language</dt>
+                  <dd>{p.language}</dd>
+                  <dt>Platform</dt>
+                  <dd>{p.platform}</dd>
+                  <dt>Release</dt>
+                  <dd>
+                    {p.release ? (
+                      <a href={p.release.url} rel="noopener" data-external>
+                        {p.release.tag} ({p.release.date})
+                      </a>
+                    ) : (
+                      'none marked latest on GitHub'
+                    )}
+                  </dd>
+                  <dt>Evidence</dt>
+                  <dd>{p.evidence}</dd>
+                </dl>
+                <p class="card__links">
+                  <a class="w-button w-button--small" href={p.repo} rel="noopener" data-external>
+                    Open repository
+                  </a>
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  <h2>Maturity labels</h2>
+  <ul>
+    <li><strong>supported</strong> — tagged releases with automated validation on every change. Today: SAIPEN only.</li>
+    <li><strong>experimental</strong> — public, working source, pre-1.0; behaviour and interfaces may change.</li>
+    <li><strong>planned</strong> — a reserved name with no published implementation.</li>
+  </ul>
+  <p>
+    Nothing is labelled supported because an integration could be written. Ownership: every project here is part of
+    the SAIPEN ecosystem and currently owned on GitHub by <a href={ECOSYSTEM_SNAPSHOT.author} rel="noopener" data-external>vacterro</a>;
+    <a href={ECOSYSTEM_SNAPSHOT.org} rel="noopener" data-external>SAIPEN HQ</a> is the organization identity.
+  </p>
+
+  <h2>Beyond this list</h2>
+  <p>
+    The author publishes more tools — Windows utilities, media and game tooling — that are not SAIPEN components and
+    are deliberately not catalogued here. The full index is on
+    <a href={ECOSYSTEM_SNAPSHOT.author} rel="noopener" data-external>github.com/vacterro</a>, and the shared
+    discussion space is the <a href={ECOSYSTEM_SNAPSHOT.community} rel="noopener" data-external>SAIPEN Community</a>
+    Discord.
+  </p>
+</SiteLayout>

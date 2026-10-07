@@ -1,0 +1,64 @@
+---
+/**
+ * Version overview: what this spec version is, where it came from, and the
+ * topics generated from it (MASTER_ROADMAP M7: stable version URLs).
+ */
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { PHASES, SHORT_COMMIT, SPEC_VERSION, meta } from '../../../lib/canonical';
+import { SPEC_TOPICS } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+---
+
+<SpecLayout
+  title={`SAIPEN specification ${SPEC_VERSION}`}
+  description={`Protocol reference for SAIPEN major version ${SPEC_VERSION.slice(1)}, generated from the canonical registry at ${meta.version} @ ${SHORT_COMMIT}.`}
+  topic=""
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json' },
+    { path: 'extensions/schemas/state.schema.json', label: 'state.schema.json' },
+    { path: 'SPEC.md', label: 'SPEC.md' },
+  ]}
+>
+  <dl class="diag">
+    <dt>Protocol major</dt>
+    <dd>{SPEC_VERSION} — the value of <code>saipen_version</code> in a STATE written by this protocol</dd>
+    <dt>Source version</dt>
+    <dd>{meta.version} (VERSION file)</dd>
+    <dt>Source commit</dt>
+    <dd><a href={`${meta.repository}/tree/${meta.commit}`} rel="noopener" data-external>{meta.commit}</a></dd>
+    <dt>Commit date</dt>
+    <dd>{meta.commitDate}</dd>
+    <dt>Phases</dt>
+    <dd>{PHASES.length}</dd>
+  </dl>
+
+  <h2>Topics</h2>
+  <dl class="doclist">
+    {
+      SPEC_TOPICS.map((t) => (
+        <>
+          <dt>
+            <a href={`/spec/${SPEC_VERSION}/${t.slug}/`}>{t.title}</a>
+          </dt>
+          <dd>{t.description}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>URL policy</h2>
+  <ul>
+    <li>
+      <code>/spec/{SPEC_VERSION}/…</code> is the permanent address for this major version. A page here changes only when
+      the canonical registry of the same major changes, and every page names the commit it was generated from.
+    </li>
+    <li>
+      <code>/spec/latest/…</code> is an alias. It redirects to the newest major and is never the canonical URL — link
+      to the versioned address when the meaning must not move.
+    </li>
+    <li>When a new major ships, it gets its own <code>/spec/v&lt;N&gt;/</code> tree; the old one is kept.</li>
+  </ul>
+</SpecLayout>

@@ -1,0 +1,184 @@
+---
+/**
+ * /debug/rendering — the deterministic rendering surface (WINTAGE_WEB_CONTRACT
+ * §25, §26).
+ *
+ * Its job is to make the things a visual acceptance pass has to judge
+ * inspectable: the CSS viewport, the device pixel ratio, which palette is
+ * actually active, and integer-pixel samples of the laws this site claims. The
+ * static content renders without JavaScript and says what it cannot know; the
+ * live numbers fill in progressively.
+ *
+ * Two limits are stated on the page rather than papered over: this route cannot
+ * detect physical browser zoom, and it cannot prove that the compositor is
+ * rasterizing glyphs without antialiasing. Both are reported as hints, never as
+ * facts, and nothing here blocks on them.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { ROUTES } from '../../data/site';
+import { DEFAULT_THEME_SLUG } from '../../themes/schema';
+import { defaultTheme, themes } from '../../themes';
+import { THEME_CHANGE_EVENT, themeDiagnosticsScript } from '../../themes/runtime';
+
+const route = ROUTES.find((entry) => entry.href === '/debug/rendering/');
+
+/** Fills the [data-render-diag] fields. Page-local: it is not theme state. */
+const renderDiagnosticsScript = `(function(){
+var W='[data-render-diag]';
+function fill(){
+  var de=document.documentElement;
+  var cs=getComputedStyle(de);
+  var V={
+    viewport: window.innerWidth+' x '+window.innerHeight+' px (CSS pixels)',
+    dpr: String(window.devicePixelRatio),
+    screen: window.screen.width+' x '+window.screen.height+' px',
+    'font-ui': cs.fontFamily,
+    smoothing: (cs.webkitFontSmoothing||'not reported')+' / text-rendering: '+cs.textRendering,
+    canvas: cs.backgroundColor+' on html, '+getComputedStyle(document.body).backgroundColor+' on body',
+    theme: de.getAttribute('data-theme')||'(none)'
+  };
+  var nodes=document.querySelectorAll(W);
+  for(var i=0;i<nodes.length;i++){
+    var f=nodes[i].getAttribute('data-render-diag');
+    if(V[f]!==undefined)nodes[i].textContent=V[f];
+  }
+}
+fill();
+window.addEventListener('resize',fill);
+document.addEventListener('${THEME_CHANGE_EVENT}',fill);
+})();`;
+
+const PENDING = 'populated by JavaScript on load';
+---
+
+<SiteLayout title="SAIPEN Protocol — Rendering diagnostics" tag="/debug/rendering/">
+  <p><MaturityBadge level={route?.maturity ?? 'draft'} note="deterministic rendering surface" /></p>
+  <h1>Rendering diagnostics</h1>
+  <p class="prose">
+    The measurements below are the ones a Wintage visual acceptance pass needs and cannot get from
+    a screenshot alone: the CSS viewport, the device pixel ratio, which palette the document is
+    actually carrying, and the font stack the browser resolved. Fields that need JavaScript say so
+    until it runs; nothing on this page is hidden or broken without it.
+  </p>
+
+  <h2>Live measurements</h2>
+  <dl class="diag">
+    <dt>CSS viewport</dt>
+    <dd data-render-diag="viewport">{PENDING}</dd>
+
+    <dt>devicePixelRatio</dt>
+    <dd data-render-diag="dpr">{PENDING}</dd>
+
+    <dt>screen (CSS px)</dt>
+    <dd data-render-diag="screen">{PENDING}</dd>
+
+    <dt>active theme slug</dt>
+    <dd data-theme-diag="slug">{defaultTheme.slug}</dd>
+
+    <dt>active theme label</dt>
+    <dd data-theme-diag="label">{defaultTheme.label}</dd>
+
+    <dt>persisted theme</dt>
+    <dd data-theme-diag="persisted">(needs JavaScript)</dd>
+
+    <dt>canonical default</dt>
+    <dd data-theme-diag="default">{DEFAULT_THEME_SLUG}</dd>
+
+    <dt>themes registered</dt>
+    <dd data-theme-diag="count">{themes.length}</dd>
+
+    <dt>resolved font stack (UI)</dt>
+    <dd data-render-diag="font-ui">{PENDING}</dd>
+
+    <dt>smoothing hint</dt>
+    <dd data-render-diag="smoothing">{PENDING}</dd>
+
+    <dt>canvas colour</dt>
+    <dd data-render-diag="canvas">{PENDING}</dd>
+  </dl>
+  <p class="w-panel__note">
+    The theme fields above follow the site-wide selector: change the palette at the top of this page
+    and they update, because they listen for the same <code class="w-code-inline">sai-theme-change</code>
+    notification the selector emits.
+  </p>
+
+  <h2>Zoom and scale — what is and is not claimed</h2>
+  <div class="w-panel w-panel--sunken">
+    <p style="margin-top:0">
+      <strong>Reference condition: 100% browser zoom.</strong> Screenshots taken for review are
+      captured at 100% zoom in a Chromium-family browser at the reference viewport, so the pixel
+      samples below mean what they say.
+    </p>
+    <p style="margin-bottom:0">
+      This page does <strong>not</strong> detect physical browser zoom. <code class="w-code-inline">devicePixelRatio</code>
+      is the only signal available to script, and it cannot separate OS display scaling, browser zoom
+      and a high-DPI panel from each other — so the value is reported raw and never interpreted as a
+      zoom percentage. There is no blocking or layout behaviour based on DPR or zoom: the samples
+      below are integer-aligned by construction, not corrected at runtime.
+    </p>
+  </div>
+
+  <h2>Integer grid and bevel samples</h2>
+  <div class="row">
+    <div>
+      <div class="px-grid" />
+      <p class="bench-caption">1px rules on an 8px pitch</p>
+    </div>
+    <div>
+      <div class="px-raster" />
+      <p class="bench-caption">2&#215;2 raster scaled 32&#215;, <code class="w-code-inline">image-rendering: pixelated</code></p>
+    </div>
+    <div>
+      <div class="w-raised" style="padding:var(--gap-5);background-color:var(--ui-raised);width:140px">
+        <p style="margin:0">raised — 2px</p>
+        <p class="w-panel__note">top/left light, bottom/right dark</p>
+      </div>
+      <p class="bench-caption">raised bevel</p>
+    </div>
+    <div>
+      <div class="w-sunken" style="padding:var(--gap-5);background-color:var(--ui-window);width:140px">
+        <p style="margin:0">sunken — 2px</p>
+        <p class="w-panel__note">top/left dark, bottom/right light</p>
+      </div>
+      <p class="bench-caption">sunken bevel</p>
+    </div>
+  </div>
+  <p class="w-panel__note">
+    Both bevels are pure 2px borders with zero radius, so they land on device pixels at DPR 1 and stay
+    hard edges at fractional DPR instead of blurring like a shadow would. The raster sample uses
+    nearest-neighbour scaling and no transform: a smooth checkerboard here means something upstream
+    is resampling a pixel asset, which is a defect.
+  </p>
+
+  <h2>Font rendering sample</h2>
+  <div class="font-sample">
+    <p class="t-title t-bold">16px title — SAIPEN Protocol</p>
+    <p class="t-heading t-bold">14px heading — verification contract</p>
+    <p class="t-body">12px body — the default UI size. Ambiguous glyphs: Il1 O0 rg mw.</p>
+    <p class="t-compact">11px compact — O0 Il1 rg mw</p>
+    <p class="t-meta">10px metadata — O0 Il1 rg mw</p>
+  </div>
+  <p class="w-panel__note">
+    Each size uses its own pixel face (<code class="w-code-inline">SAI Pixel 10–16</code>, built from DejaVu Sans),
+    plus the <code class="w-code-inline">-webkit-font-smoothing: none</code> and
+    <code class="w-code-inline">text-rendering: optimizeSpeed</code> hints. The hints are not the proof: the
+    faces' whole-pixel outlines are, and <code class="w-code-inline">npm run test:pixel</code> checks the rendered
+    pixels of every page. Browser zoom and fractional OS scaling still resample text; this route reports what the
+    browser resolved and does not measure physical zoom.
+  </p>
+
+  <h2>Sample routes</h2>
+  <p class="bench-caption">
+    This route is registered in <code class="w-code-inline">src/data/site.ts</code> with maturity
+    <strong>{route?.maturity ?? 'draft'}</strong> and is deliberately absent from the main menu.
+  </p>
+  <div class="row">
+    <a class="w-button" href="/debug/themes/">Theme bench</a>
+    <a class="w-button" href="/debug/components/">Component bench</a>
+    <a class="w-button" href="/">Home</a>
+  </div>
+</SiteLayout>
+
+<script is:inline set:html={themeDiagnosticsScript()} />
+<script is:inline set:html={renderDiagnosticsScript} />

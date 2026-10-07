@@ -1,0 +1,178 @@
+---
+/**
+ * The bootstrap shell: one Wintage application window holding a menu strip, the
+ * theme control, the <main> landmark and a status strip.
+ *
+ * Palette CSS is inlined from the validated theme registry rather than shipped
+ * as a second request, and the root canvas takes its background and text colour
+ * from those variables instead of a hard-coded pack. The difference matters once
+ * a stored theme exists: an inline `style` attribute on <html> would outrank
+ * every `[data-theme]` scope and leave Golden Default painted on the root and
+ * overscroll surface after a switch.
+ *
+ * So the no-flash solution is two inline pieces in <head>, in this order:
+ *   1. the palette scopes, including a `html { }` rule that paints the canvas
+ *      from the active scope's own variables;
+ *   2. a tiny synchronous classic script that puts the stored palette on
+ *      <html> before the body is parsed.
+ * No deferred script, no module, no external resource, so nothing can paint
+ * Golden Default first (WINTAGE_WEB_CONTRACT §6).
+ */
+import pkg from '../../package.json';
+import ThemeSelector from '../components/ThemeSelector.astro';
+import WintageBreadcrumbs from '../components/WintageBreadcrumbs.astro';
+import WintageCompactNav from '../components/WintageCompactNav.astro';
+import WintageMenuBar from '../components/WintageMenuBar.astro';
+import WintageStatusBar from '../components/WintageStatusBar.astro';
+import WintageWindow from '../components/WintageWindow.astro';
+import { MENU_ROUTES, PUBLIC_ROUTES, SITE, SECONDARY_ROUTES, routeByHref } from '../data/site';
+import { SHORT_COMMIT, meta as canonical } from '../lib/canonical';
+import { defaultTheme, themeCss } from '../themes';
+import {
+  PALETTE_STATUS_ID,
+  themeBootstrapScript,
+  themeWiringScript,
+} from '../themes/runtime';
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/wintage.css';
+import '../styles/site.css';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  /** Window title bar text. */
+  title?: string;
+  /** Right-aligned factual tag. */
+  tag?: string;
+  description?: string;
+  /** Explicit trail for routes that are not in the registry (docs, spec, blog). */
+  crumbs?: Crumb[];
+  /** Canonical URL path when it differs from this page (alias pages). */
+  canonicalPath?: string;
+  /** Extra <head> content, e.g. a refresh for an alias page. */
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title = SITE.name,
+  tag,
+  description = `${SITE.name} — ${SITE.tagline} Documentation, specification and ecosystem index.`,
+  crumbs: explicitCrumbs,
+  canonicalPath,
+  noindex = false,
+  ogType = 'website',
+} = Astro.props;
+
+const palette = defaultTheme;
+// The window title already carries the project name on the homepage, so do not
+// repeat it in <title>. Every other route appends the project name.
+const documentTitle = title === SITE.name ? SITE.name : `${title} — ${SITE.name}`;
+const statusFields = [
+  { text: 'READY', grow: true },
+  { text: `palette: ${palette.label}`, id: PALETTE_STATUS_ID },
+  { text: `protocol ${canonical.version} @ ${SHORT_COMMIT}` },
+  { text: `site v${pkg.version}` },
+];
+
+// Canonical breadcrumb trail (MASTER_ROADMAP M4), derived once here instead of
+// written by every page: the homepage carries none, debug routes get an inert
+// "Debug" segment because no /debug/ route exists to link to, and every other
+// top level route is simply Home > <route label>.
+const pathname = Astro.url.pathname;
+const currentRoute =
+  routeByHref(pathname) ??
+  routeByHref(pathname.endsWith('/') ? pathname : `${pathname}/`);
+const crumbs: Crumb[] = explicitCrumbs ?? (
+  pathname === '/'
+    ? []
+    : currentRoute?.href.startsWith('/debug/')
+      ? [
+          { label: 'Home', href: '/' },
+          { label: 'Debug' },
+          { label: currentRoute.label, href: currentRoute.href },
+        ]
+      : [
+          { label: 'Home', href: '/' },
+          { label: currentRoute?.label ?? 'Page', href: currentRoute?.href },
+        ]);
+const canonicalUrl = new URL(canonicalPath ?? pathname, SITE.origin).href;
+---
+
+<!doctype html>
+<html lang="en" data-theme={palette.slug}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL('/social/card.png', SITE.origin).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    <slot name="head" />
+    <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32 16x16" />
+    {/* The shell paints with these three faces on every route; fetching them
+        with the HTML keeps font-display: block from holding text back. */}
+    <link rel="preload" href="/fonts/sai-pixel-12-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sai-pixel-12-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sai-pixel-16-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="generator" content={Astro.generator} />
+    <style is:inline set:html={themeCss()} />
+    <style is:inline>
+      /* Root canvas. The html element paints the page background and body text
+         from the ACTIVE palette scope's own variables, so switching themes
+         cannot leave Golden Default behind on the root, the page edges or the
+         overscroll surface. Inline and first in <head> so the first paint
+         already has a colour (WINTAGE_WEB_CONTRACT §6). */
+      html {
+        background-color: var(--background);
+        color: var(--textPrimary);
+      }
+    </style>
+    <script is:inline set:html={themeBootstrapScript()} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="shell">
+      <WintageWindow title={title} tag={tag} bodyTag="main" bodyId="main">
+        <Fragment slot="menu">
+          <WintageMenuBar items={MENU_ROUTES} more={SECONDARY_ROUTES} path={pathname} />
+          <WintageCompactNav items={PUBLIC_ROUTES} path={pathname} />
+          <ThemeSelector />
+          {crumbs.length > 0 && <WintageBreadcrumbs items={crumbs} current={pathname} />}
+        </Fragment>
+        <slot />
+      </WintageWindow>
+      <WintageStatusBar fields={statusFields} />
+    </div>
+    <script is:inline set:html={themeWiringScript()} />
+    {/* Ctrl+K / Cmd+K: focus a search field on this page, or go to /search/
+        (MASTER_ROADMAP M13). Ignored while typing in a field. */}
+    <script is:inline>
+      document.addEventListener('keydown', function (event) {
+        if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 'k') return;
+        var tag = (event.target && event.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+        event.preventDefault();
+        var field = document.querySelector('input[type="search"]');
+        if (field && field.offsetParent !== null) field.focus();
+        else location.href = '/search/';
+      });
+    </script>
+  </body>
+</html>

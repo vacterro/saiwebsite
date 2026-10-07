@@ -1,0 +1,41 @@
+{
+  "name": "sai-website",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "description": "SAIPEN Protocol public web surface — Wintage-native static site.",
+  "scripts": {
+    "dev": "astro dev",
+    "fonts:build": "python scripts/fonts/build_pixel_fonts.py --out public/fonts",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "canonical:sync": "node scripts/sync-canonical.mjs",
+    "validate:canonical": "node scripts/validate-canonical.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:baselines": "node scripts/validate-baselines.mjs",
+    "validate:licenses": "node scripts/validate-licenses.mjs",
+    "lint": "node scripts/lint-styles.mjs",
+    "validate:themes": "node scripts/validate-themes.mjs",
+    "audit:build": "node scripts/audit-build.mjs",
+    "test:runtime": "playwright test tests/theme-runtime.spec.mjs --project=chromium",
+    "test:shell": "playwright test tests/site-shell.spec.mjs --project=chromium",
+    "test:content": "playwright test tests/content-features.spec.mjs --project=chromium",
+    "test:pixel": "playwright test tests/pixel-perfect.spec.mjs",
+    "test:visual": "playwright test tests/visual-baseline.spec.mjs --project=chromium",
+    "test:visual:update": "playwright test tests/visual-baseline.spec.mjs --project=chromium --update-snapshots && node scripts/validate-baselines.mjs --write",
+    "test": "playwright test",
+    "social:build": "python scripts/social/make_card.py --out public/social/card.png",
+    "media:build": "python scripts/media/build_media.py",
+    "ecosystem:sync": "node scripts/sync-ecosystem.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.14.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
+  }
+}

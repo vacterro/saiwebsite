@@ -1,0 +1,47 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { NEXT_ACTION_FORMS, SPEC_VERSION, WAIT_CATEGORIES } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('next-action')!;
+const forms = NEXT_ACTION_FORMS as { categories: string[]; executable_prefixes: string[]; grammar: string };
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="next-action"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — next_action_forms, wait_categories' },
+    { path: 'saipen/CORE.md', label: 'CORE.md §1.2 — STATE.md' },
+  ]}
+>
+  <h2 id="forms">Forms</h2>
+  <ul>
+    {forms.categories.map((c) => <li><code>{c}</code></li>)}
+  </ul>
+  <p>
+    Executable prefixes:
+    {
+      forms.executable_prefixes.map((p, i) => (
+        <>
+          {i > 0 && ' '}
+          <code>{p.trim()}</code>
+        </>
+      ))
+    }
+  </p>
+
+  <h2 id="phase-grammar">PHASE grammar</h2>
+  <pre class="w-code"><code>{forms.grammar}</code></pre>
+
+  <h2 id="wait">WAIT categories</h2>
+  <p>A <code>WAIT:</code> carries exactly one of these, then <code>--</code> and one concrete sentence.</p>
+  <ul class="reflist plain">
+    {WAIT_CATEGORIES.map((c) => <li><code>{c}</code></li>)}
+  </ul>
+</SpecLayout>

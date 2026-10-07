@@ -1,0 +1,28 @@
+---
+/**
+ * 404 (MASTER_ROADMAP M25). Static hosts serve /404.html for unknown paths.
+ * The message says what happened and offers the next useful step — never
+ * "something went wrong" (UI.md, logs and diagnostics).
+ */
+import PixelMark from '../components/PixelMark.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Page not found" tag="404" description="This address does not exist on the SAIPEN website." noindex crumbs={[{ label: 'Home', href: '/' }, { label: 'Not found' }]}>
+  <h1>Page not found</h1>
+  <div class="w-panel w-panel--sunken with-mark">
+    <PixelMark name="saipen-emblem-64" width={64} height={64} tone="dim" />
+    <div>
+    <h2 class="w-panel__title">No page at this address</h2>
+    <p>
+      The address was mistyped, or it pointed at a page that has moved. Specification pages keep their versioned
+      addresses (<code>/spec/v8/…</code>) permanently; if you followed an old link, the spec index lists every version.
+    </p>
+    <div class="row">
+      <a class="w-button w-button--primary" href="/">Go to the homepage</a>
+      <a class="w-button" href="/docs/">Open the documentation</a>
+      <a class="w-button" href="/search/">Search the site</a>
+    </div>
+    </div>
+  </div>
+</SiteLayout>

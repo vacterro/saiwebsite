@@ -1,0 +1,38 @@
+---
+/**
+ * Wintage application window: title bar + optional menu strip + body.
+ *
+ * No minimise/close affordances. They would look functional and do nothing
+ * (WINTAGE_WEB_CONTRACT §16), and the browser already owns that job.
+ *
+ * The title bar is chrome, not content: it renders a span, so a page keeps
+ * exactly one real <h1> and the document outline stays honest.
+ */
+interface Props {
+  title: string;
+  /** Right-aligned factual text in the title bar (route path, maturity, ...). */
+  tag?: string;
+  /**
+   * Element for the body. The site shell passes "main" so the window body IS
+   * the page's main landmark instead of wrapping one; the component bench uses
+   * the default, because a sample window must not claim the main landmark.
+   */
+  bodyTag?: 'div' | 'main';
+  bodyId?: string;
+  class?: string;
+}
+
+const { title, tag, bodyTag = 'div', bodyId, class: className = '' } = Astro.props;
+const Body = bodyTag;
+---
+
+<section class={`w-window ${className}`.trim()} aria-label={title}>
+  <header class="w-window__titlebar">
+    <span class="w-window__title">{title}</span>
+    {tag && <span class="w-window__tag">{tag}</span>}
+  </header>
+  <slot name="menu" />
+  <Body class="w-window__body" id={bodyId}>
+    <slot />
+  </Body>
+</section>

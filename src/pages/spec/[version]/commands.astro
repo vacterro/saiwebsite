@@ -1,0 +1,68 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { COMMANDS, SHORTCUTS, SPEC_VERSION, registry } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('commands')!;
+const confusables = ((registry as { cyrillic_confusables?: Record<string, unknown> }).cyrillic_confusables ?? {}) as Record<
+  string,
+  unknown
+>;
+const confusableEntries = Object.entries(confusables).filter(([, v]) => typeof v === 'string') as [string, string][];
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="commands"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — commands, shortcuts, cyrillic_confusables' },
+    { path: 'saipen/COMMANDS.md', label: 'COMMANDS.md — command semantics' },
+  ]}
+>
+  <h2 id="shortcuts">Shortcut keys</h2>
+  <p>A shortcut is the whole message, never a prefix.</p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Key</th><th scope="col">Runs</th></tr>
+      </thead>
+      <tbody>
+        {
+          Object.entries(SHORTCUTS).map(([key, cmd]) => (
+            <tr>
+              <th scope="row"><code>{key}</code></th>
+              <td><code>{cmd}</code></td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {
+    confusableEntries.length > 0 && (
+      <>
+        <h2 id="cyrillic">Cyrillic twins</h2>
+        <p>Declared codepoint substitutions only — no keyboard, visual or fuzzy mapping.</p>
+        <ul class="reflist plain">
+          {confusableEntries.map(([from, to]) => (
+            <li>
+              <code>{from}</code> = <code>{to}</code>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  <h2 id="vocabulary">Command vocabulary</h2>
+  <p>{COMMANDS.length} registered <code>saipen</code> commands. Meanings are owned by <code>COMMANDS.md</code>.</p>
+  <ul class="reflist plain">
+    {COMMANDS.map((c) => <li><code>saipen {c}</code></li>)}
+  </ul>
+</SpecLayout>

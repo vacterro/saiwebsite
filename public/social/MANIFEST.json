@@ -1,0 +1,24 @@
+{
+  "note": "Provenance of the social preview card. Regenerate with npm run social:build; checked by npm run validate:licenses.",
+  "generator": "scripts/social/make_card.py",
+  "font": {
+    "name": "DejaVu Sans",
+    "version": "2.37",
+    "sha256": "7da195a74c55bef988d0d48f9508bd5d849425c1770dba5d7bfc6ce9ed848954",
+    "licence": "Bitstream Vera / DejaVu font licence"
+  },
+  "image": {
+    "file": "card.png",
+    "width": 1200,
+    "height": 630,
+    "colours": 10,
+    "sha256": "b2458efc60d532678a837d07d8f18721e5b47f99297068ffff47320255b42432"
+  },
+  "emblem": {
+    "file": "media/saipen-emblem-64.png",
+    "sha256": "ef246efcaf51e4689908b852db8b9c3ee7a28c8c05d7c479a8457fca60b1e2c2"
+  },
+  "required": [
+    "card.png"
+  ]
+}

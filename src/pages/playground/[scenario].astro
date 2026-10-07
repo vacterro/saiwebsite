@@ -1,0 +1,32 @@
+---
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import ScenarioPlayer from '../../components/ScenarioPlayer.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SCENARIOS } from '../../data/scenarios';
+
+export function getStaticPaths() {
+  return SCENARIOS.map((scenario) => ({ params: { scenario: scenario.slug }, props: { scenario } }));
+}
+
+const { scenario } = Astro.props;
+const index = SCENARIOS.findIndex((s) => s.slug === scenario.slug);
+const next = SCENARIOS[(index + 1) % SCENARIOS.length];
+---
+
+<SiteLayout
+  title={scenario.title}
+  tag="/playground/"
+  description={scenario.summary}
+  crumbs={[{ label: 'Home', href: '/' }, { label: 'Playground', href: '/playground/' }, { label: scenario.title }]}
+>
+  <h1>{scenario.title}</h1>
+  <p><MaturityBadge level="preview" note="illustrative simulation — project, seats and times are made up" /></p>
+  <p>{scenario.summary}</p>
+
+  <ScenarioPlayer scenario={scenario} />
+
+  <nav class="row" aria-label="More scenarios">
+    <a class="w-button" href="/playground/">All scenarios</a>
+    <a class="w-button" href={`/playground/${next.slug}/`}>Next scenario: {next.title}</a>
+  </nav>
+</SiteLayout>

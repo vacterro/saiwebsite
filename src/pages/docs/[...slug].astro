@@ -1,0 +1,38 @@
+---
+/**
+ * One documentation page per entry in src/content/docs (MASTER_ROADMAP M5/M6).
+ * The URL is the file path: /docs/<section>/<file>/ — permanent by construction.
+ */
+import { render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { SECTION_TITLES, allDocs, neighbours } from '../../lib/docs';
+
+export async function getStaticPaths() {
+  const docs = await allDocs();
+  return docs.map((doc) => ({ params: { slug: doc.id }, props: { doc } }));
+}
+
+const { doc } = Astro.props;
+const { Content, headings } = await render(doc);
+const { prev, next } = await neighbours(doc.id);
+---
+
+<DocsLayout
+  title={doc.data.title}
+  description={doc.data.description}
+  current={doc.id}
+  section={SECTION_TITLES[doc.data.section]}
+  sectionHref={`/docs/#${doc.data.section}`}
+  headings={headings}
+  maturity={doc.data.maturity}
+  authority={doc.data.authority}
+  sources={doc.data.sources}
+  prev={prev}
+  next={next}
+>
+  <p class="docs__lead">{doc.data.description}</p>
+  <Content />
+  <p class="w-panel__note docs__raw">
+    Plain Markdown of this page for agents and tools: <a href={`/docs/${doc.id}.md`}>{`/docs/${doc.id}.md`}</a>
+  </p>
+</DocsLayout>

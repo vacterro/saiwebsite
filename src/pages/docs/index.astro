@@ -1,0 +1,52 @@
+---
+/**
+ * Documentation landing page: every section, every page, one line each.
+ */
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { docHref, docTree } from '../../lib/docs';
+
+const tree = await docTree();
+const total = tree.reduce((n, group) => n + group.docs.length, 0);
+---
+
+<DocsLayout
+  title="Documentation"
+  description="SAIPEN documentation: getting started, concepts, the protocol state machine, recovery, evidence, operation and reference."
+  maturity="stable"
+  authority="explanation"
+>
+  <p class="docs__lead">
+    {total} pages in {tree.length} sections. Start with the
+    <a href="/docs/getting-started/introduction/">Introduction</a>; if you already know why you are here, the
+    <a href="/docs/getting-started/quickstart/">Quickstart</a> installs SAIPEN in four steps.
+  </p>
+
+  <aside class="callout callout--authority">
+    <p class="callout__label">Authority</p>
+    <p>
+      These pages explain SAIPEN; they do not define it. The normative protocol is the SAIPEN repository
+      (<code>SPEC.md</code>, <code>saipen/CORE.md</code>, <code>saipen/REGISTRY.json</code>). Every page links the
+      sources it rests on, and the <a href="/spec/">specification surface</a> renders the machine-readable facts
+      directly from them.
+    </p>
+  </aside>
+
+  {
+    tree.map((group) => (
+      <section class="docs__section" aria-labelledby={group.section}>
+        <h2 id={group.section}>{group.title}</h2>
+        <p>{group.lead}</p>
+        <dl class="doclist">
+          {group.docs.map((doc) => (
+            <>
+              <dt>
+                <a href={docHref(doc)}>{doc.data.title}</a>
+              </dt>
+              <dd>{doc.data.description}</dd>
+            </>
+          ))}
+        </dl>
+      </section>
+    ))
+  }
+</DocsLayout>

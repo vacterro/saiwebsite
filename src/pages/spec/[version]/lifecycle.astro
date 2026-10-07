@@ -1,0 +1,229 @@
+---
+/**
+ * Protocol visualizer V1 (MASTER_ROADMAP M9): the state machine, drawn from
+ * REGISTRY.json.phases and nothing else.
+ *
+ * DOM, not canvas: every node is a real link to its detail section below, so
+ * the diagram works with JavaScript disabled, with a keyboard and with a
+ * screen reader. The selected phase is the `:target` — no script decides it.
+ * Edges are whole-pixel orthogonal lines (borders), never diagonals, so the
+ * drawing stays inside the palette with no anti-aliased pixel.
+ *
+ * Core lifecycle edges are drawn; edges into BLOCKED (every phase has one) and
+ * the enter-from-anywhere commands are stated, not drawn, and the complete
+ * edge list is the matrix at the bottom.
+ */
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import {
+  ANY_FROM,
+  CORE_LIFECYCLE,
+  PHASES,
+  SPEC_VERSION,
+  TICKET_BEARING,
+  TRANSITIONS,
+  sourceUrl,
+} from '../../../lib/canonical';
+import { PHASE_PURPOSE, phaseDoc } from '../../../data/phases';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('lifecycle')!;
+
+// Geometry, in whole CSS pixels.
+const NODE_W = 86;
+const NODE_H = 24;
+const GAP = 20;
+const LANE = 8;
+const x = (i: number) => i * (NODE_W + GAP);
+const cx = (i: number) => x(i) + NODE_W / 2;
+
+const index = (phase: string) => CORE_LIFECYCLE.indexOf(phase);
+const coreEdges = CORE_LIFECYCLE.flatMap((from) =>
+  (TRANSITIONS[from] ?? []).filter((to) => index(to) >= 0).map((to) => ({ from, to })),
+);
+const forwardAdjacent = coreEdges.filter((e) => index(e.to) === index(e.from) + 1);
+const back = coreEdges.filter((e) => index(e.to) < index(e.from));
+const skip = coreEdges.filter((e) => index(e.to) > index(e.from) + 1);
+
+// One lane per non-adjacent edge, shortest span nearest the row.
+const span = (e: { from: string; to: string }) => Math.abs(index(e.to) - index(e.from));
+const lanes = (edges: typeof coreEdges) =>
+  [...edges]
+    .sort((a, b) => span(a) - span(b) || index(a.from) - index(b.from))
+    .map((e, lane) => ({ ...e, lane }));
+const backLanes = lanes(back);
+const skipLanes = lanes(skip);
+
+const TOP = (backLanes.length + 1) * LANE;
+const width = x(CORE_LIFECYCLE.length - 1) + NODE_W;
+const height = TOP + NODE_H + (skipLanes.length + 1) * LANE;
+
+const maintenance = PHASES.filter((p) => !CORE_LIFECYCLE.includes(p) && p !== 'BLOCKED');
+const incoming = (phase: string) => PHASES.filter((from) => (TRANSITIONS[from] ?? []).includes(phase));
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="lifecycle"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — phases' },
+    { path: 'saipen/CORE.md', label: 'CORE.md §1.6 Core state machine & ticket DAG' },
+  ]}
+>
+  <p>
+    Select a phase to see its purpose and its edges. Arrows on the row are the forward Core path; brackets above the
+    row are edges back to an earlier phase, brackets below skip ahead. Every phase can also exit to
+    <a href="#phase-BLOCKED">BLOCKED</a>.
+  </p>
+
+  <div class="wide-scroll">
+    <div class="sm" style={`width:${width}px;height:${height}px`} role="group" aria-label="Core lifecycle diagram">
+      {
+        backLanes.map((e) => {
+          const a = Math.min(cx(index(e.from)), cx(index(e.to)));
+          const b = Math.max(cx(index(e.from)), cx(index(e.to)));
+          const top = TOP - (e.lane + 1) * LANE;
+          return (
+            <span
+              class="sm__edge sm__edge--back"
+              style={`left:${a}px;top:${top}px;width:${b - a + 1}px;height:${TOP - top}px`}
+              title={`${e.from} → ${e.to}`}
+            >
+              <span class="sm__head sm__head--down" style="left:-3px" />
+            </span>
+          );
+        })
+      }
+      {
+        CORE_LIFECYCLE.map((phase, i) => (
+          <a
+            class="sm__node"
+            href={`#phase-${phase}`}
+            style={`left:${x(i)}px;top:${TOP}px;width:${NODE_W}px;height:${NODE_H}px`}
+          >
+            {phase}
+          </a>
+        ))
+      }
+      {
+        forwardAdjacent.map((e) => (
+          <span
+            class="sm__arrow"
+            style={`left:${x(index(e.from)) + NODE_W}px;top:${TOP + NODE_H / 2}px;width:${GAP}px`}
+            title={`${e.from} → ${e.to}`}
+          >
+            <span class="sm__head sm__head--right" />
+          </span>
+        ))
+      }
+      {
+        skipLanes.map((e) => {
+          const a = cx(index(e.from));
+          const b = cx(index(e.to));
+          const top = TOP + NODE_H;
+          return (
+            <span
+              class="sm__edge sm__edge--skip"
+              style={`left:${a}px;top:${top}px;width:${b - a + 1}px;height:${(e.lane + 1) * LANE}px`}
+              title={`${e.from} → ${e.to}`}
+            >
+              <span class="sm__head sm__head--up" style="right:-3px" />
+            </span>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="sm-others">
+    <p class="bench-caption">Maintenance and infrastructure phases</p>
+    <ul class="plain sm-others__list">
+      {
+        maintenance.map((phase) => (
+          <li>
+            <a class="sm__chip" href={`#phase-${phase}`}>
+              {phase}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="sm__chip sm__chip--blocked" href="#phase-BLOCKED">BLOCKED</a>
+      </li>
+    </ul>
+    <p class="w-panel__note">
+      Entered from any phase by explicit command: {ANY_FROM.join(', ')}. Ticket-bearing (next_action must name a
+      ticket): {TICKET_BEARING.join(', ')}.
+    </p>
+  </div>
+
+  <h2>Phases</h2>
+  {
+    PHASES.map((phase) => (
+      <section class="sm-detail" id={`phase-${phase}`} aria-labelledby={`h-${phase}`} tabindex="-1">
+        <h3 id={`h-${phase}`}>{phase}</h3>
+        <p>{PHASE_PURPOSE[phase]}</p>
+        <dl class="diag">
+          <dt>Leaves to</dt>
+          <dd>
+            {(TRANSITIONS[phase] ?? []).map((to, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={`#phase-${to}`}>{to}</a>
+              </>
+            ))}
+          </dd>
+          <dt>Entered from</dt>
+          <dd>
+            {incoming(phase).length
+              ? incoming(phase).map((from, i) => (
+                  <>
+                    {i > 0 && ', '}
+                    <a href={`#phase-${from}`}>{from}</a>
+                  </>
+                ))
+              : 'no phase (fresh project only)'}
+            {ANY_FROM.includes(phase) && ' — and from any phase by explicit command'}
+          </dd>
+          <dt>Ticket-bearing</dt>
+          <dd>{TICKET_BEARING.includes(phase) ? 'yes — next_action names the ticket' : 'no'}</dd>
+          <dt>Phase document</dt>
+          <dd>
+            <a href={sourceUrl(phaseDoc(phase))} rel="noopener" data-external>
+              {phaseDoc(phase)}
+            </a>
+          </dd>
+        </dl>
+      </section>
+    ))
+  }
+
+  <h2>Transition matrix</h2>
+  <p>Rows are the current phase, columns the next. Generated from <code>valid_transitions</code>.</p>
+  <div class="wide-scroll">
+    <table class="w-table sm-matrix">
+      <thead>
+        <tr>
+          <th scope="col">from \ to</th>
+          {PHASES.map((p) => <th scope="col" class="sm-matrix__col"><abbr title={p}>{p.slice(0, 4)}</abbr></th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          PHASES.map((from) => (
+            <tr>
+              <th scope="row">{from}</th>
+              {PHASES.map((to) => (
+                <td class="sm-matrix__cell">{(TRANSITIONS[from] ?? []).includes(to) ? 'x' : ''}</td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</SpecLayout>

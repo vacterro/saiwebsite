@@ -1,0 +1,411 @@
+/* ============================================================================
+   wintage.css — global visual law
+   ============================================================================
+   The rules that must hold for EVERY element on the site, expressed once, so no
+   component has to re-state them and no framework default can leak through.
+
+   The Wintage userscript achieved this by fighting other people's CSS with
+   `!important`. SAI_WEBSITE owns its own DOM, so the same laws are written
+   plainly, once, here (BOOTSTRAP_CORRIDOR §5).
+   ============================================================================ */
+
+/* ── Zero radius (WINTAGE_WEB_CONTRACT §11) ────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: var(--radius);
+}
+
+/* ── Zero shadow, zero blur (WINTAGE_WEB_CONTRACT §12) ─────────────────────
+   Depth is expressed by palette surfaces and 2px bevel borders. Nothing else.
+   No `filter: none` blanket rule is set here: it would be a no-op today, and a
+   no-op rule that looks load-bearing is worse than no rule. The style lint
+   future gate (WINTAGE_WEB_CONTRACT §27) is what catches a stray `filter`. */
+*,
+*::before,
+*::after {
+  box-shadow: var(--shadow);
+  text-shadow: var(--text-shadow);
+  backdrop-filter: var(--backdrop);
+  -webkit-backdrop-filter: var(--backdrop);
+}
+
+/* ── Instant interaction (WINTAGE_WEB_CONTRACT §14) ────────────────────────
+   No transition on hover, focus, theme switch or panel elevation. No
+   animation on ordinary UI. `transition-property: none` is the honest form:
+   it removes the property list rather than racing to a duration nobody sees. */
+*,
+*::before,
+*::after {
+  transition-property: none;
+  animation-duration: var(--motion);
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none;
+  }
+}
+
+/* ── Typography (WINTAGE_WEB_CONTRACT §8, §10; SAIPEN UI.md iron law 1) ────
+   No anti-aliasing is enforced by the FACES, not by these hints: each size has
+   a pixel-grid face (fonts.css) whose glyph edges lie on pixel boundaries, so
+   a grayscale rasterizer has nothing to smooth, and an embedded 1-bit strike
+   puts DirectWrite on its aliased bitmap path. The hints stay because they are
+   free and help the fallback stack. `font-synthesis: none` forbids the engine
+   from inventing a fake bold or oblique, which would smear the grid; every
+   weight and style used here exists as a real face.
+
+   Every rule that changes font-size also sets the matching face and line
+   height. The lint (scripts/lint-styles.mjs) rejects a size without its face. */
+html {
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight);
+  font-synthesis: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  background-color: var(--ui-desktop);
+  color: var(--ui-text);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ui-desktop);
+  color: var(--ui-text);
+}
+
+/* Controls use the body role, as in Wintage (12px everywhere a control is). */
+button,
+input,
+select,
+textarea,
+optgroup,
+option {
+  font-family: var(--face-body);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  color: inherit;
+}
+
+/* Code: a true bitmap monospace (Spleen 6x12) at its native 12px. UI.md keeps
+   the proportional UI face unless fixed width is required; code, commands and
+   file trees are the case where it is. */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--face-code);
+  font-size: var(--size-body);
+  line-height: var(--lh-code);
+}
+
+/* Inline code sits inside a 12/14 line. Its own line height is the face's
+   12px content box, so it never makes the line box one pixel taller. */
+:not(pre) > code,
+kbd,
+samp {
+  line-height: 12px;
+}
+
+/* The ladder. Wintage renders headings at weight 400 — hierarchy comes from
+   size, framing and borders, not from bold (UI.md typography rules). */
+h1 {
+  font-family: var(--face-title);
+  font-size: var(--size-title);
+  line-height: var(--lh-title);
+  font-weight: var(--weight);
+  color: var(--ui-text);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--face-heading);
+  font-size: var(--size-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--weight);
+  color: var(--ui-text);
+}
+
+small,
+sub,
+sup,
+figcaption {
+  font-family: var(--face-meta);
+  font-size: var(--size-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+}
+
+/* Heading margins in whole pixels. The UA defaults are em-based (0.67em on
+   h1 = 10.72px) and push every following box off the pixel grid. */
+h1 {
+  margin: 0 0 var(--gap-6);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: var(--gap-7) 0 var(--gap-5);
+}
+
+/* sub/sup would shift the baseline by a fraction of the line; keep them on it. */
+sub,
+sup {
+  vertical-align: baseline;
+}
+
+strong,
+b {
+  font-weight: var(--weight-bold);
+}
+
+/* Italic exists as a real face at 12px only (prose). Elsewhere emphasis is
+   carried by the bold face rather than a synthesized slant. */
+em,
+i,
+cite,
+dfn {
+  font-style: italic;
+}
+
+h1 em, h2 em, h3 em, h4 em, small em,
+h1 i, h2 i, h3 i, h4 i, small i {
+  font-style: normal;
+  font-weight: var(--weight-bold);
+}
+
+/* Readable prose gaps. A global `margin: 0` reset reads as one jammed wall;
+   Wintage's own base CSS gets away with it because it builds screens, not
+   documents. */
+p,
+ul,
+ol,
+dl,
+blockquote,
+figure,
+table,
+pre {
+  margin: 0 0 var(--gap-6);
+}
+
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+/* ── Text semantics ─────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--ui-select-bg);
+  color: var(--ui-text);
+}
+
+/* Links (WINTAGE_WEB_CONTRACT §19): unmistakably links, and hover is not a
+   hue-only change — a hard surface block plus the permanent underline carry
+   the state for anyone who cannot separate the two golds. */
+a {
+  color: var(--ui-link);
+  /* The underline is a 1px bottom border, not text-decoration. Engines draw a
+     decoration line at the text run's sub-pixel origin, so a link that starts
+     at x = 682.33 got a blended end pixel; a border belongs to the box and is
+     snapped to the pixel grid like every bevel. On an inline box it does not
+     change the line height, and it repeats on every wrapped line fragment. */
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+a:hover {
+  background-color: var(--ui-raised);
+  color: var(--ui-text);
+}
+
+/* ── Focus (WINTAGE_WEB_CONTRACT §20) ─────────────────────────────────────
+   Mandatory, hard-edged, pixel-aligned, never removed. No shadow ring. */
+:focus-visible {
+  outline: var(--bevel) solid var(--ui-accent);
+  outline-offset: 1px;
+}
+
+/* ── Browser-drawn glyphs replaced by pixel ones ──────────────────────────
+   The UA draws list bullets as circles and the <details> disclosure marker as
+   a triangle, both anti-aliased and both placed at fractional offsets. They
+   are removed here and redrawn as whole-pixel shapes: a 4x4 square bullet on
+   the text baseline grid and the 4x7 / 7x4 pixel arrow masks from tokens.css. */
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul > li {
+  position: relative;
+  padding-left: 14px;
+}
+
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 5px;
+  width: 4px;
+  height: 4px;
+  background-color: var(--ui-text-dim);
+}
+
+ol {
+  padding-left: 22px;
+}
+
+ol.plain,
+ul.plain {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Lists that are navigation or layout, not prose, opt out of the bullet. */
+nav ul > li,
+ul[role="list"] > li,
+ul.plain > li {
+  padding-left: 0;
+}
+
+nav ul > li::before,
+ul[role="list"] > li::before,
+ul.plain > li::before {
+  content: none;
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 7px;
+  margin-right: 6px;
+  vertical-align: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+  mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+}
+
+details[open] > summary::before {
+  width: 7px;
+  height: 4px;
+  margin-bottom: 1px;
+  -webkit-mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+  mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+}
+
+/* UI.md iron law 2: no transparency. Chromium's UA sheet fades disabled
+   form controls with opacity; the disabled state is the muted label colour. */
+:disabled {
+  opacity: 1;
+}
+
+/* ── Scrollbars (Wintage) ──────────────────────────────────────────────────
+   The moment ::-webkit-scrollbar is styled, Chromium draws classic scrollbars
+   from these rules instead of platform ones: sunken track, raised thumb, no
+   arrow buttons. Firefox only understands the two colours. */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--ui-window);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ui-raised);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--ui-surface);
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: var(--ui-window);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--ui-edge-muted) var(--ui-desktop);
+  }
+}
+
+/* ── Raster policy (WINTAGE_WEB_CONTRACT §7, §23) ─────────────────────────
+   Class A hard-pixel artwork opts in explicitly and is always integer-scaled.
+   Photography is never silently degraded, and no CSS transform ever scales a
+   pixel asset: the raster is authored at its rendered size. */
+.pixel-art {
+  image-rendering: pixelated;
+  transform: none;
+}
+
+/* ── Native controls, normalized once ─────────────────────────────────────
+   `appearance: none` is what stops a platform control (a rounded iOS input, a
+   fused macOS button) from arriving inside a Wintage frame wearing its own
+   design language. Geometry is re-supplied by the primitives in site.css. */
+button,
+input,
+select,
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+}

@@ -1,0 +1,6 @@
+# SAI_WEBSITE — static, no private areas.
+User-agent: *
+Allow: /
+Disallow: /debug/
+
+Sitemap: https://saipenprotocol.com/sitemap.xml

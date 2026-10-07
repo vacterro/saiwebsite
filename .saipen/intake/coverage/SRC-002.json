@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-002:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-3 closed with verification evidence in LOG: verify -> PASS [target: T-3] conf: high -- build 17 pages; check 0/0/0; validate:themes 16x21; audit:build OK 17 pages, 14/14 routes; playwright 93 passed (runtime+shell+visual). RED CONTROL: blog page removed -> audit FAIL 'declared route /blog/ has no built output'; restored, green.",
+      "text": "T-3 M4 SITE SHELL CONVERGENCE: reserve the eight missing roadmap routes (/status/ /playground/ /benchmarks/ /downloads/ /security/ /community/ /blog/ /changelog/) as explicit placeholders, add one canonical semantic breadcrumb system, replace wrap-only narrow navigation with a compact mobile mode, add a route-discoverability secondary navigation surface, and add the M4 shell regression gates (tests/site-shell.spec.mjs, audit-build shell invariants, mobile visual baselines)",
+      "verification": "the Work this request created reached its own verification gate; see the T-3 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-3"
+    }
+  },
+  "schema_version": 1
+}

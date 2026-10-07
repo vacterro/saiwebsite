@@ -1,0 +1,30 @@
+---
+/**
+ * Raised or sunken panel. The only two depth forms on the site.
+ */
+interface Props {
+  /** Sunken panels read as inset content wells. */
+  sunken?: boolean;
+  /** Optional heading inside the panel. */
+  title?: string;
+  /**
+   * Heading level for `title`. Defaults to 3 (a panel inside a section); pass 2
+   * when the panel IS the section, so the document outline stays sequential.
+   */
+  level?: 2 | 3 | 4;
+  /** Tight single-line bar (use for strips, not for prose). */
+  bar?: boolean;
+  class?: string;
+}
+
+const { sunken = false, title, level = 3, bar = false, class: className = '' } = Astro.props;
+const Heading = `h${level}` as const;
+const classes = ['w-panel', sunken && 'w-panel--sunken', bar && 'w-panel--bar', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<section class={classes}>
+  {title && <Heading class="w-panel__title">{title}</Heading>}
+  <slot />
+</section>

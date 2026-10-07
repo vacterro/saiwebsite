@@ -1,0 +1,72 @@
+---
+/**
+ * Changelog (MASTER_ROADMAP M24): factual release records, kept apart from the
+ * blog. Website releases come from src/content/changelog; protocol releases
+ * are listed by version and title only and link to the canonical CHANGELOG.md,
+ * which remains the record.
+ */
+import { getCollection, render } from 'astro:content';
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sourceUrl } from '../../lib/canonical';
+
+const entries = await Promise.all(
+  (await getCollection('changelog'))
+    .sort((a, b) => b.data.version.localeCompare(a.data.version, 'en', { numeric: true }))
+    .map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+
+/** Headings of the canonical CHANGELOG.md at the snapshot commit. */
+const PROTOCOL = [
+  ['8.1.0', '2026-10-04', 'Public installation and removal'],
+  ['8.0.2', '2026-10-02', 'A tree that actually runs'],
+  ['8.0.1', '2026-09-08', 'Audit release integrity and bounded receipt lookups'],
+  ['8.0.0', '2026-09-06', 'Distinct STOP shortcut'],
+];
+---
+
+<SiteLayout
+  title="Changelog"
+  tag="/changelog/"
+  description="Factual release history of this website, and the recent SAIPEN protocol releases with links to the canonical changelog."
+>
+  <h1>Changelog</h1>
+  <p><MaturityBadge level="stable" note="records, not commentary — reasoning goes on the blog" /></p>
+
+  <h2 id="website">Website</h2>
+  {
+    entries.map(({ entry, Content }) => (
+      <section class="release" id={`v${entry.data.version}`} aria-labelledby={`h-${entry.data.version}`}>
+        <h3 id={`h-${entry.data.version}`}>
+          {entry.data.version} — {entry.data.title}
+        </h3>
+        <p class="w-panel__note">{entry.data.date.toISOString().slice(0, 10)}</p>
+        <Content />
+      </section>
+    ))
+  }
+
+  <h2 id="protocol">Protocol</h2>
+  <p>
+    The record is the SAIPEN repository's <a href={sourceUrl('CHANGELOG.md')} rel="noopener" data-external>CHANGELOG.md</a>;
+    older entries live in its archive file. Recent releases:
+  </p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Version</th><th scope="col">Date</th><th scope="col">Title</th></tr>
+      </thead>
+      <tbody>
+        {
+          PROTOCOL.map(([v, d, t]) => (
+            <tr>
+              <th scope="row">{v}</th>
+              <td>{d}</td>
+              <td>{t}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</SiteLayout>

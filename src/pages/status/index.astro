@@ -1,0 +1,77 @@
+---
+/**
+ * Status (FUTURE_GATES FG-003). No hosted SAIPEN service exists, so there is
+ * no uptime to report. What this page CAN report truthfully is static build
+ * status: what this build contains, which protocol commit it describes, and
+ * which roadmap milestones are delivered or deferred.
+ */
+import pkg from '../../../package.json';
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SHORT_COMMIT, meta } from '../../lib/canonical';
+import { MILESTONES } from '../../data/milestones';
+import { ECOSYSTEM_SNAPSHOT } from '../../data/ecosystem';
+
+const counts = {
+  delivered: MILESTONES.filter((m) => m.state === 'delivered').length,
+  deferred: MILESTONES.filter((m) => m.state === 'deferred').length,
+};
+---
+
+<SiteLayout
+  title="Status"
+  tag="/status/"
+  description="Static build status of this website: version, protocol snapshot and roadmap milestones. No hosted service exists, so no uptime is reported."
+>
+  <h1>Status</h1>
+  <p><MaturityBadge level="stable" note="build facts only — there is no live service" /></p>
+
+  <aside class="callout callout--note">
+    <p class="callout__label">No service status</p>
+    <p>
+      No hosted SAIPEN service exists, so this page reports no uptime, health check or incidents. Real operational
+      status arrives only with a real service (future gate FG-003).
+    </p>
+  </aside>
+
+  <h2>This build</h2>
+  <dl class="diag">
+    <dt>Website version</dt>
+    <dd>{pkg.version}</dd>
+    <dt>Protocol snapshot</dt>
+    <dd>SAIPEN {meta.version} @ <a href={`${meta.repository}/tree/${meta.commit}`} rel="noopener" data-external>{SHORT_COMMIT}</a> ({meta.commitDate.slice(0, 10)})</dd>
+    <dt>Ecosystem facts</dt>
+    <dd>{ECOSYSTEM_SNAPSHOT.date}</dd>
+    <dt>Hosting</dt>
+    <dd>not deployed — local static build (future gate FG-001)</dd>
+  </dl>
+
+  <h2>Roadmap milestones</h2>
+  <p>{counts.delivered} delivered, {counts.deferred} deferred behind a future gate.</p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Milestone</th>
+          <th scope="col">State</th>
+          <th scope="col">Where</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          MILESTONES.map((m) => (
+            <tr>
+              <th scope="row">
+                {m.id} {m.title}
+              </th>
+              <td>
+                <span class={`w-badge ${m.state === 'delivered' ? 'w-badge--ok' : 'w-badge--info'}`}>{m.state}</span>
+              </td>
+              <td>{m.where ? <a href={m.where}>{m.where}</a> : (m.note ?? '')}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</SiteLayout>

@@ -1,0 +1,58 @@
+---
+/**
+ * Menu strip. Real anchors, so back/forward, new tab, copy link and browser
+ * find all keep working (WINTAGE_WEB_CONTRACT §16).
+ *
+ * Primary navigation stays six items wide; the reserved routes live in a
+ * native `<details>` "More" panel at the end of the strip: click and keyboard
+ * both open it, no pointer hover, no script, and the anchors are ordinary
+ * links either way. The panel takes its own full-width row when open instead of
+ * overlaying the page, so nothing floats, nothing animates and nothing can
+ * overflow the window.
+ *
+ * Below the compact breakpoint this whole strip is hidden by CSS and
+ * WintageCompactNav takes over, so one nav landmark is exposed at a time.
+ */
+import type { SiteRoute } from '../data/site';
+
+interface Props {
+  items: SiteRoute[];
+  /** Reserved public routes exposed through the "More" panel. */
+  more?: SiteRoute[];
+  /** Current pathname, e.g. Astro.url.pathname. */
+  path: string;
+  /** Landmark label. Overridden by the component lab so its specimen is distinguishable. */
+  label?: string;
+}
+
+const { items, more = [], path, label = 'Main' } = Astro.props;
+const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
+const current = withSlash(path);
+const isCurrent = (item: SiteRoute) => withSlash(item.href) === current;
+---
+
+<nav class="w-menubar" aria-label={label}>
+  {
+    items.map((item) => (
+      <a href={item.href} aria-current={isCurrent(item) ? 'page' : undefined}>
+        {item.label}
+      </a>
+    ))
+  }
+  {
+    more.length > 0 && (
+      <details class="w-more">
+        <summary class="w-more__summary">More</summary>
+        <ul class="w-more__list">
+          {more.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    )
+  }
+</nav>

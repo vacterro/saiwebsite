@@ -1,0 +1,217 @@
+---
+/**
+ * /debug/themes — every canonical palette rendered at once, plus the runtime
+ * selection state.
+ *
+ * Two jobs, deliberately in one page because they are the two halves of the same
+ * claim. The card grid proves each pack resolves the full 21-token set inside a
+ * nested `[data-theme]` scope, with no JavaScript. The diagnostics block reports
+ * which palette the document is actually carrying, so a runtime switch can be
+ * checked against the bench rather than believed.
+ *
+ * The nested scopes are the regression target: selecting Dracula globally must
+ * leave all sixteen cards showing their own palette.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { DEFAULT_THEME_SLUG, REQUIRED_TOKENS } from '../../themes/schema';
+import { defaultTheme, themes } from '../../themes';
+import { themeDiagnosticsScript } from '../../themes/runtime';
+
+/** Key tokens shown per card: enough to judge a palette at a glance. */
+const CARD_TOKENS = [
+  'background',
+  'backgroundSoft',
+  'surface',
+  'surfaceRaised',
+  'bevelLight',
+  'borderHighlight',
+  'textPrimary',
+  'link',
+  'success',
+  'danger',
+] as const;
+---
+
+<SiteLayout title="SAIPEN Protocol — Theme bench" tag="/debug/themes/">
+  <p><MaturityBadge level="draft" note="palette data + runtime switcher, verified by the browser gate" /></p>
+  <h1>Theme bench</h1>
+  <p class="prose">
+    {themes.length} canonical Wintage palettes, in the deterministic menu order the packs themselves
+    declare. <strong>{defaultTheme.label}</strong> is the canonical first-render identity and is what
+    the site uses when nothing else is stored. Each card below is a nested
+    <code class="w-code-inline">[data-theme]</code> scope, so the palette you see inside it comes from
+    that pack and nothing else — no JavaScript involved.
+  </p>
+
+  <h2>Runtime selection state</h2>
+  <p class="bench-caption">
+    What the document is actually carrying right now. The selector at the top of this page drives
+    these fields; the numbers refresh on the theme change notification instead of a page reload.
+  </p>
+  <dl class="diag">
+    <dt>active theme slug</dt>
+    <dd data-theme-diag="slug">{defaultTheme.slug}</dd>
+
+    <dt>active theme label</dt>
+    <dd data-theme-diag="label">{defaultTheme.label}</dd>
+
+    <dt>persisted value</dt>
+    <dd data-theme-diag="persisted">(needs JavaScript)</dd>
+
+    <dt>canonical default</dt>
+    <dd data-theme-diag="default">{DEFAULT_THEME_SLUG}</dd>
+
+    <dt>themes registered</dt>
+    <dd data-theme-diag="count">{themes.length}</dd>
+  </dl>
+  <p class="w-panel__note">
+    With JavaScript disabled these five fields show the server-rendered truth instead — Golden
+    Default, unchanged — and the cards below are unaffected either way.
+  </p>
+
+  <h2>Canonical Golden Default values</h2>
+  <p class="bench-caption">
+    Read directly from <code class="w-code-inline">src/themes/packs/goldendefault.json</code>. This
+    table is the drift check against the Wintage source.
+  </p>
+  <div class="w-table-scroll bench-group">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Token</th>
+          <th scope="col">Value</th>
+          <th scope="col">Swatch</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          REQUIRED_TOKENS.map((token) => (
+            <tr>
+              <th scope="row">{token}</th>
+              <td><code class="w-code-inline">{defaultTheme.tokens[token]}</code></td>
+              <td>
+                <span
+                  class="swatch__chip"
+                  style={`display:block;width:64px;background-color:var(--${token})`}
+                />
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>All palettes</h2>
+  <div class="theme-grid">
+    {
+      themes.map((pack) => (
+        <article
+          class="theme-card w-raised"
+          data-theme={pack.slug}
+          style="background-color:var(--background);color:var(--textPrimary)"
+        >
+          <header class="theme-card__head">
+            <span class="theme-card__label">{pack.label}</span>
+            <span class="theme-card__meta">
+              {pack.slug} · order {pack.order}
+              {pack.slug === defaultTheme.slug ? ' · canonical' : ''}
+            </span>
+          </header>
+
+          <div class="theme-card__body">
+            <div class="theme-card__swatches">
+              {CARD_TOKENS.map((token) => (
+                <span
+                  class="theme-card__swatch"
+                  style={`background-color:var(--${token})`}
+                  title={`${token} ${pack.tokens[token]}`}
+                />
+              ))}
+            </div>
+
+            <p class="theme-card__sample">
+              Body text on <code class="w-code-inline">--background</code>, with{' '}
+              <a href="/debug/components/">a prose link</a>.
+            </p>
+
+            <div class="row">
+              <span class="w-button">Button</span>
+              <span class="w-button is-active">Pressed</span>
+              <span class="w-badge w-badge--ok">OK</span>
+              <span class="w-badge w-badge--err">FAIL</span>
+            </div>
+
+            <div class="w-panel w-panel--sunken theme-card__well">
+              <p style="margin:0">Sunken well — <code class="w-code-inline">--surface</code></p>
+              <pre
+                class="w-code"
+                style="margin:var(--gap-3) 0 0">{`link   ${pack.tokens.link}
+bevel  ${pack.tokens.bevelLight}
+text   ${pack.tokens.textPrimary}`}</pre>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</SiteLayout>
+
+<script is:inline set:html={themeDiagnosticsScript()} />
+
+<style>
+  .theme-grid {
+    display: grid;
+    gap: var(--gap-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  }
+
+  .theme-card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--gap-4);
+    padding: 2px var(--gap-4);
+    background-color: var(--ui-accent);
+    color: var(--ui-edge-dark);
+  }
+
+  .theme-card__label {
+    font-size: var(--size-body);
+    font-family: var(--face-body);
+    line-height: var(--lh-body);
+    font-weight: var(--weight-bold);
+  }
+
+  .theme-card__meta {
+    margin-left: auto;
+    font-size: var(--size-meta);
+    font-family: var(--face-meta);
+    line-height: var(--lh-meta);
+  }
+
+  .theme-card__body {
+    padding: var(--gap-5);
+  }
+
+  .theme-card__swatches {
+    display: flex;
+    gap: var(--gap-1);
+    margin-bottom: var(--gap-5);
+  }
+
+  .theme-card__swatch {
+    flex: 1 1 0;
+    height: 20px;
+    border: 1px solid var(--ui-edge-dark);
+  }
+
+  .theme-card__sample {
+    margin: 0 0 var(--gap-5);
+  }
+
+  .theme-card__well {
+    margin-top: var(--gap-5);
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+/**
+ * Compatibility matrix (MASTER_ROADMAP M11).
+ *
+ * Every cell is rendered from the canonical host adapter registry snapshot
+ * (extensions/adapters/registry.json). Nothing here is the site's opinion: a
+ * cell says what the adapter registry DECLARES for a healthy, current install.
+ * Effective enforcement is computed by SAIPEN at runtime and is never stronger
+ * than the installed state proves; the page says so above the table.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SHORT_COMMIT, adapters, meta, sourceUrl } from '../../lib/canonical';
+
+type Adapter = {
+  id: string;
+  name: string;
+  declared_strength?: string;
+  response_enforcement?: string;
+  admission_enforcement?: string;
+  style_enforcement?: string;
+  blocking_capability?: boolean;
+  pre_output_interception?: string;
+  stop_output_interception?: string;
+  install?: unknown;
+};
+
+const rows = (adapters as unknown as { adapters: Adapter[] }).adapters;
+const label = (v?: string) => (v ? v.replace(/_/g, ' ').toLowerCase() : 'not declared');
+const tone = (v?: string) =>
+  v === 'BLOCKING' || v === 'MECHANICAL' ? 'cell--ok' : v === 'ADVISORY' ? 'cell--warn' : v ? 'cell--err' : '';
+---
+
+<SiteLayout
+  title="Compatibility"
+  tag="/compatibility/"
+  description="Which agent hosts SAIPEN supports and how strongly each can enforce the protocol, rendered from the canonical adapter registry."
+>
+  <h1>Compatibility</h1>
+  <p>
+    <MaturityBadge level="stable" note={`generated from extensions/adapters/registry.json @ ${SHORT_COMMIT}`} />
+  </p>
+  <p>
+    SAIPEN works with any agent that can read files. What differs between hosts is how much of the protocol the host
+    lets SAIPEN <em>enforce</em> rather than merely instruct. The adapter registry is the single list every SAIPEN
+    consumer reads — installer, admission check, status reports — and this page renders it verbatim.
+  </p>
+
+  <aside class="callout callout--authority">
+    <p class="callout__label">What a cell means</p>
+    <p>
+      These are <strong>declared</strong> capabilities of a healthy, current install. SAIPEN computes the effective
+      level at runtime, and it is never stronger than the installed state proves. A host that is not listed can still
+      follow SAIPEN by reading its files; it simply has no adapter.
+    </p>
+  </aside>
+
+  <div class="wide-scroll">
+    <table class="w-table compat">
+      <thead>
+        <tr>
+          <th scope="col">Host</th>
+          <th scope="col">Declared strength</th>
+          <th scope="col">Final response</th>
+          <th scope="col">Admission</th>
+          <th scope="col">Chat style</th>
+          <th scope="col">Hook can block</th>
+          <th scope="col">Installer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((a) => (
+            <tr>
+              <th scope="row">{a.name}</th>
+              <td class={tone(a.declared_strength)}>{label(a.declared_strength)}</td>
+              <td class={tone(a.response_enforcement)}>{label(a.response_enforcement)}</td>
+              <td class={tone(a.admission_enforcement)}>{label(a.admission_enforcement)}</td>
+              <td class={tone(a.style_enforcement)}>{label(a.style_enforcement)}</td>
+              <td>{a.blocking_capability ? 'yes' : 'no'}</td>
+              <td>{a.install ? 'configured' : 'notes only'}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Reading the columns</h2>
+  <dl class="doclist">
+    <dt>Declared strength</dt>
+    <dd>
+      <strong>blocking</strong>: a hook can refuse an action. <strong>advisory</strong>: the rules reach the model as
+      instructions only. <strong>enforcement gap</strong>: no usable interception.
+    </dd>
+    <dt>Final response</dt>
+    <dd>
+      Whether the final-answer contract can be checked mechanically (a hook can replace a completed part or request one
+      correction), only advised, or not at all. It never implies invisible pre-stream prevention.
+    </dd>
+    <dt>Admission</dt>
+    <dd>Whether the host can verify that a session was admitted under the current protocol before it acts.</dd>
+    <dt>Chat style</dt>
+    <dd>Whether the communication contract in STYLE.md is enforced or advised.</dd>
+    <dt>Hook can block</dt>
+    <dd>Whether the host offers a hook surface able to block a tool call.</dd>
+    <dt>Installer</dt>
+    <dd>
+      <strong>configured</strong>: the SAIPEN installer writes this host's instruction, skill or hook surfaces.
+      <strong>notes only</strong>: per-platform notes in <code>extensions/adapters/</code>.
+    </dd>
+  </dl>
+
+  <p class="w-panel__note">
+    Source: <a href={sourceUrl('extensions/adapters/registry.json')} rel="noopener" data-external>extensions/adapters/registry.json</a>
+    at SAIPEN {meta.version} @ {SHORT_COMMIT}. Machine-readable copy:
+    <a href="/spec/v8/adapters.json">/spec/v8/adapters.json</a>. Install steps: <a href="/docs/operation/hosts-and-install/">Hosts and installation</a>.
+  </p>
+</SiteLayout>

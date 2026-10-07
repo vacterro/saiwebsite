@@ -1,0 +1,1901 @@
+/* ============================================================================
+   site.css — layout and the Wintage primitives
+   ============================================================================
+   Only the primitives the bootstrap actually proves are here. No component
+   library, no variants nobody renders yet.
+
+   Depth on this site is ALWAYS one of two 2px border patterns:
+     .w-raised   top/left light, bottom/right dark
+     .w-sunken   top/left dark,  bottom/right light
+   Never a box-shadow, never an inset shadow faking a second bevel row
+   (WINTAGE_WEB_CONTRACT §13).
+   ============================================================================ */
+
+/* ── Bevel primitives (WINTAGE_WEB_CONTRACT §6, §13) ───────────────────────── */
+.w-raised {
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-sunken {
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+/* ── Application window (§16) ────────────────────────────────────────────── */
+.w-window {
+  background-color: var(--ui-window);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-window__titlebar {
+  /* UI.md: title bars are 20px tall and use --surface. 2 + 14 + 2 + 2px rule. */
+  display: flex;
+  align-items: center;
+  gap: var(--gap-4);
+  min-height: 20px;
+  padding: 2px 6px;
+  background-color: var(--ui-surface);
+  color: var(--ui-text);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-bold);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-window__title {
+  margin: 0;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-bold);
+  color: var(--ui-text);
+}
+
+.w-window__tag {
+  margin-left: auto;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight);
+  color: var(--ui-text-dim);
+}
+
+.w-window__body {
+  padding: var(--gap-6);
+}
+
+/* ── Menu strip and toolbar (§15, §16) ───────────────────────────────────── */
+.w-menubar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 1px 2px;
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-menubar a {
+  display: block;
+  padding: 2px 7px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  text-decoration: none;
+  border-bottom: 0;
+  color: var(--ui-text);
+}
+
+.w-menubar a:hover {
+  background-color: var(--ui-hover);
+  color: var(--ui-text);
+}
+
+/* Current page is marked by weight and surface as well as hue, so it survives
+   a monochrome screenshot and a screen reader gets the same fact from
+   aria-current. */
+.w-menubar a[aria-current="page"] {
+  background-color: var(--ui-raised);
+  border: 1px solid var(--ui-edge-dark);
+  font-weight: var(--weight-bold);
+}
+
+.w-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-3);
+  padding: var(--gap-3);
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-toolbar__label {
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+  margin-right: var(--gap-3);
+}
+
+/* ── Panels (§6, §16) ───────────────────────────────────────────────────── */
+.w-panel {
+  padding: var(--gap-5);
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-panel--sunken {
+  background-color: var(--ui-window);
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-panel--bar {
+  padding: var(--gap-4) var(--gap-5);
+}
+
+.w-panel__title {
+  margin: 0 0 var(--gap-4);
+  font-size: var(--size-heading);
+  font-family: var(--face-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--weight-bold);
+  color: var(--ui-text);
+}
+
+.w-panel__note {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+}
+
+/* ── Buttons (§15) ──────────────────────────────────────────────────────── */
+.w-button {
+  /* UI.md base CSS: 2px 6px padding, 20px minimum, verb labels. Wintage draws
+     button labels in the bold face. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3);
+  min-width: 24px;
+  min-height: 20px;
+  padding: 2px 6px;
+  background-color: var(--ui-raised);
+  color: var(--ui-text);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-bold);
+  text-align: left;
+  text-decoration: none;
+  border-bottom: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-button:hover {
+  background-color: var(--ui-hover);
+  color: var(--ui-text);
+}
+
+.w-button:focus-visible {
+  outline: 1px dotted var(--ui-text);
+  outline-offset: -4px;
+}
+
+/* Pressed state: the bevel inverts and the label moves one whole pixel down
+   and right, which is what the reference UI does. An integer translation, not
+   a scale — nothing here is ever scaled (WINTAGE_WEB_CONTRACT §7, §14). */
+.w-button:active,
+.w-button.is-active {
+  background-color: var(--ui-surface);
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  transform: translate(1px, 1px);
+}
+
+/* Disabled keeps its geometry — it reads as an unavailable control, not as a
+   control that faded out (§15). */
+.w-button:disabled,
+.w-button[aria-disabled="true"],
+.w-button.is-disabled {
+  background-color: var(--ui-surface);
+  color: var(--ui-text-faint);
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* UI.md: the primary action on a screen gets the 24px accessibility floor. */
+.w-button--primary {
+  min-height: 24px;
+  padding: 4px 8px;
+  background-color: var(--ui-raised);
+  color: var(--ui-accent);
+}
+
+.w-button--primary:hover {
+  background-color: var(--ui-hover);
+  color: var(--ui-accent);
+}
+
+.w-button--small {
+  min-height: 18px;
+  padding: 1px 4px;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+}
+
+/* ── Inputs and selects (§15) ───────────────────────────────────────────── */
+.w-field {
+  display: block;
+  margin: 0 0 var(--gap-5);
+}
+
+.w-field__label {
+  display: block;
+  margin: 0 0 var(--gap-2);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+}
+
+.w-field__help {
+  display: block;
+  margin: var(--gap-2) 0 0;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+}
+
+.w-input,
+.w-textarea,
+.w-select {
+  /* UI.md: inputs are sunken, 20px, 1px 3px padding, on --compareBack. */
+  display: block;
+  width: 100%;
+  min-height: 20px;
+  padding: 1px 3px;
+  background-color: var(--ui-code-bg);
+  color: var(--ui-text);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  caret-color: var(--ui-text);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-input::placeholder,
+.w-textarea::placeholder {
+  color: var(--ui-text-faint);
+}
+
+.w-textarea {
+  min-height: 64px;
+  resize: none;
+}
+
+/* The native arrow is removed with `appearance: none` above, so the affordance
+   is redrawn as a Class A pixel glyph: a 7x4 triangle of whole pixels used as
+   a mask over the text colour, so it follows the palette and has no diagonal
+   edge for a rasterizer to smooth (a CSS border triangle would). */
+.w-select-wrap {
+  position: relative;
+  display: block;
+}
+
+.w-select {
+  padding-right: 18px;
+}
+
+.w-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 7px;
+  height: 4px;
+  margin-top: -2px;
+  pointer-events: none;
+  background-color: var(--ui-text);
+  -webkit-mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+  mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+}
+
+.w-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-4);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+}
+
+.w-input--disabled,
+.w-input:disabled,
+.w-select:disabled {
+  background-color: var(--ui-window);
+  color: var(--ui-text-faint);
+}
+
+/* ── Code (§18) ─────────────────────────────────────────────────────────── */
+.w-code {
+  margin: 0 0 var(--gap-6);
+  padding: var(--gap-5);
+  overflow-x: auto;
+  background-color: var(--ui-code-bg);
+  color: var(--ui-text);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  white-space: pre;
+}
+
+.w-code code {
+  font-family: var(--face-code);
+  font-size: var(--size-body);
+  line-height: var(--lh-code);
+}
+
+.w-code-inline {
+  padding: 0 3px;
+  background-color: var(--ui-code-bg);
+  border: 1px solid var(--ui-edge-muted);
+  font-family: var(--face-code);
+  font-size: var(--size-body);
+  line-height: 12px;
+}
+
+/* ── Badge / status field (§13) ─────────────────────────────────────────── */
+.w-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-3);
+  padding: 1px 5px;
+  background-color: var(--ui-raised);
+  color: var(--ui-text);
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+/* A coloured square plus the badge's own word: two independent channels, so a
+   status is never carried by colour alone. */
+.w-badge::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background-color: var(--ui-edge-muted);
+  border: 1px solid var(--ui-edge-dark);
+}
+
+.w-badge--ok::before { background-color: var(--ui-ok); }
+.w-badge--warn::before { background-color: var(--ui-warn); }
+.w-badge--err::before { background-color: var(--ui-err); }
+.w-badge--info::before { background-color: var(--ui-teal); }
+.w-badge--new::before { background-color: var(--ui-accent); }
+
+/* ── Status bar (§16, §17) ──────────────────────────────────────────────── */
+.w-statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2);
+  padding: 2px;
+  background-color: var(--ui-window);
+  border-top: var(--bevel) solid var(--ui-edge-light);
+}
+
+/* The first field takes the remaining width; the others size to their text,
+   so every field edge is a whole pixel. */
+.w-statusbar__field {
+  flex: 0 1 auto;
+  min-width: 0;
+  padding: 1px 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: var(--ui-window);
+  color: var(--ui-text);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-statusbar__field--fixed,
+.w-statusbar__field:first-child {
+  flex: 1 1 auto;
+}
+
+/* ── Table (§7) ─────────────────────────────────────────────────────────── */
+.w-table-scroll {
+  overflow-x: auto;
+  margin: 0 0 var(--gap-6);
+}
+
+/* Separate borders, not collapse: a collapsed 1px border is split half and
+   half between neighbours and puts every cell on a half-pixel boundary. */
+.w-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-top: 1px solid var(--ui-edge-muted);
+  border-left: 1px solid var(--ui-edge-muted);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+}
+
+.w-table th,
+.w-table td {
+  padding: 2px 6px;
+  text-align: left;
+  vertical-align: top;
+  border-right: 1px solid var(--ui-edge-muted);
+  border-bottom: 1px solid var(--ui-edge-muted);
+}
+
+.w-table th {
+  background-color: var(--ui-raised);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.shell {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--gap-6);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  left: var(--gap-6);
+  top: var(--gap-6);
+  z-index: 10;
+  padding: 3px 8px;
+  background-color: var(--ui-accent);
+  color: var(--ui-edge-dark);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-4);
+}
+
+.row--end {
+  justify-content: flex-end;
+}
+
+.stack > * + * {
+  margin-top: var(--gap-6);
+}
+
+.grid-2 {
+  display: grid;
+  gap: var(--gap-6);
+  /* min(280px, 100%) so a 320px viewport never overflows the track. */
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.prose {
+  max-width: 76ch;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 var(--gap-6);
+}
+
+hr {
+  height: 0;
+  margin: var(--gap-6) 0;
+  border: 0;
+  border-top: var(--bevel) solid var(--ui-edge-dark);
+}
+
+/* ── Docs layout (§17, MASTER_ROADMAP M5) ───────────────────────────────────
+   Three fixed integer columns on a wide window: contents 200px, document,
+   on-this-page 180px. Fixed tracks keep every text origin on a whole pixel
+   (fractional `fr` tracks put link underlines and glyph runs between pixels). */
+.docs {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 180px;
+  gap: var(--gap-6);
+  align-items: start;
+}
+
+.docs__tree-compact,
+.docs__toc-inline {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .docs {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .docs__toc {
+    display: none;
+  }
+
+  .docs__toc-inline {
+    display: block;
+    margin: 0 0 var(--gap-6);
+  }
+}
+
+@media (max-width: 820px) {
+  .docs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .docs__tree {
+    display: none;
+  }
+
+  .docs__tree-compact {
+    display: block;
+  }
+}
+
+.docs__article {
+  min-width: 0;
+}
+
+.docs__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-4);
+  margin: 0 0 var(--gap-6);
+}
+
+.docs__lead {
+  color: var(--ui-text-dim);
+}
+
+.docs__body {
+  margin: 0 0 var(--gap-7);
+}
+
+.docs__sources {
+  margin: 0 0 var(--gap-6);
+}
+
+.docs__sources ul {
+  margin: 0 0 var(--gap-4);
+}
+
+.docs__pager {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap-6);
+  margin: 0 0 var(--gap-6);
+}
+
+.docs__pager .w-button {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 50%;
+  white-space: normal;
+}
+
+.docs__pager-next {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.docs__pager-dir {
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight);
+  color: var(--ui-text-dim);
+}
+
+.docs__raw {
+  margin-top: var(--gap-6);
+}
+
+.docs__toc {
+  position: sticky;
+  top: var(--gap-6);
+  padding: var(--gap-4);
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.toc__item a {
+  display: block;
+  padding: 1px 2px;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text);
+  border-bottom: 0;
+}
+
+.toc__item a:hover {
+  background-color: var(--ui-hover);
+}
+
+.toc__item--3 a {
+  padding-left: 10px;
+  color: var(--ui-text-dim);
+}
+
+.docs__toc-inline summary,
+.docs__tree-compact summary {
+  font-weight: var(--weight-bold);
+}
+
+.docs__toc-inline ul {
+  margin: var(--gap-4) 0 0;
+}
+
+.docs__section {
+  margin: 0 0 var(--gap-7);
+}
+
+/* Section/page list on the docs landing page. */
+.doclist {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1px;
+  margin: 0;
+}
+
+.doclist dt,
+.doclist dd {
+  margin: 0;
+  padding: 2px var(--gap-4);
+  border-bottom: 1px solid var(--ui-edge-muted);
+}
+
+.doclist dd {
+  color: var(--ui-text-dim);
+}
+
+@media (max-width: 640px) {
+  .doclist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .doclist dt {
+    border-bottom: 0;
+  }
+}
+
+.tree {
+  margin: 0;
+  padding: var(--gap-4);
+  list-style: none;
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.tree__title {
+  margin: 0 0 var(--gap-4);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-bold);
+  color: var(--ui-text-dim);
+}
+
+.tree__group {
+  margin: 0 0 var(--gap-5);
+}
+
+.tree__group-title {
+  margin: 0 0 var(--gap-2);
+  padding: 1px 4px;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight-bold);
+  color: var(--ui-text-dim);
+  background-color: var(--ui-window);
+}
+
+.tree__search {
+  margin: 0 0 var(--gap-5);
+}
+
+.tree__search-label {
+  display: block;
+  margin: 0 0 var(--gap-2);
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+}
+
+.tree ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree li {
+  padding-left: 0;
+}
+
+.tree li::before {
+  content: none;
+}
+
+.tree a {
+  display: block;
+  padding: 1px 4px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  text-decoration: none;
+  border-bottom: 0;
+  border-left: var(--bevel) solid transparent;
+  color: var(--ui-text);
+}
+
+.tree a:hover {
+  background-color: var(--ui-hover);
+  color: var(--ui-text);
+}
+
+.tree a[aria-current="page"] {
+  background-color: var(--ui-raised);
+  border-left-color: var(--ui-accent);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Rendered Markdown (prose) ────────────────────────────────────────────── */
+.prose :not(pre) > code {
+  padding: 0 2px;
+  background-color: var(--ui-code-bg);
+  border: 1px solid var(--ui-edge-muted);
+}
+
+main blockquote {
+  margin: 0 0 var(--gap-6);
+  padding: var(--gap-4) var(--gap-5);
+  color: var(--ui-text);
+  background-color: var(--ui-window);
+  border-left: var(--bevel) solid var(--ui-accent);
+}
+
+main blockquote > :last-child,
+.callout > :last-child {
+  margin-bottom: 0;
+}
+
+.prose h2,
+.prose h3 {
+  scroll-margin-top: var(--gap-6);
+}
+
+.prose h3 {
+  margin-top: var(--gap-6);
+}
+
+.anchor {
+  margin-left: var(--gap-3);
+  color: var(--ui-text-faint);
+  border-bottom: 0;
+}
+
+.anchor:hover,
+.anchor:focus-visible {
+  color: var(--ui-link);
+}
+
+.wide-scroll {
+  max-width: 100%;
+  margin: 0 0 var(--gap-6);
+  overflow-x: auto;
+}
+
+.wide-scroll > table {
+  margin: 0;
+}
+
+/* Callouts: a word label plus a hard edge, never colour alone. The coloured
+   bar is a background layer, not a border-left: a 4px coloured border meeting
+   a 1px border of another colour joins on a diagonal, and the rasterizer
+   smooths that diagonal into blended pixels. */
+.callout {
+  --callout-bar: var(--ui-teal);
+  margin: 0 0 var(--gap-6);
+  padding: var(--gap-4) var(--gap-5) var(--gap-4) 16px;
+  background-color: var(--ui-window);
+  background-image: linear-gradient(var(--callout-bar) 0 0);
+  background-size: 4px 100%;
+  background-repeat: no-repeat;
+  border: 1px solid var(--ui-edge-muted);
+}
+
+.callout--warning {
+  --callout-bar: var(--ui-warn);
+}
+
+.callout--authority {
+  --callout-bar: var(--ui-accent);
+}
+
+.callout--example {
+  --callout-bar: var(--ui-ok);
+}
+
+.callout__label {
+  margin: 0 0 var(--gap-2);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Component bench ────────────────────────────────────────────────────── */
+.bench-group {
+  margin: 0 0 var(--gap-7);
+}
+
+.bench-group > .row,
+.bench-group > .grid-2 {
+  margin-bottom: var(--gap-5);
+}
+
+.bench-caption {
+  margin: 0 0 var(--gap-3);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text-dim);
+}
+
+.swatches {
+  display: grid;
+  gap: var(--gap-4);
+  grid-template-columns: repeat(auto-fill, 140px);
+}
+
+.swatch__chip {
+  height: 28px;
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.swatch__name {
+  margin: var(--gap-2) 0 0;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text);
+  word-break: break-all;
+}
+
+.swatch__value {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  color: var(--ui-text-dim);
+}
+
+/* ── Site theme control (§15) ───────────────────────────────────────────────
+   A compact row built from the existing .w-select-wrap / .w-select primitives,
+   not a second control design. It sits between the menu strip and the window
+   body, so it is reachable on every route with the same tab order. */
+.w-themebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-4);
+  padding: 2px var(--gap-4);
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-themebar__label {
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+}
+
+.w-themebar__control {
+  width: 200px;
+  max-width: 100%;
+}
+
+.w-themebar__select {
+  min-height: 20px;
+  padding: 0 18px 0 4px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+}
+
+.w-themebar__note {
+  margin-left: auto;
+}
+
+/* ── Diagnostics (§25, §26) ───────────────────────────────────────────────
+   A definition list laid out as a two-column integer grid, used by the debug
+   routes. Values without JavaScript stay at their static SSR fallback. */
+.diag {
+  display: grid;
+  grid-template-columns: minmax(min(180px, 100%), auto) 1fr;
+  gap: var(--gap-1);
+  margin: 0 0 var(--gap-6);
+}
+
+.diag dt,
+.diag dd {
+  margin: 0;
+  padding: 1px var(--gap-4);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  border: 1px solid var(--ui-edge-muted);
+}
+
+.diag dt {
+  background-color: var(--ui-raised);
+  font-weight: var(--weight-bold);
+}
+
+.diag dd {
+  background-color: var(--ui-surface);
+  color: var(--ui-text);
+  overflow-wrap: anywhere;
+}
+
+/* Integer grid sample: 1px rules on an 8px pitch. Nothing here is sub-pixel,
+   so a DPR-1 screenshot shows every line as one device pixel. */
+.px-grid {
+  width: 96px;
+  height: 96px;
+  background-color: var(--ui-window);
+  border: var(--bevel) solid transparent;
+  background-image:
+    var(--bevel-sunken),
+    repeating-linear-gradient(to right, var(--ui-edge-muted) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(to bottom, var(--ui-edge-muted) 0 1px, transparent 1px 8px);
+  background-position: var(--bevel-position), 0 0, 0 0;
+  background-size: var(--bevel-size), auto, auto;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+  background-origin: border-box, border-box, border-box, border-box, border-box, border-box, padding-box, padding-box;
+  background-clip: border-box, border-box, border-box, border-box, border-box, border-box, padding-box, padding-box;
+}
+
+/* Raster scaling sample: a 2×2 authored checkerboard scaled 32× with nearest
+   neighbour. If it renders smooth, something is resampling it. */
+.px-raster {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+  transform: none;
+  border: var(--bevel) solid transparent;
+  background-image:
+    var(--bevel-sunken),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2'><rect width='2' height='2' fill='%2300a0a0'/><rect width='1' height='1' fill='%23000000'/><rect x='1' y='1' width='1' height='1' fill='%23000000'/></svg>");
+  background-position: var(--bevel-position), 0 0;
+  background-size: var(--bevel-size), 32px 32px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-origin: border-box, border-box, border-box, border-box, border-box, border-box, padding-box;
+  background-clip: border-box, border-box, border-box, border-box, border-box, border-box, padding-box;
+}
+
+.font-sample {
+  padding: var(--gap-4);
+  background-color: var(--ui-window);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.font-sample > * {
+  margin: 0;
+}
+
+/* ── Breadcrumbs (M4 shell) ─────────────────────────────────────────────────
+   One canonical trail, derived by SiteLayout from the route registry. Flat and
+   rule-separated: the separator is CSS, so a screen reader hears list items
+   rather than a greater-than sign. */
+.w-crumbs {
+  padding: 2px var(--gap-4);
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-crumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.w-crumbs__item {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text-dim);
+}
+
+.w-crumbs__item + .w-crumbs__item::before {
+  content: '>';
+  color: var(--ui-text-faint);
+}
+
+.w-crumbs a {
+  color: var(--ui-link);
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.w-crumbs a:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.w-crumbs [aria-current='page'] {
+  color: var(--ui-text);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Secondary routes: the desktop More panel (M4) ──────────────────────────
+   A native <details> at the end of the strip. Opened, it claims a full row of
+   its own instead of overlaying the page: no layer, no animation, no hover
+   dependency, and the anchors inside are ordinary links for a visitor without
+   JavaScript. */
+.w-more {
+  margin-left: auto;
+}
+
+.w-more__summary {
+  padding: 2px 7px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+  background-color: var(--ui-raised);
+  border: 1px solid var(--ui-edge-dark);
+}
+
+.w-more__summary:hover {
+  background-color: var(--ui-hover);
+}
+
+.w-more[open] {
+  flex: 1 1 100%;
+}
+
+.w-more__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  width: 100%;
+  margin: 2px 0 0 -2px;
+  padding: 2px;
+  list-style: none;
+  background-color: var(--ui-window);
+  border-top: 1px solid var(--ui-edge-dark);
+}
+
+.w-more__list a {
+  display: block;
+  padding: 2px 7px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.w-more__list a:hover {
+  background-color: var(--ui-hover);
+}
+
+.w-more__list a[aria-current='page'] {
+  background-color: var(--ui-raised);
+  border: 1px solid var(--ui-edge-dark);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Compact navigation (M4, narrow viewports) ──────────────────────────────
+   Hidden above the breakpoint; below it, the desktop strip is hidden instead,
+   so both nav landmarks are never in the accessibility tree at once. */
+.w-compactnav {
+  display: none;
+  padding: 2px var(--gap-4);
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-compactnav__summary {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+  background-color: var(--ui-raised);
+  border: var(--bevel) solid;
+  border-color: transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.w-compactnav__summary:hover {
+  background-color: var(--ui-hover);
+}
+
+.w-compactnav__list {
+  margin: var(--gap-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.w-compactnav__list a {
+  display: block;
+  padding: 3px 7px;
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-text);
+  text-decoration: none;
+  border-bottom: 0;
+  border: 1px solid transparent;
+}
+
+.w-compactnav__list a:hover {
+  background-color: var(--ui-hover);
+}
+
+.w-compactnav__list a[aria-current='page'] {
+  background-color: var(--ui-raised);
+  border-color: var(--ui-edge-dark);
+  font-weight: var(--weight-bold);
+}
+
+/* ── Narrow shell (M4) ──────────────────────────────────────────────────────
+   The breakpoint is where the seven-item strip stops fitting on one row, not a
+   device identity. Text keeps the Wintage ladder; what changes is the layout:
+   tighter page padding, a title bar that may use two lines, and one navigation
+   surface at a time. */
+@media (max-width: 640px) {
+  .w-menubar {
+    display: none;
+  }
+
+  .w-compactnav {
+    display: block;
+  }
+
+  .shell {
+    padding: var(--gap-3);
+  }
+
+  .w-window__body {
+    padding: var(--gap-4);
+  }
+
+  .w-window__titlebar {
+    flex-wrap: wrap;
+  }
+
+  .w-window__tag {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
+/* ── Spec pages and the state-machine visualizer (M7, M9) ──────────────────
+   Geometry is computed in whole pixels by the page; lines are 1px borders and
+   arrow heads are pixel masks, so nothing in the diagram is diagonal or
+   fractional. Labels are left-aligned with fixed padding: centring a label in a
+   fixed-width box would put odd-width text on a half pixel. */
+.docs--spec {
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+
+@media (max-width: 820px) {
+  .docs--spec {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .docs--spec .docs__tree {
+    display: block;
+  }
+}
+
+.docs__article--wide {
+  max-width: none;
+}
+
+.sm {
+  position: relative;
+  margin: var(--gap-5) 0;
+}
+
+.sm__node {
+  position: absolute;
+  display: block;
+  padding: 3px 6px;
+  font-weight: var(--weight-bold);
+  color: var(--ui-text);
+  background-color: var(--ui-raised);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  border-bottom-width: var(--bevel);
+}
+
+.sm__node:hover {
+  background-color: var(--ui-hover);
+}
+
+.sm__edge {
+  position: absolute;
+  border: 1px solid var(--ui-text-dim);
+}
+
+.sm__edge--back {
+  border-bottom: 0;
+}
+
+.sm__edge--skip {
+  border-top: 0;
+}
+
+.sm__arrow {
+  position: absolute;
+  height: 0;
+  border-top: 1px solid var(--ui-text-dim);
+}
+
+.sm__head {
+  position: absolute;
+  display: block;
+  background-color: var(--ui-text-dim);
+}
+
+.sm__head--right {
+  right: 0;
+  top: -4px;
+  width: 4px;
+  height: 7px;
+  -webkit-mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+  mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+}
+
+.sm__head--down {
+  bottom: 0;
+  width: 7px;
+  height: 4px;
+  -webkit-mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+  mask: var(--glyph-arrow-down) no-repeat 0 0 / 7px 4px;
+}
+
+.sm__head--up {
+  top: 0;
+  width: 7px;
+  height: 4px;
+  -webkit-mask: var(--glyph-arrow-up) no-repeat 0 0 / 7px 4px;
+  mask: var(--glyph-arrow-up) no-repeat 0 0 / 7px 4px;
+}
+
+.sm-others__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-3);
+  margin: 0 0 var(--gap-4);
+}
+
+.sm__chip {
+  display: block;
+  padding: 1px 6px;
+  color: var(--ui-text);
+  background-color: var(--ui-surface);
+  border: 1px solid var(--ui-edge-muted);
+}
+
+.sm__chip:hover {
+  background-color: var(--ui-hover);
+}
+
+.sm__chip--blocked {
+  border-color: var(--ui-err);
+}
+
+.sm-detail {
+  margin: 0 0 var(--gap-5);
+  padding: var(--gap-4) var(--gap-5);
+  border-left: var(--bevel) solid var(--ui-edge-muted);
+}
+
+.sm-detail:target {
+  background-color: var(--ui-surface);
+  border-left-color: var(--ui-accent);
+}
+
+.sm-detail h3 {
+  margin: 0 0 var(--gap-3);
+}
+
+.sm-matrix th,
+.sm-matrix td {
+  padding: 1px 4px;
+}
+
+.sm-matrix__cell {
+  min-width: 34px;
+  color: var(--ui-accent);
+  font-weight: var(--weight-bold);
+}
+
+.sm-matrix abbr {
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+/* Reference list in fixed 240px tracks (CSS columns would split the width
+   into fractional pixels). */
+.reflist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  gap: 0 var(--gap-6);
+  margin: 0 0 var(--gap-6);
+  padding: 0;
+}
+
+/* ── Cards (ecosystem, community) ───────────────────────────────────────────
+   Fixed 340px tracks: three fill the 1048px window body exactly, and at narrow
+   widths a single track takes the whole (integer) container width. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min(340px, 100%));
+  gap: 14px;
+  margin: 0 0 var(--gap-7);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-3);
+  padding: 2px 6px;
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.card__title {
+  margin: 0;
+  font-size: var(--size-heading);
+  font-family: var(--face-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--weight-bold);
+}
+
+.card__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--gap-5);
+}
+
+.card__body p {
+  margin: 0 0 var(--gap-5);
+}
+
+.card__role {
+  color: var(--ui-text-dim);
+}
+
+.card__facts {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 1px var(--gap-4);
+  margin: 0 0 var(--gap-5);
+}
+
+.card__facts dt,
+.card__facts dd {
+  margin: 0;
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+}
+
+.card__facts dt {
+  color: var(--ui-text-dim);
+}
+
+.card__links {
+  margin-top: auto;
+}
+
+/* Compatibility matrix cell tones: a 4px bar painted as a background layer
+   (see .callout for why not a border) plus the word itself. */
+.compat td.cell--ok,
+.compat td.cell--warn,
+.compat td.cell--err {
+  --cell-bar: var(--ui-ok);
+  padding-left: 10px;
+  background-image: linear-gradient(var(--cell-bar) 0 0);
+  background-size: 4px 100%;
+  background-repeat: no-repeat;
+}
+
+.compat td.cell--warn {
+  --cell-bar: var(--ui-warn);
+}
+
+.compat td.cell--err {
+  --cell-bar: var(--ui-err);
+}
+
+.digest {
+  word-break: break-all;
+}
+
+/* ── Scenario player (M23) ─────────────────────────────────────────────── */
+.player__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-4);
+  margin: 0 0 var(--gap-6);
+}
+
+.player__bar[hidden] {
+  display: none;
+}
+
+.player__count {
+  margin-left: var(--gap-4);
+  font-weight: var(--weight-bold);
+}
+
+.player__step {
+  margin: 0 0 var(--gap-7);
+  padding: 0 0 var(--gap-6);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.player.is-enhanced .player__step {
+  border-bottom: 0;
+}
+
+.player__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-4);
+  margin: 0 0 var(--gap-4);
+}
+
+.player__index {
+  color: var(--ui-text-dim);
+}
+
+.player__title {
+  margin: 0;
+}
+
+.panes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min(340px, 100%));
+  gap: 14px;
+}
+
+.pane {
+  margin: 0;
+}
+
+.pane--wide {
+  grid-column: 1 / -1;
+}
+
+.pane__title {
+  margin: 0 0 var(--gap-2);
+  font-size: var(--size-meta);
+  font-family: var(--face-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight-bold);
+  color: var(--ui-text-dim);
+}
+
+.pane__body {
+  margin: 0;
+  min-height: 140px;
+}
+
+/* ── Homepage (M8) ─────────────────────────────────────────────────────────
+   Hierarchy from framing and the type ladder, never from a giant headline:
+   the largest text on the page is the 16px title (WINTAGE_WEB_CONTRACT §10). */
+.hero {
+  margin: 0 0 var(--gap-7);
+  padding: var(--gap-6);
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.hero h1 {
+  margin: 0 0 var(--gap-3);
+}
+
+.hero__tagline {
+  margin: 0 0 var(--gap-2);
+  font-size: var(--size-heading);
+  font-family: var(--face-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--weight-bold);
+  color: var(--ui-accent);
+}
+
+.hero__motto {
+  margin: 0 0 var(--gap-5);
+  color: var(--ui-text-dim);
+}
+
+.hero__lead {
+  max-width: 608px;
+}
+
+.hero__cmd {
+  max-width: 400px;
+}
+
+.home__pair {
+  margin: 0 0 var(--gap-7);
+}
+
+.home__section {
+  margin: 0 0 var(--gap-7);
+}
+
+.home__files {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: var(--gap-3) var(--gap-5);
+  margin: 0 0 var(--gap-5);
+}
+
+.home__files dt,
+.home__files dd {
+  margin: 0;
+}
+
+.home__story li {
+  margin: 0 0 var(--gap-2);
+}
+
+.home__story-actor {
+  color: var(--ui-text-dim);
+}
+
+/* Lifecycle strip: chips joined by whole-pixel arrows. */
+.lifecycle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-3) 0;
+  margin: 0 0 var(--gap-5);
+}
+
+.lifecycle__item {
+  display: flex;
+  align-items: center;
+}
+
+.lifecycle__node {
+  display: block;
+  padding: 3px 8px;
+  font-weight: var(--weight-bold);
+  color: var(--ui-text);
+  background-color: var(--ui-raised);
+  border: var(--bevel) solid transparent;
+  border-bottom-width: var(--bevel);
+  background-image: var(--bevel-raised);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.lifecycle__node:hover {
+  background-color: var(--ui-hover);
+}
+
+.lifecycle__arrow {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 7px;
+}
+
+.lifecycle__arrow::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 4px;
+  top: 3px;
+  border-top: 1px solid var(--ui-text-dim);
+}
+
+.lifecycle__arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 7px;
+  background-color: var(--ui-text-dim);
+  -webkit-mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+  mask: var(--glyph-arrow-right) no-repeat 0 0 / 4px 7px;
+}
+
+.cards--compact {
+  grid-template-columns: repeat(auto-fill, min(340px, 100%));
+}
+
+.card--link {
+  color: var(--ui-text);
+  border-bottom: var(--bevel) solid transparent;
+}
+
+.card--link:hover {
+  background-color: var(--ui-hover);
+  color: var(--ui-text);
+}
+
+.card--link .card__body {
+  color: var(--ui-text-dim);
+}
+
+/* ── Search (M13) ───────────────────────────────────────────────────────── */
+.search {
+  margin: 0 0 var(--gap-6);
+}
+
+.search__input {
+  width: 320px;
+  max-width: 100%;
+}
+
+.search__status {
+  color: var(--ui-text-dim);
+}
+
+.search__hit {
+  margin: 0 0 var(--gap-5);
+  padding: 0 0 var(--gap-4);
+  border-bottom: 1px solid var(--ui-edge-muted);
+}
+
+.search__snippet {
+  margin: var(--gap-2) 0 0;
+  color: var(--ui-text-dim);
+}
+
+/* ── About: workflow strip and motto ─────────────────────────────────────── */
+.about__motto p:last-child {
+  font-size: var(--size-heading);
+  font-family: var(--face-heading);
+  line-height: var(--lh-heading);
+}
+
+.flow {
+  counter-reset: flow;
+  margin: 0 0 var(--gap-6);
+}
+
+.flow li {
+  counter-increment: flow;
+  margin: 0 0 var(--gap-2);
+  padding: 2px var(--gap-4);
+  background-color: var(--ui-surface);
+  border-bottom: 1px solid var(--ui-edge-muted);
+}
+
+.flow li::before {
+  content: counter(flow) ". ";
+  color: var(--ui-text-dim);
+}
+
+/* ── Type roles as classes ──────────────────────────────────────────────────
+   For markup that needs a ladder size outside the element defaults. Each class
+   sets size, face and line height together; never set font-size inline. */
+.t-meta { font-size: var(--size-meta); font-family: var(--face-meta); line-height: var(--lh-meta); }
+.t-compact { font-size: var(--size-compact); font-family: var(--face-compact); line-height: var(--lh-compact); }
+.t-body { font-size: var(--size-body); font-family: var(--face-body); line-height: var(--lh-body); }
+.t-heading { font-size: var(--size-heading); font-family: var(--face-heading); line-height: var(--lh-heading); }
+.t-title { font-size: var(--size-title); font-family: var(--face-title); line-height: var(--lh-title); }
+.t-bold { font-weight: var(--weight-bold); }
+
+/* ── Brand marks (PixelMark) ────────────────────────────────────────────────
+   A 1-bit mask at its native size, painted with a palette token. */
+.mark {
+  display: block;
+  flex: none;
+  background-color: var(--ui-accent);
+  -webkit-mask: var(--mark) no-repeat 0 0 / 100% 100%;
+  mask: var(--mark) no-repeat 0 0 / 100% 100%;
+}
+
+.mark--text {
+  background-color: var(--ui-text);
+}
+
+.mark--dim {
+  background-color: var(--ui-text-dim);
+}
+
+.hero__wordmark {
+  margin: 0 0 var(--gap-5);
+}
+
+.hero__wordmark--small {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .hero__wordmark--large {
+    display: none;
+  }
+
+  .hero__wordmark--small {
+    display: block;
+  }
+}
+
+.with-mark {
+  display: flex;
+  gap: var(--gap-6);
+  align-items: flex-start;
+}
+
+.with-mark > :last-child {
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .with-mark {
+    flex-direction: column;
+  }
+}
+
+.about__banner {
+  margin: 0 0 var(--gap-6);
+}

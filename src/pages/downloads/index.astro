@@ -1,0 +1,131 @@
+---
+/**
+ * Release catalogue (MASTER_ROADMAP M19, FUTURE_GATES FG-023).
+ *
+ * The site hosts no binaries. Each row links to the GitHub release page —
+ * never straight to an asset — and shows the SHA-256 digest GitHub computed
+ * for the asset at the snapshot date, so a visitor can check the file they
+ * download. A project without a release marked "latest" is not listed with a
+ * download at all.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../../data/ecosystem';
+
+const released = PROJECTS.filter((p) => p.release);
+const unreleased = PROJECTS.filter((p) => !p.release && p.maturity !== 'planned');
+const size = (bytes: number) =>
+  bytes >= 1048576 ? `${(bytes / 1048576).toFixed(1)} MB` : bytes >= 1024 ? `${Math.round(bytes / 1024)} KB` : `${bytes} B`;
+---
+
+<SiteLayout
+  title="Downloads"
+  tag="/downloads/"
+  description="Verified release catalogue for SAIPEN and its ecosystem: version, date, platform and SHA-256 digest, linking to the GitHub release pages."
+>
+  <h1>Downloads</h1>
+  <p><MaturityBadge level="preview" note={`release facts as of ${ECOSYSTEM_SNAPSHOT.date}`} /></p>
+  <p>
+    This site hosts no files. Every entry links to the project's GitHub release page and shows the SHA-256 digest
+    GitHub reported for each asset, so you can verify what you download. If a release is newer than this page, the
+    release page is right and this page is stale.
+  </p>
+
+  <h2>SAIPEN itself</h2>
+  <p>
+    SAIPEN is installed from a clone of its repository, not from a binary — see the
+    <a href="/docs/getting-started/quickstart/">Quickstart</a>. Tagged releases mark validated versions of that
+    repository.
+  </p>
+
+  <h2>Releases</h2>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Project</th>
+          <th scope="col">Version</th>
+          <th scope="col">Date</th>
+          <th scope="col">Asset</th>
+          <th scope="col">Platform</th>
+          <th scope="col">SHA-256 (GitHub)</th>
+          <th scope="col">Signature</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          released.map((p) =>
+            (p.release!.assets.length ? p.release!.assets : [null]).map((asset, i) => (
+              <tr>
+                {i === 0 && (
+                  <>
+                    <th scope="row">
+                      <a href={`/ecosystem/#${p.name.toLowerCase()}`}>{p.name}</a>
+                    </th>
+                    <td>
+                      <a href={p.release!.url} rel="noopener" data-external>
+                        {p.release!.tag}
+                      </a>
+                    </td>
+                    <td>{p.release!.date}</td>
+                  </>
+                )}
+                {i > 0 && (
+                  <>
+                    <td />
+                    <td />
+                    <td />
+                  </>
+                )}
+                {asset ? (
+                  <>
+                    <td>
+                      <code>{asset.name}</code> <span class="w-panel__note">{size(asset.bytes)}</span>
+                    </td>
+                    <td>{asset.platform}</td>
+                    <td>
+                      <code class="digest">{asset.sha256}</code>
+                    </td>
+                    <td>none published</td>
+                  </>
+                ) : (
+                  <>
+                    <td>source only</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>—</td>
+                  </>
+                )}
+              </tr>
+            )),
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Verify a download</h2>
+  <p>Compare the digest of the file you downloaded with the table and the release page:</p>
+  <pre class="w-code"><code>certutil -hashfile FastPrompter.exe SHA256          (Windows)
+sha256sum FastPrompter.exe                            (Linux)
+shasum -a 256 FastPrompter.exe                        (macOS)</code></pre>
+  <p class="w-panel__note">
+    No project in this catalogue publishes a code signature yet, and the table says so instead of leaving the column
+    out.
+  </p>
+
+  <h2>Source only</h2>
+  <p>These projects have public source but no release marked latest on GitHub; build them from their repositories.</p>
+  <ul>
+    {
+      unreleased.map((p) => (
+        <li>
+          <a href={p.repo} rel="noopener" data-external>
+            {p.name}
+          </a>{' '}
+          — {p.role}
+        </li>
+      ))
+    }
+  </ul>
+</SiteLayout>

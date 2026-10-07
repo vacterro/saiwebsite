@@ -1,0 +1,56 @@
+---
+/**
+ * Classic control. Renders an anchor when `href` is given, otherwise a button —
+ * so navigation stays navigation and actions stay actions.
+ */
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  /** `active` is the pressed/sunken state; `disabled` keeps geometry and mutes text. */
+  state?: 'normal' | 'active' | 'disabled';
+  /** Emphasis for the primary action on a surface. */
+  variant?: 'default' | 'primary';
+  size?: 'default' | 'small';
+  /** Set when the button triggers a real action the bootstrap does not have yet. */
+  title?: string;
+  class?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  state = 'normal',
+  variant = 'default',
+  size = 'default',
+  title,
+  class: className = '',
+} = Astro.props;
+
+const disabled = state === 'disabled';
+const classes = [
+  'w-button',
+  variant === 'primary' && 'w-button--primary',
+  size === 'small' && 'w-button--small',
+  state === 'active' && 'is-active',
+  disabled && 'is-disabled',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+// A disabled control must not be focusable and must not navigate. An anchor
+// keeps its text style but loses its href rather than pretending to be a link.
+const rel = disabled ? undefined : href;
+---
+
+{
+  rel ? (
+    <a class={classes} href={rel} title={title}>
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} type={type} disabled={disabled} aria-disabled={disabled || undefined} title={title}>
+      <slot />
+    </button>
+  )
+}

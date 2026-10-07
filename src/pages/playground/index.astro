@@ -1,0 +1,40 @@
+---
+/**
+ * Deterministic playground index (MASTER_ROADMAP M23). Each scenario has its
+ * own permanent URL, so choosing one needs no script.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SCENARIOS } from '../../data/scenarios';
+---
+
+<SiteLayout
+  title="Playground"
+  tag="/playground/"
+  description="Step through scripted SAIPEN scenarios — provider outage, failed verification, a destructive step, an interrupted checkpoint — and watch STATE, BOARD and LOG change."
+>
+  <h1>Playground</h1>
+  <p><MaturityBadge level="preview" note="deterministic simulation — nothing is executed, no model is called" /></p>
+  <p>
+    Each scenario is a scripted sequence of protocol states. Step through it and watch what a SAIPEN project's
+    <code>STATE.md</code>, <code>BOARD.md</code> and <code>LOG.md</code> look like after every action. The scripts follow
+    the canonical rules: every phase change in them is checked against the registry's transition table when the site
+    is built.
+  </p>
+  <p class="w-panel__note">No account, no API key, no backend. Without JavaScript each scenario reads as a document.</p>
+
+  <dl class="doclist">
+    {
+      SCENARIOS.map((s) => (
+        <>
+          <dt>
+            <a href={`/playground/${s.slug}/`}>{s.title}</a>
+          </dt>
+          <dd>
+            {s.summary} <span class="w-panel__note">Shows: {s.teaches.join(', ')}. {s.steps.length} steps.</span>
+          </dd>
+        </>
+      ))
+    }
+  </dl>
+</SiteLayout>

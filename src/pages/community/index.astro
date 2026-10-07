@@ -1,0 +1,87 @@
+---
+/**
+ * Community (FUTURE_GATES FG-021: the trigger is real — a public channel and
+ * issue trackers exist). Links only; no forum is built into the site. Routing
+ * follows the SAIPEN HQ branding contract: Discord for conversation, GitHub
+ * Issues for reproducible bugs and durable requests.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SITE } from '../../data/site';
+import { sourceUrl } from '../../lib/canonical';
+---
+
+<SiteLayout
+  title="Community"
+  tag="/community/"
+  description="Where to talk about SAIPEN, where to file bugs, and how to propose a protocol change."
+>
+  <h1>Community</h1>
+  <p><MaturityBadge level="stable" /></p>
+
+  <div class="cards">
+    <article class="card">
+      <header class="card__head"><h2 class="card__title">Discuss</h2></header>
+      <div class="card__body">
+        <p>
+          The SAIPEN Community on Discord: quick questions, screenshots, rough ideas and cross-project feedback.
+        </p>
+        <p class="card__links">
+          <a class="w-button w-button--small" href={SITE.community} rel="noopener" data-external>Join the Discord</a>
+        </p>
+      </div>
+    </article>
+    <article class="card">
+      <header class="card__head"><h2 class="card__title">Report</h2></header>
+      <div class="card__body">
+        <p>
+          Reproducible bugs and durable feature requests belong in GitHub Issues, so they do not disappear into chat
+          history. Each ecosystem project has its own tracker.
+        </p>
+        <p class="card__links">
+          <a class="w-button w-button--small" href={SITE.issues} rel="noopener" data-external>Open SAIPEN issues</a>
+        </p>
+      </div>
+    </article>
+    <article class="card">
+      <header class="card__head"><h2 class="card__title">Contribute</h2></header>
+      <div class="card__body">
+        <p>
+          SAIPEN is a specification first: most contributions change the protocol documents, a phase file or the
+          conformance tooling. Read the contributing guide before proposing a change.
+        </p>
+        <p class="card__links">
+          <a class="w-button w-button--small" href={sourceUrl('CONTRIBUTING.md')} rel="noopener" data-external>Read CONTRIBUTING.md</a>
+        </p>
+      </div>
+    </article>
+  </div>
+
+  <h2>Proposing a protocol change</h2>
+  <p>Every idea is first run through the litmus test:</p>
+  <ol>
+    <li>Does it make the transition between agents more reliable?</li>
+    <li>Does it make the behaviour of different models more uniform?</li>
+    <li>Does it reduce the probability of context loss?</li>
+  </ol>
+  <p>
+    Two "no" answers put it out of scope for the protocol, however useful it is elsewhere. A good report names the file
+    and section, shows concrete evidence — a quote, a command and its output, a breaking scenario — and says what you
+    expected instead. Normative changes need a changelog entry and, where practical, validator or scenario coverage,
+    and the canonical validator (<code>python tools/validate.py</code>) must pass.
+  </p>
+
+  <h2>Already decided</h2>
+  <p>These were proposed and evaluated before; reopening them needs new evidence, not a new request:</p>
+  <ul>
+    <li>turning SAIPEN into a distributed consensus system;</li>
+    <li>a machine-parseable LOG marker grammar beyond the existing line skeleton;</li>
+    <li>a <code>saipen doctor</code> command that would duplicate <code>validate</code> and <code>status</code>.</li>
+  </ul>
+
+  <h2>Conduct</h2>
+  <p>
+    The project's <a href={sourceUrl('CODE_OF_CONDUCT.md')} rel="noopener" data-external>code of conduct</a> applies in
+    the repository and in the community channels.
+  </p>
+</SiteLayout>

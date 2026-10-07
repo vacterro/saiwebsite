@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-004:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-5 closed with verification evidence in LOG: verify -> PASS [target: T-5] conf: high -- npm run test:pixel: 36 passed chromium+webkit, every pixel of 17 pages in 21-token palette; controls red: AA circle detected, WebKit subpixel text detected. Before fix the same gate failed all 17 pages (miter corners, UA bullets/markers, link underline, disabled opacity). npm run lint OK, red control (radius/opacity/size) FAIL as expected. check 0/0; audi",
+      "text": "Design must be exactly Wintage + SAIPEN UI.md: no anti-aliasing, pixel perfect (proof by rendered pixels)",
+      "verification": "the Work this request created reached its own verification gate; see the T-5 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-5"
+    }
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,52 @@
+---
+/**
+ * Canonical breadcrumb trail (MASTER_ROADMAP M4).
+ *
+ * Semantic `<nav aria-label="Breadcrumb">` + ordered list, so assistive
+ * technology reads the hierarchy rather than a decorated caption. The separator
+ * is CSS, not a character in the markup: a screen reader announces the list
+ * items, not "greater-than".
+ *
+ * Every intermediate entry is inert text unless its route actually exists — a
+ * breadcrumb link to a page that was never built is the same lie as a dead menu
+ * link. The current page is the last item and carries aria-current="page"
+ * instead of a self-link.
+ *
+ * Deeper trails (M5 documentation hierarchy) are a longer `items` array; this
+ * component does not need to know how they were derived.
+ */
+interface Crumb {
+  label: string;
+  /** Omitted for an inert segment and for the current page. */
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+  /** Pathname the crumbs were derived from; the last item is marked current. */
+  current: string;
+}
+
+const { items, current } = Astro.props;
+const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
+---
+
+<nav class="w-crumbs" aria-label="Breadcrumb">
+  <ol class="w-crumbs__list">
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        const isCurrent = item.href !== undefined && withSlash(item.href) === withSlash(current);
+        return (
+          <li class="w-crumbs__item">
+            {item.href && !isCurrent && !isLast ? (
+              <a href={item.href}>{item.label}</a>
+            ) : (
+              <span aria-current={isCurrent || isLast ? 'page' : undefined}>{item.label}</span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-003:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-4 closed with verification evidence in LOG: verify -> PASS [target: T-4] conf: high -- build 71 pages; check 0/0; lint OK 53 files; validate:themes exit 0; validate:canonical OK; validate:content OK 5088 links 535 anchors; audit:build OK 71 pages; playwright 340 passed 1 skipped (pixel 61 pages x chromium+webkit + 390px + 16 palettes, shell, content, runtime, visual 33). RED: content(broken link/anchor/dup id) FAIL; lint FAIL; audit illegal",
+      "text": "Continue fully building the site to completion, roadmap as guide",
+      "verification": "the Work this request created reached its own verification gate; see the T-4 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-4"
+    }
+  },
+  "schema_version": 1
+}

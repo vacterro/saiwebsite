@@ -1,0 +1,82 @@
+---
+/**
+ * Benchmarks (MASTER_ROADMAP M21, FUTURE_GATES FG-004): methodology before
+ * numbers. The only figures shown are the protocol's own verification counts,
+ * quoted with their release and source, and clearly labelled as test-suite
+ * evidence rather than performance or recovery benchmarks.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { sourceUrl } from '../../lib/canonical';
+
+const METRICS = [
+  ['Recovery success rate', 'Share of interrupted runs that reach the next verified boundary after a cold continue, with no human briefing.'],
+  ['Mean recovery time', 'Wall-clock time from a cold `saipen continue` to the first productive action after an interruption.'],
+  ['Manual intervention rate', 'Share of runs that stop at a WAIT, split by WAIT category, so a legitimate boundary is not counted as a failure.'],
+  ['Continuation success', 'Share of handoffs between different models or hosts that resume the same ticket at the same phase.'],
+  ['Protocol overhead', 'Extra tokens and wall-clock time per ticket spent on checkpoints, reads and validation.'],
+  ['Evidence completeness', 'Share of DONE tickets whose LOG evidence satisfies their verify contract at the declared witness level.'],
+  ['Conformance pass rate', 'Share of conformance scenarios passing for a given SAIPEN version.'],
+];
+---
+
+<SiteLayout
+  title="Benchmarks"
+  tag="/benchmarks/"
+  description="SAIPEN benchmark methodology: what will be measured, how, and why no recovery or performance numbers are published yet."
+>
+  <h1>Benchmarks</h1>
+  <p><MaturityBadge level="draft" note="methodology only — no benchmark results are published" /></p>
+  <p>
+    A number is only as meaningful as the method behind it: which model and host, which interruptions, what counted
+    as recovered, how many runs. This page publishes the method first. Results will appear only when they come from a
+    defined, repeatable pipeline — never as a placeholder or a vanity counter.
+  </p>
+
+  <h2>Planned metrics</h2>
+  <dl class="doclist">
+    {
+      METRICS.map(([name, def]) => (
+        <>
+          <dt>{name}</dt>
+          <dd>{def}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>Method requirements</h2>
+  <ol>
+    <li>Each run records the SAIPEN version and commit, the host and its adapter strength, and the model.</li>
+    <li>Interruptions are injected deterministically — killed process, exhausted context, unavailable provider — and logged as such.</li>
+    <li>"Recovered" means the next agent reached the next verified boundary from the files alone, judged against the ticket's own verify contract.</li>
+    <li>Every run's `.saipen/` directory is kept as evidence, so a third party can re-check the verdict.</li>
+    <li>Results are published with their sample size and the runs that failed, not only an average.</li>
+  </ol>
+
+  <h2>What exists today: verification counts, not benchmarks</h2>
+  <p>
+    The SAIPEN repository reports its own test-suite results in release notes. They show how much of the protocol is
+    machine-checked; they say nothing about recovery rates in real projects.
+  </p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Release</th>
+          <th scope="col">Reported verification</th>
+          <th scope="col">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">8.0.2</th>
+          <td>core-unit 4,623 checks, 0 red; scenario suite 1,231 PASS; ruff clean on the tracked surface</td>
+          <td>
+            <a href={sourceUrl('CHANGELOG.md')} rel="noopener" data-external>CHANGELOG.md</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</SiteLayout>

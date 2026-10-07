@@ -1,0 +1,36 @@
+---
+/**
+ * Maturity label. Two channels always: the word, plus a hue. Nothing on this
+ * site reports its state by colour alone (WINTAGE_WEB_CONTRACT §13).
+ *
+ * Understands both closed vocabularies from the roadmap: page maturity
+ * (§1) and integration/project maturity (§5).
+ */
+import type { Maturity } from '../data/site';
+
+interface Props {
+  level: Maturity;
+  /** Longer explanation for the reader, shown next to the badge. */
+  note?: string;
+}
+
+const { level, note } = Astro.props;
+
+const tone: Record<Maturity, string> = {
+  placeholder: 'w-badge--info',
+  draft: 'w-badge--warn',
+  preview: 'w-badge--info',
+  stable: 'w-badge--ok',
+  deprecated: 'w-badge--err',
+  supported: 'w-badge--ok',
+  experimental: 'w-badge--warn',
+  planned: 'w-badge--info',
+  unavailable: 'w-badge--err',
+  unknown: 'w-badge',
+};
+---
+
+<span class="row">
+  <span class={`w-badge ${tone[level]}`}>{level.toUpperCase()}</span>
+  {note && <span class="w-panel__note">{note}</span>}
+</span>

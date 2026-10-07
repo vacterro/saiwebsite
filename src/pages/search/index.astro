@@ -1,0 +1,96 @@
+---
+/**
+ * Search (MASTER_ROADMAP M13). The form is a plain GET form, so the query is a
+ * shareable URL. Results are computed in the browser from /search-index.json.
+ * Without JavaScript the page says so and offers the documentation index.
+ * Ctrl+K / Cmd+K anywhere on the site jumps here.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Search" tag="/search/" description="Search the SAIPEN documentation, specification, ecosystem and blog.">
+  <h1>Search</h1>
+  <p><MaturityBadge level="stable" note="runs in your browser over a static index — no query leaves this page" /></p>
+  <form class="search" action="/search/" method="get" role="search">
+    <label class="w-field__label" for="q">Search docs, spec and ecosystem</label>
+    <div class="row">
+      <input class="w-input search__input" id="q" name="q" type="search" autocomplete="off" />
+      <button class="w-button w-button--primary" type="submit">Search</button>
+    </div>
+    <p class="w-field__help">Tip: Ctrl+K or Cmd+K opens this page from anywhere. Technical pages rank above blog posts.</p>
+  </form>
+
+  <p class="search__status" data-status aria-live="polite">
+    Search runs in your browser. With JavaScript off, use the <a href="/docs/">documentation index</a> or the
+    <a href="/spec/">specification</a>.
+  </p>
+  <ol class="plain search__results" data-results></ol>
+</SiteLayout>
+
+<script>
+  type Entry = { url: string; title: string; kind: string; rank: number; text: string };
+
+  const params = new URLSearchParams(location.search);
+  const query = (params.get('q') ?? '').trim();
+  const input = document.querySelector<HTMLInputElement>('#q');
+  const status = document.querySelector<HTMLElement>('[data-status]');
+  const list = document.querySelector<HTMLOListElement>('[data-results]');
+
+  if (input) input.value = query;
+  if (status) status.textContent = query ? 'Searching…' : 'Type a word and press Search.';
+
+  const score = (entry: Entry, terms: string[]) => {
+    const title = entry.title.toLowerCase();
+    const text = entry.text.toLowerCase();
+    let total = 0;
+    for (const term of terms) {
+      const t = title.includes(term) ? 10 : 0;
+      const b = text.includes(term) ? 2 : 0;
+      if (!t && !b) return 0;
+      total += t + b;
+    }
+    return total * entry.rank;
+  };
+
+  const snippet = (text: string, term: string) => {
+    const at = text.toLowerCase().indexOf(term);
+    if (at < 0) return text.slice(0, 160);
+    const start = Math.max(0, at - 60);
+    return `${start > 0 ? '…' : ''}${text.slice(start, start + 180)}…`;
+  };
+
+  if (query && list && status) {
+    fetch('/search-index.json')
+      .then((r) => r.json())
+      .then((entries: Entry[]) => {
+        const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const hits = entries
+          .map((e) => ({ e, s: score(e, terms) }))
+          .filter((h) => h.s > 0)
+          .sort((a, b) => b.s - a.s)
+          .slice(0, 40);
+        status.textContent = hits.length
+          ? `${hits.length} result${hits.length === 1 ? '' : 's'} for "${query}".`
+          : `No results for "${query}". Try a shorter word, or browse the documentation index.`;
+        for (const { e } of hits) {
+          const li = document.createElement('li');
+          li.className = 'search__hit';
+          const a = document.createElement('a');
+          a.href = e.url;
+          a.textContent = e.title;
+          const kind = document.createElement('span');
+          kind.className = 'w-panel__note';
+          kind.textContent = ` ${e.kind}`;
+          const p = document.createElement('p');
+          p.className = 'search__snippet';
+          p.textContent = snippet(e.text, terms[0]);
+          li.append(a, kind, p);
+          list.append(li);
+        }
+      })
+      .catch(() => {
+        status.textContent = 'The search index could not be loaded. Use the documentation index instead.';
+      });
+  }
+</script>

@@ -1,0 +1,18 @@
+---
+import AliasPage from '../../../components/AliasPage.astro';
+import { SPEC_VERSION } from '../../../lib/canonical';
+import { SPEC_TOPICS } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return SPEC_TOPICS.map((t) => ({ params: { topic: t.slug }, props: { title: t.title } }));
+}
+
+const { topic } = Astro.params;
+const { title } = Astro.props;
+---
+
+<AliasPage
+  target={`/spec/${SPEC_VERSION}/${topic}/`}
+  title={`Latest: ${title}`}
+  explanation={`This alias always points at the newest protocol major, currently ${SPEC_VERSION}.`}
+/>

@@ -1,0 +1,137 @@
+---
+/**
+ * Deterministic scenario player (MASTER_ROADMAP M23).
+ *
+ * Without JavaScript every step is rendered in order — the whole scenario is a
+ * readable static document. With JavaScript the same markup becomes a
+ * stepper: one step visible, Previous / Next / Restart buttons, and a text
+ * counter ("Step 3 of 9") instead of any motion (UI.md predictability rules).
+ * Nothing advances on a timer; only the visitor moves the scenario.
+ */
+import type { Scenario, Snapshot, Ticket } from '../data/scenarios';
+
+interface Props {
+  scenario: Scenario;
+}
+
+const { scenario } = Astro.props;
+const total = scenario.steps.length;
+
+const stateYaml = (s: Snapshot) =>
+  [
+    '---',
+    `phase: ${s.phase}`,
+    `task: ${s.task}`,
+    `next_action: "${s.next_action}"`,
+    `blocker: ${s.blocker ?? 'none'}`,
+    `agent: ${s.agent}`,
+    `mode: ${s.mode ?? 'full'}`,
+    `last_event: ${s.last_event}`,
+    '---',
+  ].join('\n');
+
+const ticketLine = (box: string, t: Ticket) => `- ${box} ${t.id} ${t.title}${t.extra ? ` | ${t.extra}` : ''}`;
+const boardText = (s: Snapshot) =>
+  [
+    '## DOING',
+    ...s.doing.map((t) => ticketLine('[/]', t)),
+    '',
+    '## TODO',
+    ...s.todo.map((t) => ticketLine('[ ]', t)),
+    '',
+    '## DONE',
+    ...s.done.map((t) => ticketLine('[x]', t)),
+    '',
+    '## BLOCKED',
+    ...s.blocked.map((t) => ticketLine('[ ]', t)),
+  ].join('\n');
+
+let log: string[] = [];
+const steps = scenario.steps.map((step) => {
+  log = [...log, ...step.log];
+  return { ...step, logTail: log.slice(-5).join('\n') || '(no events yet in this scenario)' };
+});
+
+const KIND_LABEL = { stop: 'WAIT', fail: 'FAILURE', recover: 'RECOVERY', ok: 'VERIFIED' } as const;
+const KIND_TONE = { stop: 'w-badge--warn', fail: 'w-badge--err', recover: 'w-badge--info', ok: 'w-badge--ok' } as const;
+---
+
+<div class="player" data-player data-total={total}>
+  <div class="player__bar w-panel w-panel--bar" data-player-controls hidden>
+    <button class="w-button" type="button" data-prev>Previous step</button>
+    <button class="w-button w-button--primary" type="button" data-next>Next step</button>
+    <button class="w-button" type="button" data-reset>Restart</button>
+    <span class="player__count" aria-live="polite" data-count>Step 1 of {total}</span>
+  </div>
+
+  <ol class="player__steps plain">
+    {
+      steps.map((step, i) => (
+        <li class="player__step" data-step={i + 1} id={`step-${i + 1}`}>
+          <header class="player__head">
+            <span class="player__index">
+              Step {i + 1} of {total}
+            </span>
+            <h2 class="player__title">{step.title}</h2>
+            <span class="w-badge">{step.actor}</span>
+            {step.kind && <span class={`w-badge ${KIND_TONE[step.kind]}`}>{KIND_LABEL[step.kind]}</span>}
+          </header>
+          <p class="player__narration">{step.narration}</p>
+          {step.files && (
+            <p class="w-panel__note">
+              Working tree: {step.files.join(', ')}
+            </p>
+          )}
+          <div class="panes">
+            <figure class="pane">
+              <figcaption class="pane__title">.saipen/STATE.md</figcaption>
+              <pre class="w-code pane__body"><code>{stateYaml(step.state)}</code></pre>
+            </figure>
+            <figure class="pane">
+              <figcaption class="pane__title">.saipen/BOARD.md</figcaption>
+              <pre class="w-code pane__body"><code>{boardText(step.state)}</code></pre>
+            </figure>
+            <figure class="pane pane--wide">
+              <figcaption class="pane__title">.saipen/LOG.md (tail)</figcaption>
+              <pre class="w-code pane__body"><code>{step.logTail}</code></pre>
+            </figure>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  // Progressive enhancement: turn the static step list into a stepper.
+  for (const player of document.querySelectorAll<HTMLElement>('[data-player]')) {
+    const steps = [...player.querySelectorAll<HTMLElement>('[data-step]')];
+    const controls = player.querySelector<HTMLElement>('[data-player-controls]');
+    const count = player.querySelector<HTMLElement>('[data-count]');
+    const prev = player.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = player.querySelector<HTMLButtonElement>('[data-next]');
+    const reset = player.querySelector<HTMLButtonElement>('[data-reset]');
+    if (!controls || !count || !prev || !next || !reset || steps.length === 0) continue;
+
+    const fromHash = Number(location.hash.match(/^#step-(\d+)$/)?.[1] ?? 1);
+    let current = Math.min(Math.max(fromHash, 1), steps.length);
+
+    const show = (n: number, focus: boolean) => {
+      current = n;
+      steps.forEach((step, i) => (step.hidden = i + 1 !== n));
+      count.textContent = `Step ${n} of ${steps.length}`;
+      prev.disabled = n === 1;
+      next.disabled = n === steps.length;
+      history.replaceState(null, '', `#step-${n}`);
+      if (focus) steps[n - 1].querySelector<HTMLElement>('h2')?.focus();
+    };
+
+    steps.forEach((step) => step.querySelector('h2')?.setAttribute('tabindex', '-1'));
+    controls.hidden = false;
+    player.classList.add('is-enhanced');
+    prev.addEventListener('click', () => show(Math.max(1, current - 1), false));
+    next.addEventListener('click', () => show(Math.min(steps.length, current + 1), false));
+    reset.addEventListener('click', () => show(1, true));
+    show(current, false);
+  }
+</script>

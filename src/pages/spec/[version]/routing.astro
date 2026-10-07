@@ -1,0 +1,59 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { CHECKPOINT_ORDER, ROUTING, SPEC_VERSION } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('routing')!;
+const MEANING: Record<string, string> = {
+  RECOVER: 'Recover interrupted operations and deterministic state drift.',
+  OBEY: 'Execute the current user command or objective; it supersedes the persisted next_action.',
+  UNBLOCK: 'Unblock only from fresh evidence or explicit authority.',
+  FINISH: 'Finish the one DOING ticket before anything else.',
+  START: 'Start the topmost workable TODO ticket.',
+  MAINTAIN: 'Maintain only when no real Work remains and the intent authorizes it.',
+};
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="routing"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — routing_precedence, checkpoint_order' },
+    { path: 'saipen/CORE.md', label: 'CORE.md §1.5, §1.11' },
+  ]}
+>
+  <h2 id="precedence">Routing precedence</h2>
+  <p>First match wins (<code>routing_precedence</code>).</p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">#</th><th scope="col">Action</th><th scope="col">Meaning</th></tr>
+      </thead>
+      <tbody>
+        {
+          ROUTING.map((step, i) => (
+            <tr>
+              <td>{i + 1}</td>
+              <th scope="row"><code>{step}</code></th>
+              <td>{MEANING[step] ?? ''}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="pipeline">Continuation pipeline</h2>
+  <pre class="w-code"><code>resolve install -&gt; resolve project -&gt; recover journal -&gt; reconcile metadata -&gt; validate -&gt; route</code></pre>
+
+  <h2 id="checkpoint">Checkpoint order</h2>
+  <p>Fixed by <code>checkpoint_order</code>; each file is read back after it is written.</p>
+  <ol>
+    {CHECKPOINT_ORDER.map((file) => <li><code>{file}</code></li>)}
+  </ol>
+</SpecLayout>

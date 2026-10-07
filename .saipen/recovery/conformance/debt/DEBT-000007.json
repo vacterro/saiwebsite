@@ -1,0 +1,50 @@
+{
+  "board_sha256": "10447aad4a6027d3",
+  "bound_work": "T-8",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-07T05:37:50Z",
+  "findings_digest": "22f47d82422a2625f098db3955b30459fa357bf505143773c818a67873c69019",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-7328060617ee",
+  "log_fingerprint": "02e96c1d78b4c25d",
+  "problem_count": 0,
+  "problems": [],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-8",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000007",
+  "source_head": "no-git",
+  "source_tree_fingerprint": "no-git-tree-v1:e8df50a0e87789bf0e9257c7ecc5548a605b4b641098d222bc3090fd43fde8cd",
+  "state_sha256": "5a8089e2e7b97f19",
+  "validator_protocol_version": "1",
+  "warning_count": 2,
+  "warnings": [
+    {
+      "category": "no-conformance-record",
+      "credential": false,
+      "detail": "no LOG line records a conformance run in \u00a7 1.2's fixed form (`RUN: validate.py -> PASS` or `-> FAIL`), so \u00a7 1.10's `saipen status` has nothing to report under Conformance and a cold agent must either ",
+      "detail_hash": "0f511cf104b0873e",
+      "finding_key": "76b48f23558dce11",
+      "rule_id": "unclassified",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}

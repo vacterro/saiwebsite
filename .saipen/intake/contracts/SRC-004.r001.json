@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-004:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Design must be exactly Wintage + SAIPEN UI.md: no anti-aliasing, pixel perfect (proof by rendered pixels)"
+    }
+  },
+  "derived_at": "2026-10-07T04:15:09Z",
+  "derived_from": "SRC-004",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "b525e207f5ecc4f26ca4611b681901afd7ae859a54b6563577768ce098a56bee"
+}

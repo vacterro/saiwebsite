@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const day = post.data.date.toISOString().slice(0, 10);
+---
+
+<SiteLayout
+  title={post.data.title}
+  tag="/blog/"
+  description={post.data.description}
+  ogType="article"
+  crumbs={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog/' }, { label: post.data.title }]}
+>
+  <article class="prose">
+    <h1>{post.data.title}</h1>
+    <p class="w-panel__note">
+      {day} · {post.data.kind} · editorial; the <a href="/spec/">specification</a> is authoritative
+    </p>
+    <p class="docs__lead">{post.data.description}</p>
+    <Content />
+    <p><a class="w-button" href="/blog/">All posts</a></p>
+  </article>
+</SiteLayout>

@@ -1,0 +1,27 @@
+# SAIPEN runtime namespace (machine-local; never release source) -- T-1435.
+# Durable protocol/evidence history (.saipen/evidence, archive, intake,
+# recovery/log-detail, recovery/board-compaction, recovery/conformance,
+# recovery/log-normalize, recovery/log-foreign-tail, extensions) stays
+# versioned; only the mechanics below are excluded.
+.saipen/locks/
+.saipen/cache/
+.saipen/recovery/ops/
+.saipen/snapshots/
+
+# Build output and dependencies
+node_modules/
+dist/
+.astro/
+
+# Playwright run artefacts. tests/baselines/ is versioned on purpose: the
+# screenshots ARE the visual regression reference.
+test-results/
+playwright-report/
+
+# Supplied source archives (reference material, not project source)
+_src_unpack/
+_packs_tmp/
+
+# OS noise
+.DS_Store
+Thumbs.db

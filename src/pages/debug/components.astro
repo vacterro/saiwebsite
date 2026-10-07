@@ -1,0 +1,406 @@
+---
+/**
+ * /debug/components — the visual acceptance bench.
+ *
+ * Every primitive the site uses is rendered in one place, so visual drift can
+ * be reviewed without walking the production pages (BOOTSTRAP_CORRIDOR §10,
+ * WINTAGE_WEB_CONTRACT §25).
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import WintageBreadcrumbs from '../../components/WintageBreadcrumbs.astro';
+import WintageButton from '../../components/WintageButton.astro';
+import WintageCompactNav from '../../components/WintageCompactNav.astro';
+import WintageMenuBar from '../../components/WintageMenuBar.astro';
+import WintageStatusBar from '../../components/WintageStatusBar.astro';
+import WintageWindow from '../../components/WintageWindow.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { MENU_ROUTES, PUBLIC_ROUTES, SECONDARY_ROUTES } from '../../data/site';
+import { REQUIRED_TOKENS, type TokenName } from '../../themes/schema';
+import { defaultTheme, themes } from '../../themes';
+
+/** What each canonical token is FOR. Kept next to the palette so a swatch is readable alone. */
+const ROLES: Record<TokenName, string> = {
+  background: 'page / desktop',
+  backgroundSoft: 'window interior',
+  surface: 'control surface',
+  surfaceRaised: 'raised control fill',
+  surfaceAlt: 'hover surface',
+  borderDark: 'structural dark edge',
+  borderHighlight: 'accent — title bar fill, prose accent',
+  bevelLight: 'structural light edge',
+  borderMuted: '1px grid / inline code edge',
+  textPrimary: 'body text',
+  textSecondary: 'secondary text',
+  textMuted: 'disabled and faint text',
+  accentTeal: 'info / protocol accent',
+  accentTealDeep: 'info, deep',
+  success: 'success fill (always with a word)',
+  warning: 'warning fill (always with a word)',
+  danger: 'danger fill (always with a word)',
+  dangerText: 'danger text on dark',
+  selection: 'text selection background',
+  compareBack: 'code / compare background',
+  link: 'prose links',
+};
+
+/** The laws, written as numbers a reviewer can check against the render. */
+const LAWS: [string, string][] = [
+  ['border-radius', '0 on every element — no pills, no rounded cards'],
+  ['box-shadow', 'none — depth is never a shadow'],
+  ['text-shadow', 'none'],
+  ['backdrop-filter', 'none — no frosted glass'],
+  ['raised bevel', '2px solid, top/left bevelLight, bottom/right borderDark'],
+  ['sunken bevel', '2px solid, top/left borderDark, bottom/right bevelLight'],
+  ['type ladder', '10 / 11 / 12 / 14 / 16px only'],
+  ['font stack', 'SAI Pixel 10/11/12/14/16 (one pixel face per size), SAI Pixel Mono 12 for code'],
+  ['transition', 'none on ordinary UI — interaction is instant'],
+  ['transform scale', 'never on text or pixel assets; 1px integer translate when pressed'],
+];
+
+const CODE_SAMPLE = `$ saipen continue --json
+{
+  "ok": true,
+  "phase": "BUILD",
+  "ticket": "T-1"
+}`;
+---
+
+<SiteLayout title="SAIPEN Protocol — Component bench" tag="/debug/components/">
+  <p><MaturityBadge level="draft" note="internal acceptance surface, not a production route" /></p>
+  <h1>Component bench</h1>
+  <p class="prose">
+    Active palette: <strong>{defaultTheme.label}</strong>
+    {` (${defaultTheme.slug}, order ${defaultTheme.order}) — ${themes.length} packs registered, 21 tokens each.`}
+    Every primitive on this page resolves its colours from canonical theme tokens; no component in
+    this file carries a hex literal.
+  </p>
+
+  <h2>Typography ladder</h2>
+  <div class="bench-group">
+    <div class="w-panel w-panel--sunken">
+      <p class="t-title t-bold">16px — page title</p>
+      <p class="t-heading t-bold">14px — section heading</p>
+      <p class="t-body">12px — body and default UI text</p>
+      <p class="t-compact">11px — compact control text</p>
+      <p class="t-meta">10px — auxiliary metadata</p>
+      <p>
+        Weight 400 regular, <strong>weight 700 bold</strong>, <em>and italic is not a Wintage role</em>.
+      </p>
+      <p class="w-panel__note">
+        Real elements: <small>small renders at 10px</small>, <code class="w-code-inline">code</code>
+        uses the monospace stack, and <a href="#focus">this link</a> stays a link.
+      </p>
+    </div>
+  </div>
+
+  <h2>Colour tokens</h2>
+  <p class="bench-caption">
+    All {REQUIRED_TOKENS.length} canonical tokens of {defaultTheme.label}, read from the pack at build
+    time.
+  </p>
+  <div class="swatches bench-group">
+    {
+      REQUIRED_TOKENS.map((token) => (
+        <div>
+          <div class="swatch__chip" style={`background-color:var(--${token})`} />
+          <p class="swatch__name">{token}</p>
+          <p class="swatch__value">{defaultTheme.tokens[token]}</p>
+          <p class="swatch__value">{ROLES[token]}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>Depth: the two bevels</h2>
+  <div class="bench-group">
+    <div class="row">
+      <div class="w-raised" style="padding:var(--gap-5);background-color:var(--ui-raised);width:200px">
+        <p style="margin:0">raised — 2px</p>
+      </div>
+      <div class="w-sunken" style="padding:var(--gap-5);background-color:var(--ui-window);width:200px">
+        <p style="margin:0">sunken — 2px</p>
+      </div>
+      <div class="w-panel" style="width:200px"><p style="margin:0">raised panel</p></div>
+      <div class="w-panel w-panel--sunken" style="width:200px"><p style="margin:0">sunken panel</p></div>
+    </div>
+    <p class="w-panel__note">
+      No inset box-shadow is used to fake a second bevel row. Both patterns are pure 2px borders,
+      which is why they survive every palette and every DPI.
+    </p>
+  </div>
+
+  <h2>Buttons</h2>
+  <div class="bench-group">
+    <div class="row">
+      <WintageButton>Default</WintageButton>
+      <WintageButton variant="primary">Primary</WintageButton>
+      <WintageButton state="active">Active / pressed</WintageButton>
+      <WintageButton state="disabled">Disabled</WintageButton>
+      <WintageButton size="small">Small</WintageButton>
+    </div>
+    <div class="row">
+      <button class="w-button" type="button">Native button element</button>
+      <a class="w-button" href="/">Anchor styled as a control</a>
+      <button class="w-button is-active" type="button">Class-driven pressed</button>
+    </div>
+    <p class="w-panel__note">
+      Hover raises the fill to <code class="w-code-inline">--surfaceAlt</code> with no transition and
+      no scale. Pressed inverts the bevel and translates the label one whole pixel. Disabled keeps
+      its geometry and mutes only the text.
+    </p>
+  </div>
+
+  <h2>Form controls</h2>
+  <div class="bench-group">
+    <div class="grid-2">
+      <div>
+        <label class="w-field" for="bench-text">
+          <span class="w-field__label">Text input</span>
+          <input class="w-input" id="bench-text" type="text" placeholder="placeholder text" />
+          <span class="w-field__help">Sunken 2px bevel. Caret and selection stay visible.</span>
+        </label>
+        <label class="w-field" for="bench-disabled">
+          <span class="w-field__label">Disabled input</span>
+          <input class="w-input" id="bench-disabled" type="text" value="unavailable" disabled />
+        </label>
+        <label class="w-field" for="bench-area">
+          <span class="w-field__label">Textarea</span>
+          <textarea class="w-textarea" id="bench-area" rows="3">Multi-line control. Resizes
+vertically only.</textarea>
+        </label>
+      </div>
+      <div>
+        <label class="w-field" for="bench-select">
+          <span class="w-field__label">Select</span>
+          <span class="w-select-wrap">
+            <select class="w-select" id="bench-select">
+              {
+                themes.map((pack) => (
+                  <option value={pack.slug} selected={pack.slug === defaultTheme.slug}>
+                    {pack.label}
+                  </option>
+                ))
+              }
+            </select>
+          </span>
+          <span class="w-field__help">
+            The native arrow is suppressed with appearance: none and redrawn as a temporary vector
+            mark; a pixel asset replaces it when the icon grid lands.
+          </span>
+        </label>
+        <label class="w-field" for="bench-select-disabled">
+          <span class="w-field__label">Disabled select</span>
+          <span class="w-select-wrap">
+            <select class="w-select" id="bench-select-disabled" disabled>
+              <option>not available</option>
+            </select>
+          </span>
+        </label>
+        <p class="w-field">
+          <span class="w-check">
+            <input id="bench-check" type="checkbox" checked />
+            <label for="bench-check">Native checkbox, kept native for semantics</label>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="focus">Links and focus</h2>
+  <div class="bench-group">
+    <p class="prose">
+      A prose link looks like <a href="/docs/">a prose link</a> — permanently underlined, so hover is
+      never the only difference. In a list:
+    </p>
+    <ul>
+      <li><a href="/spec/">Specification route</a></li>
+      <li><a href="/ecosystem/">Ecosystem route</a></li>
+    </ul>
+    <div class="row">
+      <WintageButton href="/">Tab to me</WintageButton>
+      <input class="w-input" style="width:180px" aria-label="Focus sample input" value="Tab to me" />
+      <a href="/about/">Tab to me</a>
+    </div>
+    <p class="bench-caption">Static mirror of the focus treatment, so it is visible without a keypress:</p>
+    <div class="row">
+      <span class="w-button" style="outline:var(--bevel) solid var(--ui-accent);outline-offset:1px">
+        Focus ring sample
+      </span>
+      <span class="w-input" style="width:180px;display:inline-block;outline:var(--bevel) solid var(--ui-accent);outline-offset:1px">
+        Focus ring sample
+      </span>
+    </div>
+    <p class="w-panel__note">
+      Focus is a hard 2px outline in the accent colour, offset by one whole pixel. It is never
+      removed, and never replaced by a shadow ring.
+    </p>
+  </div>
+
+  <h2>Status colours and badges</h2>
+  <div class="bench-group">
+    <div class="row">
+      <span class="w-badge w-badge--ok">success</span>
+      <span class="w-badge w-badge--warn">warning</span>
+      <span class="w-badge w-badge--err">danger</span>
+      <span class="w-badge w-badge--info">info</span>
+      <span class="w-badge">neutral</span>
+    </div>
+    <div class="row">
+      <span class="w-badge w-badge--ok">OK</span>
+      <span class="w-badge w-badge--warn">WARN</span>
+      <span class="w-badge w-badge--err">FAIL</span>
+      <span class="w-badge w-badge--info">PLACEHOLDER</span>
+      <span class="w-badge w-badge--warn">DRAFT</span>
+      <span class="w-badge w-badge--new">NEW</span>
+    </div>
+    <div class="row">
+      <MaturityBadge level="placeholder" />
+      <MaturityBadge level="draft" />
+      <MaturityBadge level="preview" />
+      <MaturityBadge level="stable" />
+      <MaturityBadge level="deprecated" />
+      <MaturityBadge level="planned" />
+      <MaturityBadge level="unavailable" />
+      <MaturityBadge level="unknown" />
+    </div>
+    <p class="w-panel__note">
+      Every badge carries a word as well as a hue. Status colour is never the only channel, and the
+      square mark is a bordered element rather than a glyph, so it cannot be substituted by an
+      emoji font.
+    </p>
+  </div>
+
+  <h2>Window chrome, menu strip and toolbar</h2>
+  <div class="bench-group">
+    <WintageWindow title="Sample window" tag="inner frame">
+      <div class="w-toolbar">
+        <span class="w-toolbar__label">Toolbar</span>
+        <button class="w-button w-button--small" type="button">Action</button>
+        <button class="w-button w-button--small" type="button">Action</button>
+        <button class="w-button w-button--small" type="button" disabled>Unavailable</button>
+      </div>
+      <p>
+        An inner window renders the same title bar, bevel and geometry as the site shell. This one
+        deliberately does not claim the main landmark.
+      </p>
+      <nav class="w-menubar" aria-label="Sample menu">
+        <a href="/">File</a>
+        <a href="/">Edit</a>
+        <a href="/">View</a>
+        <a href="/">Help</a>
+      </nav>
+      <p class="w-panel__note">
+        These sample menu anchors point at routes that exist; no sample control is dead by design.
+      </p>
+    </WintageWindow>
+  </div>
+
+  <h2>Table</h2>
+  <div class="bench-group">
+    <div class="w-table-scroll">
+      <table class="w-table">
+        <caption class="bench-caption">Grid lines are 1px; only bevels are 2px.</caption>
+        <thead>
+          <tr><th scope="col">Primitive</th><th scope="col">Depth</th><th scope="col">Radius</th><th scope="col">Shadow</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Button</th><td>raised 2px</td><td>0</td><td>none</td></tr>
+          <tr><th scope="row">Input</th><td>sunken 2px</td><td>0</td><td>none</td></tr>
+          <tr><th scope="row">Panel</th><td>raised 2px</td><td>0</td><td>none</td></tr>
+          <tr><th scope="row">Code block</th><td>sunken 2px</td><td>0</td><td>none</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Code block</h2>
+  <div class="bench-group">
+    <pre class="w-code"><code>{CODE_SAMPLE}</code></pre>
+    <p class="w-panel__note">
+      Sunken 2px, hard background, monospace stack. Monospace is the one documented exception to
+      Wintage's Verdana-everywhere rule: the website contract asks code blocks for a monospace font,
+      and reading code in Verdana is a real usability loss.
+    </p>
+  </div>
+
+  <h2>Shell navigation and breadcrumbs</h2>
+  <div class="bench-group">
+    <div class="w-panel w-panel--sunken">
+      <p class="w-panel__note">
+        The real shell components, rendered from the real route registry rather than rebuilt here, so
+        a specimen cannot drift from the routes the site actually serves. The landmark labels are
+        suffixed only in this bench, because the page you are on already has its own navigation.
+      </p>
+      <WintageMenuBar
+        items={MENU_ROUTES}
+        more={SECONDARY_ROUTES}
+        path="/debug/components/"
+        label="Main (specimen)"
+      />
+      <p class="w-panel__note">
+        Primary six stay flat; reserved routes sit behind the "More" <code class="w-code-inline">details</code>,
+        which opens on click and on keyboard activation, contains real anchors, and therefore needs no
+        hover, no overlay and no script.
+      </p>
+      <WintageCompactNav items={PUBLIC_ROUTES} path="/debug/components/" label="Site (specimen)" />
+      <p class="w-panel__note">
+        The compact navigation is <code class="w-code-inline">display: none</code> above 640px, and this
+        bench's menu strip is hidden below it, so the two swap instead of stacking. Resize the window
+        to watch the hand-off; a visitor without JavaScript gets the same swap, because it is CSS.
+      </p>
+    </div>
+    <div class="w-panel w-panel--sunken">
+      <WintageBreadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Debug' },
+          { label: 'Components', href: '/debug/components/' },
+        ]}
+        current="/debug/components/"
+      />
+      <p class="w-panel__note">
+        Semantic trail: <code class="w-code-inline">nav aria-label="Breadcrumb"</code> around an ordered
+        list, a real Home link, an inert "Debug" segment because no /debug/ route exists, and
+        <code class="w-code-inline">aria-current="page"</code> on the entry that is this page. The
+        separator is CSS, so nothing announces as punctuation.
+      </p>
+    </div>
+  </div>
+
+  <h2>Status bar</h2>
+  <div class="bench-group">
+    <WintageStatusBar
+      fields={[
+        { text: 'READY', grow: true },
+        { text: 'tokens: 21' },
+        { text: 'palette: Golden Default' },
+        { text: 'bench sample' },
+      ]}
+    />
+    <p class="w-panel__note">
+      Static fields only. No live status is shown anywhere on this site, because there is no service
+      to report on.
+    </p>
+  </div>
+
+  <h2>The laws, as checkable numbers</h2>
+  <div class="bench-group">
+    <div class="w-table-scroll">
+      <table class="w-table">
+        <thead>
+          <tr><th scope="col">Law</th><th scope="col">Required value</th></tr>
+        </thead>
+        <tbody>
+          {
+            LAWS.map(([law, value]) => (
+              <tr>
+                <th scope="row">{law}</th>
+                <td>{value}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</SiteLayout>

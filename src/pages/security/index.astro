@@ -1,0 +1,86 @@
+---
+/**
+ * Security (MASTER_ROADMAP M20). The protocol's own policy is SECURITY.md in
+ * the SAIPEN repository; this page restates it, links it, and adds the trust
+ * model of this static website. No bounty, response-time promise or private
+ * address is invented.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SHORT_COMMIT, sourceUrl } from '../../lib/canonical';
+import { SITE } from '../../data/site';
+---
+
+<SiteLayout
+  title="Security"
+  tag="/security/"
+  description="SAIPEN security scope, supported versions and how to report a vulnerability, plus the trust model of this static website."
+>
+  <h1>Security</h1>
+  <p><MaturityBadge level="stable" note={`restates SECURITY.md @ ${SHORT_COMMIT}; the repository file is authoritative`} /></p>
+
+  <h2>Scope</h2>
+  <p>
+    SAIPEN is a specification plus a small set of local install, uninstall and export scripts. It runs no server,
+    collects no telemetry and transmits no data. Everything the scripts do is local filesystem writes to files you
+    already control: your agent configuration and each project's <code>.saipen/</code>.
+  </p>
+  <ul>
+    <li>
+      <strong>Your own instruction files</strong> (<code>CLAUDE.md</code>, <code>AGENTS.md</code>, <code>GEMINI.md</code>,
+      <code>.aider.conf.yml</code>) are only changed by adding or removing a delimited <code>SAIPEN:BEGIN</code> /
+      <code>END</code> block, and the original is copied to <code>&lt;file&gt;.bak</code> first.
+    </li>
+    <li>
+      <strong>Skill directories</strong> created by the installer are SAIPEN-owned copies and are not backed up.
+      Keep customisations in your own configuration block or a fork, not inside a copied skill folder.
+    </li>
+  </ul>
+
+  <h2>What is worth a report</h2>
+  <ol>
+    <li>A bootstrap script doing something to your filesystem or Git history beyond what its own comments and README describe.</li>
+    <li>
+      A real gap in the protocol's secrets-hygiene rule — never write keys, tokens or passwords into STATE, BOARD,
+      LOG, KNOWLEDGE, kitchen, extensions, recovery or logs — that would make an agent following SAIPEN leak a secret
+      into a committed file. Recovery and log sealing copy content verbatim by design, so anything that reaches the
+      original is archived with it.
+    </li>
+  </ol>
+
+  <h2>How to report</h2>
+  <p>
+    Open an issue in the <a href={SITE.issues} rel="noopener" data-external>SAIPEN repository</a>. For a real,
+    currently exploitable problem, use the repository's <strong>Security</strong> tab ("Report a vulnerability") to
+    file a private advisory instead, so it is not public before a fix ships. Include the script or rule, the concrete
+    scenario, and what actually happens versus what should happen.
+  </p>
+
+  <h2>Supported versions</h2>
+  <p>
+    Only the latest tagged release on <code>main</code> is supported. SAIPEN is a protocol specification, not a
+    long-lived service; there is no LTS branch. There is no bug bounty.
+  </p>
+
+  <h2>Checking what you install</h2>
+  <p>
+    SAIPEN installs from a Git clone, so the commit you check out is the integrity reference. For ecosystem binaries,
+    the <a href="/downloads/">downloads catalogue</a> lists the SHA-256 digest GitHub reports for each release asset.
+    No project currently publishes a code signature.
+  </p>
+
+  <h2>This website</h2>
+  <ul>
+    <li>Fully static HTML, CSS and fonts. No backend, no forms, no accounts, no uploads.</li>
+    <li>No cookies, no analytics, no third-party requests — fonts and styles are served from this site.</li>
+    <li>
+      One value in your browser's local storage: the palette you picked in the theme menu. Nothing else is stored and
+      nothing is sent anywhere.
+    </li>
+    <li>Two small scripts: the pre-paint theme restore and the theme menu. The playground and search pages add their own, run locally.</li>
+  </ul>
+
+  <p class="w-panel__note">
+    Canonical policy: <a href={sourceUrl('SECURITY.md')} rel="noopener" data-external>SECURITY.md</a>.
+  </p>
+</SiteLayout>

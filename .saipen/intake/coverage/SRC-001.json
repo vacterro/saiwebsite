@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-001:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-1 closed with verification evidence in LOG: verify -> PASS [target: T-1] conf: high -- npm run build (exit 0; 8 pages built; output static, dist/{index,about,docs,ecosystem,pricing,spec}/index.html + dist/debug/{components,themes}/index.html + dist/_astro/index.BeR8ZUB2.css); npm run check (0 errors / 0 warnings / 0 hints over 24 files); npm run validate:themes (exit 0; all 16 packs, order golden=1..goldendefault=22..custom=99); npm run aud",
+      "text": "SAI_WEBSITE bootstrap: Astro+TS static site, Wintage Golden Default token foundation, core visual primitives, initial routes, debug/components acceptance bench",
+      "verification": "the Work this request created reached its own verification gate; see the T-1 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-1"
+    }
+  },
+  "schema_version": 1
+}

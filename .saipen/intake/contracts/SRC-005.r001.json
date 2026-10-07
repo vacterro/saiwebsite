@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-005:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Survey github.com/vacterro and integrate the relevant SAIPEN ecosystem projects harmoniously (no 40-repo dump), plus own improvements without harming the site"
+    }
+  },
+  "derived_at": "2026-10-07T05:00:55Z",
+  "derived_from": "SRC-005",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "719aaa22c90d5ab982301fb1eb34dcd243befd9ea600cee573380dfaf513fb7a"
+}

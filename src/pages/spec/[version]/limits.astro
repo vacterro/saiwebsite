@@ -1,0 +1,60 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { LIMITS, SPEC_VERSION } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+const topic = topicBySlug('limits')!;
+const limits = LIMITS as Record<string, unknown>;
+const numeric = Object.entries(limits).filter(([, v]) => typeof v === 'number') as [string, number][];
+const lists = Object.entries(limits).filter(([, v]) => Array.isArray(v)) as [string, string[]][];
+const fmt = (n: number) => n.toLocaleString('en-US');
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="limits"
+  sources={[{ path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — cold_agent_truth' }]}
+>
+  <p>
+    A cold agent orients from bounded reads. These budgets keep that first read small and predictable; oversized new
+    records are refused rather than silently truncated.
+  </p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Limit</th><th scope="col">Value</th></tr>
+      </thead>
+      <tbody>
+        {
+          numeric.map(([k, v]) => (
+            <tr>
+              <th scope="row"><code>{k}</code></th>
+              <td>{fmt(v)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  {
+    lists.map(([k, v]) => (
+      <>
+        <h2 id={k}>
+          <code>{k}</code>
+        </h2>
+        <ul class="reflist plain">
+          {v.map((item) => (
+            <li>
+              <code>{item}</code>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+</SpecLayout>

@@ -1,0 +1,33 @@
+---
+/**
+ * Status strip. Every field here is static, build-time truth: which palette is
+ * active, which build produced the page, what stage the route is in. No live
+ * status is shown, because there is no service behind it to report
+ * (MASTER_ROADMAP §6).
+ *
+ * One exception, and it is deliberate: a field may carry an `id` so a value the
+ * user can change at runtime — the active palette — has a stable target for the
+ * theme owner to rewrite. Without it the strip would keep claiming Golden Default
+ * after a switch, which is worse than showing nothing.
+ *
+ * Renders as a top-level <footer>, so it is a real contentinfo landmark.
+ */
+interface Props {
+  fields: { text: string; grow?: boolean; id?: string }[];
+}
+
+const { fields } = Astro.props;
+---
+
+<footer class="w-statusbar">
+  {
+    fields.map((field) => (
+      <span
+        class={`w-statusbar__field${field.grow ? ' w-statusbar__field--fixed' : ''}`}
+        id={field.id}
+      >
+        {field.text}
+      </span>
+    ))
+  }
+</footer>

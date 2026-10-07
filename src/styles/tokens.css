@@ -1,0 +1,182 @@
+/* ============================================================================
+   tokens.css — Wintage structural + semantic tokens
+   ============================================================================
+   Two kinds of token live here, and only two:
+
+     1. STRUCTURAL — the numbers that ARE the identity (radius, bevel width,
+        shadow, blur, motion, type ladder, spacing). Wintage law, never themed.
+     2. SEMANTIC ALIASES — role names that point at canonical theme tokens
+        (--background, --bevelLight, --textPrimary, ...).
+
+   This file contains ZERO hex literals. All 21 canonical colour tokens come
+   from the active theme pack (see src/themes/) and are rendered into the
+   document by SiteLayout.astro before first paint. Editing a colour here would
+   fork the palette — don't.
+   ============================================================================ */
+
+:root {
+  /* ── Structural law (WINTAGE_WEB_CONTRACT §7, §11, §12, §14) ────────────── */
+  --radius: 0;              /* zero radius, every primitive, no exceptions */
+  --bevel: 2px;             /* the 2px bevel law: depth is pure border */
+  --shadow: none;           /* zero box shadow */
+  --text-shadow: none;      /* zero text shadow */
+  --backdrop: none;         /* zero backdrop blur */
+  --blur: none;             /* zero decorative filter blur */
+  --motion: 0s;             /* interaction is instant; no decorative easing */
+
+  /* The canonical Wintage compatibility duration. Wintage uses 0.001s rather
+     than 0s because a zero transition never fires `transitionend`, and some JS
+     lifecycle code waits on that event. Nothing in this bootstrap needs it —
+     ordinary UI stays at --motion — but a later slice that hooks a lifecycle
+     event must use this value instead of inventing its own. */
+  --motion-compat: 0.001s;
+
+  /* ── Typography (WINTAGE_WEB_CONTRACT §10, SAIPEN UI.md iron law 1) ─────────
+     Every ladder size has its own pixel-grid face (src/styles/fonts.css):
+     a 1-bit rasterization of DejaVu Sans for exactly that size, drawn as
+     whole-pixel squares, so text renders with no anti-aliasing at its native
+     size. A
+     face is only correct at its own size, which is why size, face and line
+     height always travel together as one role — never set one alone.
+
+     Line heights are whole pixels, and each one minus the face's ascent +
+     descent is an EVEN number, so the half-leading above the glyphs is a whole
+     pixel too and every baseline lands on the device grid. That is the
+     difference between "line-height: 1.2" (14.4px, fractional baselines) and
+     text that stays crisp under a grayscale rasterizer.
+
+     The fallbacks after each pixel face are installed system fonts in the
+     spirit of the Wintage stack, used only if a face fails to load; nothing
+     from them is downloaded or shipped. */
+  --face-fallback: Verdana, Tahoma, sans-serif;
+  --face-meta: "SAI Pixel 10", var(--face-fallback);
+  --face-compact: "SAI Pixel 11", var(--face-fallback);
+  --face-body: "SAI Pixel 12", var(--face-fallback);
+  --face-heading: "SAI Pixel 14", var(--face-fallback);
+  --face-title: "SAI Pixel 16", var(--face-fallback);
+  --face-code: "SAI Pixel Mono 12", Consolas, "Lucida Console", monospace;
+  /* Kept for components that ask for "the UI stack" without a size role. */
+  --font-ui: var(--face-body);
+  --font-code: var(--face-code);
+  --weight: 400;
+  --weight-bold: 700;
+
+  /* The five-step ladder. There is no sixth size, and no fluid type. */
+  --size-meta: 10px;        /* auxiliary metadata          face asc 8  desc 2 */
+  --size-compact: 11px;     /* compact controls            face asc 9  desc 2 */
+  --size-body: 12px;        /* default UI / body           face asc 10 desc 2 */
+  --size-heading: 14px;     /* section heading             face asc 11 desc 3 */
+  --size-title: 16px;       /* major page title            face asc 13 desc 3 */
+
+  --lh-meta: 12px;
+  --lh-compact: 13px;
+  --lh-body: 14px;
+  --lh-prose: 16px;         /* long-form reading measure, still even leading */
+  --lh-heading: 16px;
+  --lh-title: 18px;
+  --lh-code: 14px;          /* Spleen 6x12: asc 9 desc 3 */
+  --line: var(--lh-body);
+
+  /* ── Pixel glyphs (Class A, WINTAGE_WEB_CONTRACT §8) ─────────────────────
+     Whole-pixel masks; colour comes from whatever paints through them. */
+  --glyph-arrow-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM1 1h5v1H1zM2 2h3v1H2zM3 3h1v1H3z'/%3E%3C/svg%3E");
+  --glyph-arrow-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1H3zM2 1h3v1H2zM1 2h5v1H1zM0 3h7v1H0z'/%3E%3C/svg%3E");
+  --glyph-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z'/%3E%3C/svg%3E");
+
+  /* ── Spacing — integer pixels only (WINTAGE_WEB_CONTRACT §7) ────────────── */
+  --gap-1: 1px;
+  --gap-2: 2px;
+  --gap-3: 4px;
+  --gap-4: 6px;
+  --gap-5: 8px;
+  --gap-6: 12px;
+  --gap-7: 16px;
+}
+
+/* ── Semantic aliases ────────────────────────────────────────────────────────
+   Role names for canonical theme tokens, so no component asks for a raw colour.
+
+   These are declared on EVERY element (`*`) rather than on `:root`, and that is
+   load-bearing, not a style choice. A custom property whose value contains
+   `var()` is substituted where it is DECLARED, not where it is used: declared
+   on `:root`, `--ui-edge-light` would resolve to Golden Default's bevelLight
+   once and then be inherited as a finished colour, so a nested
+   `[data-theme="golden"]` preview would keep drawing Golden Default's edges.
+   Declared per element, each element resolves the alias against the palette
+   scope it actually sits in — which is what makes the theme bench work with no
+   JavaScript, and what lets the next slice add a switcher without touching this
+   file.
+
+   Golden Default resolves as:
+     page background      #1A1810   --background
+     window interior      #232018   --backgroundSoft
+     control surface      #332E22   --surface
+     raised control       #3D372A   --surfaceRaised
+     hover surface        #453D30   --surfaceAlt
+     structural light     #75663D   --bevelLight
+     structural dark      #100E08   --borderDark
+     accent / edges       #F0D060   --borderHighlight
+     body text            #D4C89A   --textPrimary
+   ──────────────────────────────────────────────────────────────────────────── */
+* {
+  --ui-desktop: var(--background);
+  --ui-window: var(--backgroundSoft);
+  --ui-surface: var(--surface);
+  --ui-raised: var(--surfaceRaised);
+  --ui-hover: var(--surfaceAlt);
+
+  --ui-edge-light: var(--bevelLight); /* structural bright edge, NOT the accent */
+  --ui-edge-dark: var(--borderDark);  /* structural dark edge */
+  --ui-edge-muted: var(--borderMuted);
+  --ui-accent: var(--borderHighlight);
+
+  --ui-text: var(--textPrimary);
+  --ui-text-dim: var(--textSecondary);
+  --ui-text-faint: var(--textMuted);
+
+  --ui-link: var(--link);
+  --ui-code-bg: var(--compareBack);
+  --ui-select-bg: var(--selection);
+
+  /* Status roles. Used as a hard fill or hard edge, always alongside a word, so
+     no state is carried by colour alone (WINTAGE_WEB_CONTRACT §13). */
+  --ui-ok: var(--success);
+  --ui-warn: var(--warning);
+  --ui-err: var(--danger);
+  --ui-err-text: var(--dangerText);
+
+  --ui-teal: var(--accentTeal);
+  --ui-teal-deep: var(--accentTealDeep);
+
+  /* ── The 2px bevel, painted as whole-pixel layers ─────────────────────────
+     A two-colour CSS border meets its neighbour on a 45-degree miter, and the
+     rasterizer smooths that diagonal: every bevelled corner on the page grew
+     two blended pixels that are in no palette. Win95 never drew a miter. Its
+     corners are a staircase: on the top row the light edge stops one pixel
+     short of the right side, on the second row two pixels short, and the
+     dark edge owns the rest; the bottom-left corner mirrors it.
+
+     So the bevel is six solid rectangles in the border area (the border itself
+     stays 2px and transparent, so layout is unchanged): two 1px light rows,
+     two 1px light columns, a 2px dark column and a 2px dark row. Light layers
+     come first and therefore sit on top, which produces exactly the
+     staircase. Sunken is the same geometry with the colours swapped.
+     Declared on `*` for the same reason as the aliases above: each element
+     resolves the edge colours against its own palette scope. */
+  --bevel-raised:
+    linear-gradient(var(--ui-edge-light) 0 0), linear-gradient(var(--ui-edge-light) 0 0),
+    linear-gradient(var(--ui-edge-light) 0 0), linear-gradient(var(--ui-edge-light) 0 0),
+    linear-gradient(var(--ui-edge-dark) 0 0), linear-gradient(var(--ui-edge-dark) 0 0);
+  --bevel-sunken:
+    linear-gradient(var(--ui-edge-dark) 0 0), linear-gradient(var(--ui-edge-dark) 0 0),
+    linear-gradient(var(--ui-edge-dark) 0 0), linear-gradient(var(--ui-edge-dark) 0 0),
+    linear-gradient(var(--ui-edge-light) 0 0), linear-gradient(var(--ui-edge-light) 0 0);
+}
+
+:root {
+  --bevel-position: 0 0, 0 1px, 0 0, 1px 0, 100% 0, 0 100%;
+  --bevel-size:
+    calc(100% - 1px) 1px, calc(100% - 2px) 1px,
+    1px calc(100% - 1px), 1px calc(100% - 2px),
+    2px 100%, 100% 2px;
+}

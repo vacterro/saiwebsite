@@ -1,0 +1,24 @@
+---
+/**
+ * An alias page: a static redirect that works on any host and with JavaScript
+ * disabled (meta refresh), with a visible link for anyone whose browser does
+ * not follow it, a canonical link to the target and noindex, so search engines
+ * keep the versioned URL as the one true address.
+ */
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  target: string;
+  title: string;
+  explanation: string;
+}
+
+const { target, title, explanation } = Astro.props;
+---
+
+<SiteLayout title={title} tag="alias" description={explanation} canonicalPath={target} noindex>
+  <meta slot="head" http-equiv="refresh" content={`0; url=${target}`} />
+  <h1>{title}</h1>
+  <p>{explanation}</p>
+  <p><a class="w-button" href={target}>Go to {target}</a></p>
+</SiteLayout>

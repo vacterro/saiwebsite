@@ -1,0 +1,216 @@
+---
+/**
+ * Homepage V1 (MASTER_ROADMAP §6, M8). A technical visitor should understand
+ * SAIPEN in under a minute: what it is, what breaks without it, what persists,
+ * how work moves, and where to go next. Every sentence here is grounded in the
+ * canonical SAIPEN README, SPEC and brochure; the lifecycle strip is rendered
+ * from the registry; the recovery story is the first playground scenario.
+ */
+import MaturityBadge from '../components/MaturityBadge.astro';
+import PixelMark from '../components/PixelMark.astro';
+import WintageButton from '../components/WintageButton.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { SITE } from '../data/site';
+import { CORE_LIFECYCLE, SHORT_COMMIT, SPEC_VERSION, meta } from '../lib/canonical';
+import { PROJECTS, projectsIn } from '../data/ecosystem';
+import { SCENARIOS } from '../data/scenarios';
+
+const BREAKS = [
+  'the session ends, and everything the agent learned goes with it',
+  'a usage or context limit stops it halfway through a ticket',
+  'you switch model or vendor, and the new one starts from zero',
+  'the provider goes down mid-edit',
+  'a half-finished change sits in the tree and nobody knows whose it is',
+  '"done" turns out to mean "it ran once"',
+];
+
+const FILES = [
+  ['STATE.md', 'What is happening right now — and the one next_action.'],
+  ['BOARD.md', 'What work exists: DOING, TODO, DONE, BLOCKED.'],
+  ['LOG.md', 'Why the project is here: an append-only event graph.'],
+  ['KNOWLEDGE/', 'Durable, verified project truth.'],
+];
+
+const PRINCIPLES = [
+  ['Plain files', 'State is Markdown in your project, diffable and committed with the code.', '/docs/concepts/project-memory/'],
+  ['One next action', 'A cold agent executes a recorded step instead of re-planning.', '/docs/concepts/state-and-next-action/'],
+  ['Evidence, not narration', '"Done" needs VERIFY, REVIEW and recorded proof.', '/docs/evidence/overview/'],
+  ['Model-independent', 'Any compatible agent, any vendor, the same files.', '/docs/getting-started/why-saipen/'],
+  ['Local-first', 'No server, daemon, database or account. Stdlib Python only.', '/docs/getting-started/quickstart/'],
+  ['Honest stops', 'A WAIT names one of seven real reasons; no guessing, no lazy stops.', '/docs/protocol/wait-boundaries/'],
+];
+
+const story = SCENARIOS[0];
+const core = projectsIn('core');
+---
+
+<SiteLayout title={SITE.name} tag="/" description={`${SITE.name} — ${SITE.tagline} ${SITE.motto} Plain-file project state that any compatible agent can resume.`}>
+  <section class="hero" aria-labelledby="hero-title">
+    <PixelMark name="saipen-wordmark-480" width={480} height={82} class="hero__wordmark hero__wordmark--large" />
+    <PixelMark name="saipen-wordmark-288" width={288} height={49} class="hero__wordmark hero__wordmark--small" />
+    <h1 id="hero-title">{SITE.name}</h1>
+    <p class="hero__tagline">{SITE.tagline}</p>
+    <p class="hero__motto">{SITE.motto}</p>
+    <p class="hero__lead">
+      SAIPEN keeps a project's working memory in plain files inside the project, so any compatible agent — no chat
+      history, no session memory — can run one command and continue exactly where the last one stopped.
+    </p>
+    <pre class="w-code hero__cmd"><code>saipen continue        or just:  cc</code></pre>
+    <div class="row">
+      <WintageButton href="/docs/getting-started/quickstart/" variant="primary">Get started</WintageButton>
+      <WintageButton href="/spec/">Read the spec</WintageButton>
+      <WintageButton href="/playground/">Step through a recovery</WintageButton>
+      <WintageButton href={SITE.repository!}>Open on GitHub</WintageButton>
+    </div>
+    <p class="w-panel__note">
+      MIT-licensed. Protocol {meta.version}; this site describes commit {SHORT_COMMIT}.
+    </p>
+  </section>
+
+  <section class="w-panel w-panel--sunken home__section" aria-labelledby="practice">
+    <div class="with-mark">
+      <PixelMark name="saipen-emblem-96" width={96} height={96} />
+      <div>
+        <h2 class="w-panel__title" id="practice">Built from practice</h2>
+        <p>
+          SAIPEN was not designed around a hypothetical agent stack. It grew out of running real projects across
+          different models, providers, sessions and tools, where the same failure kept returning: the agent changed, but
+          the project still needed to remember exactly what happened and what came next.
+        </p>
+        <p class="w-panel__note">
+          This website is built the same way — <a href="/about/#dogfooding">its own SAIPEN board</a> is on the About page.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid-2 home__pair">
+    <section class="w-panel" aria-labelledby="breaks">
+      <h2 class="w-panel__title" id="breaks">What breaks without it</h2>
+      <ul>
+        {BREAKS.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="w-panel__note">
+        None of these is a model problem. They are state problems: the work has no durable, checkable form.
+      </p>
+    </section>
+
+    <section class="w-panel w-panel--sunken" aria-labelledby="persists">
+      <h2 class="w-panel__title" id="persists">What persists in .saipen/</h2>
+      <dl class="home__files">
+        {
+          FILES.map(([file, what]) => (
+            <>
+              <dt>
+                <code>{file}</code>
+              </dt>
+              <dd>{what}</dd>
+            </>
+          ))
+        }
+      </dl>
+      <p class="w-panel__note">
+        <a href="/docs/concepts/project-memory/">Every file in .saipen/, explained</a>
+      </p>
+    </section>
+  </div>
+
+  <section class="home__section" aria-labelledby="lifecycle">
+    <h2 id="lifecycle">How work moves</h2>
+    <p>
+      One state machine for every ticket. A ticket cannot skip VERIFY, REVIEW or SHIP, and any phase can stop honestly
+      at BLOCKED.
+    </p>
+    <ol class="plain lifecycle">
+      {
+        CORE_LIFECYCLE.map((phase, i) => (
+          <li class="lifecycle__item">
+            <a class="lifecycle__node" href={`/spec/${SPEC_VERSION}/lifecycle/#phase-${phase}`}>
+              {phase}
+            </a>
+            {i < CORE_LIFECYCLE.length - 1 && <span class="lifecycle__arrow" aria-hidden="true" />}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="w-panel__note">
+      Every checkpoint writes LOG, then BOARD, then STATE, and reads each back. <a href={`/spec/${SPEC_VERSION}/lifecycle/`}>Explore the full state machine</a>.
+    </p>
+  </section>
+
+  <section class="w-panel home__section" aria-labelledby="story">
+    <h2 class="w-panel__title" id="story">A cold handoff, end to end</h2>
+    <p>
+      <MaturityBadge level="preview" note="illustrative simulation from the playground — nothing is executed" />
+    </p>
+    <ol class="home__story">
+      {story.steps.map((step) => <li><strong>{step.title}.</strong> <span class="home__story-actor">({step.actor})</span></li>)}
+    </ol>
+    <div class="row">
+      <WintageButton href={`/playground/${story.slug}/`} variant="primary">Step through it</WintageButton>
+      <WintageButton href="/docs/recovery/interrupted-work/">Read: interrupted work</WintageButton>
+    </div>
+  </section>
+
+  <section class="home__section" aria-labelledby="principles">
+    <h2 id="principles">Principles</h2>
+    <div class="cards cards--compact">
+      {
+        PRINCIPLES.map(([name, line, href]) => (
+          <a class="card card--link" href={href}>
+            <span class="card__head">
+              <span class="card__title">{name}</span>
+            </span>
+            <span class="card__body">{line}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="home__section" aria-labelledby="eco">
+    <h2 id="eco">Ecosystem</h2>
+    <p>
+      SAIPEN owns <code>.saipen/</code>. Around it: operator tools that run and watch SAIPEN projects, and agent
+      infrastructure for observation, messaging, packaging and recovery — {PROJECTS.length} projects in all.
+    </p>
+    <div class="wide-scroll">
+      <table class="w-table">
+        <thead>
+          <tr>
+            <th scope="col">Project</th>
+            <th scope="col">Role</th>
+            <th scope="col">Maturity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            core.map((p) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/ecosystem/#${p.name.toLowerCase()}`}>{p.name}</a>
+                </th>
+                <td>{p.role}</td>
+                <td>
+                  <MaturityBadge level={p.maturity} />
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/ecosystem/">The whole ecosystem, and how each project touches a SAIPEN project</a></p>
+  </section>
+
+  <section class="w-panel w-panel--sunken home__section" aria-labelledby="next">
+    <h2 class="w-panel__title" id="next">Where to go next</h2>
+    <div class="row">
+      <WintageButton href="/docs/getting-started/introduction/">Introduction</WintageButton>
+      <WintageButton href="/docs/getting-started/quickstart/">Quickstart</WintageButton>
+      <WintageButton href="/compatibility/">Supported hosts</WintageButton>
+      <WintageButton href="/docs/reference/faq/">FAQ</WintageButton>
+      <WintageButton href="/community/">Community</WintageButton>
+    </div>
+  </section>
+</SiteLayout>

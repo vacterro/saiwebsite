@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-003:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Continue fully building the site to completion, roadmap as guide"
+    }
+  },
+  "derived_at": "2026-10-07T05:00:09Z",
+  "derived_from": "SRC-003",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "c5c71882dca892c3b06a55dafc19c7a7748c8096b32e034824c877847e4dd382"
+}

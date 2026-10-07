@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-002:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "T-3 M4 SITE SHELL CONVERGENCE: reserve the eight missing roadmap routes (/status/ /playground/ /benchmarks/ /downloads/ /security/ /community/ /blog/ /changelog/) as explicit placeholders, add one canonical semantic breadcrumb system, replace wrap-only narrow navigation with a compact mobile mode, add a route-discoverability secondary navigation surface, and add the M4 shell regression gates (tests/site-shell.spec.mjs, audit-build shell invariants, mobile visual baselines)"
+    }
+  },
+  "derived_at": "2026-10-07T03:52:37Z",
+  "derived_from": "SRC-002",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "bc04a09bb5b5ec279814c4a1bbbc73774a97c06c52ca553f1c69abb4efc65dd3"
+}

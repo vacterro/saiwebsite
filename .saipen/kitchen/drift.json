@@ -1,0 +1,566 @@
+{
+ "geometry": {
+  "home": {
+   "titlebar": {
+    "top": 14,
+    "bottom": 34,
+    "height": 20
+   },
+   "menubar": {
+    "top": 34,
+    "bottom": 57,
+    "height": 23
+   },
+   "crumbs": null,
+   "main": {
+    "top": 83,
+    "bottom": 1014,
+    "height": 930
+   }
+  },
+  "docs": {
+   "titlebar": {
+    "top": 14,
+    "bottom": 34,
+    "height": 20
+   },
+   "menubar": {
+    "top": 34,
+    "bottom": 57,
+    "height": 23
+   },
+   "crumbs": {
+    "top": 83,
+    "bottom": 102,
+    "height": 19
+   },
+   "main": {
+    "top": 102,
+    "bottom": 680,
+    "height": 577
+   }
+  },
+  "status": {
+   "titlebar": {
+    "top": 14,
+    "bottom": 34,
+    "height": 20
+   },
+   "menubar": {
+    "top": 34,
+    "bottom": 57,
+    "height": 23
+   },
+   "crumbs": {
+    "top": 83,
+    "bottom": 102,
+    "height": 19
+   },
+   "main": {
+    "top": 102,
+    "bottom": 395,
+    "height": 293
+   }
+  },
+  "debug-components": {
+   "titlebar": {
+    "top": 14,
+    "bottom": 34,
+    "height": 20
+   },
+   "menubar": {
+    "top": 34,
+    "bottom": 57,
+    "height": 23
+   },
+   "crumbs": {
+    "top": 83,
+    "bottom": 102,
+    "height": 19
+   },
+   "main": {
+    "top": 102,
+    "bottom": 2730,
+    "height": 2628
+   }
+  }
+ },
+ "pairs": {
+  "debug-components.png": {
+   "size": "1280x720",
+   "changedPixels": 192266,
+   "changedRows": 575,
+   "band": [
+    35,
+    719
+   ],
+   "runs": [
+    [
+     35,
+     60
+    ],
+    [
+     63,
+     82
+    ],
+    [
+     87,
+     110
+    ],
+    [
+     114,
+     141
+    ],
+    [
+     147,
+     165
+    ],
+    [
+     168,
+     201
+    ],
+    [
+     204,
+     223
+    ],
+    [
+     231,
+     265
+    ],
+    [
+     271,
+     293
+    ],
+    [
+     301,
+     319
+    ],
+    [
+     329,
+     345
+    ],
+    [
+     356,
+     369
+    ]
+   ],
+   "runCount": 25
+  },
+  "debug-rendering.png": {
+   "size": "1280x720",
+   "changedPixels": 183639,
+   "changedRows": 625,
+   "band": [
+    35,
+    719
+   ],
+   "runs": [
+    [
+     35,
+     60
+    ],
+    [
+     63,
+     82
+    ],
+    [
+     87,
+     110
+    ],
+    [
+     114,
+     141
+    ],
+    [
+     147,
+     165
+    ],
+    [
+     168,
+     215
+    ],
+    [
+     218,
+     235
+    ],
+    [
+     246,
+     267
+    ],
+    [
+     269,
+     302
+    ],
+    [
+     304,
+     452
+    ],
+    [
+     454,
+     475
+    ],
+    [
+     478,
+     496
+    ]
+   ],
+   "runCount": 19
+  },
+  "debug-themes.png": {
+   "size": "1280x720",
+   "changedPixels": 179832,
+   "changedRows": 605,
+   "band": [
+    35,
+    719
+   ],
+   "runs": [
+    [
+     35,
+     60
+    ],
+    [
+     63,
+     82
+    ],
+    [
+     87,
+     110
+    ],
+    [
+     114,
+     138
+    ],
+    [
+     147,
+     165
+    ],
+    [
+     168,
+     235
+    ],
+    [
+     246,
+     263
+    ],
+    [
+     266,
+     298
+    ],
+    [
+     300,
+     373
+    ],
+    [
+     375,
+     394
+    ],
+    [
+     407,
+     419
+    ],
+    [
+     430,
+     449
+    ]
+   ],
+   "runCount": 20
+  },
+  "docs-mobile.png": {
+   "size": "390x844",
+   "changedPixels": 0,
+   "changedRows": 0,
+   "band": null,
+   "runs": [],
+   "runCount": 0
+  },
+  "docs.png": {
+   "size": "1280x720",
+   "changedPixels": 77030,
+   "changedRows": 556,
+   "band": [
+    35,
+    706
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ],
+    [
+     88,
+     115
+    ],
+    [
+     122,
+     172
+    ],
+    [
+     177,
+     226
+    ],
+    [
+     231,
+     242
+    ],
+    [
+     247,
+     265
+    ],
+    [
+     268,
+     315
+    ],
+    [
+     323,
+     334
+    ],
+    [
+     336,
+     339
+    ],
+    [
+     342,
+     412
+    ],
+    [
+     414,
+     424
+    ],
+    [
+     429,
+     443
+    ]
+   ],
+   "runCount": 19
+  },
+  "ecosystem.png": {
+   "size": "1280x720",
+   "changedPixels": 160865,
+   "changedRows": 399,
+   "band": [
+    35,
+    534
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ],
+    [
+     88,
+     97
+    ],
+    [
+     100,
+     101
+    ],
+    [
+     110,
+     124
+    ],
+    [
+     129,
+     153
+    ],
+    [
+     155,
+     191
+    ],
+    [
+     197,
+     211
+    ],
+    [
+     219,
+     236
+    ],
+    [
+     245,
+     267
+    ],
+    [
+     269,
+     296
+    ],
+    [
+     302,
+     322
+    ],
+    [
+     324,
+     372
+    ]
+   ],
+   "runCount": 16
+  },
+  "home-dracula.png": {
+   "size": "1280x720",
+   "changedPixels": 1083,
+   "changedRows": 19,
+   "band": [
+    35,
+    53
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ]
+   ],
+   "runCount": 1
+  },
+  "home-mobile.png": {
+   "size": "390x844",
+   "changedPixels": 0,
+   "changedRows": 0,
+   "band": null,
+   "runs": [],
+   "runCount": 0
+  },
+  "home.png": {
+   "size": "1280x720",
+   "changedPixels": 1083,
+   "changedRows": 19,
+   "band": [
+    35,
+    53
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ]
+   ],
+   "runCount": 1
+  },
+  "pricing.png": {
+   "size": "1280x720",
+   "changedPixels": 169891,
+   "changedRows": 410,
+   "band": [
+    35,
+    532
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ],
+    [
+     88,
+     97
+    ],
+    [
+     100,
+     101
+    ],
+    [
+     109,
+     124
+    ],
+    [
+     128,
+     153
+    ],
+    [
+     155,
+     191
+    ],
+    [
+     197,
+     211
+    ],
+    [
+     219,
+     236
+    ],
+    [
+     245,
+     267
+    ],
+    [
+     269,
+     296
+    ],
+    [
+     302,
+     322
+    ],
+    [
+     324,
+     343
+    ]
+   ],
+   "runCount": 19
+  },
+  "spec.png": {
+   "size": "1280x720",
+   "changedPixels": 116718,
+   "changedRows": 323,
+   "band": [
+    35,
+    441
+   ],
+   "runs": [
+    [
+     35,
+     53
+    ],
+    [
+     88,
+     97
+    ],
+    [
+     100,
+     101
+    ],
+    [
+     110,
+     124
+    ],
+    [
+     129,
+     153
+    ],
+    [
+     155,
+     191
+    ],
+    [
+     197,
+     211
+    ],
+    [
+     219,
+     236
+    ],
+    [
+     245,
+     267
+    ],
+    [
+     269,
+     293
+    ],
+    [
+     302,
+     316
+    ],
+    [
+     319,
+     364
+    ]
+   ],
+   "runCount": 14
+  },
+  "status-mobile.png": {
+   "size": "390x844",
+   "changedPixels": 0,
+   "changedRows": 0,
+   "band": null,
+   "runs": [],
+   "runCount": 0
+  }
+ }
+}

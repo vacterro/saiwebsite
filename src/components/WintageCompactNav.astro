@@ -1,0 +1,49 @@
+---
+/**
+ * Compact navigation for narrow viewports (MASTER_ROADMAP M4).
+ *
+ * Native `<details>` + real anchors: opening it needs no script, keyboard
+ * operation is the platform's own, and a visitor without JavaScript still
+ * reaches every public route through a normal link. It never becomes a drawer,
+ * a backdrop or an animation — a `<summary>` rendered as a Wintage control is
+ * the whole design.
+ *
+ * It carries every public route (not just the primary six), because this is the
+ * only navigation surface narrow screens get. The desktop strip is hidden by
+ * CSS at the same breakpoint, so exactly one of the two nav landmarks is in the
+ * accessibility tree at any width.
+ */
+import type { SiteRoute } from '../data/site';
+
+interface Props {
+  items: SiteRoute[];
+  /** Current pathname, e.g. Astro.url.pathname. */
+  path: string;
+  /** Landmark label. Overridden by the component lab so its specimen is distinguishable. */
+  label?: string;
+}
+
+const { items, path, label = 'Site' } = Astro.props;
+const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
+const current = withSlash(path);
+---
+
+<nav class="w-compactnav" aria-label={label}>
+  <details class="w-compactnav__panel" data-compact-nav>
+    <summary class="w-compactnav__summary">Navigate</summary>
+    <ul class="w-compactnav__list">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={withSlash(item.href) === current ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+</nav>

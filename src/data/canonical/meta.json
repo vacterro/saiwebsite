@@ -1,0 +1,23 @@
+{
+  "note": "Byte-exact snapshot of canonical SAIPEN machine sources. Do not edit by hand; run npm run canonical:sync.",
+  "repository": "https://github.com/vacterro/saipen",
+  "origin": "github:main",
+  "published": true,
+  "version": "8.1.0",
+  "commit": "55bde0f71f0ba1c886092e30212b4212af780759",
+  "commitDate": "2026-10-07T00:47:43Z",
+  "files": {
+    "registry": {
+      "source": "saipen/REGISTRY.json",
+      "sha256": "ed71f4a52345048af060264b9a27d87b98368e3c2d046ae4be8174ba939796e3"
+    },
+    "stateSchema": {
+      "source": "extensions/schemas/state.schema.json",
+      "sha256": "11aba2fe94d2946c3f82d3058f9c419871aa61854c10a98bb9f92110cc331580"
+    },
+    "adapters": {
+      "source": "extensions/adapters/registry.json",
+      "sha256": "28a6e18bce0bb99b41305843d10dc59bca1a88828eb5968619df6a8e08d8c32d"
+    }
+  }
+}

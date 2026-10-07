@@ -1,0 +1,44 @@
+---
+/**
+ * The documentation contents tree. Rendered twice by DocsLayout: once as the
+ * desktop side column, once inside a compact disclosure for narrow screens.
+ * CSS shows exactly one, so only one contents landmark is ever exposed.
+ */
+import { docHref, docTree } from '../lib/docs';
+
+interface Props {
+  current?: string;
+  idPrefix: string;
+}
+
+const { current, idPrefix } = Astro.props;
+const tree = await docTree();
+---
+
+<form class="tree__search" action="/search/" method="get" role="search">
+  <label class="tree__search-label" for={`${idPrefix}-search`}>Search docs</label>
+  <input class="w-input" id={`${idPrefix}-search`} name="q" type="search" autocomplete="off" />
+</form>
+{
+  tree.map((group) => (
+    <div class="tree__group">
+      <p class="tree__group-title">{group.title}</p>
+      <ul>
+        {group.docs.map((doc) => (
+          <li>
+            <a href={docHref(doc)} aria-current={doc.id === current ? 'page' : undefined}>
+              {doc.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))
+}
+<div class="tree__group">
+  <p class="tree__group-title">Specification</p>
+  <ul>
+    <li><a href="/spec/">Spec index</a></li>
+    <li><a href="/spec/v8/lifecycle/">State machine</a></li>
+  </ul>
+</div>

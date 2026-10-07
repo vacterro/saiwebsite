@@ -1,0 +1,39 @@
+{
+  "active": {
+    "SRC-001": {
+      "linked_work": "T-1",
+      "source_sha256": "d9793413e53091466824cdbaf0f8df48f6eb918bd48c5e09f7163068dbb6c44d"
+    },
+    "SRC-002": {
+      "linked_work": "T-3",
+      "source_sha256": "bc04a09bb5b5ec279814c4a1bbbc73774a97c06c52ca553f1c69abb4efc65dd3"
+    },
+    "SRC-003": {
+      "linked_work": "T-4",
+      "source_sha256": "c5c71882dca892c3b06a55dafc19c7a7748c8096b32e034824c877847e4dd382"
+    },
+    "SRC-004": {
+      "linked_work": "T-5",
+      "source_sha256": "b525e207f5ecc4f26ca4611b681901afd7ae859a54b6563577768ce098a56bee"
+    },
+    "SRC-005": {
+      "linked_work": "T-6",
+      "source_sha256": "719aaa22c90d5ab982301fb1eb34dcd243befd9ea600cee573380dfaf513fb7a"
+    },
+    "SRC-006": {
+      "linked_work": "T-7",
+      "source_sha256": "449e8b0a64cf2477f8a2c6d79f0c083ab978a5e0b75a6dcd49b83953bbfc88db"
+    },
+    "SRC-007": {
+      "linked_work": "T-8",
+      "source_sha256": "c212794c13b60d9bd3fb83f3fa649e5484cede419ac51d37a8f0189a8ee630f8"
+    },
+    "SRC-008": {
+      "linked_work": "T-9",
+      "source_sha256": "792ae5c73f535815b0135ba77ab10a193f90b4491c6d06d43c4f45fb40976282"
+    }
+  },
+  "next_id": 9,
+  "schema_version": 1,
+  "tombstones": {}
+}

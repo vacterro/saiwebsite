@@ -1,0 +1,90 @@
+---
+import SpecLayout from '../../../layouts/SpecLayout.astro';
+import { SPEC_VERSION, STATE_SHAPE, stateSchema } from '../../../lib/canonical';
+import { topicBySlug } from '../../../lib/spec';
+
+export function getStaticPaths() {
+  return [{ params: { version: SPEC_VERSION } }];
+}
+
+type SchemaProp = { description?: string; type?: unknown; enum?: unknown[] };
+
+const topic = topicBySlug('state')!;
+const required = new Set(STATE_SHAPE.required_fields as string[]);
+const strings = new Set(STATE_SHAPE.string_fields as string[]);
+const integers = STATE_SHAPE.integer_fields as Record<string, number | null>;
+const schemaProps = ((stateSchema as { properties?: Record<string, SchemaProp> }).properties ?? {}) as Record<
+  string,
+  SchemaProp
+>;
+
+const enums: Record<string, string[]> = {
+  mode: STATE_SHAPE.mode_enum as string[],
+  execution_intent: STATE_SHAPE.intent_enum as string[],
+  converge_target: STATE_SHAPE.converge_targets as string[],
+};
+
+function typeOf(field: string) {
+  if (field in integers) return integers[field] === null ? 'integer' : `integer, min ${integers[field]}`;
+  if (strings.has(field)) return 'string';
+  if (enums[field]?.length) return 'enum';
+  const t = schemaProps[field]?.type;
+  if (Array.isArray(t)) return t.join(' | ');
+  return typeof t === 'string' ? t : '—';
+}
+---
+
+<SpecLayout
+  title={topic.title}
+  description={topic.description}
+  topic="state"
+  sources={[
+    { path: 'saipen/REGISTRY.json', label: 'REGISTRY.json — state' },
+    { path: 'extensions/schemas/state.schema.json', label: 'state.schema.json' },
+  ]}
+>
+  <p>
+    {STATE_SHAPE.known_fields.length} known fields, {required.size} always required. Unknown fields are refused.
+    <code>transition_from</code> is additionally required except on a fresh INIT; goal intent requires
+    <code>goal_waves</code> and <code>goal_tickets</code>.
+  </p>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col">Required</th>
+          <th scope="col">Type</th>
+          <th scope="col">Values / notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          (STATE_SHAPE.known_fields as string[]).map((field) => (
+            <tr>
+              <th scope="row">
+                <code>{field}</code>
+              </th>
+              <td>{required.has(field) ? 'yes' : '—'}</td>
+              <td>{typeOf(field)}</td>
+              <td>
+                {enums[field]?.length
+                  ? enums[field].map((v, i) => (
+                      <>
+                        {i > 0 && ' '}
+                        <code>{v}</code>
+                      </>
+                    ))
+                  : (schemaProps[field]?.description ?? '')}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="w-panel__note">
+    Phase values are the sixteen phases on the <a href={`/spec/${SPEC_VERSION}/lifecycle/`}>state machine</a> page. The
+    full JSON Schema is published at <a href={`/spec/${SPEC_VERSION}/state.schema.json`}>state.schema.json</a>.
+  </p>
+</SpecLayout>

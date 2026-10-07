@@ -1,0 +1,10 @@
+---
+import AliasPage from '../../../components/AliasPage.astro';
+import { SPEC_VERSION } from '../../../lib/canonical';
+---
+
+<AliasPage
+  target={`/spec/${SPEC_VERSION}/`}
+  title="Latest specification"
+  explanation={`/spec/latest/ is an alias for the newest protocol major, currently ${SPEC_VERSION}.`}
+/>

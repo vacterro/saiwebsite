@@ -1,0 +1,170 @@
+---
+/**
+ * Documentation layout (WINTAGE_WEB_CONTRACT §17, MASTER_ROADMAP M5).
+ *
+ *   +----------+-----------------------------+------------+
+ *   | CONTENTS | Title, maturity, authority  | ON THIS    |
+ *   | tree     | document                    | PAGE       |
+ *   |          | sources, previous / next    |            |
+ *   +----------+-----------------------------+------------+
+ *
+ * Below 1000px the right column moves above the document as a <details>;
+ * below 820px the contents tree does the same. Both are native disclosures:
+ * keyboard operable, no script, nothing floats over the text.
+ *
+ * Every page states its maturity and authority level and links the canonical
+ * SAIPEN sources it rests on, pinned to the snapshot commit — the website is
+ * never a second source of protocol truth (MASTER_ROADMAP §4).
+ */
+import MaturityBadge from '../components/MaturityBadge.astro';
+import SiteLayout from './SiteLayout.astro';
+import DocsTree from '../components/DocsTree.astro';
+import { docHref, type Doc } from '../lib/docs';
+import { SHORT_COMMIT, sourceUrl } from '../lib/canonical';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  /** The current doc's id, for aria-current in the tree. */
+  current?: string;
+  section?: string;
+  sectionHref?: string;
+  headings?: Heading[];
+  maturity?: 'draft' | 'preview' | 'stable';
+  authority?: 'reference' | 'engineering' | 'explanation';
+  sources?: { path: string; anchor?: string; label: string }[];
+  prev?: Doc;
+  next?: Doc;
+}
+
+const { title, description, current, section, sectionHref, headings = [], maturity, authority, sources = [], prev, next } =
+  Astro.props;
+// Heading text includes the trailing "#" anchor link added by rehype-wintage.
+const toc = headings
+  .filter((h) => h.depth === 2 || h.depth === 3)
+  .map((h) => ({ ...h, text: h.text.replace(/\s*#$/, '') }));
+
+const AUTHORITY_NOTE = {
+  reference: 'reference — states protocol facts; the linked canonical source wins on any conflict',
+  engineering: 'engineering — how the protocol works and how to use it',
+  explanation: 'explanation — the reasoning behind the protocol, not normative text',
+};
+
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Docs', href: '/docs/' },
+  ...(section ? [{ label: section, href: sectionHref }] : []),
+  { label: title },
+];
+---
+
+<SiteLayout title={title} tag="/docs/" description={description} crumbs={current ? crumbs : undefined} ogType="article">
+  <div class="docs">
+    <nav class="tree docs__tree" aria-label="Documentation contents">
+      <p class="tree__title">Contents</p>
+      <DocsTree current={current} idPrefix="tree" />
+    </nav>
+
+    <details class="w-panel w-panel--sunken docs__tree-compact">
+      <summary>Documentation contents</summary>
+      <nav class="tree" aria-label="Documentation contents">
+        <DocsTree current={current} idPrefix="tree-compact" />
+      </nav>
+    </details>
+
+    <article class="prose docs__article">
+      <h1>{title}</h1>
+      {
+        (maturity || authority) && (
+          <div class="docs__meta">
+            {maturity && <MaturityBadge level={maturity} />}
+            {authority && <span class="w-panel__note">{AUTHORITY_NOTE[authority]}</span>}
+          </div>
+        )
+      }
+
+      {
+        toc.length > 2 && (
+          <details class="docs__toc-inline">
+            <summary>On this page</summary>
+            <ul class="plain">
+              {toc.map((h) => (
+                <li class={`toc__item toc__item--${h.depth}`}>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )
+      }
+
+      <div class="docs__body">
+        <slot />
+      </div>
+
+      {
+        sources.length > 0 && (
+          <section class="w-panel w-panel--sunken docs__sources" aria-labelledby="sources-title">
+            <h2 class="w-panel__title" id="sources-title">Canonical sources</h2>
+            <ul>
+              {sources.map((source) => (
+                <li>
+                  <a href={sourceUrl(source.path, source.anchor)} rel="noopener" data-external>
+                    {source.label}
+                  </a>{' '}
+                  <span class="w-panel__note">{source.path} @ {SHORT_COMMIT}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="w-panel__note">
+              Links are pinned to the protocol commit this site was built from. Where this page and the source
+              disagree, the source wins.
+            </p>
+          </section>
+        )
+      }
+
+      {
+        (prev || next) && (
+          <nav class="docs__pager" aria-label="Previous and next page">
+            {prev ? (
+              <a class="w-button docs__pager-prev" href={docHref(prev)} rel="prev">
+                <span class="docs__pager-dir">Previous</span>
+                <span>{prev.data.title}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <a class="w-button docs__pager-next" href={docHref(next)} rel="next">
+                <span class="docs__pager-dir">Next</span>
+                <span>{next.data.title}</span>
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </article>
+
+    {
+      toc.length > 2 && (
+        <aside class="docs__toc" aria-labelledby="toc-title">
+          <p class="tree__title" id="toc-title">On this page</p>
+          <ul class="plain">
+            {toc.map((h) => (
+              <li class={`toc__item toc__item--${h.depth}`}>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )
+    }
+  </div>
+</SiteLayout>

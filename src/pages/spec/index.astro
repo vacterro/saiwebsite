@@ -1,0 +1,84 @@
+---
+/**
+ * Specification index (MASTER_ROADMAP M7). States the authority model and
+ * lists the published versions. The site never becomes a second source of
+ * protocol truth: everything under /spec/v<N>/ is generated from the canonical
+ * snapshot and names its commit.
+ */
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { SHORT_COMMIT, SPEC_VERSION, meta, sourceUrl } from '../../lib/canonical';
+import { SPEC_TOPICS } from '../../lib/spec';
+---
+
+<SiteLayout
+  title="Specification"
+  tag="/spec/"
+  description="The SAIPEN protocol specification: authority model, published versions and the generated reference pages."
+>
+  <h1>Specification</h1>
+  <p><MaturityBadge level="stable" note={`reference generated from SAIPEN ${meta.version} @ ${SHORT_COMMIT}`} /></p>
+
+  <aside class="callout callout--authority">
+    <p class="callout__label">Authority</p>
+    <p>
+      The normative SAIPEN specification is the
+      <a href={meta.repository} rel="noopener" data-external>SAIPEN repository</a>:
+      <a href={sourceUrl('SPEC.md')} rel="noopener" data-external>SPEC.md</a> for the design and guarantees,
+      <a href={sourceUrl('saipen/CORE.md')} rel="noopener" data-external>saipen/CORE.md</a> and its owner modules
+      for normative behaviour, and
+      <a href={sourceUrl('saipen/REGISTRY.json')} rel="noopener" data-external>saipen/REGISTRY.json</a> for the
+      closed machine vocabulary. The pages below render that registry; on any disagreement, the repository wins.
+    </p>
+  </aside>
+
+  <h2>Published versions</h2>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr>
+          <th scope="col">Version</th>
+          <th scope="col">Status</th>
+          <th scope="col">Generated from</th>
+          <th scope="col">Permanent URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">{SPEC_VERSION}</th>
+          <td><MaturityBadge level="stable" /></td>
+          <td>
+            SAIPEN {meta.version} @ <a href={`${meta.repository}/tree/${meta.commit}`} rel="noopener" data-external>{SHORT_COMMIT}</a>
+          </td>
+          <td><a href={`/spec/${SPEC_VERSION}/`}>/spec/{SPEC_VERSION}/</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="w-panel__note">
+    <a href="/spec/latest/">/spec/latest/</a> always redirects to the newest major; link to the versioned URL when the
+    meaning must not change.
+  </p>
+
+  <h2>Reference pages ({SPEC_VERSION})</h2>
+  <dl class="doclist">
+    {
+      SPEC_TOPICS.map((t) => (
+        <>
+          <dt>
+            <a href={`/spec/${SPEC_VERSION}/${t.slug}/`}>{t.title}</a>
+          </dt>
+          <dd>{t.description}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>Machine-readable</h2>
+  <ul>
+    <li><a href={`/spec/${SPEC_VERSION}/registry.json`}>/spec/{SPEC_VERSION}/registry.json</a> — the closed protocol vocabulary</li>
+    <li><a href={`/spec/${SPEC_VERSION}/state.schema.json`}>/spec/{SPEC_VERSION}/state.schema.json</a> — the STATE.md JSON Schema</li>
+    <li><a href={`/spec/${SPEC_VERSION}/adapters.json`}>/spec/{SPEC_VERSION}/adapters.json</a> — host adapters and declared enforcement</li>
+    <li><a href="/llms.txt">/llms.txt</a> — an index of this site for agents</li>
+  </ul>
+</SiteLayout>

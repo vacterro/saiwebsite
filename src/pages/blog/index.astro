@@ -1,0 +1,39 @@
+---
+/**
+ * Blog index (MASTER_ROADMAP M24). Editorial: explanation, research and design
+ * notes. It never outranks the specification.
+ */
+import { getCollection } from 'astro:content';
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const day = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<SiteLayout
+  title="Blog"
+  tag="/blog/"
+  description="Design notes, research and explanations around SAIPEN. Editorial, never protocol authority."
+>
+  <h1>Blog</h1>
+  <p><MaturityBadge level="preview" note="editorial — where an article and the protocol disagree, the protocol is right" /></p>
+  <p>
+    Release facts live in the <a href="/changelog/">changelog</a>; this is where the reasoning goes. Every post has a
+    permanent URL.
+  </p>
+  <dl class="doclist">
+    {
+      posts.map((post) => (
+        <>
+          <dt>
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          </dt>
+          <dd>
+            {post.data.description} <span class="w-panel__note">{day(post.data.date)} · {post.data.kind}</span>
+          </dd>
+        </>
+      ))
+    }
+  </dl>
+</SiteLayout>
