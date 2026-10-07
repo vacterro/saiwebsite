@@ -79,8 +79,8 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "f550a541ab5f4871b31ef271d970a2eea724796d9696fd6d4199686aef06bcd7",
-      "files": 5,
+      "sha256": "9d7fbc474cd32f589ca22ce45a357bcee15dac1fad8e512c4b9cd65772918247",
+      "files": 6,
       "locked": true
     },
     "site.content.docs": {
@@ -119,17 +119,17 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "73bd495642e6d1b7e01c3eacc31f0ceb0750a23594e1b5ea02eb190029399f3e",
+      "sha256": "f4ad7cddb8d755e3f856e4ca9955fceec86b622e005ac572cd63e4236aff6b86",
       "files": 1,
       "locked": true
     },
     "site.package": {
       "adapter": "package-version",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "cb73158f11a703a002050613b31ecd46558a0c7020e5e463ce13bf36d437df0e",
+      "sha256": "09580b360943713a40b2760121c8726790bd2000d71c2bdbbdb8eb4639379cc0",
       "files": 1,
       "locked": true
     },
@@ -169,7 +169,7 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "57aad7ae9bbd5b61eb8caa0d4dfd7dc58b22ef3898ad63dd832db332b749ab70",
+      "sha256": "8e80f2e87aec8d40d16daa319c95e0abec2b2bc74ad0e97f02e50657ccd845e9",
       "files": 1,
       "locked": true
     },
