@@ -94,6 +94,38 @@ for (const [url, page] of pages) {
   if (!/<link rel="canonical" href="https:\/\/[^"]+"/.test(page.html)) problems.push(`[meta] ${url}: no canonical link`);
 }
 
+// ── Version consistency gate (package.json == verification.ts == changelog == dist) ──
+const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+const verificationTs = readFileSync('src/data/verification.ts', 'utf8');
+const verMatch = verificationTs.match(/siteVersion:\s*'([^']+)'/);
+if (!verMatch || verMatch[1] !== pkg.version) {
+  problems.push(`[version-drift] src/data/verification.ts siteVersion "${verMatch?.[1]}" does not match package.json "${pkg.version}"`);
+}
+const changelogPath = `src/content/changelog/${pkg.version}.md`;
+if (!existsSync(changelogPath)) {
+  problems.push(`[version-drift] missing changelog entry for current version: ${changelogPath}`);
+} else {
+  const clContent = readFileSync(changelogPath, 'utf8');
+  if (!new RegExp(`^version:\\s*['"]?${pkg.version.replace(/\./g, '\\.')}['"]?`, 'm').test(clContent)) {
+    problems.push(`[version-drift] ${changelogPath} frontmatter does not declare version: ${pkg.version}`);
+  }
+}
+const changelogDist = join(DIST, 'changelog/index.html');
+if (existsSync(changelogDist) && !readFileSync(changelogDist, 'utf8').includes(pkg.version)) {
+  problems.push(`[version-drift] dist/changelog/index.html does not display version ${pkg.version}`);
+}
+
+// ── README documented commands must exist in package.json ─────────────────────
+if (existsSync('README.md')) {
+  const readme = readFileSync('README.md', 'utf8');
+  const commands = [...readme.matchAll(/npm run ([a-zA-Z0-9:_-]+)/g)].map((m) => m[1]);
+  for (const cmd of new Set(commands)) {
+    if (!pkg.scripts?.[cmd]) {
+      problems.push(`[readme-command] README.md documents "npm run ${cmd}" which is missing from package.json scripts`);
+    }
+  }
+}
+
 if (problems.length) {
   for (const p of problems) console.log(`  FAIL ${p}`);
   console.log(`\nFAILED: ${problems.length} content problem(s) across ${pages.size} pages`);

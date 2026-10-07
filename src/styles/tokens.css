@@ -48,13 +48,13 @@
      The fallbacks after each pixel face are installed system fonts in the
      spirit of the Wintage stack, used only if a face fails to load; nothing
      from them is downloaded or shipped. */
-  --face-fallback: Verdana, Tahoma, sans-serif;
+  --face-fallback: sans-serif;
   --face-meta: "SAI Pixel 10", var(--face-fallback);
   --face-compact: "SAI Pixel 11", var(--face-fallback);
   --face-body: "SAI Pixel 12", var(--face-fallback);
   --face-heading: "SAI Pixel 14", var(--face-fallback);
   --face-title: "SAI Pixel 16", var(--face-fallback);
-  --face-code: "SAI Pixel Mono 12", Consolas, "Lucida Console", monospace;
+  --face-code: "SAI Pixel Mono 12", monospace;
   /* Kept for components that ask for "the UI stack" without a size role. */
   --font-ui: var(--face-body);
   --font-code: var(--face-code);

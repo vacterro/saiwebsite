@@ -93,10 +93,10 @@ const kb = (n: number) => `${(n / 1024).toFixed(1)} KB`;
     <li>Coverage: Latin, Latin-1, Latin Extended-A, Cyrillic, punctuation, arrows and box drawing. Other scripts fall back to system fonts.</li>
   </ul>
 
-  <h2>History</h2>
+  <h2>Migration history</h2>
   <p class="w-panel__note">
-    Until site v1.1.0 a local build used faces made from the Verdana_m1 bitmaps that Wintage references. Their
-    redistribution rights were never verified, so they were replaced; no Verdana-derived file is generated, shipped or
+    Historical context (NOT SHIPPED, NOT REQUIRED, NOT PRODUCTION): Until site v1.1.0 an early local prototype explored faces made from the Verdana_m1 bitmaps that Wintage referenced. Their
+    redistribution rights were not suitable for an open distribution, so they were completely replaced before public release; no proprietary font file is generated, shipped, or
     needed by the build, and <code>npm run validate:licenses</code> fails if one comes back.
   </p>
 </SiteLayout>
