@@ -96,3 +96,7 @@
 - 07.10.26 05:37 [E-95] [parent: E-94] [T-8] [agent: saipen] [op: checkpoint-5258336edad54662ac4dfd4f6a0d945a] RUN: SCOUT -- AUDAPACK supported contract found: project-owned MANIFEST.json 'required' list (fidelity.py priority 2, manifest closure, exact relative file paths, no '..'); tests/baselines/MANIFEST.json and public/fonts/manifest.json qualify. Fonts: open DejaVu pipeline exists (fonts:build:open); git identity configured globally; no remote.
 - 07.10.26 05:37 [E-96] [parent: E-95] [T-8] [agent: saipen] [op: transition-bd6780e95afe42259d3106069bdcd18b] RUN: transition to BUILD
 - 07.10.26 05:43 [E-97] [parent: E-96] [T-9] [agent: saipen] [op: userreq-ac30d677b7c140a1bfa71fc3672ab747] DEC: user request SRC-008 projected as T-9 (local candidate; witness model_supplied)
+- 07.10.26 05:50 [E-98] [parent: E-97] [T-8] [agent: saipen] RUN: build -> v1.2.0: open fonts, social card, local git init, baselines
+- 07.10.26 05:52 [E-99] [parent: E-98] [T-9] [agent: saipen] RUN: build -> favicon from __SAIPEN_Alpha.png golden default tint, ico
+- 07.10.26 05:57 [E-100] [parent: E-99] [T-8] [agent: saipen] RUN: verify -> PASS: all gates pass (lint, licenses, baselines, tests)
+- 07.10.26 05:58 [E-101] [parent: E-100] [T-8] [agent: saipen] DEC: finished T-8 and T-9 via SAIOPS -- v1.2.0 release ready

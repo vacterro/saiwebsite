@@ -27,13 +27,13 @@
      write that field name next to a concrete id anywhere in this file. -->
 
 ## DOING
-- [/] T-8 [P2] Release-readiness convergence: open-licence production pixel fonts + social card, validate:licenses gate, bench as production verification, stale copy, singl... | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-007 | owner: saipen | claim_time: 2026-10-07T05:37:41Z
 
 ## TODO
-- [ ] T-9 [P2] Tint the images in src/media/ to the site palette and place them where they fit; the SAIPEN wordmark image is the hero/header for now | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-008
-
 
 ## DONE
+- [x] T-9 [P2] Tint the images in src/media/ to the site palette and place them where they fit; the SAIPEN wordmark image is the hero/header for now; favicon from __SAIPEN_Alpha.png tinted in golden default | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-008 | owner: saipen | claim_time: 2026-10-07T05:43:00Z | closure_mode: own_patch
+- [x] T-8 [P2] Release-readiness convergence: open-licence production pixel fonts + social card, validate:licenses gate, bench as production verification, stale copy, single-sourced facts, ecosystem:sync + snapshot validation, AUDAPACK mandatory-include check, local git only, T-6 honest reconcile, consistency pass, THIRD_PARTY_NOTICES, v1.2.0; no publish/push/deploy | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-007 | owner: saipen | claim_time: 2026-10-07T05:37:41Z | closure_mode: own_patch
+- [x] T-6 [P2] Survey github.com/vacterro and integrate the relevant SAIPEN ecosystem projects harmoniously (no 40-repo dump), plus own improvements without harming the site | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-005 | owner: saipen | claim_time: 2026-10-07T05:00:27Z | closure_mode: own_patch
 - [x] T-7 [P2] Apply review: author/operator identity on About (created+maintained by vacterro via multi-agent workflows, why-built origin, builder principles, beyond SAIPE... | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-006 | owner: saipen | claim_time: 2026-10-07T05:21:42Z | closure_mode: own_patch
 - [x] T-4 [P2] Continue fully building the site to completion, roadmap as guide | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-003 | owner: saipen | claim_time: 2026-10-07T05:00:08Z | closure_mode: own_patch
 - [x] T-5 [P2] Design must be exactly Wintage + SAIPEN UI.md: no anti-aliasing, pixel perfect (proof by rendered pixels) | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-004 | owner: saipen | claim_time: 2026-10-07T04:15:08Z | closure_mode: own_patch
@@ -42,4 +42,3 @@
 - [x] T-1 [P2] SAI_WEBSITE bootstrap: Astro+TS static site, Wintage Golden Default token foundation, core visual primitives, initial routes, debug/components acceptance bench | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-001 | owner: saipen | claim_time: 2026-10-07T01:37:32Z | closure_mode: own_patch
 
 ## BLOCKED
-- [ ] T-6 [P2] Survey github.com/vacterro and integrate the relevant SAIPEN ecosystem projects harmoniously (no 40-repo dump), plus own improvements without harming the site | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-005 | owner: saipen | claim_time: 2026-10-07T05:00:27Z | blocker: implemented and verified inside T-4 (E-64); no separate diff to ship | blocker_scope: ticket
