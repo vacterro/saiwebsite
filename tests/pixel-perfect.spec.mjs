@@ -169,6 +169,7 @@ const FACE_FOR_SIZE = { 10: ['SAI Pixel 10'], 11: ['SAI Pixel 11'], 12: ['SAI Pi
 async function facePairing(page) {
   return page.evaluate((map) => {
     const bad = [];
+    const chars = new Set();
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const seen = new Set();
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
@@ -184,7 +185,26 @@ async function facePairing(page) {
       const allowed = map[size];
       if (!allowed || !allowed.includes(face)) bad.push(`${el.tagName.toLowerCase()}.${[...el.classList].join('.')} ${size}px "${face}"`);
       else if (!document.fonts.check(`${cs.fontWeight} ${cs.fontStyle} ${size}px "${face}"`)) bad.push(`${face} ${size}px not loaded`);
+      else for (const ch of new Set(node.textContent)) if (/\S/.test(ch)) chars.add(`${cs.fontWeight}|${cs.fontStyle}|${size}|${face}|${ch}`);
     }
+    // A character the face does not map is drawn by a fallback font. On the
+    // reference host that fallback is aliased too, so it is palette-clean and
+    // invisible to the colour counter; it is still off the face's grid. A
+    // character drawn by the face measures the same whatever generic family
+    // follows it in the stack; a missing one takes the width of the fallback.
+    const ctx = document.createElement('canvas').getContext('2d');
+    const width = (font, ch) => {
+      ctx.font = font;
+      return ctx.measureText(ch).width;
+    };
+    const missing = new Set();
+    for (const key of chars) {
+      const [weight, style, size, face, ch] = key.split('|');
+      const base = `${weight} ${style} ${size}px "${face}"`;
+      const widths = ['monospace', 'serif', 'sans-serif'].map((generic) => width(`${base}, ${generic}`, ch));
+      if (widths.some((w) => w !== widths[0])) missing.add(`U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')} ${ch} not in "${face}"`);
+    }
+    bad.push(...missing);
     return bad;
   }, FACE_FOR_SIZE);
 }

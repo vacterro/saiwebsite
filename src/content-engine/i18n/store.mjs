@@ -192,6 +192,11 @@ export function validateTranslations(store, coverage = null, { forEnable = false
     if (missing.length) problems.push(`[enable-blocked] locale ${l.id} is enabled but ${missing.length} required unit(s) are not renderable (${[...new Set(missing.map((m) => m.status))].join(', ')}) — finish them or set enabled: false`);
   }
   if (coverage) {
+    // Every locale name is drawn in the language selector.
+    for (const l of store.localesDoc.locales) {
+      const bad = [...l.nativeName].filter((ch) => !/\s/.test(ch) && !coverage.has(ch.codePointAt(0)));
+      if (bad.length && l.enabled) problems.push(`[glyph-coverage] locale ${l.id}: its native name "${l.nativeName}" uses ${bad.join(' ')}, which the pixel faces cannot draw`);
+    }
     for (const l of enabledLocales(store.localesDoc)) {
       const missingScripts = uncoveredScripts(l, coverage);
       if (missingScripts.length) problems.push(`[enable-blocked] locale ${l.id} is enabled but the pixel faces do not cover ${missingScripts.join(', ')} — keep it planned until a font milestone adds the script`);

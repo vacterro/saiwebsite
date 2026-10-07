@@ -24,7 +24,7 @@
     {
       "id": "qps-ploc",
       "displayName": "Pseudo-locale",
-      "nativeName": "Ƥšéûðö-ļöçåļé",
+      "nativeName": "Pšéûðö-ļöçåļé",
       "stage": "pseudo",
       "enabled": true,
       "fallback": "en",
