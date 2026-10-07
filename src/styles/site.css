@@ -1849,9 +1849,17 @@ main blockquote > :last-child,
 .mark {
   display: block;
   flex: none;
-  background-color: var(--ui-accent);
+  background-color: var(--ui-brand-mark, var(--ui-accent));
   -webkit-mask: var(--mark) no-repeat 0 0 / 100% 100%;
   mask: var(--mark) no-repeat 0 0 / 100% 100%;
+}
+
+.mark--brand {
+  background-color: var(--ui-brand-mark, var(--ui-accent));
+}
+
+.mark--accent {
+  background-color: var(--ui-accent);
 }
 
 .mark--text {

@@ -4,7 +4,7 @@
 
 **Official documentation and public web surface for the SAIPEN Protocol.**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-D4B86A?style=flat-square)](package.json)
+[![Version](https://img.shields.io/badge/version-1.3.0-D4B86A?style=flat-square)](package.json)
 ![Astro](https://img.shields.io/badge/Astro-static%20site-BC52EE?style=flat-square&logo=astro&logoColor=white)
 ![Tracking](https://img.shields.io/badge/tracking-none-4A7A20?style=flat-square)
 ![Theme](https://img.shields.io/badge/UI-Wintage%20native-6B5A2B?style=flat-square)
@@ -131,6 +131,7 @@ npm run audit:build         # HTML landmarks, headings, budgets, and theme contr
 npm run test:runtime        # Theme runtime persistence, pre-paint restore, and fallback
 npm run test:shell          # Shell routes, overflow at 320/390/640/1280px, landmarks
 npm run test:content        # Documentation tree, spec visualizer, playground, search
+npm run test:support        # Public donation and support details verification
 npm run test:pixel          # Zero-tolerance 21-color pixel closure (Chromium + WebKit)
 npm run test:visual         # Visual regression baselines comparison (33 baselines)
 npm test                    # Full Playwright test suite
@@ -162,7 +163,7 @@ saiwebsite/
 ├── src/
 │   ├── components/         # Wintage UI primitives (Window, Panel, Button, MenuBar)
 │   ├── content/docs/       # Technical documentation pages (7 sections)
-│   ├── content/changelog/  # Site version release notes (0.1.0, 1.0.0, 1.1.0, 1.2.0)
+│   ├── content/changelog/  # Site version release notes (0.1.0, 1.0.0, 1.1.0, 1.2.0, 1.3.0)
 │   ├── data/canonical/     # Upstream SAIPEN registry & schema snapshots
 │   ├── layouts/            # SiteLayout, DocsLayout, SpecLayout
 │   ├── pages/              # Astro routes, spec generator, playground, search
@@ -178,7 +179,7 @@ saiwebsite/
 ## 9. Current Publication Status & Known Limitations
 
 - **Source Code:** Public repository on GitHub (`vacterro/saiwebsite`).
-- **Version:** `v1.2.0` (Production readiness convergence).
+- **Version:** `v1.3.0` (Font convergence, full support/pricing, brand contrast).
 - **Public Deployment:** Planned (hosting and domain attachment deferred behind future gates).
 
 ### Known Technical Limitations

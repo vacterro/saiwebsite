@@ -13,11 +13,11 @@ interface Props {
   width: number;
   height: number;
   label?: string;
-  tone?: 'accent' | 'text' | 'dim';
+  tone?: 'brand' | 'accent' | 'text' | 'dim';
   class?: string;
 }
 
-const { name, width, height, label, tone = 'accent', class: className = '' } = Astro.props;
+const { name, width, height, label, tone = 'brand', class: className = '' } = Astro.props;
 const style = `width:${width}px;height:${height}px;--mark:url("/media/${name}.png")`;
 ---
 

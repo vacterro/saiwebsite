@@ -126,6 +126,44 @@ if (existsSync('README.md')) {
   }
 }
 
+// ── Support data integrity gate (MASTER_ROADMAP M22, §9) ───────────────────────
+const pricingDist = join(DIST, 'pricing/index.html');
+if (existsSync(pricingDist)) {
+  const pricingHtml = readFileSync(pricingDist, 'utf8');
+  const requiredUrls = [
+    'https://buymeacoffee.com/vacuum34',
+    'https://boosty.to/vacuum34/donate',
+    'https://paypal.me/AlexNelin',
+  ];
+  for (const u of requiredUrls) {
+    if (!pricingHtml.includes(u)) {
+      problems.push(`[support-data] dist/pricing/index.html missing easy support URL: ${u}`);
+    }
+  }
+  if (!pricingHtml.includes('LHV') || !pricingHtml.includes('ALEKS NELIN') || !pricingHtml.includes('EE887700771010699620')) {
+    problems.push('[support-data] dist/pricing/index.html missing LHV, ALEKS NELIN, or IBAN');
+  }
+  const cryptoNetworks = [
+    'TON Network',
+    'Bitcoin',
+    'TRON / TRC20',
+    'Solana',
+    'Base',
+    'Ethereum',
+  ];
+  for (const net of cryptoNetworks) {
+    if (!pricingHtml.includes(net)) {
+      problems.push(`[support-data] dist/pricing/index.html missing explicit crypto network label "${net}"`);
+    }
+  }
+  if (!pricingHtml.includes('0x175D98fF376b65B86154Fe47655c158C6F9bb80B')) {
+    problems.push('[support-data] dist/pricing/index.html missing shared EVM address 0x175D98fF376b65B86154Fe47655c158C6F9bb80B');
+  }
+  if (!pricingHtml.includes('Verify both the network and address before sending')) {
+    problems.push('[support-data] dist/pricing/index.html missing crypto safety warning');
+  }
+}
+
 if (problems.length) {
   for (const p of problems) console.log(`  FAIL ${p}`);
   console.log(`\nFAILED: ${problems.length} content problem(s) across ${pages.size} pages`);

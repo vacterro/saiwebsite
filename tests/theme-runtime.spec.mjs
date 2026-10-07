@@ -281,3 +281,24 @@ test('J. /debug/rendering and /debug/themes report the live runtime state', asyn
   expect(await readTheme(page)).toBe(DEFAULT_SLUG);
   expect(await page.locator('[data-theme-diag="label"]').innerText()).toBe(GOLDEN.label);
 });
+
+// ── K. Brand mark contrast ─────────────────────────────────────────────────
+test.describe('K. brand mark contrast', () => {
+  test('K. brand mark in Vintage Classic resolves to textPrimary #000000 and contrasts with surface', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#theme-select').selectOption('vintageclassic');
+    const wordmark = page.locator('.hero__wordmark').first();
+    const color = await wordmark.evaluate((el) => window.getComputedStyle(el).backgroundColor);
+    const bg = await page.locator('body').evaluate((el) => window.getComputedStyle(el).backgroundColor);
+    expect(color).toBe('rgb(0, 0, 0)');
+    expect(color).not.toBe(bg);
+  });
+
+  test('K. brand mark in Golden Default resolves to canonical gold/accent', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#theme-select').selectOption('goldendefault');
+    const wordmark = page.locator('.hero__wordmark').first();
+    const color = await wordmark.evaluate((el) => window.getComputedStyle(el).backgroundColor);
+    expect(color).toBe('rgb(240, 208, 96)');
+  });
+});

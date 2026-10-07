@@ -4,7 +4,7 @@
  * the About page shows it as a dated record, never as a live claim.
  */
 export const LAST_VERIFICATION = {
-  siteVersion: '1.2.0',
+  siteVersion: '1.3.0',
   date: '2026-10-07',
   pages: 75,
   browserChecks: 348,

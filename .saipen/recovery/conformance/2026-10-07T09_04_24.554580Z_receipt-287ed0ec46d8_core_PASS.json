@@ -1,0 +1,30 @@
+{
+  "blocking_findings": {
+    "problem_count": 0,
+    "problems": [],
+    "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+    "ruleset_version": 1,
+    "status": "complete",
+    "warning_count": 2
+  },
+  "board_hash": "449df78ac01d729e",
+  "canonical_next_command": null,
+  "content_hash": "173a58bd0a5aff71",
+  "exit_code": 0,
+  "external_actions": [],
+  "gate": "core",
+  "install_fingerprint": "install-v1:f70bc6ca4d86163eb6c07b7d1fa95b44f07385e40247fae98276e52af9e06c14",
+  "install_home": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN",
+  "kind": "conformance_receipt",
+  "log_hash": "02bb21be2a591184",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "receipt_id": "receipt-287ed0ec46d8",
+  "remediation_commands": [],
+  "schema_version": 2,
+  "source_head": "dd4092d10b60fb7205a151104dbfded2bb587a5c",
+  "source_tree_fingerprint": "git-delta-v1:1ab0ac9cadf225795b6b09d2b9ff633bd1e143c22d1f67f6263050be6345ff97",
+  "state_hash": "085ba9c56ce6a144",
+  "timestamp_utc": "2026-10-07T09:04:24.554580Z",
+  "validator_protocol_version": "1",
+  "verdict": "PASS"
+}

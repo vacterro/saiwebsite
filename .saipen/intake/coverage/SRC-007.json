@@ -1,4 +1,23 @@
 {
-  "requirements": {},
+  "requirements": {
+    "SRC-007:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "re-verified on current tree under T-11: RV-000002 executed npm run validate:licenses, validate:baselines, fonts:build all exit 0, full 17-gate suite exit 0, open-licence fonts in public/fonts, public/social/card.png and THIRD_PARTY_NOTICES.md present",
+      "text": "Release-readiness convergence: open-licence production pixel fonts",
+      "verification": "saipen work reverify T-8 executed checks and T-11 full gate run",
+      "work": "T-8"
+    },
+    "SRC-007:R002": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "re-verified on current tree under T-11: RV-000002 executed npm run validate:licenses, validate:baselines, fonts:build all exit 0, full 17-gate suite exit 0, open-licence fonts in public/fonts, public/social/card.png and THIRD_PARTY_NOTICES.md present",
+      "text": "and social card, validate:licenses gate, bench as production verification, stale copy, single-sourced facts, ecosystem:sync and snapshot validation, AUDAPACK mandatory-include check, local git only, T-6 honest reconcile, consistency pass, THIRD_PARTY_NOTICES, v1.2.0, no publish/push/deploy",
+      "verification": "saipen work reverify T-8 executed checks and T-11 full gate run",
+      "work": "T-8"
+    }
+  },
   "schema_version": 1
 }

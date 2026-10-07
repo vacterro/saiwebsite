@@ -129,6 +129,7 @@
   --ui-edge-dark: var(--borderDark);  /* structural dark edge */
   --ui-edge-muted: var(--borderMuted);
   --ui-accent: var(--borderHighlight);
+  --ui-brand-mark: var(--borderHighlight);
 
   --ui-text: var(--textPrimary);
   --ui-text-dim: var(--textSecondary);
@@ -180,3 +181,9 @@
     1px calc(100% - 1px), 1px calc(100% - 2px),
     2px 100%, 100% 2px;
 }
+
+/* Vintage Classic brand mark contrast correction: paint with textPrimary (#000000) */
+[data-theme="vintageclassic"] * {
+  --ui-brand-mark: var(--textPrimary);
+}
+

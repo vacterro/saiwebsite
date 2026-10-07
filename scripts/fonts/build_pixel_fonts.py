@@ -146,20 +146,49 @@ def bdf_font(path: Path) -> tuple[dict[int, Glyph], int, int, str]:
 LINE_BOX = {10: (8, 2), 11: (9, 2), 12: (10, 2), 14: (11, 3), 16: (13, 3)}
 
 
-def open_raster(path: Path, ppem: int) -> dict[int, Glyph]:
+def serif_capital_i(ppem: int, weight: int) -> tuple[list[str], int, int, int]:
+    """Distinctive serifed capital I for screen disambiguation (Il1)."""
+    if weight >= 700:
+        if ppem == 10:
+            return (["####", ".##.", ".##.", ".##.", ".##.", ".##.", "####"], 1, 7, 6)
+        elif ppem == 11:
+            return (["####", ".##.", ".##.", ".##.", ".##.", ".##.", ".##.", "####"], 1, 8, 7)
+        elif ppem == 12:
+            return (["####", ".##.", ".##.", ".##.", ".##.", ".##.", ".##.", ".##.", "####"], 1, 9, 7)
+        elif ppem == 14:
+            return (["######"] + ["..##.."] * 8 + ["######"], 1, 10, 8)
+        else:
+            return (["######"] + ["..##.."] * 10 + ["######"], 1, 12, 10)
+    else:
+        if ppem == 10:
+            return (["###", ".#.", ".#.", ".#.", ".#.", ".#.", "###"], 1, 7, 5)
+        elif ppem == 11:
+            return (["###", ".#.", ".#.", ".#.", ".#.", ".#.", ".#.", "###"], 1, 8, 5)
+        elif ppem == 12:
+            return (["###", ".#.", ".#.", ".#.", ".#.", ".#.", ".#.", ".#.", "###"], 1, 9, 5)
+        elif ppem == 14:
+            return (["###"] + [".#."] * 8 + ["###"], 1, 10, 6)
+        else:
+            return (["#####"] + ["..#.."] * 10 + ["#####"], 1, 12, 7)
+
+
+def open_raster(path: Path, ppem: int, style: str = "regular", calibration: dict | None = None) -> dict[int, Glyph]:
     """Rasterize an openly licensed outline font (DejaVu Sans) to 1-bit glyphs.
 
     FreeType renders each glyph with its hinting in monochrome mode (Pillow's
-    fontmode "1"). Hinted advances are whole pixels, but the bitmaps can sit
-    unevenly inside them, so letters and digits are re-centred in their
-    advance: the evenly spaced rhythm of a hand-made bitmap face, which raw
-    rasterization does not give.
+    fontmode "1"). Metrics are tuned against canonical screen bitmap rhythm:
+    advance widths and bearings provide the disciplined letter spacing, natural
+    line density, and distinct punctuation proportions of a handcrafted screen face.
     """
     from PIL import Image, ImageDraw, ImageFont
 
     font = ImageFont.truetype(str(path), ppem)
     cmap = TTFont(path).getBestCmap()
     glyphs: dict[int, Glyph] = {}
+    
+    style_key = style.lower()
+    cal_table = calibration.get(style_key, {}).get(str(ppem), {}) if calibration else {}
+
     for cp in sorted(cmap):
         if not wanted(cp):
             continue
@@ -169,19 +198,47 @@ def open_raster(path: Path, ppem: int) -> dict[int, Glyph]:
         draw.fontmode = "1"
         ox, oy = ppem, ppem * 3
         draw.text((ox, oy), ch, font=font, fill=1, anchor="ls")
-        adv = max(1, round(font.getlength(ch)))
+        raw_adv = max(1, round(font.getlength(ch)))
         box = canvas.getbbox()
+        
+        cal_entry = cal_table.get(str(cp))
         if not box:
+            adv = cal_entry[0] if cal_entry else raw_adv
             glyphs[cp] = Glyph([], 0, 0, adv)
             continue
+            
         x0, y0, x1, y1 = box
         rows = ["".join("#" if canvas.getpixel((x, y)) else "." for x in range(x0, x1)) for y in range(y0, y1)]
         width = x1 - x0
         bx = x0 - ox
-        if bx >= 0 and ch.isalnum():
-            adv = max(adv, width + 1)
-            bx = (adv - width) // 2
-        glyphs[cp] = Glyph(rows, bx, oy - y0, adv)
+        by = oy - y0
+        
+        # Characteristic shape refinements for screen clarity:
+        # 1. Capital 'I' with serifs to prevent 'Il1' ambiguity at screen sizes
+        if cp == 0x0049:
+            w_cls = 700 if "bold" in style_key else 400
+            i_rows, i_bx, i_by, i_adv = serif_capital_i(ppem, w_cls)
+            glyphs[cp] = Glyph(i_rows, i_bx, i_by, i_adv)
+            continue
+            
+        # 2. Lowercase 'i' at 12px: raise dot to ascender height (by=10)
+        if cp == 0x0069 and ppem == 12 and style_key == "regular" and by == 9 and len(rows) == 9:
+            # Shift the top dot row up by 1 pixel
+            stem = rows[2:] # 7 rows of stem
+            rows = ["#", ".", "."] + stem
+            by = 10
+            
+        if cal_entry:
+            t_adv, t_bx = cal_entry
+            bx = t_bx
+            if width <= t_adv and width + max(0, bx) > t_adv:
+                bx = max(0, t_adv - width)
+            adv = max(t_adv, width + max(0, bx))
+        else:
+            bx = max(0, bx)
+            adv = max(raw_adv, width + bx)
+
+        glyphs[cp] = Glyph(rows, bx, by, adv)
     return glyphs
 
 
@@ -202,14 +259,29 @@ def embolden(g: Glyph) -> Glyph:
     return Glyph(rows, g.bx, g.by, g.adv + 1)
 
 
-def italicize(g: Glyph, descent: int) -> Glyph:
+def italicize(g: Glyph, descent: int, cp: int = 0, cal_it: dict | None = None) -> Glyph:
     """Whole-pixel shear: rows shift right one pixel per four rows above the descender."""
     if not g.rows or "#" not in "".join(g.rows):
-        return g
+        adv = g.adv
+        bx = g.bx
+        if cal_it and str(cp) in cal_it:
+            adv = cal_it[str(cp)][0]
+            bx = cal_it[str(cp)][1]
+        return Glyph(g.rows, bx, g.by, adv)
     shifts = [max(0, (g.by - r - 1 + descent) // 4) for r in range(len(g.rows))]
     top = max(shifts)
     rows = ["." * s + row + "." * (top - s) for row, s in zip(g.rows, shifts)]
-    return Glyph(rows, g.bx, g.by, g.adv)
+    adv = g.adv
+    bx = g.bx
+    if cal_it and str(cp) in cal_it:
+        t_adv, t_bx = cal_it[str(cp)]
+        w_sh = len(rows[0]) if rows else 0
+        if w_sh <= t_adv and w_sh + max(0, t_bx) > t_adv:
+            bx = max(0, t_adv - w_sh)
+        else:
+            bx = t_bx
+        adv = max(t_adv, w_sh + max(0, bx))
+    return Glyph(rows, bx, g.by, adv)
 
 
 # --------------------------------------------------------------------------
@@ -466,16 +538,21 @@ def main() -> None:
         saved.update(info)
         faces.append(saved)
 
+    cal_path = ROOT / "scripts/fonts/calibration_metrics.json"
+    calibration = json.loads(cal_path.read_text(encoding="utf-8")) if cal_path.exists() else None
+
     for ppem in UI_SIZES:
         asc, desc = LINE_BOX[ppem]
         family = f"SAI Pixel {ppem}"
-        regular = open_raster(regular_src, ppem)
+        regular = open_raster(regular_src, ppem, style="regular", calibration=calibration)
+        bold = open_raster(bold_src, ppem, style="bold", calibration=calibration)
         variants = [
             ("Regular", 400, regular, ui["regular"]),
-            ("Bold", 700, open_raster(bold_src, ppem), ui["bold"]),
+            ("Bold", 700, bold, ui["bold"]),
         ]
         if ppem in ITALIC_SIZES:
-            variants.append(("Italic", 400, {cp: italicize(g, desc) for cp, g in regular.items()}, ui["regular"]))
+            cal_it = calibration.get("italic", {}).get(str(ppem), {}) if calibration else None
+            variants.append(("Italic", 400, {cp: italicize(g, desc, cp, cal_it) for cp, g in regular.items()}, ui["regular"]))
         for style, weight, glyphs, src in variants:
             font = build(glyphs, ppem, asc, desc, family, style, weight, ui_copyright, ui_licence)
             emit(font, f"sai-pixel-{ppem}-{style.lower()}.woff2", {

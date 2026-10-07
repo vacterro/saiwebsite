@@ -1,0 +1,123 @@
+{
+  "board_sha256": "e5988e729f760a54",
+  "bound_work": "T-11",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-07T09:01:09Z",
+  "findings_digest": "6488ef3c6ed23cc6dacf05e5d5332949d3675c563a5c561495f0b51c254b7ab3",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-3a62e9b1f3ef",
+  "log_fingerprint": "6a0cfb7920999158",
+  "problem_count": 6,
+  "problems": [
+    {
+      "category": null,
+      "credential": false,
+      "detail": "SRC-007,T-8",
+      "detail_hash": "e41eba173e489496",
+      "finding_key": "8b62428d96d194b7",
+      "rule_id": "source_receipt_unresolved_work",
+      "severity": "problem",
+      "subject_id": "T-8",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "SRC-008,T-9",
+      "detail_hash": "247741866827bbd4",
+      "finding_key": "5d9280ccffdb1b24",
+      "rule_id": "source_receipt_unresolved_work",
+      "severity": "problem",
+      "subject_id": "T-9",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "08886c31d44d83da",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-10",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "8ef07216a69f7c43",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-8",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "ac8fe87afc1d71b8",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-9",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "cross-doc drift [root-file-set] -- file(s) at the repository root that the closed set does not name: ['M`']. Both orphans removed alongside this check arrived that way, on a `git add -A` in a commit about something else, and neither was referenced by any document or tool -- so no other check here could ever see them. A deliberate new root file is a one-line addition to ROOT_ALLOWED in tools/validate.py; a scratch file belongs in .gitignore, which this check honours. Likely writer (HOST_HOOK_RUNS_PAYLOAD): host hook(s) C:\\Users\\vac34\\.claude\\settings.json PostToolUse/Read; C:\\Users\\vac34\\.claude\\settings.json PreToolUse/Grep|Glob; C:\\Users\\vac34\\.claude\\settings.json SessionStart/startup; C:\\Users\\vac34\\.claude\\settings.json SessionStart/resume and 3 more -- invoke the hook script or its executable directly (for example the `.cmd` path, or `<tool>.exe hook-augment`) instead of `cmd.exe /c`; under Git Bash a single-slash switch becomes a path, cmd.exe starts interactive and runs the hook payload -- text the agent read -- as commands",
+      "detail_hash": "1bd0a419037fdeee",
+      "finding_key": "4141c15153e33942",
+      "rule_id": "cross_doc_drift",
+      "severity": "problem",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-11",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000008",
+  "source_head": "dd4092d10b60fb7205a151104dbfded2bb587a5c",
+  "source_tree_fingerprint": "git-delta-v1:1ab0ac9cadf225795b6b09d2b9ff633bd1e143c22d1f67f6263050be6345ff97",
+  "state_sha256": "058b68f8ce7500f8",
+  "validator_protocol_version": "1",
+  "warning_count": 2,
+  "warnings": [
+    {
+      "category": "no-conformance-record",
+      "credential": false,
+      "detail": "no LOG line records a conformance run in \u00a7 1.2's fixed form (`RUN: validate.py -> PASS` or `-> FAIL`), so \u00a7 1.10's `saipen status` has nothing to report under Conformance and a cold agent must either ",
+      "detail_hash": "0f511cf104b0873e",
+      "finding_key": "76b48f23558dce11",
+      "rule_id": "unclassified",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}

@@ -1,12 +1,19 @@
 ---
 /**
- * Pricing (MASTER_ROADMAP M22, §9; FUTURE_GATES FG-007, FG-009). A plain
- * statement, deliberately not fictional commerce: no price, plan or
- * entitlement exists, so none is shown.
+ * Pricing (MASTER_ROADMAP M22, §9; FUTURE_GATES FG-007, FG-009).
+ *
+ * Core contract:
+ * Protocol, docs, spec, ecosystem tools, and local/self-hosted use are completely free.
+ * No hosted service, no paid plan, and no fake SaaS tier exists.
+ *
+ * Support is optional:
+ * Canonical support details are sourced from src/data/support.ts (matching
+ * https://github.com/vacterro/vacterro/blob/main/SUPPORT.md).
  */
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { SITE } from '../../data/site';
+import { SUPPORT } from '../../data/support';
 ---
 
 <SiteLayout
@@ -62,9 +69,171 @@ import { SITE } from '../../data/site';
     this page will not show a monthly price, a seat count or a "contact sales" button.
   </p>
 
-  <h2>Supporting the work</h2>
-  <p>
-    Support is optional and buys nothing: nothing is locked behind a donation. The author's ways to chip in are listed
-    on <a href={SITE.author} rel="noopener" data-external>github.com/vacterro</a>.
-  </p>
+  <section class="support-section" aria-labelledby="support-heading">
+    <h2 id="support-heading">Supporting the work</h2>
+    <p>
+      Support is completely optional. A donation buys no entitlement, unlocks no feature, is not a subscription,
+      is not payment for the protocol, and does not affect access to SAIPEN. The protocol, documentation, and local
+      use remain free.
+    </p>
+
+    <h3>Direct platforms</h3>
+    <div class="row">
+      {SUPPORT.easy.map((item) => (
+        <a class="w-button" href={item.url} rel="noopener" data-external>{item.name}</a>
+      ))}
+    </div>
+
+    <h3>Bank transfer &mdash; EUR</h3>
+    <div class="w-panel">
+      <div class="w-panel__title">LHV (EUR)</div>
+      <div class="wide-scroll">
+        <table class="w-table bank-table">
+          <tbody>
+            <tr>
+              <th scope="row" class="bank-label-col">Bank</th>
+              <td>{SUPPORT.bank.bank}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="bank-label-col">Recipient</th>
+              <td>{SUPPORT.bank.recipient}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="bank-label-col">IBAN</th>
+              <td>
+                <div class="iban-row">
+                  <code class="support-code">{SUPPORT.bank.iban}</code>
+                  <button type="button" class="w-button w-button--small js-copy" data-copy={SUPPORT.bank.iban}>Copy</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>Cryptocurrency</h3>
+    <p class="w-panel__note safety-note">
+      {SUPPORT.warning}
+    </p>
+
+    <div class="crypto-grid">
+      {SUPPORT.crypto.map((c) => (
+        <div class="w-panel crypto-card">
+          <div class="crypto-header">
+            <span class="crypto-name">{c.name}</span>
+            <span class="w-badge">{c.network}</span>
+          </div>
+          <div class="crypto-meta">
+            <span class="crypto-label">Network / assets:</span> {c.accepted}
+          </div>
+          <div class="crypto-address-row">
+            <code class="crypto-address">{c.address}</code>
+            <button type="button" class="w-button w-button--small js-copy" data-copy={c.address}>Copy</button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="w-panel__note source-note">
+      Canonical source: <a href={SUPPORT.source} rel="noopener" data-external>SUPPORT.md on GitHub</a>.
+    </p>
+  </section>
+
+  <script>
+    document.querySelectorAll<HTMLButtonElement>('.js-copy').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const text = button.getAttribute('data-copy');
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = button.textContent;
+          button.textContent = 'Copied';
+          setTimeout(() => {
+            button.textContent = original;
+          }, 1500);
+        } catch {
+          // Fallback if clipboard API is unavailable; address remains selectable in DOM
+        }
+      });
+    });
+  </script>
 </SiteLayout>
+
+<style>
+  .support-section {
+    margin-top: var(--gap-6);
+  }
+  .bank-label-col {
+    width: 120px;
+  }
+  .bank-table {
+    margin-top: var(--gap-3);
+  }
+  .iban-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-3);
+  }
+  .safety-note {
+    margin-bottom: var(--gap-4);
+  }
+  .source-note {
+    margin-top: var(--gap-5);
+  }
+  .crypto-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-4);
+  }
+  .crypto-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-3);
+  }
+  .crypto-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-3);
+  }
+  .crypto-name {
+    font-size: var(--size-body);
+    font-family: var(--face-body);
+    line-height: var(--lh-body);
+    font-weight: var(--weight-bold);
+  }
+  .crypto-meta {
+    font-size: var(--size-meta);
+    font-family: var(--face-meta);
+    line-height: var(--lh-meta);
+    color: var(--ui-text-dim);
+  }
+  .crypto-label {
+    color: var(--ui-text);
+    font-weight: var(--weight-bold);
+  }
+  .crypto-address-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-3);
+    background-color: var(--ui-window);
+    padding: var(--gap-2) var(--gap-3);
+    border: 1px solid var(--ui-edge-muted);
+  }
+  .support-code {
+    font-family: var(--face-code);
+    font-size: var(--size-body);
+    line-height: var(--lh-code);
+    user-select: all;
+  }
+  .crypto-address {
+    font-family: var(--face-code);
+    font-size: var(--size-body);
+    line-height: var(--lh-code);
+    word-break: break-all;
+    user-select: all;
+  }
+</style>

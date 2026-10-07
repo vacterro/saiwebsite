@@ -1,0 +1,75 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-07T09:02:08Z",
+  "evidence_class": "executed",
+  "findings_digest": "8ee1d23cbcc110246c5efb138f4bf6d471a3aa4c7d1abc5c2d7510160475ecc1",
+  "gate": "core",
+  "integrity_digest": "ac8921b19b977579",
+  "journal_op_id": "reverify.729bc65ba0c9",
+  "original_closure": {
+    "claim_time": "2026-10-07T05:43:00Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-99",
+    "owner": "saipen",
+    "source_receipts": "SRC-008"
+  },
+  "own_problem_keys": [
+    "5d9280ccffdb1b24",
+    "ac8fe87afc1d71b8"
+  ],
+  "problem_count": 5,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000003",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "dd4092d10b60fb7205a151104dbfded2bb587a5c",
+  "source_tree_fingerprint": "git-delta-v1:1ab0ac9cadf225795b6b09d2b9ff633bd1e143c22d1f67f6263050be6345ff97",
+  "verdict": "FAIL",
+  "verification": [
+    {
+      "command": "npm run build",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 3147,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 14071,
+      "output_digest": "891d7fc934bdfa51",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run audit:build",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 272,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 49602,
+      "output_digest": "4fa0e288ab887b30",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run test:shell",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 15920,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 14187,
+      "output_digest": "9fc8213fa6a2f104",
+      "result": "PASS"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "npm run build",
+      "npm run audit:build",
+      "npm run test:shell"
+    ],
+    "findings_digest": "8ee1d23cbcc110246c5efb138f4bf6d471a3aa4c7d1abc5c2d7510160475ecc1",
+    "gate": "core"
+  },
+  "verification_contract_digest": "b5626698e2c2efb0",
+  "verifier": "saipen",
+  "warning_count": 2,
+  "work": "T-9"
+}

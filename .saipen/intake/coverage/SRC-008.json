@@ -1,4 +1,14 @@
 {
-  "requirements": {},
+  "requirements": {
+    "SRC-008:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "re-verified on current tree under T-11: RV-000003 executed npm run build, audit:build, test:shell all exit 0, tinted media in public/media (wordmark, emblem, banner, favicon) used by PixelMark and SiteLayout header",
+      "text": "Tint the images in src/media/ to the site palette and place them where they fit, the SAIPEN wordmark image is the hero/header for now",
+      "verification": "saipen work reverify T-9 executed checks and T-11 full gate run",
+      "work": "T-9"
+    }
+  },
   "schema_version": 1
 }
