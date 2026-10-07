@@ -63,66 +63,66 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
   tag="/about/"
   description={tx.text('about.description')}
 >
-  <h1>{tx.text('about.title')}</h1>
+  <h1 set:html={tx.html('about.title')}></h1>
   <p><MaturityBadge level="stable" /></p>
   <PixelMark name="saipen-banner-332" width={332} height={120} label="SAIPEN" class="about__banner" />
 
   <aside class="callout callout--authority about__motto">
-    <p class="callout__label">{tx.text('about.motto.label')}</p>
-    <p>{tx.text('about.motto.body')}</p>
+    <p class="callout__label" set:html={tx.html('about.motto.label')}></p>
+    <p set:html={tx.html('about.motto.body')}></p>
   </aside>
 
-  <h2 id="author">{tx.text('about.author.title')}</h2>
+  <h2 id="author" set:html={tx.html('about.author.title')}></h2>
   <p set:html={tx.html('about.author.body1', { author: SITE.author })} />
   <p set:html={tx.html('about.author.body2', { organization: SITE.organization, community: SITE.community })} />
 
-  <h2 id="why">{tx.text('about.why.title')}</h2>
-  <p>{tx.text('about.why.body1')}</p>
-  <p>{tx.text('about.why.body2')}</p>
-  <blockquote><p>{tx.text('about.why.quote')}</p></blockquote>
-  <p>{tx.text('about.why.body3')}</p>
+  <h2 id="why" set:html={tx.html('about.why.title')}></h2>
+  <p set:html={tx.html('about.why.body1')}></p>
+  <p set:html={tx.html('about.why.body2')}></p>
+  <blockquote><p set:html={tx.html('about.why.quote')}></p></blockquote>
+  <p set:html={tx.html('about.why.body3')}></p>
 
-  <h2 id="workflow">{tx.text('about.workflow.title')}</h2>
+  <h2 id="workflow" set:html={tx.html('about.workflow.title')}></h2>
   <ol class="plain flow">
     {WORKFLOW.map((key) => <li set:html={tx.html(`about.workflow.${key}`)} />)}
   </ol>
   <p set:html={tx.html('about.workflow.tools', {}, { tools: toolList })} />
 
-  <h2 id="principles">{tx.text('about.principles.title')}</h2>
+  <h2 id="principles" set:html={tx.html('about.principles.title')}></h2>
   <p class="w-panel__note" set:html={tx.html('about.principles.note')} />
   <dl class="doclist">
     {
       PRINCIPLES.map((key) => (
         <>
-          <dt>{tx.text(`about.principles.${key}.name`)}</dt>
-          <dd>{tx.text(`about.principles.${key}.line`)}</dd>
+          <dt set:html={tx.html(`about.principles.${key}.name`)}></dt>
+          <dd set:html={tx.html(`about.principles.${key}.line`)}></dd>
         </>
       ))
     }
   </dl>
 
-  <h2 id="dogfooding">{tx.text('about.dogfooding.title')}</h2>
+  <h2 id="dogfooding" set:html={tx.html('about.dogfooding.title')}></h2>
   <p set:html={tx.html('about.dogfooding.body')} />
   {
     self ? (
       <>
         <dl class="diag">
-          <dt>{tx.text('about.dogfooding.events')}</dt>
-          <dd>{tx.text('about.dogfooding.events-value', { count: self.events })}</dd>
-          <dt>{tx.text('about.dogfooding.closed')}</dt>
-          <dd>{tx.text('about.dogfooding.closed-value', { done: done.length, total: self.tickets.length })}</dd>
-          <dt>{tx.text('about.dogfooding.last')}</dt>
+          <dt set:html={tx.html('about.dogfooding.events')}></dt>
+          <dd set:html={tx.html('about.dogfooding.events-value', { count: self.events })}></dd>
+          <dt set:html={tx.html('about.dogfooding.closed')}></dt>
+          <dd set:html={tx.html('about.dogfooding.closed-value', { done: done.length, total: self.tickets.length })}></dd>
+          <dt set:html={tx.html('about.dogfooding.last')}></dt>
           <dd>
-            {tx.text('about.dogfooding.last-value', { version: LAST_VERIFICATION.siteVersion, date: LAST_VERIFICATION.date, pages: LAST_VERIFICATION.pages, checks: LAST_VERIFICATION.browserChecks, gates: LAST_VERIFICATION.staticGates.length })}
+            <Fragment set:html={tx.html('about.dogfooding.last-value', { version: LAST_VERIFICATION.siteVersion, date: LAST_VERIFICATION.date, pages: LAST_VERIFICATION.pages, checks: LAST_VERIFICATION.browserChecks, gates: LAST_VERIFICATION.staticGates.length })} />
           </dd>
         </dl>
         <div class="wide-scroll">
           <table class="w-table">
             <thead>
               <tr>
-                <th scope="col">{tx.text('about.dogfooding.col.ticket')}</th>
-                <th scope="col">{tx.text('about.dogfooding.col.work')}</th>
-                <th scope="col">{tx.text('about.dogfooding.col.state')}</th>
+                <th scope="col" set:html={tx.html('about.dogfooding.col.ticket')}></th>
+                <th scope="col" set:html={tx.html('about.dogfooding.col.work')}></th>
+                <th scope="col" set:html={tx.html('about.dogfooding.col.state')}></th>
               </tr>
             </thead>
             <tbody lang={en}>
@@ -139,7 +139,7 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
             </tbody>
           </table>
         </div>
-        <p>{tx.text('about.dogfooding.red')}</p>
+        <p set:html={tx.html('about.dogfooding.red')}></p>
         <ul lang={en}>
           {LAST_VERIFICATION.redControls.map((c) => (
             <li>{c}</li>
@@ -147,49 +147,49 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
         </ul>
       </>
     ) : (
-      <p class="w-panel__note">{tx.text('about.dogfooding.none')}</p>
+      <p class="w-panel__note" set:html={tx.html('about.dogfooding.none')}></p>
     )
   }
 
-  <h2 id="scope">{tx.text('about.scope.title')}</h2>
-  <p>{tx.text('about.scope.body')}</p>
+  <h2 id="scope" set:html={tx.html('about.scope.title')}></h2>
+  <p set:html={tx.html('about.scope.body')}></p>
   <ul>
     <li set:html={tx.html('about.scope.not-protocol', { repository: SITE.repository! })} />
     <li set:html={tx.html('about.scope.not-engine')} />
     <li set:html={tx.html('about.scope.authority')} />
   </ul>
 
-  <h2 id="beyond">{tx.text('about.beyond.title')}</h2>
+  <h2 id="beyond" set:html={tx.html('about.beyond.title')}></h2>
   <p set:html={tx.html('about.beyond.body', { author: ECOSYSTEM_SNAPSHOT.author })} />
 
-  <h2 id="design">{tx.text('about.design.title')}</h2>
+  <h2 id="design" set:html={tx.html('about.design.title')}></h2>
   <p set:html={tx.html('about.design.body')} />
 
-  <h2 id="accessibility">{tx.text('about.a11y.title')}</h2>
+  <h2 id="accessibility" set:html={tx.html('about.a11y.title')}></h2>
   <ul>
     <li set:html={tx.html('about.a11y.landmarks')} />
-    <li>{tx.text('about.a11y.focus')}</li>
-    <li>{tx.text('about.a11y.nojs')}</li>
-    <li>{tx.text('about.a11y.colour')}</li>
-    <li>{tx.text('about.a11y.text')}</li>
-    <li>{tx.text('about.a11y.motion')}</li>
+    <li set:html={tx.html('about.a11y.focus')}></li>
+    <li set:html={tx.html('about.a11y.nojs')}></li>
+    <li set:html={tx.html('about.a11y.colour')}></li>
+    <li set:html={tx.html('about.a11y.text')}></li>
+    <li set:html={tx.html('about.a11y.motion')}></li>
   </ul>
 
-  <h2 id="performance">{tx.text('about.perf.title')}</h2>
+  <h2 id="performance" set:html={tx.html('about.perf.title')}></h2>
   <p set:html={tx.html('about.perf.body')} />
 
-  <h2 id="quality-gates">{tx.text('about.gates.title')}</h2>
+  <h2 id="quality-gates" set:html={tx.html('about.gates.title')}></h2>
   <div class="wide-scroll">
     <table class="w-table">
       <thead>
-        <tr><th scope="col">{tx.text('about.gates.col.command')}</th><th scope="col">{tx.text('about.gates.col.fails')}</th></tr>
+        <tr><th scope="col" set:html={tx.html('about.gates.col.command')}></th><th scope="col" set:html={tx.html('about.gates.col.fails')}></th></tr>
       </thead>
       <tbody>
         {
           GATES.map(([cmd, id]) => (
             <tr>
               <th scope="row"><code>{cmd}</code></th>
-              <td>{tx.text(id)}</td>
+              <td set:html={tx.html(id)}></td>
             </tr>
           ))
         }
@@ -197,22 +197,22 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     </table>
   </div>
 
-  <h2 id="deployment">{tx.text('about.deploy.title')}</h2>
+  <h2 id="deployment" set:html={tx.html('about.deploy.title')}></h2>
   <ul>
-    <li>{tx.text('about.deploy.static')}</li>
-    <li>{tx.text('about.deploy.links', { domain: SITE.domain })}</li>
+    <li set:html={tx.html('about.deploy.static')}></li>
+    <li set:html={tx.html('about.deploy.links', { domain: SITE.domain })}></li>
     <li set:html={tx.html('about.deploy.generated')} />
     <li set:html={tx.html('about.deploy.aliases')} />
   </ul>
   <p set:html={tx.html('about.deploy.status')} />
 
-  <h2 id="sources">{tx.text('about.sources.title')}</h2>
+  <h2 id="sources" set:html={tx.html('about.sources.title')}></h2>
   <dl class="diag">
-    <dt>{tx.text('about.sources.protocol')}</dt>
-    <dd>{tx.text('about.sources.protocol-value', { version: meta.version, commit: SHORT_COMMIT })}</dd>
-    <dt>{tx.text('about.sources.ecosystem')}</dt>
-    <dd>{tx.text('about.sources.ecosystem-value', { date: ECOSYSTEM_SNAPSHOT.date })}</dd>
-    <dt>{tx.text('about.sources.design')}</dt>
-    <dd>{tx.text('about.sources.design-value')}</dd>
+    <dt set:html={tx.html('about.sources.protocol')}></dt>
+    <dd set:html={tx.html('about.sources.protocol-value', { version: meta.version, commit: SHORT_COMMIT })}></dd>
+    <dt set:html={tx.html('about.sources.ecosystem')}></dt>
+    <dd set:html={tx.html('about.sources.ecosystem-value', { date: ECOSYSTEM_SNAPSHOT.date })}></dd>
+    <dt set:html={tx.html('about.sources.design')}></dt>
+    <dd set:html={tx.html('about.sources.design-value')}></dd>
   </dl>
 </SiteLayout>

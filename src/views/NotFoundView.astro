@@ -17,16 +17,16 @@ const tx = translator(Astro.props.locale);
 ---
 
 <SiteLayout locale={tx.locale} title={tx.text('notfound.title')} tag="404" description={tx.text('notfound.description')} noindex crumbs={[{ label: tx.text('ui.crumbs.home'), href: tx.href('/') }, { label: tx.text('notfound.crumb') }]}>
-  <h1>{tx.text('notfound.title')}</h1>
+  <h1 set:html={tx.html('notfound.title')}></h1>
   <div class="w-panel w-panel--sunken with-mark">
     <PixelMark name="saipen-emblem-64" width={64} height={64} tone="dim" />
     <div>
-    <h2 class="w-panel__title">{tx.text('notfound.panel.title')}</h2>
+    <h2 class="w-panel__title" set:html={tx.html('notfound.panel.title')}></h2>
     <p set:html={tx.html('notfound.panel.body')} />
     <div class="row">
-      <a class="w-button w-button--primary" href={tx.href('/')}>{tx.text('notfound.action.home')}</a>
-      <a class="w-button" href={tx.href('/docs/')}>{tx.text('notfound.action.docs')}</a>
-      <a class="w-button" href={tx.href('/search/')}>{tx.text('notfound.action.search')}</a>
+      <a class="w-button w-button--primary" href={tx.href('/')} set:html={tx.html('notfound.action.home')}></a>
+      <a class="w-button" href={tx.href('/docs/')} set:html={tx.html('notfound.action.docs')}></a>
+      <a class="w-button" href={tx.href('/search/')} set:html={tx.html('notfound.action.search')}></a>
     </div>
     </div>
   </div>

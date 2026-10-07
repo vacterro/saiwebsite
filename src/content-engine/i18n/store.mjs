@@ -62,7 +62,7 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
   for (const { file, doc } of catalogDocs) problems.push(...validateCatalog(doc, file.slice(at('').length), sourceIds));
   let blocks = {};
   try {
-    blocks = mergeCatalogs([...catalogDocs.map((c) => c.doc), pageLabelBlocks(registry)]);
+    blocks = mergeCatalogs([...catalogDocs.map((c) => c.doc), ...pageLabelBlocks(registry)]);
   } catch (error) {
     problems.push(`[duplicate-id] ${error.message}`);
   }

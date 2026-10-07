@@ -39,12 +39,12 @@ const fill = (href: string) => href.replace(/\{([a-zA-Z]+)\}/g, (_m: string, nam
 ---
 
 <SiteLayout locale={tx.locale} title={tx.text(doc.title)} tag={route.href} description={tx.text(doc.description)}>
-  <h1>{tx.text(doc.title)}</h1>
+  <h1 set:html={tx.html(doc.title)}></h1>
   <p><MaturityBadge level={route.maturity} /></p>
   {
     doc.sections.map((s: Doc) =>
       s.type === 'heading' ? (
-        <h2>{tx.text(s.text)}</h2>
+        <h2 set:html={tx.html(s.text)}></h2>
       ) : s.type === 'paragraph' ? (
         <p set:html={tx.html(s.text, vars)} />
       ) : s.type === 'list' && s.ordered ? (
@@ -55,15 +55,15 @@ const fill = (href: string) => href.replace(/\{([a-zA-Z]+)\}/g, (_m: string, nam
         <div class="cards">
           {s.cards.map((c: Doc) => (
             <article class="card">
-              <header class="card__head"><h2 class="card__title">{tx.text(c.title)}</h2></header>
+              <header class="card__head"><h2 class="card__title" set:html={tx.html(c.title)}></h2></header>
               <div class="card__body">
                 {c.body.map((id: string) => <p set:html={tx.html(id, vars)} />)}
                 {c.action && (
                   <p class="card__links">
                     {/^https?:/.test(fill(c.action.href)) ? (
-                      <a class="w-button w-button--small" href={fill(c.action.href)} rel="noopener" data-external>{tx.text(c.action.label)}</a>
+                      <a class="w-button w-button--small" href={fill(c.action.href)} rel="noopener" data-external set:html={tx.html(c.action.label)}></a>
                     ) : (
-                      <a class="w-button w-button--small" href={tx.href(fill(c.action.href))}>{tx.text(c.action.label)}</a>
+                      <a class="w-button w-button--small" href={tx.href(fill(c.action.href))} set:html={tx.html(c.action.label)}></a>
                     )}
                   </p>
                 )}

@@ -16,15 +16,21 @@ export function mergeCatalogs(docs) {
 
 /**
  * Navigation labels are owned by the page registry. They become translatable
- * blocks `pages.<page id>.label` without being copied into a catalogue.
+ * blocks `pages.<page id>.label` without being copied into a catalogue. Labels
+ * of internal debug benches go to their own domain, outside every locale's
+ * translation scope.
  */
 export function pageLabelBlocks(registry) {
-  const blocks = {};
+  const pub = {};
+  const internal = {};
   for (const page of registry.pages) {
     if (page.nav === 'none') continue;
-    blocks[`pages.${page.id}.label`] = { type: 'text', text: page.label, note: `Navigation label of ${page.route}` };
+    (page.audience === 'internal' ? internal : pub)[`pages.${page.id}.label`] = { type: 'text', text: page.label, note: `Navigation label of ${page.route}` };
   }
-  return { schemaVersion: 1, domain: 'pages', usedBy: ['all-html'], blocks };
+  return [
+    { schemaVersion: 1, domain: 'pages', usedBy: ['all-html'], blocks: pub },
+    { schemaVersion: 1, domain: 'pages-internal', usedBy: ['page:debug.*'], blocks: internal },
+  ];
 }
 
 /** Unit files ({ locale, domain, units }) -> locale -> block ID -> unit. */

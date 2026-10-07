@@ -41,6 +41,6 @@ const link = (d: typeof prev) => d && { href: tx.href(docHref(d)), title: docMet
   <p class="docs__lead">{page.description}</p>
   <Fragment set:html={page.html} />
   <p class="w-panel__note docs__raw">
-    {tx.text('docs-ui.raw.note')} <a href={`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}>{`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}</a>
+    <Fragment set:html={tx.html('docs-ui.raw.note')} /> <a href={`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}>{`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}</a>
   </p>
 </DocsLayout>

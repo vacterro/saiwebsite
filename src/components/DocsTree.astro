@@ -19,13 +19,13 @@ const tree = await docTree();
 ---
 
 <form class="tree__search" action={tx.href('/search/')} method="get" role="search">
-  <label class="tree__search-label" for={`${idPrefix}-search`}>{tx.text('docs-ui.tree.search')}</label>
+  <label class="tree__search-label" for={`${idPrefix}-search`} set:html={tx.html('docs-ui.tree.search')}></label>
   <input class="w-input" id={`${idPrefix}-search`} name="q" type="search" autocomplete="off" />
 </form>
 {
   tree.map((group) => (
     <div class="tree__group">
-      <p class="tree__group-title">{tx.text(`docs-ui.section.${group.section}`)}</p>
+      <p class="tree__group-title" set:html={tx.html(`docs-ui.section.${group.section}`)}></p>
       <ul>
         {group.docs.map((doc) => {
           const meta = docMeta(doc.id, locale);
@@ -42,9 +42,9 @@ const tree = await docTree();
   ))
 }
 <div class="tree__group">
-  <p class="tree__group-title">{tx.text('docs-ui.tree.spec')}</p>
+  <p class="tree__group-title" set:html={tx.html('docs-ui.tree.spec')}></p>
   <ul>
-    <li><a href="/spec/">{tx.text('docs-ui.tree.spec-index')}</a></li>
-    <li><a href="/spec/v8/lifecycle/">{tx.text('docs-ui.tree.state-machine')}</a></li>
+    <li><a href="/spec/" set:html={tx.html('docs-ui.tree.spec-index')}></a></li>
+    <li><a href="/spec/v8/lifecycle/" set:html={tx.html('docs-ui.tree.state-machine')}></a></li>
   </ul>
 </div>

@@ -37,7 +37,7 @@ const parse = (raw: string) => {
   return { frontmatter: frontmatter as Doc, body: content };
 };
 
-export const BLOCKS: Record<string, any> = mergeCatalogs([...Object.values(catalogFiles), pageLabelBlocks(registry)]);
+export const BLOCKS: Record<string, any> = mergeCatalogs([...Object.values(catalogFiles), ...pageLabelBlocks(registry)]);
 export const UNITS = unitsByLocale(Object.values(unitFiles)) as Record<string, Record<string, any>>;
 export const LOCALES = localesDoc;
 export const CANONICAL_LOCALE: string = localesDoc.canonical;

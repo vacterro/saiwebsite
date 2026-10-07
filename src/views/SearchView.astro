@@ -31,15 +31,15 @@ const words = {
 ---
 
 <SiteLayout locale={tx.locale} title={tx.text('search.title')} tag="/search/" description={tx.text('search.description')}>
-  <h1>{tx.text('search.title')}</h1>
+  <h1 set:html={tx.html('search.title')}></h1>
   <p><MaturityBadge level="stable" note={tx.text('search.badge-note')} /></p>
   <form class="search" action={tx.href('/search/')} method="get" role="search" data-index={index} data-words={JSON.stringify(words)}>
-    <label class="w-field__label" for="q">{tx.text('search.field.label')}</label>
+    <label class="w-field__label" for="q" set:html={tx.html('search.field.label')}></label>
     <div class="row">
       <input class="w-input search__input" id="q" name="q" type="search" autocomplete="off" />
-      <button class="w-button w-button--primary" type="submit">{tx.text('search.field.submit')}</button>
+      <button class="w-button w-button--primary" type="submit" set:html={tx.html('search.field.submit')}></button>
     </div>
-    <p class="w-field__help">{tx.text('search.field.help')}</p>
+    <p class="w-field__help" set:html={tx.html('search.field.help')}></p>
   </form>
 
   <p class="search__status" data-status aria-live="polite" set:html={tx.html('search.status.nojs')} />

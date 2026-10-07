@@ -169,7 +169,7 @@ const hreflang = publicAlternates.length > 1 ? publicAlternates : [];
     <script is:inline set:html={themeBootstrapScript()} />
   </head>
   <body>
-    <a class="skip-link" href="#main">{tx.text('ui.skip-link')}</a>
+    <a class="skip-link" href="#main" set:html={tx.html('ui.skip-link')}></a>
     <div class="shell">
       <WintageWindow title={title} tag={tag} bodyTag="main" bodyId="main">
         <Fragment slot="menu">

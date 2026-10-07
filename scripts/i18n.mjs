@@ -29,7 +29,7 @@
  * The rules a translation must obey are written for translators in
  * src/content-engine/i18n/TRANSLATING.md.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { blockHash, markupSignature, normalizeText, placeholders } from '../src/content-engine/blocks/blocks.mjs';
 import { checkTranslation, markdownSignature, uncoveredScripts, unitStatus, validateLocales } from '../src/content-engine/i18n/i18n.mjs';
@@ -358,6 +358,43 @@ function enable() {
 // ---------------------------------------------------------------------------
 // validate (+ red controls)
 // ---------------------------------------------------------------------------
+/**
+ * Visible block text must say which language it is in. tx.html() wraps a
+ * fallback in <span lang>; tx.text() used as an element's text must sit in an
+ * element carrying lang={tx.langOf(id)}. Attribute values are exempt.
+ * Returns `file:line` findings for one template source.
+ */
+export function unmarkedTextChildren(source, file = 'template') {
+  const fm = source.startsWith('---') ? source.indexOf('\n---', 4) + 4 : 0;
+  const findings = [];
+  let at = source.indexOf('{tx.text(', fm);
+  while (at >= 0) {
+    let k = at - 1;
+    while (k >= 0 && /\s/.test(source[k])) k--;
+    if (!'=(,:?'.includes(source[k])) {
+      const open = source.lastIndexOf('<', at);
+      const tag = source.slice(open, source.indexOf('>', open) + 1);
+      if (!tag.includes('lang={tx.langOf(')) findings.push(`${file}:${source.slice(0, at).split('\n').length}`);
+    }
+    at = source.indexOf('{tx.text(', at + 1);
+  }
+  return findings;
+}
+
+function templateFindings() {
+  const dirs = ['src/views', 'src/layouts', 'src/components', 'src/pages'];
+  const files = [];
+  const walk = (d) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      const p = `${d}/${e.name}`;
+      if (e.isDirectory()) walk(p);
+      else if (p.endsWith('.astro')) files.push(p);
+    }
+  };
+  dirs.filter(existsSync).forEach(walk);
+  return files.flatMap((f) => unmarkedTextChildren(readFileSync(f, 'utf8'), f));
+}
+
 function redControls() {
   const results = [];
   const check = (name, fired) => results.push({ name, fired: Boolean(fired) });
@@ -387,6 +424,8 @@ function redControls() {
   // The renderer never shows a stale unit: it falls back to English.
   const tx = createTranslatorForTest(base, 'et', { 'home.action.start': { text: 'Alusta', sourceHash: '0'.repeat(16), status: 'CURRENT' } });
   check('a stale unit renders the English fallback', tx.text('home.action.start') === base.blocks['home.action.start'].text && tx.fallbacks().includes('home.action.start'));
+  check('a stale unit rendered as HTML is marked lang="en"', tx.html('home.action.start').includes('lang="en"') && tx.langOf('home.action.start') === 'en');
+  check('visible tx.text() without a lang marker is refused', unmarkedTextChildren('---\n---\n<p>{tx.text(\'home.hero.lead\')}</p>').length === 1 && unmarkedTextChildren('---\n---\n<b lang={tx.langOf(\'x.y\')}>{tx.text(\'x.y\')}</b><i title={tx.text(\'x.y\')}></i>').length === 0);
   const current = createTranslatorForTest(base, 'et', { 'home.action.start': { text: 'Alusta', sourceHash: hashOf('home.action.start'), status: 'REVIEWED' } });
   check('a current unit renders the translation', current.text('home.action.start') === 'Alusta');
   let threw = false;
@@ -402,7 +441,7 @@ function redControls() {
 function validate() {
   const store = load();
   const controls = redControls();
-  const problems = [...store.problems, ...validateTranslations(store, loadCoverage())];
+  const problems = [...store.problems, ...validateTranslations(store, loadCoverage()), ...templateFindings().map((f) => `[unmarked-fallback] ${f}: visible tx.text() — use set:html={tx.html(id)} or lang={tx.langOf(id)} on the element`)];
   console.log('RED CONTROLS');
   for (const c of controls) console.log(`  ${c.fired ? 'RED ' : 'MISS'} ${c.name}`);
   for (const c of controls.filter((x) => !x.fired)) problems.push(`[blind-gate] red control "${c.name}" did not fire`);

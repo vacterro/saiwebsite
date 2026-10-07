@@ -28,7 +28,7 @@ pseudo-locale used by the tests; ignore it.
 The pilot scope — what a locale must cover before it can be enabled — is the
 site shell, the home, about, pricing, search and 404 pages, the navigation
 labels, the documentation chrome, and the four pages of the *Getting started*
-docs section: 275 blocks and 4 documents.
+docs section: 271 blocks and 4 documents, 275 units in all.
 
 ## The workflow
 

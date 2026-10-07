@@ -73,12 +73,12 @@ const crumbs = [
 <SiteLayout locale={locale} title={title} tag="/docs/" description={description} crumbs={current ? crumbs : undefined} ogType="article">
   <div class="docs">
     <nav class="tree docs__tree" aria-label={tx.text('docs-ui.tree.label')}>
-      <p class="tree__title">{tx.text('docs-ui.tree.title')}</p>
+      <p class="tree__title" set:html={tx.html('docs-ui.tree.title')}></p>
       <DocsTree current={current} idPrefix="tree" locale={locale} />
     </nav>
 
     <details class="w-panel w-panel--sunken docs__tree-compact">
-      <summary>{tx.text('docs-ui.tree.label')}</summary>
+      <summary set:html={tx.html('docs-ui.tree.label')}></summary>
       <nav class="tree" aria-label={tx.text('docs-ui.tree.label')}>
         <DocsTree current={current} idPrefix="tree-compact" locale={locale} />
       </nav>
@@ -98,7 +98,7 @@ const crumbs = [
       {
         toc.length > 2 && (
           <details class="docs__toc-inline">
-            <summary>{tx.text('docs-ui.toc.title')}</summary>
+            <summary set:html={tx.html('docs-ui.toc.title')}></summary>
             <ul class="plain">
               {toc.map((h) => (
                 <li class={`toc__item toc__item--${h.depth}`}>
@@ -113,7 +113,7 @@ const crumbs = [
       {
         original && (
           <p class="w-panel__note docs__translation">
-            {tx.text('docs-ui.translation.note')} <a href={original} hreflang={CANONICAL_LOCALE} lang={CANONICAL_LOCALE}>{original}</a>
+            <Fragment set:html={tx.html('docs-ui.translation.note')} /> <a href={original} hreflang={CANONICAL_LOCALE} lang={CANONICAL_LOCALE}>{original}</a>
           </p>
         )
       }
@@ -125,7 +125,7 @@ const crumbs = [
       {
         sources.length > 0 && (
           <section class="w-panel w-panel--sunken docs__sources" aria-labelledby="sources-title">
-            <h2 class="w-panel__title" id="sources-title">{tx.text('docs-ui.sources.title')}</h2>
+            <h2 class="w-panel__title" id="sources-title" set:html={tx.html('docs-ui.sources.title')}></h2>
             <ul lang={tx.canonical ? undefined : CANONICAL_LOCALE}>
               {sources.map((source) => (
                 <li>
@@ -136,7 +136,7 @@ const crumbs = [
                 </li>
               ))}
             </ul>
-            <p class="w-panel__note">{tx.text('docs-ui.sources.note')}</p>
+            <p class="w-panel__note" set:html={tx.html('docs-ui.sources.note')}></p>
           </section>
         )
       }
@@ -146,7 +146,7 @@ const crumbs = [
           <nav class="docs__pager" aria-label={tx.text('docs-ui.pager.label')}>
             {prev ? (
               <a class="w-button docs__pager-prev" href={prev.href} rel="prev">
-                <span class="docs__pager-dir">{tx.text('docs-ui.pager.prev')}</span>
+                <span class="docs__pager-dir" set:html={tx.html('docs-ui.pager.prev')}></span>
                 <span>{prev.title}</span>
               </a>
             ) : (
@@ -154,7 +154,7 @@ const crumbs = [
             )}
             {next && (
               <a class="w-button docs__pager-next" href={next.href} rel="next">
-                <span class="docs__pager-dir">{tx.text('docs-ui.pager.next')}</span>
+                <span class="docs__pager-dir" set:html={tx.html('docs-ui.pager.next')}></span>
                 <span>{next.title}</span>
               </a>
             )}
@@ -166,7 +166,7 @@ const crumbs = [
     {
       toc.length > 2 && (
         <aside class="docs__toc" aria-labelledby="toc-title">
-          <p class="tree__title" id="toc-title">{tx.text('docs-ui.toc.title')}</p>
+          <p class="tree__title" id="toc-title" set:html={tx.html('docs-ui.toc.title')}></p>
           <ul class="plain">
             {toc.map((h) => (
               <li class={`toc__item toc__item--${h.depth}`}>

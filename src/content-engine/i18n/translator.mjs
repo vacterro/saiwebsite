@@ -61,6 +61,15 @@ export function createTranslator({ locale, localesDoc, blocks, units, glossary }
       const body = r.type === 'inline' ? renderInline(r.text, vars, htmlVars) : escapeHtml(renderText(r.text, vars));
       return r.lang !== locale ? `<span lang="${r.lang}" data-i18n-fallback>${body}</span>` : body;
     },
+    /**
+     * The language a block renders in when it differs from the page's, else
+     * undefined: `<button lang={tx.langOf(id)}>{tx.text(id)}</button>` marks a
+     * fallback where set:html cannot be used.
+     */
+    langOf(id) {
+      const r = note(id, resolve(id));
+      return r.lang !== locale ? r.lang : undefined;
+    },
     /** Block IDs this page showed in a fallback language (diagnostics, M52). */
     fallbacks: () => [...fallbacks].sort(),
   };

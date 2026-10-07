@@ -56,23 +56,23 @@ const core = projectsIn('core');
     <h1 id="hero-title">{SITE.name}</h1>
     <p class="hero__tagline" lang={en}>{SITE.tagline}</p>
     <p class="hero__motto" lang={en}>{SITE.motto}</p>
-    <p class="hero__lead">{tx.text('home.hero.lead')}</p>
-    <pre class="w-code hero__cmd"><code>saipen continue        {tx.text('home.hero.cmd-or')}  cc</code></pre>
+    <p class="hero__lead" set:html={tx.html('home.hero.lead')}></p>
+    <pre class="w-code hero__cmd"><code>saipen continue        <Fragment set:html={tx.html('home.hero.cmd-or')} />  cc</code></pre>
     <div class="row">
-      <WintageButton href={tx.href('/docs/getting-started/quickstart/')} variant="primary">{tx.text('home.action.start')}</WintageButton>
-      <WintageButton href={tx.href('/spec/')}>{tx.text('home.action.spec')}</WintageButton>
-      <WintageButton href={tx.href('/playground/')}>{tx.text('home.action.recovery')}</WintageButton>
-      <WintageButton href={SITE.repository!}>{tx.text('home.action.github')}</WintageButton>
+      <WintageButton href={tx.href('/docs/getting-started/quickstart/')} variant="primary"><Fragment set:html={tx.html('home.action.start')} /></WintageButton>
+      <WintageButton href={tx.href('/spec/')}><Fragment set:html={tx.html('home.action.spec')} /></WintageButton>
+      <WintageButton href={tx.href('/playground/')}><Fragment set:html={tx.html('home.action.recovery')} /></WintageButton>
+      <WintageButton href={SITE.repository!}><Fragment set:html={tx.html('home.action.github')} /></WintageButton>
     </div>
-    <p class="w-panel__note">{tx.text('home.hero.licence', { version: meta.version, commit: SHORT_COMMIT })}</p>
+    <p class="w-panel__note" set:html={tx.html('home.hero.licence', { version: meta.version, commit: SHORT_COMMIT })}></p>
   </section>
 
   <section class="w-panel w-panel--sunken home__section" aria-labelledby="practice">
     <div class="with-mark">
       <PixelMark name="saipen-emblem-96" width={96} height={96} />
       <div>
-        <h2 class="w-panel__title" id="practice">{tx.text('home.practice.title')}</h2>
-        <p>{tx.text('home.practice.body')}</p>
+        <h2 class="w-panel__title" id="practice" set:html={tx.html('home.practice.title')}></h2>
+        <p set:html={tx.html('home.practice.body')}></p>
         <p class="w-panel__note" set:html={tx.html('home.practice.note')} />
       </div>
     </div>
@@ -80,15 +80,15 @@ const core = projectsIn('core');
 
   <div class="grid-2 home__pair">
     <section class="w-panel" aria-labelledby="breaks">
-      <h2 class="w-panel__title" id="breaks">{tx.text('home.breaks.title')}</h2>
+      <h2 class="w-panel__title" id="breaks" set:html={tx.html('home.breaks.title')}></h2>
       <ul>
-        {BREAKS.map((id) => <li>{tx.text(id)}</li>)}
+        {BREAKS.map((id) => <li set:html={tx.html(id)}></li>)}
       </ul>
-      <p class="w-panel__note">{tx.text('home.breaks.note')}</p>
+      <p class="w-panel__note" set:html={tx.html('home.breaks.note')}></p>
     </section>
 
     <section class="w-panel w-panel--sunken" aria-labelledby="persists">
-      <h2 class="w-panel__title" id="persists">{tx.text('home.persists.title')}</h2>
+      <h2 class="w-panel__title" id="persists" set:html={tx.html('home.persists.title')}></h2>
       <dl class="home__files">
         {
           FILES.map(([file, id]) => (
@@ -96,7 +96,7 @@ const core = projectsIn('core');
               <dt>
                 <code>{file}</code>
               </dt>
-              <dd>{tx.text(id)}</dd>
+              <dd set:html={tx.html(id)}></dd>
             </>
           ))
         }
@@ -106,8 +106,8 @@ const core = projectsIn('core');
   </div>
 
   <section class="home__section" aria-labelledby="lifecycle">
-    <h2 id="lifecycle">{tx.text('home.lifecycle.title')}</h2>
-    <p>{tx.text('home.lifecycle.body')}</p>
+    <h2 id="lifecycle" set:html={tx.html('home.lifecycle.title')}></h2>
+    <p set:html={tx.html('home.lifecycle.body')}></p>
     <ol class="plain lifecycle">
       {
         CORE_LIFECYCLE.map((phase, i) => (
@@ -124,7 +124,7 @@ const core = projectsIn('core');
   </section>
 
   <section class="w-panel home__section" aria-labelledby="story">
-    <h2 class="w-panel__title" id="story">{tx.text('home.story.title')}</h2>
+    <h2 class="w-panel__title" id="story" set:html={tx.html('home.story.title')}></h2>
     <p>
       <MaturityBadge level="preview" note={tx.text('home.story.badge-note')} />
     </p>
@@ -132,21 +132,21 @@ const core = projectsIn('core');
       {story.steps.map((step) => <li><strong>{step.title}.</strong> <span class="home__story-actor">({step.actor})</span></li>)}
     </ol>
     <div class="row">
-      <WintageButton href={tx.href(`/playground/${story.slug}/`)} variant="primary">{tx.text('home.story.step')}</WintageButton>
-      <WintageButton href={tx.href('/docs/recovery/interrupted-work/')}>{tx.text('home.story.read')}</WintageButton>
+      <WintageButton href={tx.href(`/playground/${story.slug}/`)} variant="primary"><Fragment set:html={tx.html('home.story.step')} /></WintageButton>
+      <WintageButton href={tx.href('/docs/recovery/interrupted-work/')}><Fragment set:html={tx.html('home.story.read')} /></WintageButton>
     </div>
   </section>
 
   <section class="home__section" aria-labelledby="principles">
-    <h2 id="principles">{tx.text('home.principles.title')}</h2>
+    <h2 id="principles" set:html={tx.html('home.principles.title')}></h2>
     <div class="cards cards--compact">
       {
         PRINCIPLES.map(([key, href]) => (
           <a class="card card--link" href={tx.href(href)}>
             <span class="card__head">
-              <span class="card__title">{tx.text(`home.principles.${key}.name`)}</span>
+              <span class="card__title" set:html={tx.html(`home.principles.${key}.name`)}></span>
             </span>
-            <span class="card__body">{tx.text(`home.principles.${key}.line`)}</span>
+            <span class="card__body" set:html={tx.html(`home.principles.${key}.line`)}></span>
           </a>
         ))
       }
@@ -154,15 +154,15 @@ const core = projectsIn('core');
   </section>
 
   <section class="home__section" aria-labelledby="eco">
-    <h2 id="eco">{tx.text('home.eco.title')}</h2>
+    <h2 id="eco" set:html={tx.html('home.eco.title')}></h2>
     <p set:html={tx.html('home.eco.body', { count: PROJECTS.length })} />
     <div class="wide-scroll">
       <table class="w-table">
         <thead>
           <tr>
-            <th scope="col">{tx.text('home.eco.col.project')}</th>
-            <th scope="col">{tx.text('home.eco.col.role')}</th>
-            <th scope="col">{tx.text('home.eco.col.maturity')}</th>
+            <th scope="col" set:html={tx.html('home.eco.col.project')}></th>
+            <th scope="col" set:html={tx.html('home.eco.col.role')}></th>
+            <th scope="col" set:html={tx.html('home.eco.col.maturity')}></th>
           </tr>
         </thead>
         <tbody>
@@ -186,13 +186,13 @@ const core = projectsIn('core');
   </section>
 
   <section class="w-panel w-panel--sunken home__section" aria-labelledby="next">
-    <h2 class="w-panel__title" id="next">{tx.text('home.next.title')}</h2>
+    <h2 class="w-panel__title" id="next" set:html={tx.html('home.next.title')}></h2>
     <div class="row">
-      <WintageButton href={tx.href('/docs/getting-started/introduction/')}>{tx.text('home.next.introduction')}</WintageButton>
-      <WintageButton href={tx.href('/docs/getting-started/quickstart/')}>{tx.text('home.next.quickstart')}</WintageButton>
-      <WintageButton href={tx.href('/compatibility/')}>{tx.text('home.next.hosts')}</WintageButton>
-      <WintageButton href={tx.href('/docs/reference/faq/')}>{tx.text('home.next.faq')}</WintageButton>
-      <WintageButton href={tx.href('/community/')}>{tx.text('home.next.community')}</WintageButton>
+      <WintageButton href={tx.href('/docs/getting-started/introduction/')}><Fragment set:html={tx.html('home.next.introduction')} /></WintageButton>
+      <WintageButton href={tx.href('/docs/getting-started/quickstart/')}><Fragment set:html={tx.html('home.next.quickstart')} /></WintageButton>
+      <WintageButton href={tx.href('/compatibility/')}><Fragment set:html={tx.html('home.next.hosts')} /></WintageButton>
+      <WintageButton href={tx.href('/docs/reference/faq/')}><Fragment set:html={tx.html('home.next.faq')} /></WintageButton>
+      <WintageButton href={tx.href('/community/')}><Fragment set:html={tx.html('home.next.community')} /></WintageButton>
     </div>
   </section>
 </SiteLayout>

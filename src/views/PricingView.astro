@@ -32,69 +32,69 @@ const en = tx.canonical ? undefined : 'en';
   tag="/pricing/"
   description={tx.text('pricing.description')}
 >
-  <h1>{tx.text('pricing.title')}</h1>
+  <h1 set:html={tx.html('pricing.title')}></h1>
   <p><MaturityBadge level="stable" note={tx.text('pricing.badge-note')} /></p>
 
   <div class="wide-scroll">
     <table class="w-table">
       <thead>
         <tr>
-          <th scope="col">{tx.text('pricing.col.offering')}</th>
-          <th scope="col">{tx.text('pricing.col.state')}</th>
-          <th scope="col">{tx.text('pricing.col.today')}</th>
+          <th scope="col" set:html={tx.html('pricing.col.offering')}></th>
+          <th scope="col" set:html={tx.html('pricing.col.state')}></th>
+          <th scope="col" set:html={tx.html('pricing.col.today')}></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row">{tx.text('pricing.protocol.name')}</th>
-          <td><span class="w-badge w-badge--ok">{tx.text('pricing.state.free')}</span></td>
+          <th scope="row" set:html={tx.html('pricing.protocol.name')}></th>
+          <td><span class="w-badge w-badge--ok" set:html={tx.html('pricing.state.free')}></span></td>
           <td set:html={tx.html('pricing.protocol.today', { repository: SITE.repository! })} />
         </tr>
         <tr>
-          <th scope="row">{tx.text('pricing.local.name')}</th>
-          <td><span class="w-badge w-badge--ok">{tx.text('pricing.state.free')}</span></td>
-          <td>{tx.text('pricing.local.today')}</td>
+          <th scope="row" set:html={tx.html('pricing.local.name')}></th>
+          <td><span class="w-badge w-badge--ok" set:html={tx.html('pricing.state.free')}></span></td>
+          <td set:html={tx.html('pricing.local.today')}></td>
         </tr>
         <tr>
-          <th scope="row">{tx.text('pricing.tools.name')}</th>
-          <td><span class="w-badge w-badge--ok">{tx.text('pricing.state.free')}</span></td>
+          <th scope="row" set:html={tx.html('pricing.tools.name')}></th>
+          <td><span class="w-badge w-badge--ok" set:html={tx.html('pricing.state.free')}></span></td>
           <td set:html={tx.html('pricing.tools.today')} />
         </tr>
         <tr>
-          <th scope="row">{tx.text('pricing.hosted.name')}</th>
-          <td><span class="w-badge w-badge--info">{tx.text('pricing.state.none')}</span></td>
-          <td>{tx.text('pricing.hosted.today')}</td>
+          <th scope="row" set:html={tx.html('pricing.hosted.name')}></th>
+          <td><span class="w-badge w-badge--info" set:html={tx.html('pricing.state.none')}></span></td>
+          <td set:html={tx.html('pricing.hosted.today')}></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h2>{tx.text('pricing.future.title')}</h2>
-  <p>{tx.text('pricing.future.body')}</p>
+  <h2 set:html={tx.html('pricing.future.title')}></h2>
+  <p set:html={tx.html('pricing.future.body')}></p>
 
   <section class="support-section" aria-labelledby="support-heading">
-    <h2 id="support-heading">{tx.text('pricing.support.title')}</h2>
-    <p>{tx.text('pricing.support.body')}</p>
+    <h2 id="support-heading" set:html={tx.html('pricing.support.title')}></h2>
+    <p set:html={tx.html('pricing.support.body')}></p>
 
-    <h3>{tx.text('pricing.support.direct')}</h3>
+    <h3 set:html={tx.html('pricing.support.direct')}></h3>
     <div class="row">
       {SUPPORT.easy.map((item) => (
         <a class="w-button" href={item.url} rel="noopener" data-external>{item.name}</a>
       ))}
     </div>
 
-    <h3>{tx.text('pricing.support.bank-title')}</h3>
+    <h3 set:html={tx.html('pricing.support.bank-title')}></h3>
     <div class="w-panel">
       <div class="w-panel__title">LHV (EUR)</div>
       <div class="wide-scroll">
         <table class="w-table bank-table">
           <tbody>
             <tr>
-              <th scope="row" class="bank-label-col">{tx.text('pricing.support.bank')}</th>
+              <th scope="row" class="bank-label-col" set:html={tx.html('pricing.support.bank')}></th>
               <td>{SUPPORT.bank.bank}</td>
             </tr>
             <tr>
-              <th scope="row" class="bank-label-col">{tx.text('pricing.support.recipient')}</th>
+              <th scope="row" class="bank-label-col" set:html={tx.html('pricing.support.recipient')}></th>
               <td>{SUPPORT.bank.recipient}</td>
             </tr>
             <tr>
@@ -102,7 +102,7 @@ const en = tx.canonical ? undefined : 'en';
               <td>
                 <div class="iban-row">
                   <code class="support-code">{SUPPORT.bank.iban}</code>
-                  <button type="button" class="w-button w-button--small js-copy" data-copy={SUPPORT.bank.iban} data-copied={tx.text('pricing.support.copied')}>{tx.text('pricing.support.copy')}</button>
+                  <button type="button" class="w-button w-button--small js-copy" data-copy={SUPPORT.bank.iban} data-copied={tx.text('pricing.support.copied')} lang={tx.langOf('pricing.support.copy')}>{tx.text('pricing.support.copy')}</button>
                 </div>
               </td>
             </tr>
@@ -111,7 +111,7 @@ const en = tx.canonical ? undefined : 'en';
       </div>
     </div>
 
-    <h3>{tx.text('pricing.support.crypto-title')}</h3>
+    <h3 set:html={tx.html('pricing.support.crypto-title')}></h3>
     <p class="w-panel__note safety-note" lang={en}>
       {SUPPORT.warning}
     </p>
@@ -124,11 +124,11 @@ const en = tx.canonical ? undefined : 'en';
             <span class="w-badge">{c.network}</span>
           </div>
           <div class="crypto-meta">
-            <span class="crypto-label">{tx.text('pricing.support.network-label')}</span> {c.accepted}
+            <span class="crypto-label" set:html={tx.html('pricing.support.network-label')}></span> {c.accepted}
           </div>
           <div class="crypto-address-row">
             <code class="crypto-address">{c.address}</code>
-            <button type="button" class="w-button w-button--small js-copy" data-copy={c.address} data-copied={tx.text('pricing.support.copied')}>{tx.text('pricing.support.copy')}</button>
+            <button type="button" class="w-button w-button--small js-copy" data-copy={c.address} data-copied={tx.text('pricing.support.copied')} lang={tx.langOf('pricing.support.copy')}>{tx.text('pricing.support.copy')}</button>
           </div>
         </div>
       ))}
