@@ -21,7 +21,10 @@ playwright-report/
 # Supplied source archives (reference material, not project source)
 _src_unpack/
 _packs_tmp/
+*.zip
+___*.png
 
 # OS noise
 .DS_Store
 Thumbs.db
+

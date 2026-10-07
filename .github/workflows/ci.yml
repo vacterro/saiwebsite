@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Astro build
+        run: npm run build
+
+      - name: Type check
+        run: npm run check
+
+      - name: Style law lint
+        run: npm run lint
+
+      - name: Validate themes
+        run: npm run validate:themes
+
+      - name: Validate canonical protocol snapshot
+        run: npm run validate:canonical
+
+      - name: Validate content and internal links
+        run: npm run validate:content
+
+      - name: Validate visual baselines manifest
+        run: npm run validate:baselines
+
+      - name: Validate font and card licenses
+        run: npm run validate:licenses
+
+      - name: Audit build output
+        run: npm run audit:build

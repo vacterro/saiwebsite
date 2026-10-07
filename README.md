@@ -1,171 +1,142 @@
 # SAI_WEBSITE
 
-The public web surface of the SAIPEN protocol: documentation, a specification
-reference generated from the canonical registry, the ecosystem catalogue, a
-compatibility matrix, a deterministic playground and the trust pages.
+Official website and documentation portal for the [SAIPEN Protocol](https://github.com/saipenhq/.github).
 
-Static, local-first, no backend, no accounts, no cookies, no third-party
-requests. The visual identity is **Wintage / Golden Default** and SAIPEN's own
-`UI.md`, rendered without anti-aliasing and proven pixel by pixel.
+A pixel-exact, Wintage-inspired static documentation site for recoverable, auditable, model-independent AI-agent workflows.
 
-**Status: site v1.2.0, local build.** Milestones M0–M25 of the master roadmap
-are delivered; M26–M30 (domain, hosting, monitoring, analytics, i18n, launch)
-wait behind their future gates. The live list is the `/status/` page.
-`BOOTSTRAP_REPORT.md` is the report of the first slice and is kept as history.
+![SAIPEN Website — Golden Default](.github/assets/saiwebsite-home.png)
 
 ---
 
-## Commands
+## 1. What This Is
 
-```text
+`saiwebsite` is the public web surface for the SAIPEN protocol: comprehensive documentation, an interactive specification reference generated from the canonical registry, an ecosystem catalogue, a compatibility matrix, a deterministic scenario playground, and trust pages.
+
+The site is:
+- **Static and local-first:** Zero backend, zero tracking, zero cookies, no accounts, no external runtime requests.
+- **Pixel-exact retro UI:** Rendered using the **Wintage / Golden Default** design language and SAIPEN's `UI.md` iron laws — sharp pixel-grid typography with zero anti-aliasing.
+- **Dogfooded:** Built and maintained using the SAIPEN protocol itself; the build inspects its own `.saipen/` board and logs to verify integrity.
+
+---
+
+## 2. Why SAIPEN
+
+AI coding agents are stateless by design: when contexts compact or sessions reset, models forget prior attempts, requirements, and decisions.
+
+SAIPEN solves this by anchoring memory in the repository itself (`.saipen/`):
+- **Phased state machine:** Clear phase transitions (INIT, PLAN, SCOUT, BUILD, VERIFY, REVIEW, SHIP).
+- **Verifiable tickets:** Every task carries explicit completion criteria, witness levels, and verifiable receipts.
+- **Durable audit log:** Sequential event log preserving attempt history and blockers.
+- **Autonomous continuation:** Any agent can run `saipen continue` and immediately resume the work without hallucinating context.
+
+---
+
+## 3. Website Highlights
+
+- **Documentation Portal:** Structured guides, conceptual deep dives, protocol specifications, operational commands, and recovery runbooks.
+- **16 Wintage Palettes:** Instant client-side theme switching across all 16 canonical Wintage color packs (Golden Default, Classic, Vintage Dark, Claude Code, Antigravity, K-Lite, Dracula, Nord, Solarized, OLED, and more).
+- **Deterministic Playground:** Step-by-step interactive simulation of provider outages, verification failures, destructive operations, and interrupted checkpoints.
+- **Specification Visualizer & Live Aliases:** Interactive state-machine exploration generated directly from the protocol schema.
+- **Fast Local Search:** Keyboard-first search (Ctrl+K) indexed statically at build time.
+- **Agent-First Accessibility:** Includes complete `/llms.txt` and `/llms-full.txt` endpoints for LLM consumers.
+
+---
+
+## 4. Visual Themes
+
+![SAIPEN Website — Theme System](.github/assets/saiwebsite-themes.png)
+
+The site supports 16 theme packs derived from Wintage, each defined by exactly 21 color tokens. Theme selection persists in localStorage with zero layout shift or white flash (FOUC).
+
+---
+
+## 5. Visual Law and Pixel Font Pipeline
+
+- **No Anti-Aliasing:** Font smoothing is disabled by design. Every text element uses custom 1-bit pixel-grid outlines (`SAI Pixel 10/11/12/14/16`, derived from DejaVu Sans; `SAI Pixel Mono 12`, derived from Spleen 6x12).
+- **Stepped Win95 Bevels:** Depth is achieved via 2px stepped bevel layers — no CSS box-shadows, no rounded corners, no blur.
+- **Proven by Rendered Pixels:** Automated Playwright pixel gates screenshot rendered pages in Chromium and WebKit, verifying that every single pixel belongs strictly to the 21 active palette tokens.
+
+---
+
+## 6. Local Development
+
+### Requirements
+- Node.js 22+
+- npm 10+
+- Python 3.10+ (for font and media generation tools)
+
+```bash
+git clone https://github.com/vacterro/saiwebsite.git
+cd saiwebsite
 npm install
-npm run dev                 # dev server
-npm run build               # static production build -> dist/
-npm run preview             # serve the production build on :4321
-
-npm run check               # Astro + TypeScript
-npm run lint                # style law (radius, shadow, blur, opacity, motion, hex, em units, size without face)
-npm run validate:themes     # 16 packs x 21 tokens
-npm run validate:canonical  # protocol snapshot hashes (+ drift vs SAIPEN_SRC checkout)
-npm run validate:content    # internal links, anchors, duplicate ids, alt, meta   (after build)
-npm run validate:baselines  # all 33 screenshot baselines present and matching tests/baselines/MANIFEST.json
-npm run audit:build         # structure, theme contract, routes, budget, protocol data (after build)
-
-npm run test:pixel          # every pixel of every page is a palette token — Chromium + WebKit
-npm run test:shell          # routes, maturity badges, navigation, breadcrumbs, overflow, landmarks
-npm run test:content        # docs chrome, spec visualizer + aliases, playground, search, agent files
-npm run test:runtime        # theme persistence, pre-paint restore, fallback, nested scopes
-npm run test:visual         # zero-tolerance screenshot baselines (33)
-npm run test:visual:update  # refresh baselines after an intentional visual change
-npm test                    # every browser suite
-
-npm run canonical:sync      # SAIPEN_REF=main (GitHub) or SAIPEN_SRC=<checkout>: refresh the protocol snapshot
-npm run fonts:build         # regenerate the pixel faces (Python + fontTools + brotli; needs _src_unpack/)
-npm run fonts:build:open    # open-licence candidate faces from DejaVu Sans -> public/fonts-open/ (compare at /debug/fonts/)
+npm run dev        # Local dev server at http://localhost:4321
+npm run build      # Static production build -> dist/
+npm run preview    # Preview static build at http://localhost:4321
 ```
 
-Browser suites drive real browsers against `npm run preview`, so build first.
-One-time setup: `npx playwright install chromium webkit`. Every gate was shown
-able to fail on a deliberate bad input before it was trusted.
+Or run `start.cmd` on Windows to build and preview in your default browser.
 
 ---
 
-## Where the content comes from
+## 7. Validation & Quality Gates
 
-The site never re-types protocol facts. Authority runs one way:
-canonical SAIPEN source → generated reference → explanatory docs → summaries.
+Every gate is verified before release:
 
-| Surface | Source |
-|---|---|
-| `/spec/v8/…`, `/compatibility/`, `/spec/v8/*.json` | `src/data/canonical/` — byte-exact snapshot of `saipen/REGISTRY.json`, `extensions/schemas/state.schema.json` and `extensions/adapters/registry.json` from GitHub `vacterro/saipen`, with commit and SHA-256 in `meta.json` |
-| `/docs/…` | `src/content/docs/` — prose written against SPEC.md, CORE.md, MAINTENANCE.md, README, GUIDE, SECURITY; every page lists its sources, linked at the snapshot commit |
-| `/ecosystem/`, `/downloads/` | `src/data/ecosystem.ts` — membership from the SAIPEN HQ project map, relations from each README, releases and SHA-256 digests from GitHub (snapshot 2026-10-07) |
-| `/playground/…` | `src/data/scenarios.ts` — scripted states; every phase change is checked against `valid_transitions` by `audit:build` |
-| `/status/` | `src/data/milestones.ts` — each "delivered" milestone must point at a page that exists |
-| `/about/#dogfooding` | this repository's own `.saipen/BOARD.md`, `STATE.md` and `LOG.md`, read at build time; last full verification in `src/data/verification.ts` |
-| `/about/` author text | the author's public GitHub profile, SAIPEN README and GUIDE — no biography or location beyond them |
+```bash
+npm run check               # Astro & TypeScript type check
+npm run lint                # Style law lint (zero hex colors, no blur/shadow/smoothing)
+npm run validate:themes     # Schema conformance across all 16 palettes
+npm run validate:canonical  # Protocol snapshot integrity against upstream SHA-256
+npm run validate:content    # Verifies all internal links, anchors, and metadata
+npm run validate:baselines  # Checks 33 visual baselines against manifest
+npm run validate:licenses   # Redistribution license check for fonts, card, notices
+npm run audit:build         # HTML landmarks, headings, budgets, and theme contracts
+npm test                    # Full Playwright test suite (runtime, shell, content, pixel, visual)
+```
 
-## Layout
+---
+
+## 8. Project Structure
 
 ```text
-src/
-  content/docs/         26 documentation pages (7 sections), schema in content.config.ts
-  content/blog/         design notes
-  content/changelog/    website release records
-  data/
-    site.ts             route registry: label, intent, maturity, menu placement
-    canonical/          protocol snapshot + meta.json (do not edit by hand)
-    ecosystem.ts        SAIPEN ecosystem catalogue
-    phases.ts           one sentence per phase (checked against the registry)
-    scenarios.ts        playground scripts
-    milestones.ts       roadmap status
-  lib/
-    canonical.ts        typed access to the snapshot, sourceUrl() pinned to the commit
-    docs.ts             ordering, tree, previous/next
-    spec.ts             spec topics
-    rehype-wintage.mjs  heading anchors, callouts, table wrappers, code frames
-  layouts/              SiteLayout (shell, meta, OG), DocsLayout, SpecLayout
-  components/           Wintage primitives, DocsTree, ScenarioPlayer, AliasPage, ...
-  pages/                routes; docs/[...slug] (+ .md twin), spec/[version]/*, playground/[scenario],
-                        blog/[slug], search, llms.txt, llms-full.txt, sitemap.xml, search-index.json, 404
-  styles/
-    fonts.css           the pixel faces
-    tokens.css          structural law, type roles, bevel layers, pixel glyph masks (no hex)
-    wintage.css         global law: typography, focus, bullets, markers, scrollbars
-    site.css            primitives and page layouts
-  themes/               21-token contract, 16 canonical packs, runtime
-scripts/
-  fonts/build_pixel_fonts.py   Verdana_m1 strikes + Spleen BDF -> pixel-grid WOFF2
-  social/make_card.py          1-bit social card, 3x nearest-neighbour
-  sync-canonical.mjs / validate-canonical.mjs / validate-content.mjs / lint-styles.mjs
-  audit-build.mjs / validate-themes.mjs / route-registry.mjs
-tests/                         pixel-perfect, site-shell, content-features, theme-runtime, visual-baseline
-public/fonts/                  generated faces + manifest.json + Spleen licence
+saiwebsite/
+├── public/                 # Static production assets (fonts, media, social card)
+│   ├── fonts/              # SAI Pixel WOFF2 font files & licenses
+│   ├── media/              # Brand marks, 1-bit masks, and golden favicon
+│   └── social/             # OpenGraph preview card and provenance manifest
+├── src/
+│   ├── components/         # Wintage UI primitives (Window, Panel, Button, MenuBar)
+│   ├── content/docs/       # Technical documentation pages
+│   ├── data/canonical/     # Upstream SAIPEN registry & schema snapshots
+│   ├── layouts/            # SiteLayout, DocsLayout, SpecLayout
+│   ├── pages/              # Astro routes, spec generator, playground, search
+│   ├── styles/             # Token foundations, Wintage global rules, site CSS
+│   └── themes/             # 16 canonical palette JSON definitions & runtime
+├── scripts/                # Verification, license validation, and asset generators
+├── tests/                  # Playwright pixel, shell, content, and visual baselines
+└── start.cmd               # Quick launcher for local preview
 ```
 
 ---
 
-## Visual law and how it is enforced
+## 9. Current Publication Status
 
-From `WINTAGE_WEB_CONTRACT` and SAIPEN `UI.md`:
-
-- **No anti-aliasing.** CSS cannot turn smoothing off, so each ladder size
-  (10/11/12/14/16 px) has its own pixel-grid face: the 1-bit Verdana bitmap for
-  that size drawn as whole-pixel squares at units-per-em = 128 × size, plus the
-  same bitmaps as an embedded EBDT strike and a no-smoothing `gasp` table. Bold
-  is 1 px overstrike, italic a whole-pixel shear; `font-synthesis: none`. Code
-  uses Spleen 6x12 (BSD-2). Size, face and an even-leading integer line height
-  always travel together (`--size-*`, `--face-*`, `--lh-*`); the lint rejects a
-  size without its face.
-- **Every edge on the pixel grid.** Bevels are six solid background layers
-  with Win95 stepped corners (a two-colour border miter is smoothed), bullets
-  and disclosure markers are pixel squares and arrow masks, link underlines are
-  1 px borders, tables use separate borders, coloured bars are background
-  layers, layouts use fixed integer tracks where text starts.
-- **Zero radius, shadow, blur, transparency, motion.** One sanctioned movement:
-  `button:active`'s 1 px shift.
-- **Colour only from the 21 tokens.** `src/styles/` holds no hex literal.
-- **Proof is pixels.** `npm run test:pixel` screenshots every built page in
-  Chromium and WebKit (1280 px, five pages at 390 px, all 16 palettes at
-  640×540) and fails on any pixel outside the active palette. Controls: an
-  anti-aliased circle and sub-pixel-shifted text must be detected.
+- **Source Code:** Public repository on GitHub (`vacterro/saiwebsite`).
+- **Version:** `v1.2.0` (Production readiness convergence).
+- **Public Deployment:** Planned (hosting and domain attachment deferred behind future gates).
 
 ---
 
-## Deviations from the supplied roadmap
+## 10. License & Notices
 
-1. **No Starlight.** It would bring its own appearance; the docs shell is
-   written directly (content collections, tree, TOC, anchors, previous/next,
-   search are all native here).
-2. **No syntax highlighter.** A highlighter emits inline colours outside the
-   palette; code is token-coloured monospace in a sunken frame.
-3. **Code font.** The contract asks for monospace code; UI.md asks for no AA.
-   Both hold: Spleen 6x12 is a bitmap monospace face.
-4. **Theme switching lives in one file** (`src/themes/runtime.ts`): a plain
-   `<select>`, no framework, no-JS visitors stay on Golden Default.
-5. **Disclosures instead of scripted menus** for More, compact navigation, the
-   docs tree on narrow screens and the on-page TOC.
-6. **Headings at weight 400**, as Wintage renders them; hierarchy comes from
-   the size ladder and framing. Buttons and table headers use the bold face.
-7. **`/search/`, `/compatibility/`** are added routes (M11, M13).
+- Third-party font, asset, and framework licenses are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+- Upstream protocol specifications and schemas are © vacterro (MIT License).
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
-## Known limitations
+---
 
-- **Font licence — publication blocker.** The UI faces and the social card are
-  derived from Microsoft Verdana embedded bitmaps (`Verdana_m1`). Redistribution
-  rights are not verified. Before FG-001 (public hosting) one of three paths is
-  needed: verify the licence; switch to the open candidate (`SAI Pixel Open`,
-  DejaVu Sans rasterized, Bitstream Vera licence — compare at `/debug/fonts/`;
-  switching is a `fonts.css` change); or draw a clean-room Wintage Pixel Sans.
-  Spleen is BSD-2 and clear.
-- **No-AA holds at 100 % zoom and integer device scales.** Fractional zoom and
-  OS scaling resample everything; no web page can prevent that.
-- Glyph coverage: Latin, Latin-1, Latin Extended-A, Cyrillic, common
-  punctuation, arrows and box drawing. Other scripts fall back to Verdana.
-- The local test host has system font smoothing off, so Chromium draws all
-  text aliased there; WebKit always smooths and is the engine that proves the
-  faces. ClearType behaviour on other machines rests on the embedded strike.
-- Ecosystem and release facts are a dated snapshot (2026-10-07); refresh by
-  hand. The protocol snapshot refreshes with `npm run canonical:sync`.
-- Not deployed. No domain, no hosting, no analytics, no translations — each
-  waits behind its future gate.
+## 11. Links
+
+- [SAIPEN HQ Organization](https://github.com/saipenhq/.github)
+- [SAIPEN Protocol Repository](https://github.com/vacterro/saipen)
+- [Wintage Repository](https://github.com/vacterro/Wintage)
