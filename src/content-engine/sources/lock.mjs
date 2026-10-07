@@ -67,7 +67,9 @@ export function identify(source, root = '.') {
   const base = { adapter: source.adapter, version: null, revision: null, revisionDate: null, syncTool: null };
   switch (source.adapter) {
     case 'volatile':
-      return { status: 'VOLATILE', ...base, sha256: null, files: listFiles(at(source.paths[0])).length };
+      // Changes on every checkpoint by design: record nothing that moves, or
+      // the lock itself would go stale with every SAIPEN event.
+      return { status: 'VOLATILE', ...base, sha256: null, files: null };
     case 'package-version': {
       const version = readJson(at(source.paths[0])).version ?? null;
       return { status: 'OK', ...base, version, sha256: sha256(`version\0${version}`), files: 1 };
