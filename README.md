@@ -1,12 +1,21 @@
-# SAI_WEBSITE
+<div align="center">
 
-Official website and documentation portal for the [SAIPEN Protocol](https://github.com/saipenhq/.github).
+# SAI WEBSITE
 
-A pixel-exact, Wintage-inspired static documentation site for recoverable, auditable, model-independent AI-agent workflows.
+**Official documentation and public web surface for the SAIPEN Protocol.**
 
-![SAIPEN Website — Golden Default](.github/assets/saiwebsite-home.png)
+[![Version](https://img.shields.io/badge/version-1.2.0-D4B86A?style=flat-square)](package.json)
+![Astro](https://img.shields.io/badge/Astro-static%20site-BC52EE?style=flat-square&logo=astro&logoColor=white)
+![Tracking](https://img.shields.io/badge/tracking-none-4A7A20?style=flat-square)
+![Theme](https://img.shields.io/badge/UI-Wintage%20native-6B5A2B?style=flat-square)
 
----
+[Local development](#6-local-development) · [Validation](#7-validation--quality-gates) · [Structure](#8-project-structure) · [SAIPEN Core](https://github.com/vacterro/saipen)
+
+<img src=".github/assets/saiwebsite-home.png" alt="SAIPEN Website — Golden Default" width="1000">
+
+</div>
+
+A pixel-exact Wintage-inspired static site for recoverable, auditable, model-independent AI-agent workflows. No backend, no accounts, no cookies, and no external runtime tracking.
 
 ## 1. What This Is
 
@@ -193,3 +202,8 @@ saiwebsite/
 - [SAIPEN HQ Organization](https://github.com/saipenhq/.github)
 - [SAIPEN Protocol Repository](https://github.com/vacterro/saipen)
 - [Wintage Repository](https://github.com/vacterro/Wintage)
+
+<!-- VACTERRO_SUPPORT:BEGIN -->
+---
+<sub>If SAIPEN and its documentation are useful to you, optional support: [Buy Me a Coffee](https://buymeacoffee.com/vacuum34) · [Boosty](https://boosty.to/vacuum34/donate) · [PayPal](https://paypal.me/AlexNelin) · [other ways](https://github.com/vacterro/vacterro/blob/main/SUPPORT.md)</sub>
+<!-- VACTERRO_SUPPORT:END -->
