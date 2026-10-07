@@ -133,7 +133,7 @@ function auditThemeContract(file, h) {
 function auditRoutes() {
   console.log('\nROUTES');
   const routes = [...REGISTRY.values()];
-  if (!routes.length) fail('src/data/site.ts declares no routes');
+  if (!routes.length) fail('the page registry declares no shell routes');
   const declared = new Set(routes.map((route) => route.href));
 
   for (const route of routes) {
@@ -148,7 +148,7 @@ function auditRoutes() {
   console.log('\nROADMAP PUBLIC SHELL');
   for (const href of ROADMAP_PUBLIC_ROUTES) {
     const present = declared.has(href);
-    if (!present) fail('roadmap-required public route ' + href + ' is not declared in src/data/site.ts');
+    if (!present) fail('roadmap-required public route ' + href + ' is not declared in the page registry');
   }
   console.log(
     '  ' +

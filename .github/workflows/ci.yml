@@ -40,6 +40,9 @@ jobs:
       - name: Validate content and internal links
         run: npm run validate:content
 
+      - name: Validate page registry and inventory
+        run: npm run validate:registry
+
       - name: Validate visual baselines manifest
         run: npm run validate:baselines
 

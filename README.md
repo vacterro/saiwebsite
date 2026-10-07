@@ -125,6 +125,7 @@ npm run lint                # Style law lint (zero hex colors, no blur/shadow/sm
 npm run validate:themes     # Schema conformance across all 16 palettes
 npm run validate:canonical  # Protocol snapshot integrity against upstream SHA-256
 npm run validate:content    # Verifies all internal links, anchors, version alignment, and metadata
+npm run validate:registry   # Page registry: stable IDs, every built route registered, honest flags
 npm run validate:baselines  # Checks 33 visual baselines against tests/baselines/MANIFEST.json
 npm run validate:licenses   # Redistribution license check for fonts, card, and notices
 npm run audit:build         # HTML landmarks, headings, budgets, and theme contracts
@@ -162,6 +163,7 @@ saiwebsite/
 │   └── social/             # OpenGraph preview card and provenance manifest
 ├── src/
 │   ├── components/         # Wintage UI primitives (Window, Panel, Button, MenuBar)
+│   ├── content-engine/     # Page registry (single route authority) and generated inventory
 │   ├── content/docs/       # Technical documentation pages (7 sections)
 │   ├── content/changelog/  # Site version release notes (0.1.0, 1.0.0, 1.1.0, 1.2.0, 1.3.0)
 │   ├── data/canonical/     # Upstream SAIPEN registry & schema snapshots

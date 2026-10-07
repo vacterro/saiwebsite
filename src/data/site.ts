@@ -1,9 +1,10 @@
 /**
- * Site identity and route registry.
+ * Site identity and the navigation shell.
  *
- * Every route the bootstrap reserves lives here with its maturity, so a page
- * cannot quietly become "finished" without someone changing this file, and the
- * menu can never link to a route that was never declared.
+ * Every route lives in the page registry (src/content-engine/registry/pages.json)
+ * with its maturity, so a page cannot quietly become "finished" without someone
+ * changing the registry, and the menu can never link to a route that was never
+ * declared.
  *
  * Maturity vocabulary is fixed by the roadmap, in two closed sets:
  *   page maturity       MASTER_ROADMAP §1 — placeholder | draft | experimental
@@ -11,6 +12,9 @@
  *   integration/project MASTER_ROADMAP §5 — supported | experimental | planned
  *                       | unavailable | unknown
  */
+import registry from '../content-engine/registry/pages.json';
+import { assertValidRegistry } from '../content-engine/registry/schema.mjs';
+
 export type PageMaturity =
   | 'placeholder'
   | 'draft'
@@ -28,7 +32,21 @@ export type ProjectMaturity =
 
 export type Maturity = PageMaturity | ProjectMaturity;
 
+export type SiteNav = 'primary' | 'secondary' | 'debug';
+
+/** One page entry of src/content-engine/registry/pages.json, as validated by schema.mjs. */
+interface RegistryPage {
+  id: string;
+  route: string;
+  label: string;
+  intent: string;
+  maturity: PageMaturity;
+  nav: SiteNav | 'none';
+}
+
 export interface SiteRoute {
+  /** Stable page ID from the registry; survives a URL change. */
+  id: string;
   href: string;
   label: string;
   /** One sentence, honest about what the route will hold. Never marketing. */
@@ -36,6 +54,7 @@ export interface SiteRoute {
   maturity: PageMaturity;
   /** Shown in the top navigation. */
   inMenu: boolean;
+  nav: SiteNav;
 }
 
 export const SITE = {
@@ -55,148 +74,26 @@ export const SITE = {
   community: 'https://discord.gg/SEYaYkuVgN',
 } as const;
 
-export const ROUTES: SiteRoute[] = [
-  {
-    href: '/',
-    label: 'Home',
-    intent: 'Entry point: what SAIPEN is, what breaks without it, and where to go next.',
-    maturity: 'preview',
-    inMenu: true,
-  },
-  {
-    href: '/docs/',
-    label: 'Docs',
-    intent: 'Explanatory documentation: concepts, lifecycle, recovery, evidence, operation.',
-    maturity: 'stable',
-    inMenu: true,
-  },
-  {
-    href: '/spec/',
-    label: 'Spec',
-    intent: 'Protocol reference generated from the canonical SAIPEN registry, with permanent version URLs.',
-    maturity: 'stable',
-    inMenu: true,
-  },
-  {
-    href: '/ecosystem/',
-    label: 'Ecosystem',
-    intent: 'SAIPEN ecosystem projects, how each touches a SAIPEN project, with honest maturity labels.',
-    maturity: 'preview',
-    inMenu: true,
-  },
-  {
-    href: '/playground/',
-    label: 'Playground',
-    intent: 'Deterministic, client-side protocol scenarios. Nothing is executed and no model is called.',
-    maturity: 'preview',
-    inMenu: true,
-  },
-  {
-    href: '/search/',
-    label: 'Search',
-    intent: 'Static search over docs, spec, ecosystem and blog, computed in the browser.',
-    maturity: 'stable',
-    inMenu: true,
-  },
-  {
-    href: '/about/',
-    label: 'About',
-    intent: 'Scope and authority of this website, who maintains SAIPEN, and the quality gates the site keeps.',
-    maturity: 'stable',
-    inMenu: true,
-  },
-  {
-    href: '/compatibility/',
-    label: 'Compatibility',
-    intent: 'Supported agent hosts and their declared enforcement, rendered from the adapter registry.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/downloads/',
-    label: 'Downloads',
-    intent: 'Release catalogue with GitHub-reported SHA-256 digests. The site hosts no binaries.',
-    maturity: 'preview',
-    inMenu: false,
-  },
-  {
-    href: '/security/',
-    label: 'Security',
-    intent: 'Scope, supported versions, how to report a vulnerability, and the trust model of this site.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/community/',
-    label: 'Community',
-    intent: 'Where to discuss, where to file bugs, and how to propose a protocol change.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/status/',
-    label: 'Status',
-    intent: 'Static build status and roadmap milestones. No hosted service exists, so no uptime is reported.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/benchmarks/',
-    label: 'Benchmarks',
-    intent: 'Benchmark methodology. No recovery or performance numbers are published yet.',
-    maturity: 'draft',
-    inMenu: false,
-  },
-  {
-    href: '/pricing/',
-    label: 'Pricing',
-    intent: 'A plain statement: free and open, no hosted service, no paid plan.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/blog/',
-    label: 'Blog',
-    intent: 'Design notes and explanations. Editorial, never protocol authority.',
-    maturity: 'preview',
-    inMenu: false,
-  },
-  {
-    href: '/changelog/',
-    label: 'Changelog',
-    intent: 'Factual release history of the website and recent protocol releases.',
-    maturity: 'stable',
-    inMenu: false,
-  },
-  {
-    href: '/debug/components/',
-    label: 'Components',
-    intent: 'Visual acceptance bench for every Wintage primitive.',
-    maturity: 'draft',
-    inMenu: false,
-  },
-  {
-    href: '/debug/themes/',
-    label: 'Themes',
-    intent: 'All 16 canonical palettes rendered side by side for inspection.',
-    maturity: 'draft',
-    inMenu: false,
-  },
-  {
-    href: '/debug/fonts/',
-    label: 'Fonts',
-    intent: 'Wintage faces against the open-licence pixel candidate, for the publication licence decision.',
-    maturity: 'draft',
-    inMenu: false,
-  },
-  {
-    href: '/debug/rendering/',
-    label: 'Rendering',
-    intent: 'Deterministic rendering surface: viewport, DPR, active palette, integer grid, bevels, raster scaling, font rendering.',
-    maturity: 'draft',
-    inMenu: false,
-  },
-];
+/**
+ * The navigation shell, derived from the page registry
+ * (src/content-engine/registry/pages.json). The registry is the one owner of
+ * routes, labels, maturity and navigation surface; this file only projects the
+ * entries that live in the shell (nav primary | secondary | debug). The
+ * registry is validated here, so an invalid registry fails `astro build`.
+ */
+assertValidRegistry(registry);
+
+export const ROUTES: SiteRoute[] = (registry.pages as RegistryPage[])
+  .filter((page): page is RegistryPage & { nav: SiteNav } => page.nav !== 'none')
+  .map((page) => ({
+    id: page.id,
+    href: page.route,
+    label: page.label,
+    intent: page.intent,
+    maturity: page.maturity,
+    inMenu: page.nav === 'primary',
+    nav: page.nav,
+  }));
 
 export function routeByHref(href: string): SiteRoute | undefined {
   return ROUTES.find((route) => route.href === href);
@@ -204,7 +101,7 @@ export function routeByHref(href: string): SiteRoute | undefined {
 
 /** Debug benches are not public shell routes: no breadcrumb, no nav, no discoverability claim. */
 export function isPublicRoute(route: SiteRoute): boolean {
-  return !route.href.startsWith('/debug/');
+  return route.nav !== 'debug';
 }
 
 /** Primary desktop menu: only the routes flagged `inMenu`. */

@@ -42,6 +42,9 @@ Certain files are deterministically produced from canonical sources or scripts:
 - `public/social/card.png`: Rendered from open fonts and brand tokens by `npm run social:build`.
 - `public/media/*`: Built from brand vectors by `npm run media:build`.
 - `tests/baselines/MANIFEST.json`: Generated visual regression baseline hashes.
+- `src/content-engine/inventory/pages.inventory.json`: Route inventory derived from the page registry and the built site (`npm run registry:inventory`).
+
+Routes are declared in exactly one place, `src/content-engine/registry/pages.json` (see `src/content-engine/README.md`).
 
 ---
 
@@ -55,6 +58,7 @@ npm run lint                # Wintage style-law lint (rejects hex literals, smoo
 npm run validate:themes     # Validates all 16 theme packs against schema
 npm run validate:canonical  # Validates canonical protocol snapshot hashes
 npm run validate:content    # Verifies every internal link, anchor, and id
+npm run validate:registry   # Page registry schema, built routes, discovery flags, inventory, red controls
 npm run validate:baselines  # Checks screenshot baselines against manifest
 npm run validate:licenses   # Font provenance and redistribution license gate
 npm run audit:build         # Checks HTML landmarks, headings, budgets, and themes in dist/

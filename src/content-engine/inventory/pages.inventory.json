@@ -1,0 +1,2003 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/validate-registry.mjs --write",
+  "registry": "src/content-engine/registry/pages.json",
+  "totals": {
+    "routes": 111,
+    "public": 107,
+    "internal": 4,
+    "byKind": {
+      "alias": 9,
+      "article": 37,
+      "debug": 4,
+      "index": 5,
+      "landing": 1,
+      "machine": 36,
+      "reference": 13,
+      "system": 1,
+      "tool": 5
+    },
+    "byOwner": {
+      "editorial": 37,
+      "generated": 57,
+      "interactive": 9,
+      "mixed": 8
+    },
+    "flags": {
+      "localizable": 51,
+      "searchable": 41,
+      "llmVisible": 71,
+      "sitemap": 61
+    }
+  },
+  "public": [
+    {
+      "id": "home",
+      "route": "/",
+      "entry": "home",
+      "kind": "landing",
+      "owner": "mixed",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ]
+    },
+    {
+      "id": "system.not-found",
+      "route": "/404.html",
+      "entry": "system.not-found",
+      "kind": "system",
+      "owner": "editorial",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": []
+    },
+    {
+      "id": "about",
+      "route": "/about/",
+      "entry": "about",
+      "kind": "article",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ]
+    },
+    {
+      "id": "benchmarks",
+      "route": "/benchmarks/",
+      "entry": "benchmarks",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "draft",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "blog.index",
+      "route": "/blog/",
+      "entry": "blog.index",
+      "kind": "index",
+      "owner": "generated",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.blog"
+      ]
+    },
+    {
+      "id": "blog.a-gate-must-prove-it-can-fail",
+      "route": "/blog/a-gate-must-prove-it-can-fail/",
+      "entry": "blog.post",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.blog"
+      ]
+    },
+    {
+      "id": "blog.how-saipen-is-built",
+      "route": "/blog/how-saipen-is-built/",
+      "entry": "blog.post",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.blog"
+      ]
+    },
+    {
+      "id": "blog.memory-beside-the-project",
+      "route": "/blog/memory-beside-the-project/",
+      "entry": "blog.post",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.blog"
+      ]
+    },
+    {
+      "id": "blog.no-antialiasing-on-the-web",
+      "route": "/blog/no-antialiasing-on-the-web/",
+      "entry": "blog.post",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.blog"
+      ]
+    },
+    {
+      "id": "changelog",
+      "route": "/changelog/",
+      "entry": "changelog",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.changelog",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "community",
+      "route": "/community/",
+      "entry": "community",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "compatibility",
+      "route": "/compatibility/",
+      "entry": "compatibility",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.adapters",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "docs.index",
+      "route": "/docs/",
+      "entry": "docs.index",
+      "kind": "index",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.board-and-tickets.markdown",
+      "route": "/docs/concepts/board-and-tickets.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.board-and-tickets"
+    },
+    {
+      "id": "docs.concepts.board-and-tickets",
+      "route": "/docs/concepts/board-and-tickets/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.claims-and-ownership.markdown",
+      "route": "/docs/concepts/claims-and-ownership.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.claims-and-ownership"
+    },
+    {
+      "id": "docs.concepts.claims-and-ownership",
+      "route": "/docs/concepts/claims-and-ownership/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.knowledge.markdown",
+      "route": "/docs/concepts/knowledge.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.knowledge"
+    },
+    {
+      "id": "docs.concepts.knowledge",
+      "route": "/docs/concepts/knowledge/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.log-and-events.markdown",
+      "route": "/docs/concepts/log-and-events.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.log-and-events"
+    },
+    {
+      "id": "docs.concepts.log-and-events",
+      "route": "/docs/concepts/log-and-events/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.modes-and-capabilities.markdown",
+      "route": "/docs/concepts/modes-and-capabilities.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.modes-and-capabilities"
+    },
+    {
+      "id": "docs.concepts.modes-and-capabilities",
+      "route": "/docs/concepts/modes-and-capabilities/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.project-memory.markdown",
+      "route": "/docs/concepts/project-memory.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.project-memory"
+    },
+    {
+      "id": "docs.concepts.project-memory",
+      "route": "/docs/concepts/project-memory/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.state-and-next-action.markdown",
+      "route": "/docs/concepts/state-and-next-action.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.state-and-next-action"
+    },
+    {
+      "id": "docs.concepts.state-and-next-action",
+      "route": "/docs/concepts/state-and-next-action/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.concepts.work-and-attempts.markdown",
+      "route": "/docs/concepts/work-and-attempts.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.concepts.work-and-attempts"
+    },
+    {
+      "id": "docs.concepts.work-and-attempts",
+      "route": "/docs/concepts/work-and-attempts/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.evidence.guarantees.markdown",
+      "route": "/docs/evidence/guarantees.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.evidence.guarantees"
+    },
+    {
+      "id": "docs.evidence.guarantees",
+      "route": "/docs/evidence/guarantees/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.evidence.overview.markdown",
+      "route": "/docs/evidence/overview.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.evidence.overview"
+    },
+    {
+      "id": "docs.evidence.overview",
+      "route": "/docs/evidence/overview/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.getting-started.introduction.markdown",
+      "route": "/docs/getting-started/introduction.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.getting-started.introduction"
+    },
+    {
+      "id": "docs.getting-started.introduction",
+      "route": "/docs/getting-started/introduction/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.getting-started.mental-model.markdown",
+      "route": "/docs/getting-started/mental-model.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.getting-started.mental-model"
+    },
+    {
+      "id": "docs.getting-started.mental-model",
+      "route": "/docs/getting-started/mental-model/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.getting-started.quickstart.markdown",
+      "route": "/docs/getting-started/quickstart.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.getting-started.quickstart"
+    },
+    {
+      "id": "docs.getting-started.quickstart",
+      "route": "/docs/getting-started/quickstart/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.getting-started.why-saipen.markdown",
+      "route": "/docs/getting-started/why-saipen.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.getting-started.why-saipen"
+    },
+    {
+      "id": "docs.getting-started.why-saipen",
+      "route": "/docs/getting-started/why-saipen/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.operation.commands.markdown",
+      "route": "/docs/operation/commands.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.operation.commands"
+    },
+    {
+      "id": "docs.operation.commands",
+      "route": "/docs/operation/commands/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.operation.hosts-and-install.markdown",
+      "route": "/docs/operation/hosts-and-install.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.operation.hosts-and-install"
+    },
+    {
+      "id": "docs.operation.hosts-and-install",
+      "route": "/docs/operation/hosts-and-install/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.checkpointing.markdown",
+      "route": "/docs/protocol/checkpointing.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.checkpointing"
+    },
+    {
+      "id": "docs.protocol.checkpointing",
+      "route": "/docs/protocol/checkpointing/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.concurrency.markdown",
+      "route": "/docs/protocol/concurrency.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.concurrency"
+    },
+    {
+      "id": "docs.protocol.concurrency",
+      "route": "/docs/protocol/concurrency/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.goal-mode-and-maintenance.markdown",
+      "route": "/docs/protocol/goal-mode-and-maintenance.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.goal-mode-and-maintenance"
+    },
+    {
+      "id": "docs.protocol.goal-mode-and-maintenance",
+      "route": "/docs/protocol/goal-mode-and-maintenance/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.lifecycle.markdown",
+      "route": "/docs/protocol/lifecycle.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.lifecycle"
+    },
+    {
+      "id": "docs.protocol.lifecycle",
+      "route": "/docs/protocol/lifecycle/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.routing.markdown",
+      "route": "/docs/protocol/routing.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.routing"
+    },
+    {
+      "id": "docs.protocol.routing",
+      "route": "/docs/protocol/routing/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.verification.markdown",
+      "route": "/docs/protocol/verification.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.verification"
+    },
+    {
+      "id": "docs.protocol.verification",
+      "route": "/docs/protocol/verification/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.protocol.wait-boundaries.markdown",
+      "route": "/docs/protocol/wait-boundaries.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.protocol.wait-boundaries"
+    },
+    {
+      "id": "docs.protocol.wait-boundaries",
+      "route": "/docs/protocol/wait-boundaries/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.recovery.corrupt-state.markdown",
+      "route": "/docs/recovery/corrupt-state.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.recovery.corrupt-state"
+    },
+    {
+      "id": "docs.recovery.corrupt-state",
+      "route": "/docs/recovery/corrupt-state/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.recovery.interrupted-work.markdown",
+      "route": "/docs/recovery/interrupted-work.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.recovery.interrupted-work"
+    },
+    {
+      "id": "docs.recovery.interrupted-work",
+      "route": "/docs/recovery/interrupted-work/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.recovery.overview.markdown",
+      "route": "/docs/recovery/overview.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.recovery.overview"
+    },
+    {
+      "id": "docs.recovery.overview",
+      "route": "/docs/recovery/overview/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.reference.faq.markdown",
+      "route": "/docs/reference/faq.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.reference.faq"
+    },
+    {
+      "id": "docs.reference.faq",
+      "route": "/docs/reference/faq/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "docs.reference.glossary.markdown",
+      "route": "/docs/reference/glossary.md",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "docs.reference.glossary"
+    },
+    {
+      "id": "docs.reference.glossary",
+      "route": "/docs/reference/glossary/",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "downloads",
+      "route": "/downloads/",
+      "entry": "downloads",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.hq.project-map",
+        "github.vacterro.releases"
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "route": "/ecosystem/",
+      "entry": "ecosystem",
+      "kind": "reference",
+      "owner": "mixed",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.hq.project-map",
+        "github.vacterro.releases"
+      ]
+    },
+    {
+      "id": "machine.llms-full",
+      "route": "/llms-full.txt",
+      "entry": "machine.llms-full",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "machine.llms",
+      "route": "/llms.txt",
+      "entry": "machine.llms",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "site.content.docs"
+      ]
+    },
+    {
+      "id": "playground.index",
+      "route": "/playground/",
+      "entry": "playground.index",
+      "kind": "index",
+      "owner": "mixed",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.scenarios"
+      ]
+    },
+    {
+      "id": "playground.destructive-op",
+      "route": "/playground/destructive-op/",
+      "entry": "playground.scenario",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.scenarios",
+        "saipen.protocol.registry"
+      ]
+    },
+    {
+      "id": "playground.interrupted-checkpoint",
+      "route": "/playground/interrupted-checkpoint/",
+      "entry": "playground.scenario",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.scenarios",
+        "saipen.protocol.registry"
+      ]
+    },
+    {
+      "id": "playground.provider-outage",
+      "route": "/playground/provider-outage/",
+      "entry": "playground.scenario",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.scenarios",
+        "saipen.protocol.registry"
+      ]
+    },
+    {
+      "id": "playground.verification-fails",
+      "route": "/playground/verification-fails/",
+      "entry": "playground.scenario",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "preview",
+      "audience": "public",
+      "nav": "none",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.scenarios",
+        "saipen.protocol.registry"
+      ]
+    },
+    {
+      "id": "pricing",
+      "route": "/pricing/",
+      "entry": "pricing",
+      "kind": "article",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ]
+    },
+    {
+      "id": "machine.robots",
+      "route": "/robots.txt",
+      "entry": "machine.robots",
+      "kind": "machine",
+      "owner": "editorial",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": []
+    },
+    {
+      "id": "machine.search-index",
+      "route": "/search-index.json",
+      "entry": "machine.search-index",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs",
+        "site.content.blog",
+        "saipen.protocol.registry",
+        "site.phases",
+        "saipen.hq.project-map"
+      ]
+    },
+    {
+      "id": "search",
+      "route": "/search/",
+      "entry": "search",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": []
+    },
+    {
+      "id": "security",
+      "route": "/security/",
+      "entry": "security",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "machine.sitemap",
+      "route": "/sitemap.xml",
+      "entry": "machine.sitemap",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "site.content.docs",
+        "site.content.blog",
+        "site.scenarios",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.index",
+      "route": "/spec/",
+      "entry": "spec.index",
+      "kind": "index",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "primary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest",
+      "route": "/spec/latest/",
+      "entry": "spec.latest",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.board",
+      "route": "/spec/latest/board/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.commands",
+      "route": "/spec/latest/commands/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.errors",
+      "route": "/spec/latest/errors/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.lifecycle",
+      "route": "/spec/latest/lifecycle/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.limits",
+      "route": "/spec/latest/limits/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.next-action",
+      "route": "/spec/latest/next-action/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.routing",
+      "route": "/spec/latest/routing/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.latest.state",
+      "route": "/spec/latest/state/",
+      "entry": "spec.latest-topic",
+      "kind": "alias",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.v8",
+      "route": "/spec/v8/",
+      "entry": "spec.version",
+      "kind": "index",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta"
+      ]
+    },
+    {
+      "id": "spec.v8.file.adapters",
+      "route": "/spec/v8/adapters.json",
+      "entry": "spec.file",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.state-schema",
+        "saipen.protocol.adapters"
+      ]
+    },
+    {
+      "id": "spec.v8.board",
+      "route": "/spec/v8/board/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.commands",
+      "route": "/spec/v8/commands/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.errors",
+      "route": "/spec/v8/errors/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.lifecycle",
+      "route": "/spec/v8/lifecycle/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.limits",
+      "route": "/spec/v8/limits/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.next-action",
+      "route": "/spec/v8/next-action/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.file.registry",
+      "route": "/spec/v8/registry.json",
+      "entry": "spec.file",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.state-schema",
+        "saipen.protocol.adapters"
+      ]
+    },
+    {
+      "id": "spec.v8.routing",
+      "route": "/spec/v8/routing/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "spec.v8.file.state.schema",
+      "route": "/spec/v8/state.schema.json",
+      "entry": "spec.file",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.state-schema",
+        "saipen.protocol.adapters"
+      ]
+    },
+    {
+      "id": "spec.v8.state",
+      "route": "/spec/v8/state/",
+      "entry": "spec.topic",
+      "kind": "reference",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": true,
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
+    },
+    {
+      "id": "status",
+      "route": "/status/",
+      "entry": "status",
+      "kind": "reference",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "public",
+      "nav": "secondary",
+      "localizable": true,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": true,
+      "sourceIds": [
+        "site.package",
+        "saipen.protocol.meta",
+        "site.milestones",
+        "saipen.hq.project-map"
+      ]
+    }
+  ],
+  "internal": [
+    {
+      "id": "debug.components",
+      "route": "/debug/components/",
+      "entry": "debug.components",
+      "kind": "debug",
+      "owner": "interactive",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "wintage.theme-packs",
+        "site.identity"
+      ]
+    },
+    {
+      "id": "debug.fonts",
+      "route": "/debug/fonts/",
+      "entry": "debug.fonts",
+      "kind": "debug",
+      "owner": "interactive",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.fonts"
+      ]
+    },
+    {
+      "id": "debug.rendering",
+      "route": "/debug/rendering/",
+      "entry": "debug.rendering",
+      "kind": "debug",
+      "owner": "interactive",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "wintage.theme-packs"
+      ]
+    },
+    {
+      "id": "debug.themes",
+      "route": "/debug/themes/",
+      "entry": "debug.themes",
+      "kind": "debug",
+      "owner": "interactive",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "wintage.theme-packs"
+      ]
+    }
+  ]
+}

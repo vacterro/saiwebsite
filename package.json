@@ -15,6 +15,8 @@
     "canonical:sync": "node scripts/sync-canonical.mjs",
     "validate:canonical": "node scripts/validate-canonical.mjs",
     "validate:content": "node scripts/validate-content.mjs",
+    "validate:registry": "node scripts/validate-registry.mjs",
+    "registry:inventory": "node scripts/validate-registry.mjs --write",
     "validate:baselines": "node scripts/validate-baselines.mjs",
     "validate:licenses": "node scripts/validate-licenses.mjs",
     "lint": "node scripts/lint-styles.mjs",
