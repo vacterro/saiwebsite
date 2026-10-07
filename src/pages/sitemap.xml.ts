@@ -4,10 +4,10 @@
  * the playground scenarios. Alias and debug pages are left out on purpose.
  */
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { allPosts } from '../lib/blog';
 import { PUBLIC_ROUTES, SITE } from '../data/site';
 import { allDocs } from '../lib/docs';
-import { SPEC_VERSION } from '../lib/canonical';
+import { SPEC_VERSION } from '../content-engine/models/protocol';
 import { SPEC_TOPICS } from '../lib/spec';
 import { SCENARIOS } from '../data/scenarios';
 
@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
     ...(await allDocs()).map((d) => `/docs/${d.id}/`),
     `/spec/${SPEC_VERSION}/`,
     ...SPEC_TOPICS.map((t) => `/spec/${SPEC_VERSION}/${t.slug}/`),
-    ...(await getCollection('blog')).map((p) => `/blog/${p.id}/`),
+    ...(await allPosts()).map((p) => `/blog/${p.id}/`),
     ...SCENARIOS.map((s) => `/playground/${s.slug}/`),
   ];
   const unique = [...new Set(paths)];

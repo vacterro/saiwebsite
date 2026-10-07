@@ -5,12 +5,12 @@
  * status: what this build contains, which protocol commit it describes, and
  * which roadmap milestones are delivered or deferred.
  */
-import pkg from '../../../package.json';
+import { SITE_VERSION } from '../../content-engine/models/versions';
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { SHORT_COMMIT, meta } from '../../lib/canonical';
+import { SHORT_COMMIT, meta } from '../../content-engine/models/protocol';
 import { MILESTONES } from '../../data/milestones';
-import { ECOSYSTEM_SNAPSHOT } from '../../data/ecosystem';
+import { ECOSYSTEM_SNAPSHOT } from '../../content-engine/models/ecosystem';
 
 const counts = {
   delivered: MILESTONES.filter((m) => m.state === 'delivered').length,
@@ -37,7 +37,7 @@ const counts = {
   <h2>This build</h2>
   <dl class="diag">
     <dt>Website version</dt>
-    <dd>{pkg.version}</dd>
+    <dd>{SITE_VERSION}</dd>
     <dt>Protocol snapshot</dt>
     <dd>SAIPEN {meta.version} @ <a href={`${meta.repository}/tree/${meta.commit}`} rel="noopener" data-external>{SHORT_COMMIT}</a> ({meta.commitDate.slice(0, 10)})</dd>
     <dt>Ecosystem facts</dt>

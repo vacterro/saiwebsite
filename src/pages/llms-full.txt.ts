@@ -1,7 +1,7 @@
 /** /llms-full.txt: every documentation page as Markdown, in reading order. */
 import type { APIRoute } from 'astro';
 import { allDocs } from '../lib/docs';
-import { SHORT_COMMIT, meta } from '../lib/canonical';
+import { SHORT_COMMIT, meta } from '../content-engine/models/protocol';
 import { SITE } from '../data/site';
 
 export const GET: APIRoute = async () => {

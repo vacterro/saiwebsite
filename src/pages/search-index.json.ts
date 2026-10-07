@@ -4,12 +4,12 @@
  * script. Technical material is ranked above editorial material by `rank`.
  */
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { allPosts } from '../lib/blog';
 import { allDocs, SECTION_TITLES } from '../lib/docs';
-import { ERROR_CODES, PHASES, SPEC_VERSION } from '../lib/canonical';
+import { ERROR_CODES, PHASES, SPEC_VERSION } from '../content-engine/models/protocol';
 import { SPEC_TOPICS } from '../lib/spec';
 import { PHASE_PURPOSE } from '../data/phases';
-import { PROJECTS } from '../data/ecosystem';
+import { PROJECTS } from '../content-engine/models/ecosystem';
 
 const plain = (md: string) =>
   md
@@ -22,7 +22,7 @@ const plain = (md: string) =>
 
 export const GET: APIRoute = async () => {
   const docs = await allDocs();
-  const posts = await getCollection('blog');
+  const posts = await allPosts();
   const entries = [
     ...docs.map((d) => ({
       url: `/docs/${d.id}/`,

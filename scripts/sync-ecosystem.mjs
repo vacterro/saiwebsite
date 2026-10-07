@@ -12,7 +12,9 @@
  * well under the 60/hour anonymous limit); GITHUB_TOKEN is used if set.
  * The website itself never calls the network.
  *
- * Usage: npm run ecosystem:sync      Check: npm run validate:ecosystem
+ * Usage: npm run ecosystem:sync
+ * Check: src/content-engine/models/ecosystem.ts fails the build when the
+ * editorial list and this snapshot disagree; npm run site:doctor reports drift.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 

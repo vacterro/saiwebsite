@@ -14,12 +14,12 @@
  *
  * Ownership language follows the SAIPEN HQ branding contract: every project is
  * "part of the SAIPEN ecosystem"; GitHub ownership is vacterro until an actual
- * transfer. Snapshot date below; facts change, so the page shows it.
+ * transfer. GitHub facts live in the snapshot and carry its date, which the
+ * pages show, because facts change.
  */
 import type { ProjectMaturity } from './site';
 
-export const ECOSYSTEM_SNAPSHOT = {
-  date: '2026-10-07',
+export const ECOSYSTEM_LINKS = {
   map: 'https://github.com/saipenhq/.github/blob/main/docs/PROJECTS.md',
   branding: 'https://github.com/saipenhq/.github/blob/main/docs/BRANDING.md',
   org: 'https://github.com/saipenhq',
@@ -29,14 +29,13 @@ export const ECOSYSTEM_SNAPSHOT = {
 
 export type Layer = 'core' | 'infrastructure' | 'adjacent';
 
-export interface Release {
-  tag: string;
-  date: string;
-  url: string;
-  assets: { name: string; bytes: number; sha256: string; platform: string }[];
-}
-
-export interface Project {
+/**
+ * The editorial half of a project. GitHub facts (primary language, the latest
+ * release, its assets, sizes and digests) are NOT typed here: they come from
+ * src/data/ecosystem.snapshot.json (npm run ecosystem:sync) and are merged by
+ * the ecosystem model, src/content-engine/models/ecosystem.ts.
+ */
+export interface ProjectEntry {
   name: string;
   repo: string;
   layer: Layer;
@@ -46,13 +45,16 @@ export interface Project {
   relation: string;
   /** What it touches in a SAIPEN project, if anything. */
   touches: string | null;
-  /** Primary language as GitHub reports it. */
-  language: string;
   platform: string;
   maturity: ProjectMaturity;
   /** Why the maturity label is what it is. */
   evidence: string;
-  release: Release | null;
+  /**
+   * Release assets this catalogue lists, by GitHub asset name, with the
+   * platform label shown for each. Assets GitHub reports but that are not
+   * named here (checksum side files, for example) are left out on purpose.
+   */
+  assets?: Record<string, string>;
 }
 
 export const LAYERS: { id: Layer; title: string; lead: string }[] = [
@@ -75,7 +77,7 @@ export const LAYERS: { id: Layer; title: string; lead: string }[] = [
 
 const gh = (repo: string) => `https://github.com/vacterro/${repo}`;
 
-export const PROJECTS: Project[] = [
+export const PROJECT_ENTRIES: ProjectEntry[] = [
   {
     name: 'SAIPEN',
     repo: gh('saipen'),
@@ -84,18 +86,10 @@ export const PROJECTS: Project[] = [
     relation:
       'The protocol this site documents. Project memory lives in plain files in .saipen/, and any compatible cold agent resumes from the persisted next_action.',
     touches: 'Owns .saipen/: STATE.md, BOARD.md, LOG.md, KNOWLEDGE/.',
-    language: 'Python',
     platform: 'Windows, macOS, Linux',
     maturity: 'supported',
     evidence: 'Tagged releases; the repository validates itself on every push and a release requires validation of the tagged commit.',
-    release: {
-      tag: 'v8.0.1',
-      date: '2026-09-09',
-      url: 'https://github.com/vacterro/saipen/releases/tag/v8.0.1',
-      assets: [
-        { name: 'VERSION', bytes: 6, sha256: '319095c4c2691f083478e17bfee6df58022bc5f23aca4e08b5dcb06dc24ce6c6', platform: 'any' },
-      ],
-    },
+    assets: { 'VERSION': 'any' },
   },
   {
     name: 'ZAICODE',
@@ -105,11 +99,9 @@ export const PROJECTS: Project[] = [
     relation:
       'A modified ZCode build in which every project is driven by the SAIPEN protocol: work is started, continued and scheduled from one window. Its installer fetches ZAICODE, SAIPEN and SAIMAIL together.',
     touches: 'Runs agents against SAIPEN projects; listed as a host in the SAIPEN adapter registry.',
-    language: 'PowerShell',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Version 0.0.x per its README; no GitHub release marked latest.',
-    release: null,
   },
   {
     name: 'SAIPENVIEW',
@@ -119,23 +111,10 @@ export const PROJECTS: Project[] = [
     relation:
       'Auto-discovers every .saipen/ workspace on local drives, shows live state and conformance verdicts, manages tickets and files, and launches AI CLIs. A companion, not the authority.',
     touches: 'Reads and manages .saipen/ workspaces.',
-    language: 'Python',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Pre-1.0 GitHub releases with a wheel asset.',
-    release: {
-      tag: 'v0.1.24',
-      date: '2026-08-10',
-      url: 'https://github.com/vacterro/saipenview/releases/tag/v0.1.24',
-      assets: [
-        {
-          name: 'saipenview-0.1.24-py3-none-any.whl',
-          bytes: 1615054,
-          sha256: '1516b8a40c4039facf8403043e75da5869a0b83f6327f9e48af459c8a67fde10',
-          platform: 'Python wheel',
-        },
-      ],
-    },
+    assets: { 'saipenview-0.1.24-py3-none-any.whl': 'Python wheel' },
   },
   {
     name: 'SAIWORK2',
@@ -145,16 +124,9 @@ export const PROJECTS: Project[] = [
     relation:
       'A Tauri desktop workspace for projects, agent sessions, queued prompts and engine processes. SAIPEN-aware: state, task, blocker, validation, Board and Knowledge views without mirroring the canonical .saipen files.',
     touches: 'Reads and watches .saipen/; hands SAIPEN work to its prompt queue.',
-    language: 'Rust',
     platform: 'Desktop (Tauri)',
     maturity: 'experimental',
     evidence: 'Pre-1.0 GitHub releases; the latest release carries no binary asset.',
-    release: {
-      tag: 'v0.1.6',
-      date: '2026-08-24',
-      url: 'https://github.com/vacterro/saiwork2/releases/tag/v0.1.6',
-      assets: [],
-    },
   },
   {
     name: 'SAIPAL',
@@ -164,11 +136,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Reads real session evidence, compares what an agent did with the SAIPEN version that governed the session, and hands qualified findings to the SAIPEN maintainer as immutable audits. It observes and reports; the maintainer decides.',
     touches: 'Reads agent session transcripts and the governing protocol version.',
-    language: 'Python',
     platform: 'not stated',
     maturity: 'experimental',
     evidence: 'Public source; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAIMAIL',
@@ -178,16 +148,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Desktop and CLI correspondence for agents and humans: evidence-bearing letters, explicit receiver decisions, sealed addressed payloads and no cloud service. A SAIPEN work desk (saimail-local saipen enter / brief) connects it to project state.',
     touches: 'Checks SAIPEN project participation through its saipen bridge.',
-    language: 'Python',
     platform: 'Desktop and CLI',
     maturity: 'experimental',
     evidence: 'First GitHub release v0.0.1; no binary asset.',
-    release: {
-      tag: 'v0.0.1',
-      date: '2026-09-19',
-      url: 'https://github.com/vacterro/saimail/releases/tag/v0.0.1',
-      assets: [],
-    },
   },
   {
     name: 'AUDAPACK',
@@ -197,11 +160,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Builds clean project archives, tracks multi-wave audit freshness and bridges browser-based audits to the local project. For a project with .saipen/, it enqueues a captured audit through the SAIPEN CLI (saipen audit enqueue --producer audapack) instead of editing state itself.',
     touches: 'Enqueues audits via the canonical SAIPEN CLI.',
-    language: 'Python',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Version 0.3.x per its README; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAICONT',
@@ -211,11 +172,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Watches terminal agents and types the SAIPEN continue shortcut (cc) only after a verified failure and a verified ready-for-input state. No window activation, no global keystrokes.',
     touches: 'Sends the continue shortcut to a waiting agent console.',
-    language: 'C#',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Public source with a build script; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAIPET',
@@ -225,11 +184,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Finds threads where people describe a real problem, scores relevance and drafts a reply, then stops for a human. It emits one JSON line per run so SAIPEN or another agent can call it; it never posts.',
     touches: 'Callable as a tool by an agent; no .saipen/ writes.',
-    language: 'Python',
     platform: 'not stated',
     maturity: 'experimental',
     evidence: 'Version 0.28.0 per its README; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAIPLAN',
@@ -239,11 +196,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Brings the SAIPEN planning model to ordinary human work: goal, tickets, a BOARD with DOING / TODO / DONE / BLOCKED, verification and recovery, in portable Markdown.',
     touches: 'Its own Markdown board; it does not write .saipen/.',
-    language: 'Python',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Version 0.0.1 per its README; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAITALK',
@@ -253,11 +208,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Packages explicit language, voice and validation contracts for how an agent answers, as a standalone protocol. It is deliberately not tied to SAIPEN; SAIPEN keeps its own chat style in STYLE.md.',
     touches: 'Nothing in .saipen/.',
-    language: 'Python',
     platform: 'any',
     maturity: 'experimental',
     evidence: 'Version 0.1.x; no GitHub release.',
-    release: null,
   },
   {
     name: '9router_extra',
@@ -267,11 +220,9 @@ export const PROJECTS: Project[] = [
     relation:
       'Provider bridges, routing compatibility patches, state backup and safe update tooling for the 9Router model router that agent runtimes in this network use.',
     touches: 'Nothing in .saipen/.',
-    language: 'Python',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Version 0.1.0 per its README; no GitHub release.',
-    release: null,
   },
   {
     name: 'SAICODE',
@@ -280,11 +231,9 @@ export const PROJECTS: Project[] = [
     role: 'Reserved public project slot.',
     relation: 'The repository is an empty placeholder; no implementation or release is claimed.',
     touches: null,
-    language: '—',
     platform: '—',
     maturity: 'planned',
     evidence: 'Its README states that nothing is published yet.',
-    release: null,
   },
   {
     name: 'FastPrompter',
@@ -294,23 +243,10 @@ export const PROJECTS: Project[] = [
     relation:
       'Keyboard-first Windows scratchpad. It auto-detects .saipen/ folders and adds a read-only STATE / BOARD / LOG viewer.',
     touches: 'Reads .saipen/ files, read-only.',
-    language: 'Python',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Pre-1.0 GitHub releases with an executable and a published checksum file.',
-    release: {
-      tag: 'v0.8.72',
-      date: '2026-10-04',
-      url: 'https://github.com/vacterro/FastPrompter/releases/tag/v0.8.72',
-      assets: [
-        {
-          name: 'FastPrompter.exe',
-          bytes: 62792704,
-          sha256: 'c0dca514e8cd2d3e0e8f5466dc08cb5029cc39a7efd4c12cadc5b916082ee656',
-          platform: 'Windows (.exe)',
-        },
-      ],
-    },
+    assets: { 'FastPrompter.exe': 'Windows (.exe)' },
   },
   {
     name: 'LIMISAW',
@@ -320,23 +256,10 @@ export const PROJECTS: Project[] = [
     relation:
       'One-file tray monitor for Codex, Claude Code, Antigravity and Zcode quota windows across accounts, using each vendor\'s own read-only call — useful when agents run long enough to hit limits.',
     touches: 'Nothing in .saipen/.',
-    language: 'C#',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'Pre-1.0 GitHub releases with a single executable.',
-    release: {
-      tag: 'v0.0.8',
-      date: '2026-09-05',
-      url: 'https://github.com/vacterro/limisaw/releases/tag/v0.0.8',
-      assets: [
-        {
-          name: 'LIMISAW.exe',
-          bytes: 295424,
-          sha256: '14c4b76d05b8828c50257d600e818a054d4b5ca86c91414955cca30da7dddf39',
-          platform: 'Windows (.exe)',
-        },
-      ],
-    },
+    assets: { 'LIMISAW.exe': 'Windows (.exe)' },
   },
   {
     name: 'SAITULS',
@@ -345,23 +268,10 @@ export const PROJECTS: Project[] = [
     role: 'Windows utility and Explorer integration hub.',
     relation: 'Explorer context-menu toolkit and desktop hub for file and media work, agent launchers and quota tools.',
     touches: 'Nothing in .saipen/.',
-    language: 'C#',
     platform: 'Windows',
     maturity: 'experimental',
     evidence: 'First GitHub release v0.0.1 with an installer payload.',
-    release: {
-      tag: 'v0.0.1',
-      date: '2026-08-31',
-      url: 'https://github.com/vacterro/saituls/releases/tag/v0.0.1',
-      assets: [
-        {
-          name: 'SAITULS-payload-0.0.1.zip',
-          bytes: 346616311,
-          sha256: '1c092c35d8226d3d99ec81c4135489037ad18728f34b8802bd65bb8654dcfec8',
-          platform: 'Windows',
-        },
-      ],
-    },
+    assets: { 'SAITULS-payload-0.0.1.zip': 'Windows' },
   },
   {
     name: 'Wintage',
@@ -371,12 +281,8 @@ export const PROJECTS: Project[] = [
     relation:
       'The visual system this website is built in. SAIPEN\'s UI.md takes its Golden Default palette byte-for-byte from Wintage, and so do the sixteen palettes in the theme menu here.',
     touches: 'Nothing in .saipen/; it is the shared design language.',
-    language: 'PowerShell',
     platform: 'Browsers (userscript), Windows apps',
     maturity: 'experimental',
     evidence: 'Distributed as a userscript from the repository; no GitHub release.',
-    release: null,
   },
 ];
-
-export const projectsIn = (layer: Layer) => PROJECTS.filter((p) => p.layer === layer);

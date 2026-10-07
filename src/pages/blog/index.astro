@@ -3,11 +3,11 @@
  * Blog index (MASTER_ROADMAP M24). Editorial: explanation, research and design
  * notes. It never outranks the specification.
  */
-import { getCollection } from 'astro:content';
+import { allPosts } from '../../lib/blog';
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const posts = await allPosts();
 const day = (d: Date) => d.toISOString().slice(0, 10);
 ---
 

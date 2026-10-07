@@ -8,7 +8,7 @@
 import { getCollection, render } from 'astro:content';
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { sourceUrl } from '../../lib/canonical';
+import { sourceUrl } from '../../content-engine/models/protocol';
 
 const entries = await Promise.all(
   (await getCollection('changelog'))

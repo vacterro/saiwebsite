@@ -10,7 +10,7 @@
  */
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../../data/ecosystem';
+import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../../content-engine/models/ecosystem';
 
 const released = PROJECTS.filter((p) => p.release);
 const unreleased = PROJECTS.filter((p) => !p.release && p.maturity !== 'planned');

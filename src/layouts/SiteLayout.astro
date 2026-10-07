@@ -18,7 +18,7 @@
  * No deferred script, no module, no external resource, so nothing can paint
  * Golden Default first (WINTAGE_WEB_CONTRACT §6).
  */
-import pkg from '../../package.json';
+import { SITE_VERSION } from '../content-engine/models/versions';
 import ThemeSelector from '../components/ThemeSelector.astro';
 import WintageBreadcrumbs from '../components/WintageBreadcrumbs.astro';
 import WintageCompactNav from '../components/WintageCompactNav.astro';
@@ -26,7 +26,7 @@ import WintageMenuBar from '../components/WintageMenuBar.astro';
 import WintageStatusBar from '../components/WintageStatusBar.astro';
 import WintageWindow from '../components/WintageWindow.astro';
 import { MENU_ROUTES, PUBLIC_ROUTES, SITE, SECONDARY_ROUTES, routeByHref } from '../data/site';
-import { SHORT_COMMIT, meta as canonical } from '../lib/canonical';
+import { SHORT_COMMIT, meta as canonical } from '../content-engine/models/protocol';
 import { defaultTheme, themeCss } from '../themes';
 import {
   PALETTE_STATUS_ID,
@@ -76,7 +76,7 @@ const statusFields = [
   { text: 'READY', grow: true },
   { text: `palette: ${palette.label}`, id: PALETTE_STATUS_ID },
   { text: `protocol ${canonical.version} @ ${SHORT_COMMIT}` },
-  { text: `site v${pkg.version}` },
+  { text: `site v${SITE_VERSION}` },
 ];
 
 // Canonical breadcrumb trail (MASTER_ROADMAP M4), derived once here instead of

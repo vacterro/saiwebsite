@@ -13,9 +13,9 @@ import MaturityBadge from '../../components/MaturityBadge.astro';
 import PixelMark from '../../components/PixelMark.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { SITE } from '../../data/site';
-import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../../data/ecosystem';
+import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../../content-engine/models/ecosystem';
 import { LAST_VERIFICATION } from '../../data/verification';
-import { SHORT_COMMIT, meta } from '../../lib/canonical';
+import { SHORT_COMMIT, meta } from '../../content-engine/models/protocol';
 import { readSelfState } from '../../lib/selfstate';
 
 const self = readSelfState();

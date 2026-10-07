@@ -1,15 +1,16 @@
 /**
- * Typed access to the canonical SAIPEN snapshot (src/data/canonical/).
+ * Protocol model (content-system roadmap M35): typed access to the canonical
+ * SAIPEN snapshot (src/data/canonical/).
  *
  * Every protocol fact the site renders as data — phases, transitions, STATE
  * fields, next_action forms, WAIT categories, commands, shortcuts, error codes,
  * limits, host adapters — comes from here, never from prose typed into a page.
  * `npm run validate:canonical` proves the snapshot is untouched.
  */
-import meta from '../data/canonical/meta.json';
-import registry from '../data/canonical/registry.json';
-import adapters from '../data/canonical/adapters.json';
-import stateSchema from '../data/canonical/stateSchema.json';
+import meta from '../../data/canonical/meta.json';
+import registry from '../../data/canonical/registry.json';
+import adapters from '../../data/canonical/adapters.json';
+import stateSchema from '../../data/canonical/stateSchema.json';
 
 export { meta, registry, adapters, stateSchema };
 

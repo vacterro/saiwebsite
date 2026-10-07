@@ -10,7 +10,7 @@
  */
 import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { ECOSYSTEM_SNAPSHOT, LAYERS, PROJECTS, projectsIn } from '../../data/ecosystem';
+import { ECOSYSTEM_SNAPSHOT, LAYERS, PROJECTS, projectsIn } from '../../content-engine/models/ecosystem';
 
 const touching = PROJECTS.filter((p) => p.touches && p.name !== 'SAIPEN' && !/^Nothing/.test(p.touches));
 ---

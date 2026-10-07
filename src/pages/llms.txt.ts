@@ -5,7 +5,7 @@
  */
 import type { APIRoute } from 'astro';
 import { allDocs, SECTION_TITLES } from '../lib/docs';
-import { SHORT_COMMIT, SPEC_VERSION, meta } from '../lib/canonical';
+import { SHORT_COMMIT, SPEC_VERSION, meta } from '../content-engine/models/protocol';
 import { SPEC_TOPICS } from '../lib/spec';
 import { SITE } from '../data/site';
 import { DOC_SECTIONS } from '../content.config';
