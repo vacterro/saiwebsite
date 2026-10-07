@@ -301,6 +301,7 @@ function record(entry, route, id, origin) {
   return {
     id,
     route,
+    locale: 'en',
     entry: origin,
     kind: entry.kind,
     owner: entry.owner,
@@ -319,10 +320,14 @@ function record(entry, route, id, origin) {
 /**
  * Reconcile a valid registry with the routes that actually exist in the built
  * site. Every built route must resolve to exactly one entry, every static page
- * must be built and every family must have members. Returns the per-route
- * inventory (sorted, deterministic) and any problems.
+ * must be built and every family must have members. Locale variants (from the
+ * i18n variant plan) are registered as copies of the canonical page they
+ * render, under `<locale prefix>.<page id>`. Returns the per-route inventory
+ * (sorted, deterministic) and any problems.
+ *
+ * @param {{route: string, of: string, locale: string, prefix: string, internal: boolean, searchable: boolean, llmVisible: boolean}[]} variants
  */
-export function buildInventory(registry, builtRoutes) {
+export function buildInventory(registry, builtRoutes, variants = []) {
   const problems = [];
   const statics = new Map(registry.pages.map((page) => [page.route, page]));
   const families = registry.families.map((family) => ({ family, rx: compileFamily(family) }));
@@ -330,7 +335,9 @@ export function buildInventory(registry, builtRoutes) {
   const ids = new Map([...registry.pages.map((p) => [p.id, `page ${p.route}`]), ...registry.families.map((f) => [f.id, `family ${f.routePattern}`])]);
   const members = new Map(registry.families.map((family) => [family.id, 0]));
 
+  const variantByRoute = new Map(variants.map((v) => [v.route, v]));
   for (const route of [...new Set(builtRoutes)].sort()) {
+    if (variantByRoute.has(route)) continue;
     const page = statics.get(route);
     const hits = families.map(({ family, rx }) => ({ family, m: rx.exec(route) })).filter((hit) => hit.m);
     if (page && hits.length) {
@@ -364,6 +371,37 @@ export function buildInventory(registry, builtRoutes) {
   }
 
   const built = new Set(builtRoutes);
+  const byRoute = new Map(records.map((r) => [r.route, r]));
+  for (const v of variants) {
+    const base = byRoute.get(v.of);
+    if (!built.has(v.route)) {
+      problems.push(`[missing-route] ${v.route}: the ${v.locale} variant plan expects it but it was not built`);
+      continue;
+    }
+    if (!base) {
+      problems.push(`[unregistered-route] ${v.route}: variant of ${v.of}, which is not a registered route`);
+      continue;
+    }
+    const audience = v.internal ? 'internal' : base.audience;
+    const id = `${v.prefix}.${base.id}`;
+    if (ids.has(id)) problems.push(`[duplicate-id] ${v.route}: variant ID "${id}" collides with ${ids.get(id)}`);
+    ids.set(id, `variant ${v.route}`);
+    records.push({
+      ...base,
+      id,
+      route: v.route,
+      locale: v.locale,
+      variantOf: base.id,
+      audience,
+      nav: 'none',
+      localizable: false,
+      searchable: v.searchable && base.searchable,
+      llmVisible: v.llmVisible && base.llmVisible,
+      sitemap: audience === 'public' && base.sitemap,
+      ...(base.twinOf ? { twinOf: `${v.prefix}.${base.twinOf}` } : {}),
+    });
+  }
+  records.sort((a, b) => a.route.localeCompare(b.route));
   for (const page of registry.pages) {
     if (!built.has(page.route)) problems.push(`[missing-route] ${page.route}: declared as ${page.id} but not present in the built site`);
   }

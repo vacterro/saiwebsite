@@ -1,0 +1,13 @@
+---
+/** /pricing/ in every routed locale (content-system M47). */
+import PricingView from '../../../views/PricingView.astro';
+import { PLAN } from '../../../content-engine/i18n/catalog';
+
+export function getStaticPaths() {
+  return PLAN.filter((p) => p.pages.some((x) => x.pageId === 'pricing')).map((p) => ({ params: { locale: p.prefix }, props: { locale: p.locale } }));
+}
+
+const { locale } = Astro.props;
+---
+
+<PricingView locale={locale} />

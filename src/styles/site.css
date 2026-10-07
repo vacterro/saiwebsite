@@ -1015,6 +1015,42 @@ main blockquote > :last-child,
   margin-left: auto;
 }
 
+/* ── Language selector (content-system M47) ──────────────────────────────
+   A strip of plain links under the theme bar, present only when the page
+   exists in more than one locale. Each name is written in its own language. */
+.w-langbar {
+  padding: 2px var(--gap-4);
+  background-color: var(--ui-window);
+  border-bottom: var(--bevel) solid var(--ui-edge-dark);
+}
+
+.w-langbar__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.w-langbar a {
+  font-size: var(--size-body);
+  font-family: var(--face-body);
+  line-height: var(--lh-body);
+  color: var(--ui-link);
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.w-langbar a:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.w-langbar a[aria-current='true'] {
+  color: var(--ui-text);
+  font-weight: var(--weight-bold);
+}
+
 /* ── Diagnostics (§25, §26) ───────────────────────────────────────────────
    A definition list laid out as a two-column integer grid, used by the debug
    routes. Values without JavaScript stay at their static SSR fallback. */

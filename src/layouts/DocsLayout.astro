@@ -19,8 +19,8 @@
 import MaturityBadge from '../components/MaturityBadge.astro';
 import SiteLayout from './SiteLayout.astro';
 import DocsTree from '../components/DocsTree.astro';
-import { docHref, type Doc } from '../lib/docs';
 import { SHORT_COMMIT, sourceUrl } from '../content-engine/models/protocol';
+import { CANONICAL_LOCALE, translator } from '../content-engine/i18n/catalog';
 
 interface Heading {
   depth: number;
@@ -28,7 +28,14 @@ interface Heading {
   text: string;
 }
 
+interface PagerLink {
+  href: string;
+  title: string;
+}
+
 interface Props {
+  /** Locale of the page; chrome strings and tree titles follow it. */
+  locale?: string;
   title: string;
   description: string;
   /** The current doc's id, for aria-current in the tree. */
@@ -39,42 +46,41 @@ interface Props {
   maturity?: 'draft' | 'preview' | 'stable';
   authority?: 'reference' | 'engineering' | 'explanation';
   sources?: { path: string; anchor?: string; label: string }[];
-  prev?: Doc;
-  next?: Doc;
+  prev?: PagerLink;
+  next?: PagerLink;
+  /** On a translated page: the English original, which stays authoritative. */
+  original?: string;
 }
 
-const { title, description, current, section, sectionHref, headings = [], maturity, authority, sources = [], prev, next } =
+const { locale = CANONICAL_LOCALE, title, description, current, section, sectionHref, headings = [], maturity, authority, sources = [], prev, next, original } =
   Astro.props;
+const tx = translator(locale);
 // Heading text includes the trailing "#" anchor link added by rehype-wintage.
 const toc = headings
   .filter((h) => h.depth === 2 || h.depth === 3)
   .map((h) => ({ ...h, text: h.text.replace(/\s*#$/, '') }));
 
-const AUTHORITY_NOTE = {
-  reference: 'reference — states protocol facts; the linked canonical source wins on any conflict',
-  engineering: 'engineering — how the protocol works and how to use it',
-  explanation: 'explanation — the reasoning behind the protocol, not normative text',
-};
+const authorityNote = authority ? tx.text(`docs-ui.authority.${authority}`) : '';
 
 const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Docs', href: '/docs/' },
+  { label: tx.text('ui.crumbs.home'), href: tx.href('/') },
+  { label: tx.text('pages.docs.index.label'), href: tx.href('/docs/') },
   ...(section ? [{ label: section, href: sectionHref }] : []),
   { label: title },
 ];
 ---
 
-<SiteLayout title={title} tag="/docs/" description={description} crumbs={current ? crumbs : undefined} ogType="article">
+<SiteLayout locale={locale} title={title} tag="/docs/" description={description} crumbs={current ? crumbs : undefined} ogType="article">
   <div class="docs">
-    <nav class="tree docs__tree" aria-label="Documentation contents">
-      <p class="tree__title">Contents</p>
-      <DocsTree current={current} idPrefix="tree" />
+    <nav class="tree docs__tree" aria-label={tx.text('docs-ui.tree.label')}>
+      <p class="tree__title">{tx.text('docs-ui.tree.title')}</p>
+      <DocsTree current={current} idPrefix="tree" locale={locale} />
     </nav>
 
     <details class="w-panel w-panel--sunken docs__tree-compact">
-      <summary>Documentation contents</summary>
-      <nav class="tree" aria-label="Documentation contents">
-        <DocsTree current={current} idPrefix="tree-compact" />
+      <summary>{tx.text('docs-ui.tree.label')}</summary>
+      <nav class="tree" aria-label={tx.text('docs-ui.tree.label')}>
+        <DocsTree current={current} idPrefix="tree-compact" locale={locale} />
       </nav>
     </details>
 
@@ -84,7 +90,7 @@ const crumbs = [
         (maturity || authority) && (
           <div class="docs__meta">
             {maturity && <MaturityBadge level={maturity} />}
-            {authority && <span class="w-panel__note">{AUTHORITY_NOTE[authority]}</span>}
+            {authority && <span class="w-panel__note">{authorityNote}</span>}
           </div>
         )
       }
@@ -92,7 +98,7 @@ const crumbs = [
       {
         toc.length > 2 && (
           <details class="docs__toc-inline">
-            <summary>On this page</summary>
+            <summary>{tx.text('docs-ui.toc.title')}</summary>
             <ul class="plain">
               {toc.map((h) => (
                 <li class={`toc__item toc__item--${h.depth}`}>
@@ -104,6 +110,14 @@ const crumbs = [
         )
       }
 
+      {
+        original && (
+          <p class="w-panel__note docs__translation">
+            {tx.text('docs-ui.translation.note')} <a href={original} hreflang={CANONICAL_LOCALE} lang={CANONICAL_LOCALE}>{original}</a>
+          </p>
+        )
+      }
+
       <div class="docs__body">
         <slot />
       </div>
@@ -111,8 +125,8 @@ const crumbs = [
       {
         sources.length > 0 && (
           <section class="w-panel w-panel--sunken docs__sources" aria-labelledby="sources-title">
-            <h2 class="w-panel__title" id="sources-title">Canonical sources</h2>
-            <ul>
+            <h2 class="w-panel__title" id="sources-title">{tx.text('docs-ui.sources.title')}</h2>
+            <ul lang={tx.canonical ? undefined : CANONICAL_LOCALE}>
               {sources.map((source) => (
                 <li>
                   <a href={sourceUrl(source.path, source.anchor)} rel="noopener" data-external>
@@ -122,29 +136,26 @@ const crumbs = [
                 </li>
               ))}
             </ul>
-            <p class="w-panel__note">
-              Links are pinned to the protocol commit this site was built from. Where this page and the source
-              disagree, the source wins.
-            </p>
+            <p class="w-panel__note">{tx.text('docs-ui.sources.note')}</p>
           </section>
         )
       }
 
       {
         (prev || next) && (
-          <nav class="docs__pager" aria-label="Previous and next page">
+          <nav class="docs__pager" aria-label={tx.text('docs-ui.pager.label')}>
             {prev ? (
-              <a class="w-button docs__pager-prev" href={docHref(prev)} rel="prev">
-                <span class="docs__pager-dir">Previous</span>
-                <span>{prev.data.title}</span>
+              <a class="w-button docs__pager-prev" href={prev.href} rel="prev">
+                <span class="docs__pager-dir">{tx.text('docs-ui.pager.prev')}</span>
+                <span>{prev.title}</span>
               </a>
             ) : (
               <span />
             )}
             {next && (
-              <a class="w-button docs__pager-next" href={docHref(next)} rel="next">
-                <span class="docs__pager-dir">Next</span>
-                <span>{next.data.title}</span>
+              <a class="w-button docs__pager-next" href={next.href} rel="next">
+                <span class="docs__pager-dir">{tx.text('docs-ui.pager.next')}</span>
+                <span>{next.title}</span>
               </a>
             )}
           </nav>
@@ -155,7 +166,7 @@ const crumbs = [
     {
       toc.length > 2 && (
         <aside class="docs__toc" aria-labelledby="toc-title">
-          <p class="tree__title" id="toc-title">On this page</p>
+          <p class="tree__title" id="toc-title">{tx.text('docs-ui.toc.title')}</p>
           <ul class="plain">
             {toc.map((h) => (
               <li class={`toc__item toc__item--${h.depth}`}>

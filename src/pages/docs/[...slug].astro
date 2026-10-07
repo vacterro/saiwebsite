@@ -5,7 +5,7 @@
  */
 import { render } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import { SECTION_TITLES, allDocs, neighbours } from '../../lib/docs';
+import { SECTION_TITLES, allDocs, docHref, neighbours } from '../../lib/docs';
 
 export async function getStaticPaths() {
   const docs = await allDocs();
@@ -27,8 +27,8 @@ const { prev, next } = await neighbours(doc.id);
   maturity={doc.data.maturity}
   authority={doc.data.authority}
   sources={doc.data.sources}
-  prev={prev}
-  next={next}
+  prev={prev && { href: docHref(prev), title: prev.data.title }}
+  next={next && { href: docHref(next), title: next.data.title }}
 >
   <p class="docs__lead">{doc.data.description}</p>
   <Content />

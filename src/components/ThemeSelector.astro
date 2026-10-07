@@ -9,10 +9,17 @@
  */
 import { themes, defaultTheme } from '../themes';
 import { THEME_SELECT_ATTR, THEME_SELECT_ID } from '../themes/runtime';
+
+interface Props {
+  label?: string;
+  note?: string;
+}
+
+const { label = 'Theme:', note = '16 palettes · stored locally' } = Astro.props;
 ---
 
 <div class="w-themebar">
-  <label class="w-themebar__label" for={THEME_SELECT_ID}>Theme:</label>
+  <label class="w-themebar__label" for={THEME_SELECT_ID}>{label}</label>
   <span class="w-select-wrap w-themebar__control">
     <select
       class="w-select w-themebar__select"
@@ -28,5 +35,5 @@ import { THEME_SELECT_ATTR, THEME_SELECT_ID } from '../themes/runtime';
       }
     </select>
   </span>
-  <span class="w-panel__note w-themebar__note">16 palettes · stored locally</span>
+  <span class="w-panel__note w-themebar__note">{note}</span>
 </div>

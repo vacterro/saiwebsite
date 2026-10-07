@@ -41,7 +41,15 @@ const pathOf = (url) => new URL(url, 'https://registry.invalid').pathname;
 export function checkDiscovery(records, dist = 'dist', files = { search: 'search-index.json', llms: 'llms.txt', sitemap: 'sitemap.xml' }) {
   const problems = [];
   const byRoute = new Map(records.map((r) => [r.route, r]));
+  if (files.search) problems.push(...checkSearch(records, byRoute, dist, files.search));
+  if (files.llms) problems.push(...checkLlms(records, byRoute, dist, files.llms));
+  if (files.sitemap) problems.push(...checkSitemap(records, byRoute, dist, files.sitemap));
+  return problems;
+}
 
+function checkSearch(records, byRoute, dist, file) {
+  const problems = [];
+  const files = { search: file };
   const search = JSON.parse(readFileSync(join(dist, files.search), 'utf8'));
   const searched = new Set(search.map((entry) => pathOf(entry.url)));
   for (const route of searched) {
@@ -50,7 +58,12 @@ export function checkDiscovery(records, dist = 'dist', files = { search: 'search
     else if (!r.searchable) problems.push(`[flag-searchable] ${r.id}: in ${files.search} but declared searchable: false`);
   }
   for (const r of records) if (r.searchable && !searched.has(r.route)) problems.push(`[flag-searchable] ${r.id}: declared searchable but absent from ${files.search}`);
+  return problems;
+}
 
+function checkLlms(records, byRoute, dist, file) {
+  const problems = [];
+  const files = { llms: file };
   const llms = readFileSync(join(dist, files.llms), 'utf8');
   const listed = new Set([...llms.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((m) => pathOf(m[1])));
   const credited = new Set();
@@ -65,7 +78,12 @@ export function checkDiscovery(records, dist = 'dist', files = { search: 'search
     if (r.twinOf) credited.add(r.twinOf);
   }
   for (const r of records) if (r.llmVisible && !credited.has(r.id)) problems.push(`[flag-llm] ${r.id}: declared llmVisible but neither it nor a twin is listed in ${files.llms}`);
+  return problems;
+}
 
+function checkSitemap(records, byRoute, dist, file) {
+  const problems = [];
+  const files = { sitemap: file };
   const sitemap = readFileSync(join(dist, files.sitemap), 'utf8');
   const located = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => pathOf(m[1])));
   for (const route of located) {

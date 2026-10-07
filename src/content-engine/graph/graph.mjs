@@ -51,7 +51,10 @@ export function buildGraph({ sourcesDoc, registry, records, testsDoc, extra = {}
   const byEntry = new Map();
   for (const r of records) {
     addNode(`page:${r.id}`, { kind: r.kind, route: r.route, audience: r.audience, nav: r.nav, record: r });
-    if (r.entry !== r.id) {
+    if (r.variantOf) {
+      // A locale variant is rendered from its canonical page.
+      addEdge(`page:${r.variantOf}`, `page:${r.id}`);
+    } else if (r.entry !== r.id) {
       addEdge(`family:${r.entry}`, `page:${r.id}`);
     } else {
       for (const s of r.sourceIds) addEdge(`source:${s}`, `page:${r.id}`);
@@ -65,10 +68,13 @@ export function buildGraph({ sourcesDoc, registry, records, testsDoc, extra = {}
   for (const r of records) {
     for (const ref of r.consumes ?? []) {
       const [kind, value] = ref.split(/:(.*)/s);
-      const inputs =
+      // An output only consumes pages of its own locale: /et/llms.txt lists Estonian pages.
+      const sameLocale = (x) => (x.locale ?? 'en') === (r.locale ?? 'en');
+      const inputs = (
         kind === 'flag' ? records.filter((x) => x[value] && x.id !== r.id)
         : kind === 'family' ? byEntry.get(value) ?? []
-        : records.filter((x) => x.id === value);
+        : records.filter((x) => x.id === value)
+      ).filter(sameLocale);
       for (const input of inputs) addEdge(`page:${input.id}`, `page:${r.id}`);
     }
   }

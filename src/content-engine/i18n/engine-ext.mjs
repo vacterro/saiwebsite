@@ -1,0 +1,85 @@
+/**
+ * Content-engine extension for blocks and translations (roadmap M37, M41-M46,
+ * M52). Adds to every engine load:
+ *   - the content lock manifest (canonical block and document hashes)
+ *   - translation findings: invalid units are broken contracts, STALE and
+ *     ORPHANED units are stale work, MISSING units are reported per locale
+ *   - graph nodes and edges: block -> page, block -> unit -> locale variant,
+ *     docs page -> doc unit -> localized doc page
+ */
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { registerExtension } from '../engine.mjs';
+import { selectorMatches } from '../graph/graph.mjs';
+import { serialize } from '../sources/lock.mjs';
+import { contentLock, PATHS, unitReport, validateTranslations } from './store.mjs';
+
+export const COVERAGE_FILE = 'src/content-engine/i18n/font-coverage.json';
+
+/** Code points every pixel face can draw (intersection), or null when the coverage file is absent. */
+export function loadCoverage(root = '.') {
+  const file = join(root, COVERAGE_FILE);
+  if (!existsSync(file)) return null;
+  const doc = JSON.parse(readFileSync(file, 'utf8'));
+  const set = new Set();
+  for (const [from, to] of doc.common) for (let cp = from; cp <= to; cp++) set.add(cp);
+  return set;
+}
+
+registerExtension((engine, { at }) => {
+  const store = engine.store;
+  if (!store) return;
+
+  engine.manifests.push({
+    id: 'content-engine.content-lock',
+    path: PATHS.contentLock,
+    fresh: serialize(contentLock(store)),
+    committed: existsSync(at(PATHS.contentLock)) ? readFileSync(at(PATHS.contentLock), 'utf8').replace(/\r\n/g, '\n') : null,
+  });
+
+  engine.contracts.push(...validateTranslations(store, loadCoverage(engine.root)));
+
+  const report = unitReport(store);
+  engine.unitReport = report;
+  const summary = {};
+  for (const r of report) {
+    summary[r.locale] ??= {};
+    summary[r.locale][r.status] = (summary[r.locale][r.status] ?? 0) + 1;
+  }
+  engine.translationSummary = summary;
+  engine.blockSummary = { blocks: Object.keys(store.blocks).length, documents: Object.keys(store.docs).length, domains: new Set(Object.values(store.blocks).map((b) => b.domain)).size };
+  for (const r of report) {
+    if (r.status === 'STALE') engine.translations.push({ severity: 'stale', message: `[translation-stale] ${r.locale} ${r.kind} ${r.id}: the English changed after this translation — npm run i18n:export -- --locale ${r.locale} --status stale` });
+    if (r.status === 'ORPHANED') engine.translations.push({ severity: 'stale', message: `[translation-orphaned] ${r.locale} ${r.kind} ${r.id}: no canonical source any more — remove the unit` });
+  }
+
+  // Graph: which pages each block feeds, and which locale units depend on it.
+  const records = engine.records;
+  const matches = (selector, r) => (selector === 'all-html' ? r.kind !== 'machine' : selector.startsWith('page:') && selectorMatches(selector.slice(5), r.id));
+  const canonicalRecords = records.filter((r) => !r.variantOf);
+  const variantsOf = new Map();
+  for (const r of records.filter((x) => x.variantOf)) {
+    const key = `${r.locale}\0${r.variantOf}`;
+    variantsOf.set(key, [...(variantsOf.get(key) ?? []), r]);
+  }
+  const locales = store.localesDoc.locales.filter((l) => l.id !== store.localesDoc.canonical);
+  for (const [id, block] of Object.entries(store.blocks)) {
+    const node = `block:${id}`;
+    engine.extraGraph.nodes.push(node);
+    const pages = canonicalRecords.filter((r) => block.usedBy.some((s) => matches(s, r)));
+    for (const page of pages) engine.extraGraph.edges.push([node, `page:${page.id}`]);
+    for (const l of locales) {
+      const unit = `unit:${l.id}:${id}`;
+      engine.extraGraph.edges.push([node, unit]);
+      for (const page of pages) for (const v of variantsOf.get(`${l.id}\0${page.id}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
+    }
+  }
+  for (const doc of Object.values(store.docs)) {
+    const pageId = `docs.${doc.slug.split('/').join('.')}`;
+    for (const l of locales) {
+      const unit = `unit:${l.id}:docs/${doc.slug}`;
+      engine.extraGraph.edges.push([`page:${pageId}`, unit]);
+      for (const v of variantsOf.get(`${l.id}\0${pageId}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
+    }
+  }
+});

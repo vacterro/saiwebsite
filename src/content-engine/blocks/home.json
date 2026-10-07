@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "domain": "home",
+  "usedBy": [
+    "page:home"
+  ],
+  "blocks": {
+    "home.description": {
+      "type": "text",
+      "text": "{site} — {tagline} {motto} Plain-file project state that any compatible agent can resume.",
+      "note": "Meta description of the homepage."
+    },
+    "home.hero.lead": {
+      "type": "text",
+      "text": "SAIPEN keeps a project's working memory in plain files inside the project, so any compatible agent — no chat history, no session memory — can run one command and continue exactly where the last one stopped."
+    },
+    "home.hero.cmd-or": {
+      "type": "text",
+      "text": "or just:",
+      "note": "Between the two commands in the hero code line; the commands stay verbatim."
+    },
+    "home.action.start": {
+      "type": "text",
+      "text": "Get started"
+    },
+    "home.action.spec": {
+      "type": "text",
+      "text": "Read the spec"
+    },
+    "home.action.recovery": {
+      "type": "text",
+      "text": "Step through a recovery"
+    },
+    "home.action.github": {
+      "type": "text",
+      "text": "Open on GitHub"
+    },
+    "home.hero.licence": {
+      "type": "text",
+      "text": "MIT-licensed. Protocol {version}; this site describes commit {commit}."
+    },
+    "home.practice.title": {
+      "type": "text",
+      "text": "Built from practice"
+    },
+    "home.practice.body": {
+      "type": "text",
+      "text": "SAIPEN was not designed around a hypothetical agent stack. It grew out of running real projects across different models, providers, sessions and tools, where the same failure kept returning: the agent changed, but the project still needed to remember exactly what happened and what came next."
+    },
+    "home.practice.note": {
+      "type": "inline",
+      "text": "This website is built the same way — [its own SAIPEN board](/about/#dogfooding) is on the About page."
+    },
+    "home.breaks.title": {
+      "type": "text",
+      "text": "What breaks without it"
+    },
+    "home.breaks.item1": {
+      "type": "text",
+      "text": "the session ends, and everything the agent learned goes with it",
+      "note": "List item completing the heading \"What breaks without it\"; lower-case start in English."
+    },
+    "home.breaks.item2": {
+      "type": "text",
+      "text": "a usage or context limit stops it halfway through a ticket"
+    },
+    "home.breaks.item3": {
+      "type": "text",
+      "text": "you switch model or vendor, and the new one starts from zero"
+    },
+    "home.breaks.item4": {
+      "type": "text",
+      "text": "the provider goes down mid-edit"
+    },
+    "home.breaks.item5": {
+      "type": "text",
+      "text": "a half-finished change sits in the tree and nobody knows whose it is"
+    },
+    "home.breaks.item6": {
+      "type": "text",
+      "text": "\"done\" turns out to mean \"it ran once\""
+    },
+    "home.breaks.note": {
+      "type": "text",
+      "text": "None of these is a model problem. They are state problems: the work has no durable, checkable form."
+    },
+    "home.persists.title": {
+      "type": "text",
+      "text": "What persists in .saipen/"
+    },
+    "home.persists.state": {
+      "type": "text",
+      "text": "What is happening right now — and the one next_action."
+    },
+    "home.persists.board": {
+      "type": "text",
+      "text": "What work exists: DOING, TODO, DONE, BLOCKED."
+    },
+    "home.persists.log": {
+      "type": "text",
+      "text": "Why the project is here: an append-only event graph."
+    },
+    "home.persists.knowledge": {
+      "type": "text",
+      "text": "Durable, verified project truth."
+    },
+    "home.persists.link": {
+      "type": "inline",
+      "text": "[Every file in .saipen/, explained](/docs/concepts/project-memory/)"
+    },
+    "home.lifecycle.title": {
+      "type": "text",
+      "text": "How work moves"
+    },
+    "home.lifecycle.body": {
+      "type": "text",
+      "text": "One state machine for every ticket. A ticket cannot skip VERIFY, REVIEW or SHIP, and any phase can stop honestly at BLOCKED."
+    },
+    "home.lifecycle.note": {
+      "type": "inline",
+      "text": "Every checkpoint writes LOG, then BOARD, then STATE, and reads each back. [Explore the full state machine]({lifecycle})."
+    },
+    "home.story.title": {
+      "type": "text",
+      "text": "A cold handoff, end to end"
+    },
+    "home.story.badge-note": {
+      "type": "text",
+      "text": "illustrative simulation from the playground — nothing is executed"
+    },
+    "home.story.step": {
+      "type": "text",
+      "text": "Step through it"
+    },
+    "home.story.read": {
+      "type": "text",
+      "text": "Read: interrupted work"
+    },
+    "home.principles.title": {
+      "type": "text",
+      "text": "Principles"
+    },
+    "home.principles.plain-files.name": {
+      "type": "text",
+      "text": "Plain files"
+    },
+    "home.principles.plain-files.line": {
+      "type": "text",
+      "text": "State is Markdown in your project, diffable and committed with the code."
+    },
+    "home.principles.next-action.name": {
+      "type": "text",
+      "text": "One next action"
+    },
+    "home.principles.next-action.line": {
+      "type": "text",
+      "text": "A cold agent executes a recorded step instead of re-planning."
+    },
+    "home.principles.evidence.name": {
+      "type": "text",
+      "text": "Evidence, not narration"
+    },
+    "home.principles.evidence.line": {
+      "type": "text",
+      "text": "\"Done\" needs VERIFY, REVIEW and recorded proof."
+    },
+    "home.principles.model-independent.name": {
+      "type": "text",
+      "text": "Model-independent"
+    },
+    "home.principles.model-independent.line": {
+      "type": "text",
+      "text": "Any compatible agent, any vendor, the same files."
+    },
+    "home.principles.local-first.name": {
+      "type": "text",
+      "text": "Local-first"
+    },
+    "home.principles.local-first.line": {
+      "type": "text",
+      "text": "No server, daemon, database or account. Stdlib Python only."
+    },
+    "home.principles.honest-stops.name": {
+      "type": "text",
+      "text": "Honest stops"
+    },
+    "home.principles.honest-stops.line": {
+      "type": "text",
+      "text": "A WAIT names one of seven real reasons; no guessing, no lazy stops."
+    },
+    "home.eco.title": {
+      "type": "text",
+      "text": "Ecosystem"
+    },
+    "home.eco.body": {
+      "type": "inline",
+      "text": "SAIPEN owns `.saipen/`. Around it: operator tools that run and watch SAIPEN projects, and agent infrastructure for observation, messaging, packaging and recovery — {count} projects in all."
+    },
+    "home.eco.col.project": {
+      "type": "text",
+      "text": "Project"
+    },
+    "home.eco.col.role": {
+      "type": "text",
+      "text": "Role"
+    },
+    "home.eco.col.maturity": {
+      "type": "text",
+      "text": "Maturity"
+    },
+    "home.eco.link": {
+      "type": "inline",
+      "text": "[The whole ecosystem, and how each project touches a SAIPEN project](/ecosystem/)"
+    },
+    "home.next.title": {
+      "type": "text",
+      "text": "Where to go next"
+    },
+    "home.next.introduction": {
+      "type": "text",
+      "text": "Introduction"
+    },
+    "home.next.quickstart": {
+      "type": "text",
+      "text": "Quickstart"
+    },
+    "home.next.hosts": {
+      "type": "text",
+      "text": "Supported hosts"
+    },
+    "home.next.faq": {
+      "type": "text",
+      "text": "FAQ"
+    },
+    "home.next.community": {
+      "type": "text",
+      "text": "Community"
+    }
+  }
+}

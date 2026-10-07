@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "canonical": "en",
+  "note": "Locales are data. Adding a language is a registry entry plus translation files under src/locales/<id>/; no code branches on a locale ID. A locale builds public routes only when enabled; i18n:validate refuses to enable one whose required units are not translated or whose script the pixel faces do not cover.",
+  "locales": [
+    {
+      "id": "en",
+      "displayName": "English",
+      "nativeName": "English",
+      "stage": "canonical",
+      "enabled": true,
+      "fallback": null,
+      "direction": "ltr",
+      "scripts": [
+        "Latn"
+      ],
+      "searchEnabled": true,
+      "llmsEnabled": true,
+      "renderStatuses": [
+        "CURRENT"
+      ],
+      "scope": "all"
+    },
+    {
+      "id": "qps-ploc",
+      "displayName": "Pseudo-locale",
+      "nativeName": "Ƥšéûðö-ļöçåļé",
+      "stage": "pseudo",
+      "enabled": true,
+      "fallback": "en",
+      "direction": "ltr",
+      "scripts": [
+        "Latn"
+      ],
+      "searchEnabled": true,
+      "llmsEnabled": true,
+      "renderStatuses": [
+        "CURRENT"
+      ],
+      "scope": "pilot"
+    },
+    {
+      "id": "et",
+      "displayName": "Estonian",
+      "nativeName": "Eesti",
+      "stage": "pilot",
+      "enabled": false,
+      "fallback": "en",
+      "direction": "ltr",
+      "scripts": [
+        "Latn"
+      ],
+      "searchEnabled": true,
+      "llmsEnabled": false,
+      "renderStatuses": [
+        "CURRENT",
+        "REVIEWED",
+        "MACHINE_DRAFT"
+      ],
+      "scope": "pilot"
+    },
+    {
+      "id": "ru",
+      "displayName": "Russian",
+      "nativeName": "Русский",
+      "stage": "pilot",
+      "enabled": false,
+      "fallback": "en",
+      "direction": "ltr",
+      "scripts": [
+        "Cyrl",
+        "Latn"
+      ],
+      "searchEnabled": true,
+      "llmsEnabled": false,
+      "renderStatuses": [
+        "CURRENT",
+        "REVIEWED",
+        "MACHINE_DRAFT"
+      ],
+      "scope": "pilot"
+    }
+  ],
+  "scopes": {
+    "pilot": {
+      "note": "MASTER_CONTENT_SYSTEM_ROADMAP M47: shell UI, home, about, pricing, search, 404 and one docs section.",
+      "domains": [
+        "ui",
+        "pages",
+        "home",
+        "about",
+        "pricing",
+        "search",
+        "notfound",
+        "docs-ui"
+      ],
+      "pages": [
+        "home",
+        "about",
+        "pricing",
+        "search",
+        "system.not-found"
+      ],
+      "docSections": [
+        "getting-started"
+      ]
+    }
+  }
+}

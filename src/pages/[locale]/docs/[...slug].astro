@@ -1,0 +1,46 @@
+---
+/**
+ * A documentation page in a routed locale (content-system M43, M47). Built
+ * only for documents the variant plan accepts: a translation whose stored
+ * status the locale renders and whose sourceHash matches the current English,
+ * or every in-scope document for the pseudo-locale. Metadata the translation
+ * does not own (maturity, authority, canonical sources) comes from the English
+ * original, which the page links as authoritative.
+ */
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { allDocs, docHref, neighbours } from '../../../lib/docs';
+import { PLAN, docMeta, renderLocalizedDoc, translator } from '../../../content-engine/i18n/catalog';
+
+export function getStaticPaths() {
+  return PLAN.flatMap((p) => p.docs.map((d) => ({ params: { locale: p.prefix, slug: d.slug }, props: { locale: p.locale, slug: d.slug } })));
+}
+
+const { locale, slug } = Astro.props;
+const tx = translator(locale);
+const doc = (await allDocs()).find((d) => d.id === slug)!;
+const page = await renderLocalizedDoc(slug, locale);
+const { prev, next } = await neighbours(slug);
+const link = (d: typeof prev) => d && { href: tx.href(docHref(d)), title: docMeta(d.id, locale).title };
+---
+
+<DocsLayout
+  locale={locale}
+  title={page.title}
+  description={page.description}
+  current={slug}
+  section={tx.text(`docs-ui.section.${doc.data.section}`)}
+  sectionHref={`/docs/#${doc.data.section}`}
+  headings={page.headings}
+  maturity={doc.data.maturity}
+  authority={doc.data.authority}
+  sources={doc.data.sources}
+  prev={link(prev)}
+  next={link(next)}
+  original={docHref(doc)}
+>
+  <p class="docs__lead">{page.description}</p>
+  <Fragment set:html={page.html} />
+  <p class="w-panel__note docs__raw">
+    {tx.text('docs-ui.raw.note')} <a href={`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}>{`${tx.href(docHref(doc)).replace(/\/$/, '')}.md`}</a>
+  </p>
+</DocsLayout>

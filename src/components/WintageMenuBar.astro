@@ -23,9 +23,10 @@ interface Props {
   path: string;
   /** Landmark label. Overridden by the component lab so its specimen is distinguishable. */
   label?: string;
+  moreLabel?: string;
 }
 
-const { items, more = [], path, label = 'Main' } = Astro.props;
+const { items, more = [], path, label = 'Main', moreLabel = 'More' } = Astro.props;
 const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
 const current = withSlash(path);
 const isCurrent = (item: SiteRoute) => withSlash(item.href) === current;
@@ -42,7 +43,7 @@ const isCurrent = (item: SiteRoute) => withSlash(item.href) === current;
   {
     more.length > 0 && (
       <details class="w-more">
-        <summary class="w-more__summary">More</summary>
+        <summary class="w-more__summary">{moreLabel}</summary>
         <ul class="w-more__list">
           {more.map((item) => (
             <li>

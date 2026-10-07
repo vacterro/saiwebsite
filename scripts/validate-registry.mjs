@@ -21,6 +21,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { builtRoutes, checkDiscovery } from '../src/content-engine/inventory/built.mjs';
 import { buildInventory, validateRegistry } from '../src/content-engine/registry/schema.mjs';
 import { sourceIdsOf, validateSources } from '../src/content-engine/registry/sources.mjs';
+import { discoveryTargets, inventoryVariants, loadStore } from '../src/content-engine/i18n/store.mjs';
 
 const REGISTRY = 'src/content-engine/registry/pages.json';
 const SOURCES = 'src/content-engine/registry/sources.json';
@@ -38,9 +39,14 @@ const records = (inventory) => [...inventory.public, ...inventory.internal];
 function audit(registry, routes) {
   const problems = validateRegistry(registry, declared);
   if (problems.length) return { problems };
-  const { inventory, problems: built } = buildInventory(registry, routes);
+  const store = loadStore({ registry, sourceIds: declared });
+  if (store.problems.length) return { problems: store.problems };
+  const { inventory, problems: built } = buildInventory(registry, routes, inventoryVariants(store));
   if (built.length) return { problems: built, inventory };
-  return { problems: checkDiscovery(records(inventory)), inventory };
+  const all = records(inventory);
+  const found = checkDiscovery(all, DIST, { search: null, llms: null, sitemap: 'sitemap.xml' });
+  for (const t of discoveryTargets(store)) found.push(...checkDiscovery(all.filter((r) => r.locale === t.locale), DIST, t.files));
+  return { problems: found, inventory };
 }
 
 let failures = 0;

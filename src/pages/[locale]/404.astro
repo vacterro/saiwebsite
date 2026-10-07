@@ -1,0 +1,13 @@
+---
+/** Localized 404, built at /<locale>/404/ for every routed locale (content-system M47). */
+import NotFoundView from '../../views/NotFoundView.astro';
+import { PLAN } from '../../content-engine/i18n/catalog';
+
+export function getStaticPaths() {
+  return PLAN.filter((p) => p.pages.some((x) => x.pageId === 'system.not-found')).map((p) => ({ params: { locale: p.prefix }, props: { locale: p.locale } }));
+}
+
+const { locale } = Astro.props;
+---
+
+<NotFoundView locale={locale} />

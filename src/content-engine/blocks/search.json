@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "domain": "search",
+  "usedBy": [
+    "page:search"
+  ],
+  "blocks": {
+    "search.title": {
+      "type": "text",
+      "text": "Search"
+    },
+    "search.description": {
+      "type": "text",
+      "text": "Search the SAIPEN documentation, specification, ecosystem and blog."
+    },
+    "search.badge-note": {
+      "type": "text",
+      "text": "runs in your browser over a static index — no query leaves this page"
+    },
+    "search.field.label": {
+      "type": "text",
+      "text": "Search docs, spec and ecosystem"
+    },
+    "search.field.submit": {
+      "type": "text",
+      "text": "Search"
+    },
+    "search.field.help": {
+      "type": "text",
+      "text": "Tip: Ctrl+K or Cmd+K opens this page from anywhere. Technical pages rank above blog posts."
+    },
+    "search.status.nojs": {
+      "type": "inline",
+      "text": "Search runs in your browser. With JavaScript off, use the [documentation index](/docs/) or the [specification](/spec/)."
+    },
+    "search.status.searching": {
+      "type": "text",
+      "text": "Searching…"
+    },
+    "search.status.prompt": {
+      "type": "text",
+      "text": "Type a word and press Search."
+    },
+    "search.status.one": {
+      "type": "text",
+      "text": "1 result for \"{query}\".",
+      "note": "Exactly one result."
+    },
+    "search.status.many": {
+      "type": "text",
+      "text": "{count} results for \"{query}\".",
+      "note": "Two or more results. Languages with more plural forms may need a later plural-rule extension; keep {count} and {query}."
+    },
+    "search.status.none": {
+      "type": "text",
+      "text": "No results for \"{query}\". Try a shorter word, or browse the documentation index."
+    },
+    "search.status.error": {
+      "type": "text",
+      "text": "The search index could not be loaded. Use the documentation index instead."
+    }
+  }
+}

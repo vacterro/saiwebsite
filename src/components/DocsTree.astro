@@ -5,40 +5,46 @@
  * CSS shows exactly one, so only one contents landmark is ever exposed.
  */
 import { docHref, docTree } from '../lib/docs';
+import { CANONICAL_LOCALE, docMeta, translator } from '../content-engine/i18n/catalog';
 
 interface Props {
   current?: string;
   idPrefix: string;
+  locale?: string;
 }
 
-const { current, idPrefix } = Astro.props;
+const { current, idPrefix, locale = CANONICAL_LOCALE } = Astro.props;
+const tx = translator(locale);
 const tree = await docTree();
 ---
 
-<form class="tree__search" action="/search/" method="get" role="search">
-  <label class="tree__search-label" for={`${idPrefix}-search`}>Search docs</label>
+<form class="tree__search" action={tx.href('/search/')} method="get" role="search">
+  <label class="tree__search-label" for={`${idPrefix}-search`}>{tx.text('docs-ui.tree.search')}</label>
   <input class="w-input" id={`${idPrefix}-search`} name="q" type="search" autocomplete="off" />
 </form>
 {
   tree.map((group) => (
     <div class="tree__group">
-      <p class="tree__group-title">{group.title}</p>
+      <p class="tree__group-title">{tx.text(`docs-ui.section.${group.section}`)}</p>
       <ul>
-        {group.docs.map((doc) => (
-          <li>
-            <a href={docHref(doc)} aria-current={doc.id === current ? 'page' : undefined}>
-              {doc.data.title}
-            </a>
-          </li>
-        ))}
+        {group.docs.map((doc) => {
+          const meta = docMeta(doc.id, locale);
+          return (
+            <li>
+              <a href={tx.href(docHref(doc))} aria-current={doc.id === current ? 'page' : undefined} lang={meta.lang === locale ? undefined : meta.lang}>
+                {meta.title}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   ))
 }
 <div class="tree__group">
-  <p class="tree__group-title">Specification</p>
+  <p class="tree__group-title">{tx.text('docs-ui.tree.spec')}</p>
   <ul>
-    <li><a href="/spec/">Spec index</a></li>
-    <li><a href="/spec/v8/lifecycle/">State machine</a></li>
+    <li><a href="/spec/">{tx.text('docs-ui.tree.spec-index')}</a></li>
+    <li><a href="/spec/v8/lifecycle/">{tx.text('docs-ui.tree.state-machine')}</a></li>
   </ul>
 </div>

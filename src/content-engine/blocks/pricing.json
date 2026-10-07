@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "domain": "pricing",
+  "usedBy": [
+    "page:pricing"
+  ],
+  "blocks": {
+    "pricing.title": {
+      "type": "text",
+      "text": "Pricing"
+    },
+    "pricing.description": {
+      "type": "text",
+      "text": "SAIPEN is free and open. There is no hosted service and no paid plan today; this page says exactly that."
+    },
+    "pricing.badge-note": {
+      "type": "text",
+      "text": "a statement of fact, not a price list"
+    },
+    "pricing.col.offering": {
+      "type": "text",
+      "text": "Offering"
+    },
+    "pricing.col.state": {
+      "type": "text",
+      "text": "State"
+    },
+    "pricing.col.today": {
+      "type": "text",
+      "text": "What that means today"
+    },
+    "pricing.state.free": {
+      "type": "text",
+      "text": "free",
+      "note": "Badge word."
+    },
+    "pricing.state.none": {
+      "type": "text",
+      "text": "none",
+      "note": "Badge word."
+    },
+    "pricing.protocol.name": {
+      "type": "text",
+      "text": "Protocol, docs and specification"
+    },
+    "pricing.protocol.today": {
+      "type": "inline",
+      "text": "MIT-licensed, [public on GitHub]({repository}). Never paywalled, never behind an account."
+    },
+    "pricing.local.name": {
+      "type": "text",
+      "text": "Local and self-hosted use"
+    },
+    "pricing.local.today": {
+      "type": "text",
+      "text": "Everything runs on your machine. There is no entitlement check and none is planned."
+    },
+    "pricing.tools.name": {
+      "type": "text",
+      "text": "Ecosystem tools"
+    },
+    "pricing.tools.today": {
+      "type": "inline",
+      "text": "The [ecosystem](/ecosystem/) projects are public repositories; see each one's licence."
+    },
+    "pricing.hosted.name": {
+      "type": "text",
+      "text": "Hosted SAIPEN service"
+    },
+    "pricing.hosted.today": {
+      "type": "text",
+      "text": "Does not exist. No endpoint, account or billing surface."
+    },
+    "pricing.future.title": {
+      "type": "text",
+      "text": "If a hosted service ever exists"
+    },
+    "pricing.future.body": {
+      "type": "text",
+      "text": "It would charge for optional managed infrastructure — hosted execution, persistent shared state, relay, evidence retention, observability, organisation controls, support — and never for access to the protocol or its specification. The local, open path would not be weakened to push anyone towards it. Until such a service exists, this page will not show a monthly price, a seat count or a \"contact sales\" button."
+    },
+    "pricing.support.title": {
+      "type": "text",
+      "text": "Supporting the work"
+    },
+    "pricing.support.body": {
+      "type": "text",
+      "text": "Support is completely optional. A donation buys no entitlement, unlocks no feature, is not a subscription, is not payment for the protocol, and does not affect access to SAIPEN. The protocol, documentation, and local use remain free."
+    },
+    "pricing.support.direct": {
+      "type": "text",
+      "text": "Direct platforms"
+    },
+    "pricing.support.bank-title": {
+      "type": "text",
+      "text": "Bank transfer — EUR"
+    },
+    "pricing.support.bank": {
+      "type": "text",
+      "text": "Bank"
+    },
+    "pricing.support.recipient": {
+      "type": "text",
+      "text": "Recipient"
+    },
+    "pricing.support.copy": {
+      "type": "text",
+      "text": "Copy",
+      "note": "Button that copies an address."
+    },
+    "pricing.support.copied": {
+      "type": "text",
+      "text": "Copied",
+      "note": "Button text for 1.5 s after copying."
+    },
+    "pricing.support.crypto-title": {
+      "type": "text",
+      "text": "Cryptocurrency"
+    },
+    "pricing.support.network-label": {
+      "type": "text",
+      "text": "Network / assets:"
+    },
+    "pricing.support.source": {
+      "type": "inline",
+      "text": "Canonical source: [SUPPORT.md on GitHub]({source})."
+    }
+  }
+}

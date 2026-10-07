@@ -1,0 +1,198 @@
+---
+/**
+ * Homepage V1 (MASTER_ROADMAP §6, M8). A technical visitor should understand
+ * SAIPEN in under a minute: what it is, what breaks without it, what persists,
+ * how work moves, and where to go next. Every sentence here is grounded in the
+ * canonical SAIPEN README, SPEC and brochure; the lifecycle strip is rendered
+ * from the registry; the recovery story is the first playground scenario.
+ *
+ * Words come from the `home` block catalogue (content-system M37), so the same
+ * view renders every locale; data from the models (project roles, scenario
+ * steps) stays canonical English and is marked as such on translated pages.
+ */
+import MaturityBadge from '../components/MaturityBadge.astro';
+import PixelMark from '../components/PixelMark.astro';
+import WintageButton from '../components/WintageButton.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { SITE } from '../data/site';
+import { CORE_LIFECYCLE, SHORT_COMMIT, SPEC_VERSION, meta } from '../content-engine/models/protocol';
+import { PROJECTS, projectsIn } from '../content-engine/models/ecosystem';
+import { SCENARIOS } from '../data/scenarios';
+import { translator } from '../content-engine/i18n/catalog';
+
+interface Props {
+  locale?: string;
+}
+
+const tx = translator(Astro.props.locale);
+const en = tx.canonical ? undefined : 'en';
+
+const BREAKS = ['home.breaks.item1', 'home.breaks.item2', 'home.breaks.item3', 'home.breaks.item4', 'home.breaks.item5', 'home.breaks.item6'];
+
+const FILES = [
+  ['STATE.md', 'home.persists.state'],
+  ['BOARD.md', 'home.persists.board'],
+  ['LOG.md', 'home.persists.log'],
+  ['KNOWLEDGE/', 'home.persists.knowledge'],
+];
+
+const PRINCIPLES = [
+  ['plain-files', '/docs/concepts/project-memory/'],
+  ['next-action', '/docs/concepts/state-and-next-action/'],
+  ['evidence', '/docs/evidence/overview/'],
+  ['model-independent', '/docs/getting-started/why-saipen/'],
+  ['local-first', '/docs/getting-started/quickstart/'],
+  ['honest-stops', '/docs/protocol/wait-boundaries/'],
+];
+
+const story = SCENARIOS[0];
+const core = projectsIn('core');
+---
+
+<SiteLayout locale={tx.locale} title={SITE.name} tag="/" description={tx.text('home.description', { site: SITE.name, tagline: SITE.tagline, motto: SITE.motto })}>
+  <section class="hero" aria-labelledby="hero-title">
+    <PixelMark name="saipen-wordmark-480" width={480} height={82} class="hero__wordmark hero__wordmark--large" />
+    <PixelMark name="saipen-wordmark-288" width={288} height={49} class="hero__wordmark hero__wordmark--small" />
+    <h1 id="hero-title">{SITE.name}</h1>
+    <p class="hero__tagline" lang={en}>{SITE.tagline}</p>
+    <p class="hero__motto" lang={en}>{SITE.motto}</p>
+    <p class="hero__lead">{tx.text('home.hero.lead')}</p>
+    <pre class="w-code hero__cmd"><code>saipen continue        {tx.text('home.hero.cmd-or')}  cc</code></pre>
+    <div class="row">
+      <WintageButton href={tx.href('/docs/getting-started/quickstart/')} variant="primary">{tx.text('home.action.start')}</WintageButton>
+      <WintageButton href={tx.href('/spec/')}>{tx.text('home.action.spec')}</WintageButton>
+      <WintageButton href={tx.href('/playground/')}>{tx.text('home.action.recovery')}</WintageButton>
+      <WintageButton href={SITE.repository!}>{tx.text('home.action.github')}</WintageButton>
+    </div>
+    <p class="w-panel__note">{tx.text('home.hero.licence', { version: meta.version, commit: SHORT_COMMIT })}</p>
+  </section>
+
+  <section class="w-panel w-panel--sunken home__section" aria-labelledby="practice">
+    <div class="with-mark">
+      <PixelMark name="saipen-emblem-96" width={96} height={96} />
+      <div>
+        <h2 class="w-panel__title" id="practice">{tx.text('home.practice.title')}</h2>
+        <p>{tx.text('home.practice.body')}</p>
+        <p class="w-panel__note" set:html={tx.html('home.practice.note')} />
+      </div>
+    </div>
+  </section>
+
+  <div class="grid-2 home__pair">
+    <section class="w-panel" aria-labelledby="breaks">
+      <h2 class="w-panel__title" id="breaks">{tx.text('home.breaks.title')}</h2>
+      <ul>
+        {BREAKS.map((id) => <li>{tx.text(id)}</li>)}
+      </ul>
+      <p class="w-panel__note">{tx.text('home.breaks.note')}</p>
+    </section>
+
+    <section class="w-panel w-panel--sunken" aria-labelledby="persists">
+      <h2 class="w-panel__title" id="persists">{tx.text('home.persists.title')}</h2>
+      <dl class="home__files">
+        {
+          FILES.map(([file, id]) => (
+            <>
+              <dt>
+                <code>{file}</code>
+              </dt>
+              <dd>{tx.text(id)}</dd>
+            </>
+          ))
+        }
+      </dl>
+      <p class="w-panel__note" set:html={tx.html('home.persists.link')} />
+    </section>
+  </div>
+
+  <section class="home__section" aria-labelledby="lifecycle">
+    <h2 id="lifecycle">{tx.text('home.lifecycle.title')}</h2>
+    <p>{tx.text('home.lifecycle.body')}</p>
+    <ol class="plain lifecycle">
+      {
+        CORE_LIFECYCLE.map((phase, i) => (
+          <li class="lifecycle__item">
+            <a class="lifecycle__node" href={`/spec/${SPEC_VERSION}/lifecycle/#phase-${phase}`}>
+              {phase}
+            </a>
+            {i < CORE_LIFECYCLE.length - 1 && <span class="lifecycle__arrow" aria-hidden="true" />}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="w-panel__note" set:html={tx.html('home.lifecycle.note', { lifecycle: `/spec/${SPEC_VERSION}/lifecycle/` })} />
+  </section>
+
+  <section class="w-panel home__section" aria-labelledby="story">
+    <h2 class="w-panel__title" id="story">{tx.text('home.story.title')}</h2>
+    <p>
+      <MaturityBadge level="preview" note={tx.text('home.story.badge-note')} />
+    </p>
+    <ol class="home__story" lang={en}>
+      {story.steps.map((step) => <li><strong>{step.title}.</strong> <span class="home__story-actor">({step.actor})</span></li>)}
+    </ol>
+    <div class="row">
+      <WintageButton href={tx.href(`/playground/${story.slug}/`)} variant="primary">{tx.text('home.story.step')}</WintageButton>
+      <WintageButton href={tx.href('/docs/recovery/interrupted-work/')}>{tx.text('home.story.read')}</WintageButton>
+    </div>
+  </section>
+
+  <section class="home__section" aria-labelledby="principles">
+    <h2 id="principles">{tx.text('home.principles.title')}</h2>
+    <div class="cards cards--compact">
+      {
+        PRINCIPLES.map(([key, href]) => (
+          <a class="card card--link" href={tx.href(href)}>
+            <span class="card__head">
+              <span class="card__title">{tx.text(`home.principles.${key}.name`)}</span>
+            </span>
+            <span class="card__body">{tx.text(`home.principles.${key}.line`)}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="home__section" aria-labelledby="eco">
+    <h2 id="eco">{tx.text('home.eco.title')}</h2>
+    <p set:html={tx.html('home.eco.body', { count: PROJECTS.length })} />
+    <div class="wide-scroll">
+      <table class="w-table">
+        <thead>
+          <tr>
+            <th scope="col">{tx.text('home.eco.col.project')}</th>
+            <th scope="col">{tx.text('home.eco.col.role')}</th>
+            <th scope="col">{tx.text('home.eco.col.maturity')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            core.map((p) => (
+              <tr>
+                <th scope="row">
+                  <a href={tx.href(`/ecosystem/#${p.name.toLowerCase()}`)}>{p.name}</a>
+                </th>
+                <td lang={en}>{p.role}</td>
+                <td>
+                  <MaturityBadge level={p.maturity} />
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p set:html={tx.html('home.eco.link')} />
+  </section>
+
+  <section class="w-panel w-panel--sunken home__section" aria-labelledby="next">
+    <h2 class="w-panel__title" id="next">{tx.text('home.next.title')}</h2>
+    <div class="row">
+      <WintageButton href={tx.href('/docs/getting-started/introduction/')}>{tx.text('home.next.introduction')}</WintageButton>
+      <WintageButton href={tx.href('/docs/getting-started/quickstart/')}>{tx.text('home.next.quickstart')}</WintageButton>
+      <WintageButton href={tx.href('/compatibility/')}>{tx.text('home.next.hosts')}</WintageButton>
+      <WintageButton href={tx.href('/docs/reference/faq/')}>{tx.text('home.next.faq')}</WintageButton>
+      <WintageButton href={tx.href('/community/')}>{tx.text('home.next.community')}</WintageButton>
+    </div>
+  </section>
+</SiteLayout>

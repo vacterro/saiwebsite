@@ -3,30 +3,30 @@
   "generator": "scripts/validate-registry.mjs --write",
   "registry": "src/content-engine/registry/pages.json",
   "totals": {
-    "routes": 111,
+    "routes": 126,
     "public": 107,
-    "internal": 4,
+    "internal": 19,
     "byKind": {
       "alias": 9,
-      "article": 37,
+      "article": 43,
       "debug": 4,
       "index": 5,
-      "landing": 1,
-      "machine": 36,
+      "landing": 2,
+      "machine": 42,
       "reference": 13,
-      "system": 1,
-      "tool": 5
+      "system": 2,
+      "tool": 6
     },
     "byOwner": {
-      "editorial": 37,
-      "generated": 57,
-      "interactive": 9,
-      "mixed": 8
+      "editorial": 42,
+      "generated": 63,
+      "interactive": 10,
+      "mixed": 11
     },
     "flags": {
       "localizable": 51,
-      "searchable": 41,
-      "llmVisible": 71,
+      "searchable": 45,
+      "llmVisible": 79,
       "sitemap": 61
     }
   },
@@ -34,6 +34,7 @@
     {
       "id": "home",
       "route": "/",
+      "locale": "en",
       "entry": "home",
       "kind": "landing",
       "owner": "mixed",
@@ -54,6 +55,7 @@
     {
       "id": "system.not-found",
       "route": "/404.html",
+      "locale": "en",
       "entry": "system.not-found",
       "kind": "system",
       "owner": "editorial",
@@ -69,6 +71,7 @@
     {
       "id": "about",
       "route": "/about/",
+      "locale": "en",
       "entry": "about",
       "kind": "article",
       "owner": "mixed",
@@ -90,6 +93,7 @@
     {
       "id": "benchmarks",
       "route": "/benchmarks/",
+      "locale": "en",
       "entry": "benchmarks",
       "kind": "article",
       "owner": "editorial",
@@ -107,6 +111,7 @@
     {
       "id": "blog.index",
       "route": "/blog/",
+      "locale": "en",
       "entry": "blog.index",
       "kind": "index",
       "owner": "generated",
@@ -124,6 +129,7 @@
     {
       "id": "blog.a-gate-must-prove-it-can-fail",
       "route": "/blog/a-gate-must-prove-it-can-fail/",
+      "locale": "en",
       "entry": "blog.post",
       "kind": "article",
       "owner": "editorial",
@@ -141,6 +147,7 @@
     {
       "id": "blog.how-saipen-is-built",
       "route": "/blog/how-saipen-is-built/",
+      "locale": "en",
       "entry": "blog.post",
       "kind": "article",
       "owner": "editorial",
@@ -158,6 +165,7 @@
     {
       "id": "blog.memory-beside-the-project",
       "route": "/blog/memory-beside-the-project/",
+      "locale": "en",
       "entry": "blog.post",
       "kind": "article",
       "owner": "editorial",
@@ -175,6 +183,7 @@
     {
       "id": "blog.no-antialiasing-on-the-web",
       "route": "/blog/no-antialiasing-on-the-web/",
+      "locale": "en",
       "entry": "blog.post",
       "kind": "article",
       "owner": "editorial",
@@ -192,6 +201,7 @@
     {
       "id": "changelog",
       "route": "/changelog/",
+      "locale": "en",
       "entry": "changelog",
       "kind": "reference",
       "owner": "generated",
@@ -210,6 +220,7 @@
     {
       "id": "community",
       "route": "/community/",
+      "locale": "en",
       "entry": "community",
       "kind": "article",
       "owner": "editorial",
@@ -228,6 +239,7 @@
     {
       "id": "compatibility",
       "route": "/compatibility/",
+      "locale": "en",
       "entry": "compatibility",
       "kind": "reference",
       "owner": "generated",
@@ -246,6 +258,7 @@
     {
       "id": "docs.index",
       "route": "/docs/",
+      "locale": "en",
       "entry": "docs.index",
       "kind": "index",
       "owner": "mixed",
@@ -263,6 +276,7 @@
     {
       "id": "docs.concepts.board-and-tickets.markdown",
       "route": "/docs/concepts/board-and-tickets.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -281,6 +295,7 @@
     {
       "id": "docs.concepts.board-and-tickets",
       "route": "/docs/concepts/board-and-tickets/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -298,6 +313,7 @@
     {
       "id": "docs.concepts.claims-and-ownership.markdown",
       "route": "/docs/concepts/claims-and-ownership.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -316,6 +332,7 @@
     {
       "id": "docs.concepts.claims-and-ownership",
       "route": "/docs/concepts/claims-and-ownership/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -333,6 +350,7 @@
     {
       "id": "docs.concepts.knowledge.markdown",
       "route": "/docs/concepts/knowledge.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -351,6 +369,7 @@
     {
       "id": "docs.concepts.knowledge",
       "route": "/docs/concepts/knowledge/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -368,6 +387,7 @@
     {
       "id": "docs.concepts.log-and-events.markdown",
       "route": "/docs/concepts/log-and-events.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -386,6 +406,7 @@
     {
       "id": "docs.concepts.log-and-events",
       "route": "/docs/concepts/log-and-events/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -403,6 +424,7 @@
     {
       "id": "docs.concepts.modes-and-capabilities.markdown",
       "route": "/docs/concepts/modes-and-capabilities.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -421,6 +443,7 @@
     {
       "id": "docs.concepts.modes-and-capabilities",
       "route": "/docs/concepts/modes-and-capabilities/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -438,6 +461,7 @@
     {
       "id": "docs.concepts.project-memory.markdown",
       "route": "/docs/concepts/project-memory.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -456,6 +480,7 @@
     {
       "id": "docs.concepts.project-memory",
       "route": "/docs/concepts/project-memory/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -473,6 +498,7 @@
     {
       "id": "docs.concepts.state-and-next-action.markdown",
       "route": "/docs/concepts/state-and-next-action.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -491,6 +517,7 @@
     {
       "id": "docs.concepts.state-and-next-action",
       "route": "/docs/concepts/state-and-next-action/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -508,6 +535,7 @@
     {
       "id": "docs.concepts.work-and-attempts.markdown",
       "route": "/docs/concepts/work-and-attempts.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -526,6 +554,7 @@
     {
       "id": "docs.concepts.work-and-attempts",
       "route": "/docs/concepts/work-and-attempts/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -543,6 +572,7 @@
     {
       "id": "docs.evidence.guarantees.markdown",
       "route": "/docs/evidence/guarantees.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -561,6 +591,7 @@
     {
       "id": "docs.evidence.guarantees",
       "route": "/docs/evidence/guarantees/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -578,6 +609,7 @@
     {
       "id": "docs.evidence.overview.markdown",
       "route": "/docs/evidence/overview.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -596,6 +628,7 @@
     {
       "id": "docs.evidence.overview",
       "route": "/docs/evidence/overview/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -613,6 +646,7 @@
     {
       "id": "docs.getting-started.introduction.markdown",
       "route": "/docs/getting-started/introduction.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -631,6 +665,7 @@
     {
       "id": "docs.getting-started.introduction",
       "route": "/docs/getting-started/introduction/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -648,6 +683,7 @@
     {
       "id": "docs.getting-started.mental-model.markdown",
       "route": "/docs/getting-started/mental-model.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -666,6 +702,7 @@
     {
       "id": "docs.getting-started.mental-model",
       "route": "/docs/getting-started/mental-model/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -683,6 +720,7 @@
     {
       "id": "docs.getting-started.quickstart.markdown",
       "route": "/docs/getting-started/quickstart.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -701,6 +739,7 @@
     {
       "id": "docs.getting-started.quickstart",
       "route": "/docs/getting-started/quickstart/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -718,6 +757,7 @@
     {
       "id": "docs.getting-started.why-saipen.markdown",
       "route": "/docs/getting-started/why-saipen.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -736,6 +776,7 @@
     {
       "id": "docs.getting-started.why-saipen",
       "route": "/docs/getting-started/why-saipen/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -753,6 +794,7 @@
     {
       "id": "docs.operation.commands.markdown",
       "route": "/docs/operation/commands.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -771,6 +813,7 @@
     {
       "id": "docs.operation.commands",
       "route": "/docs/operation/commands/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -788,6 +831,7 @@
     {
       "id": "docs.operation.hosts-and-install.markdown",
       "route": "/docs/operation/hosts-and-install.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -806,6 +850,7 @@
     {
       "id": "docs.operation.hosts-and-install",
       "route": "/docs/operation/hosts-and-install/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -823,6 +868,7 @@
     {
       "id": "docs.protocol.checkpointing.markdown",
       "route": "/docs/protocol/checkpointing.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -841,6 +887,7 @@
     {
       "id": "docs.protocol.checkpointing",
       "route": "/docs/protocol/checkpointing/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -858,6 +905,7 @@
     {
       "id": "docs.protocol.concurrency.markdown",
       "route": "/docs/protocol/concurrency.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -876,6 +924,7 @@
     {
       "id": "docs.protocol.concurrency",
       "route": "/docs/protocol/concurrency/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -893,6 +942,7 @@
     {
       "id": "docs.protocol.goal-mode-and-maintenance.markdown",
       "route": "/docs/protocol/goal-mode-and-maintenance.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -911,6 +961,7 @@
     {
       "id": "docs.protocol.goal-mode-and-maintenance",
       "route": "/docs/protocol/goal-mode-and-maintenance/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -928,6 +979,7 @@
     {
       "id": "docs.protocol.lifecycle.markdown",
       "route": "/docs/protocol/lifecycle.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -946,6 +998,7 @@
     {
       "id": "docs.protocol.lifecycle",
       "route": "/docs/protocol/lifecycle/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -963,6 +1016,7 @@
     {
       "id": "docs.protocol.routing.markdown",
       "route": "/docs/protocol/routing.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -981,6 +1035,7 @@
     {
       "id": "docs.protocol.routing",
       "route": "/docs/protocol/routing/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -998,6 +1053,7 @@
     {
       "id": "docs.protocol.verification.markdown",
       "route": "/docs/protocol/verification.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1016,6 +1072,7 @@
     {
       "id": "docs.protocol.verification",
       "route": "/docs/protocol/verification/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1033,6 +1090,7 @@
     {
       "id": "docs.protocol.wait-boundaries.markdown",
       "route": "/docs/protocol/wait-boundaries.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1051,6 +1109,7 @@
     {
       "id": "docs.protocol.wait-boundaries",
       "route": "/docs/protocol/wait-boundaries/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1068,6 +1127,7 @@
     {
       "id": "docs.recovery.corrupt-state.markdown",
       "route": "/docs/recovery/corrupt-state.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1086,6 +1146,7 @@
     {
       "id": "docs.recovery.corrupt-state",
       "route": "/docs/recovery/corrupt-state/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1103,6 +1164,7 @@
     {
       "id": "docs.recovery.interrupted-work.markdown",
       "route": "/docs/recovery/interrupted-work.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1121,6 +1183,7 @@
     {
       "id": "docs.recovery.interrupted-work",
       "route": "/docs/recovery/interrupted-work/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1138,6 +1201,7 @@
     {
       "id": "docs.recovery.overview.markdown",
       "route": "/docs/recovery/overview.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1156,6 +1220,7 @@
     {
       "id": "docs.recovery.overview",
       "route": "/docs/recovery/overview/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1173,6 +1238,7 @@
     {
       "id": "docs.reference.faq.markdown",
       "route": "/docs/reference/faq.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1191,6 +1257,7 @@
     {
       "id": "docs.reference.faq",
       "route": "/docs/reference/faq/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1208,6 +1275,7 @@
     {
       "id": "docs.reference.glossary.markdown",
       "route": "/docs/reference/glossary.md",
+      "locale": "en",
       "entry": "docs.markdown",
       "kind": "machine",
       "owner": "generated",
@@ -1226,6 +1294,7 @@
     {
       "id": "docs.reference.glossary",
       "route": "/docs/reference/glossary/",
+      "locale": "en",
       "entry": "docs.page",
       "kind": "article",
       "owner": "editorial",
@@ -1243,6 +1312,7 @@
     {
       "id": "downloads",
       "route": "/downloads/",
+      "locale": "en",
       "entry": "downloads",
       "kind": "reference",
       "owner": "generated",
@@ -1261,6 +1331,7 @@
     {
       "id": "ecosystem",
       "route": "/ecosystem/",
+      "locale": "en",
       "entry": "ecosystem",
       "kind": "reference",
       "owner": "mixed",
@@ -1279,6 +1350,7 @@
     {
       "id": "machine.llms-full",
       "route": "/llms-full.txt",
+      "locale": "en",
       "entry": "machine.llms-full",
       "kind": "machine",
       "owner": "generated",
@@ -1301,6 +1373,7 @@
     {
       "id": "machine.llms",
       "route": "/llms.txt",
+      "locale": "en",
       "entry": "machine.llms",
       "kind": "machine",
       "owner": "generated",
@@ -1323,6 +1396,7 @@
     {
       "id": "playground.index",
       "route": "/playground/",
+      "locale": "en",
       "entry": "playground.index",
       "kind": "index",
       "owner": "mixed",
@@ -1340,6 +1414,7 @@
     {
       "id": "playground.destructive-op",
       "route": "/playground/destructive-op/",
+      "locale": "en",
       "entry": "playground.scenario",
       "kind": "tool",
       "owner": "interactive",
@@ -1358,6 +1433,7 @@
     {
       "id": "playground.interrupted-checkpoint",
       "route": "/playground/interrupted-checkpoint/",
+      "locale": "en",
       "entry": "playground.scenario",
       "kind": "tool",
       "owner": "interactive",
@@ -1376,6 +1452,7 @@
     {
       "id": "playground.provider-outage",
       "route": "/playground/provider-outage/",
+      "locale": "en",
       "entry": "playground.scenario",
       "kind": "tool",
       "owner": "interactive",
@@ -1394,6 +1471,7 @@
     {
       "id": "playground.verification-fails",
       "route": "/playground/verification-fails/",
+      "locale": "en",
       "entry": "playground.scenario",
       "kind": "tool",
       "owner": "interactive",
@@ -1412,6 +1490,7 @@
     {
       "id": "pricing",
       "route": "/pricing/",
+      "locale": "en",
       "entry": "pricing",
       "kind": "article",
       "owner": "mixed",
@@ -1430,6 +1509,7 @@
     {
       "id": "machine.robots",
       "route": "/robots.txt",
+      "locale": "en",
       "entry": "machine.robots",
       "kind": "machine",
       "owner": "editorial",
@@ -1445,6 +1525,7 @@
     {
       "id": "machine.search-index",
       "route": "/search-index.json",
+      "locale": "en",
       "entry": "machine.search-index",
       "kind": "machine",
       "owner": "generated",
@@ -1469,6 +1550,7 @@
     {
       "id": "search",
       "route": "/search/",
+      "locale": "en",
       "entry": "search",
       "kind": "tool",
       "owner": "interactive",
@@ -1484,6 +1566,7 @@
     {
       "id": "security",
       "route": "/security/",
+      "locale": "en",
       "entry": "security",
       "kind": "article",
       "owner": "editorial",
@@ -1502,6 +1585,7 @@
     {
       "id": "machine.sitemap",
       "route": "/sitemap.xml",
+      "locale": "en",
       "entry": "machine.sitemap",
       "kind": "machine",
       "owner": "generated",
@@ -1523,6 +1607,7 @@
     {
       "id": "spec.index",
       "route": "/spec/",
+      "locale": "en",
       "entry": "spec.index",
       "kind": "index",
       "owner": "mixed",
@@ -1540,6 +1625,7 @@
     {
       "id": "spec.latest",
       "route": "/spec/latest/",
+      "locale": "en",
       "entry": "spec.latest",
       "kind": "alias",
       "owner": "generated",
@@ -1557,6 +1643,7 @@
     {
       "id": "spec.latest.board",
       "route": "/spec/latest/board/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1574,6 +1661,7 @@
     {
       "id": "spec.latest.commands",
       "route": "/spec/latest/commands/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1591,6 +1679,7 @@
     {
       "id": "spec.latest.errors",
       "route": "/spec/latest/errors/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1608,6 +1697,7 @@
     {
       "id": "spec.latest.lifecycle",
       "route": "/spec/latest/lifecycle/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1625,6 +1715,7 @@
     {
       "id": "spec.latest.limits",
       "route": "/spec/latest/limits/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1642,6 +1733,7 @@
     {
       "id": "spec.latest.next-action",
       "route": "/spec/latest/next-action/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1659,6 +1751,7 @@
     {
       "id": "spec.latest.routing",
       "route": "/spec/latest/routing/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1676,6 +1769,7 @@
     {
       "id": "spec.latest.state",
       "route": "/spec/latest/state/",
+      "locale": "en",
       "entry": "spec.latest-topic",
       "kind": "alias",
       "owner": "generated",
@@ -1693,6 +1787,7 @@
     {
       "id": "spec.v8",
       "route": "/spec/v8/",
+      "locale": "en",
       "entry": "spec.version",
       "kind": "index",
       "owner": "generated",
@@ -1711,6 +1806,7 @@
     {
       "id": "spec.v8.file.adapters",
       "route": "/spec/v8/adapters.json",
+      "locale": "en",
       "entry": "spec.file",
       "kind": "machine",
       "owner": "generated",
@@ -1730,6 +1826,7 @@
     {
       "id": "spec.v8.board",
       "route": "/spec/v8/board/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1749,6 +1846,7 @@
     {
       "id": "spec.v8.commands",
       "route": "/spec/v8/commands/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1768,6 +1866,7 @@
     {
       "id": "spec.v8.errors",
       "route": "/spec/v8/errors/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1787,6 +1886,7 @@
     {
       "id": "spec.v8.lifecycle",
       "route": "/spec/v8/lifecycle/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1806,6 +1906,7 @@
     {
       "id": "spec.v8.limits",
       "route": "/spec/v8/limits/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1825,6 +1926,7 @@
     {
       "id": "spec.v8.next-action",
       "route": "/spec/v8/next-action/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1844,6 +1946,7 @@
     {
       "id": "spec.v8.file.registry",
       "route": "/spec/v8/registry.json",
+      "locale": "en",
       "entry": "spec.file",
       "kind": "machine",
       "owner": "generated",
@@ -1863,6 +1966,7 @@
     {
       "id": "spec.v8.routing",
       "route": "/spec/v8/routing/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1882,6 +1986,7 @@
     {
       "id": "spec.v8.file.state.schema",
       "route": "/spec/v8/state.schema.json",
+      "locale": "en",
       "entry": "spec.file",
       "kind": "machine",
       "owner": "generated",
@@ -1901,6 +2006,7 @@
     {
       "id": "spec.v8.state",
       "route": "/spec/v8/state/",
+      "locale": "en",
       "entry": "spec.topic",
       "kind": "reference",
       "owner": "generated",
@@ -1920,6 +2026,7 @@
     {
       "id": "status",
       "route": "/status/",
+      "locale": "en",
       "entry": "status",
       "kind": "reference",
       "owner": "mixed",
@@ -1942,6 +2049,7 @@
     {
       "id": "debug.components",
       "route": "/debug/components/",
+      "locale": "en",
       "entry": "debug.components",
       "kind": "debug",
       "owner": "interactive",
@@ -1960,6 +2068,7 @@
     {
       "id": "debug.fonts",
       "route": "/debug/fonts/",
+      "locale": "en",
       "entry": "debug.fonts",
       "kind": "debug",
       "owner": "interactive",
@@ -1977,6 +2086,7 @@
     {
       "id": "debug.rendering",
       "route": "/debug/rendering/",
+      "locale": "en",
       "entry": "debug.rendering",
       "kind": "debug",
       "owner": "interactive",
@@ -1994,6 +2104,7 @@
     {
       "id": "debug.themes",
       "route": "/debug/themes/",
+      "locale": "en",
       "entry": "debug.themes",
       "kind": "debug",
       "owner": "interactive",
@@ -2007,6 +2118,311 @@
       "sourceIds": [
         "wintage.theme-packs"
       ]
+    },
+    {
+      "id": "qps-ploc.home",
+      "route": "/qps-ploc/",
+      "locale": "qps-ploc",
+      "entry": "home",
+      "kind": "landing",
+      "owner": "mixed",
+      "maturity": "preview",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "variantOf": "home"
+    },
+    {
+      "id": "qps-ploc.system.not-found",
+      "route": "/qps-ploc/404/",
+      "locale": "qps-ploc",
+      "entry": "system.not-found",
+      "kind": "system",
+      "owner": "editorial",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [],
+      "variantOf": "system.not-found"
+    },
+    {
+      "id": "qps-ploc.about",
+      "route": "/qps-ploc/about/",
+      "locale": "qps-ploc",
+      "entry": "about",
+      "kind": "article",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "variantOf": "about"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.introduction.markdown",
+      "route": "/qps-ploc/docs/getting-started/introduction.md",
+      "locale": "qps-ploc",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "qps-ploc.docs.getting-started.introduction",
+      "variantOf": "docs.getting-started.introduction.markdown"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.introduction",
+      "route": "/qps-ploc/docs/getting-started/introduction/",
+      "locale": "qps-ploc",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "variantOf": "docs.getting-started.introduction"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.mental-model.markdown",
+      "route": "/qps-ploc/docs/getting-started/mental-model.md",
+      "locale": "qps-ploc",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "qps-ploc.docs.getting-started.mental-model",
+      "variantOf": "docs.getting-started.mental-model.markdown"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.mental-model",
+      "route": "/qps-ploc/docs/getting-started/mental-model/",
+      "locale": "qps-ploc",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "variantOf": "docs.getting-started.mental-model"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.quickstart.markdown",
+      "route": "/qps-ploc/docs/getting-started/quickstart.md",
+      "locale": "qps-ploc",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "qps-ploc.docs.getting-started.quickstart",
+      "variantOf": "docs.getting-started.quickstart.markdown"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.quickstart",
+      "route": "/qps-ploc/docs/getting-started/quickstart/",
+      "locale": "qps-ploc",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "variantOf": "docs.getting-started.quickstart"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.why-saipen.markdown",
+      "route": "/qps-ploc/docs/getting-started/why-saipen.md",
+      "locale": "qps-ploc",
+      "entry": "docs.markdown",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "twinOf": "qps-ploc.docs.getting-started.why-saipen",
+      "variantOf": "docs.getting-started.why-saipen.markdown"
+    },
+    {
+      "id": "qps-ploc.docs.getting-started.why-saipen",
+      "route": "/qps-ploc/docs/getting-started/why-saipen/",
+      "locale": "qps-ploc",
+      "entry": "docs.page",
+      "kind": "article",
+      "owner": "editorial",
+      "maturity": "per-entry",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": true,
+      "llmVisible": true,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
+      ],
+      "variantOf": "docs.getting-started.why-saipen"
+    },
+    {
+      "id": "qps-ploc.machine.llms",
+      "route": "/qps-ploc/llms.txt",
+      "locale": "qps-ploc",
+      "entry": "machine.llms",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "site.content.docs"
+      ],
+      "consumes": [
+        "flag:llmVisible"
+      ],
+      "variantOf": "machine.llms"
+    },
+    {
+      "id": "qps-ploc.pricing",
+      "route": "/qps-ploc/pricing/",
+      "locale": "qps-ploc",
+      "entry": "pricing",
+      "kind": "article",
+      "owner": "mixed",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ],
+      "variantOf": "pricing"
+    },
+    {
+      "id": "qps-ploc.machine.search-index",
+      "route": "/qps-ploc/search-index.json",
+      "locale": "qps-ploc",
+      "entry": "machine.search-index",
+      "kind": "machine",
+      "owner": "generated",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs",
+        "site.content.blog",
+        "saipen.protocol.registry",
+        "site.phases",
+        "saipen.hq.project-map"
+      ],
+      "consumes": [
+        "flag:searchable"
+      ],
+      "variantOf": "machine.search-index"
+    },
+    {
+      "id": "qps-ploc.search",
+      "route": "/qps-ploc/search/",
+      "locale": "qps-ploc",
+      "entry": "search",
+      "kind": "tool",
+      "owner": "interactive",
+      "maturity": "stable",
+      "audience": "internal",
+      "nav": "none",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [],
+      "variantOf": "search"
     }
   ]
 }

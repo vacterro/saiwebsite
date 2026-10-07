@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "domain": "ui",
+  "usedBy": [
+    "all-html"
+  ],
+  "blocks": {
+    "ui.skip-link": {
+      "type": "text",
+      "text": "Skip to content"
+    },
+    "ui.nav.main-label": {
+      "type": "text",
+      "text": "Main",
+      "note": "Accessible name of the desktop navigation landmark."
+    },
+    "ui.nav.compact-label": {
+      "type": "text",
+      "text": "Site",
+      "note": "Accessible name of the compact navigation landmark."
+    },
+    "ui.nav.more": {
+      "type": "text",
+      "text": "More",
+      "note": "Disclosure that opens the secondary pages menu."
+    },
+    "ui.nav.navigate": {
+      "type": "text",
+      "text": "Navigate",
+      "note": "Disclosure that opens the compact navigation on narrow screens."
+    },
+    "ui.crumbs.label": {
+      "type": "text",
+      "text": "Breadcrumb",
+      "note": "Accessible name of the breadcrumb landmark."
+    },
+    "ui.crumbs.home": {
+      "type": "text",
+      "text": "Home"
+    },
+    "ui.crumbs.debug": {
+      "type": "text",
+      "text": "Debug"
+    },
+    "ui.crumbs.page": {
+      "type": "text",
+      "text": "Page",
+      "note": "Breadcrumb label for a page with no registered label."
+    },
+    "ui.theme.label": {
+      "type": "text",
+      "text": "Theme:"
+    },
+    "ui.theme.note": {
+      "type": "text",
+      "text": "16 palettes · stored locally"
+    },
+    "ui.lang.label": {
+      "type": "text",
+      "text": "Language",
+      "note": "Accessible name of the language selector."
+    },
+    "ui.title.suffix": {
+      "type": "text",
+      "text": "{title} — {site}",
+      "note": "Browser tab title of every page except the homepage."
+    },
+    "ui.site.description": {
+      "type": "text",
+      "text": "{site} — {tagline} Documentation, specification and ecosystem index.",
+      "note": "Default meta description."
+    }
+  }
+}

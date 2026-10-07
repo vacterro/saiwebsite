@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "note": "Terminology contract (roadmap M45). translate: false terms must appear verbatim in every translation of a unit whose English text contains them. Per-locale entries give the preferred rendering and forbidden variants of translatable terms; i18n:validate fails on a forbidden variant. Translators extend the locale entries; the term list itself changes only with the canonical English.",
+  "terms": [
+    { "id": "saipen", "en": "SAIPEN", "translate": false, "notes": "Product and protocol name. Never translated, transliterated or declined into another script." },
+    { "id": "saipen-protocol", "en": "SAIPEN Protocol", "translate": false, "notes": "Proper name of the protocol." },
+    { "id": "wintage", "en": "Wintage", "translate": false, "notes": "Design system name." },
+    { "id": "golden-default", "en": "Golden Default", "translate": false, "notes": "Palette name." },
+    { "id": "saipen-dir", "en": ".saipen/", "translate": false, "notes": "Directory name." },
+    { "id": "state-md", "en": "STATE.md", "translate": false, "notes": "File name." },
+    { "id": "board-md", "en": "BOARD.md", "translate": false, "notes": "File name." },
+    { "id": "log-md", "en": "LOG.md", "translate": false, "notes": "File name." },
+    { "id": "knowledge-dir", "en": "KNOWLEDGE/", "translate": false, "notes": "Directory name." },
+    { "id": "next-action", "en": "next_action", "translate": false, "notes": "STATE field name." },
+    { "id": "saipen-continue", "en": "saipen continue", "translate": false, "notes": "Command." },
+    { "id": "phase-verify", "en": "VERIFY", "translate": false, "notes": "Protocol phase name; all upper-case phase names stay verbatim." },
+    { "id": "phase-review", "en": "REVIEW", "translate": false, "notes": "Protocol phase name." },
+    { "id": "phase-ship", "en": "SHIP", "translate": false, "notes": "Protocol phase name." },
+    { "id": "phase-blocked", "en": "BLOCKED", "translate": false, "notes": "Protocol phase name." },
+    { "id": "wait", "en": "WAIT", "translate": false, "notes": "Protocol stop form." },
+    { "id": "github", "en": "GitHub", "translate": false, "notes": "Service name." },
+    { "id": "discord", "en": "Discord", "translate": false, "notes": "Service name." },
+    { "id": "agent", "en": "agent", "translate": true, "notes": "An AI coding agent: a model running in a host that edits the project." },
+    { "id": "cold-agent", "en": "cold agent", "translate": true, "notes": "An agent that arrives with no chat history or session memory." },
+    { "id": "recovery", "en": "recovery", "translate": true, "notes": "Restoring a consistent project state after an interruption." },
+    { "id": "continuation", "en": "continuation", "translate": true, "notes": "Resuming exactly where the previous agent stopped." },
+    { "id": "evidence", "en": "evidence", "translate": true, "notes": "Recorded proof that a check ran and what it returned." },
+    { "id": "source-authority", "en": "source authority", "translate": true, "notes": "Which document wins when two disagree." },
+    { "id": "ticket", "en": "ticket", "translate": true, "notes": "One unit of work on BOARD.md." },
+    { "id": "gate", "en": "gate", "translate": true, "notes": "A check that must pass; it must first be shown able to fail." },
+    { "id": "verification", "en": "verification", "translate": true, "notes": "Running the strongest available check." },
+    { "id": "state", "en": "state", "translate": true, "notes": "The project's persisted working memory." },
+    { "id": "provider", "en": "provider", "translate": true, "notes": "The company serving a model." },
+    { "id": "checkpoint", "en": "checkpoint", "translate": true, "notes": "The fixed LOG, BOARD, STATE write sequence." },
+    { "id": "handoff", "en": "handoff", "translate": true, "notes": "Passing work from one agent or session to the next." }
+  ],
+  "locales": {
+    "et": {},
+    "ru": {}
+  }
+}

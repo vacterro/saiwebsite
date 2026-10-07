@@ -11,7 +11,25 @@
 // Run after `npm run build`: node scripts/audit-build.mjs
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, posix } from 'node:path';
-import { publicRoutes, readRoutes } from './route-registry.mjs';
+import { publicRoutes, readRegistry, readRoutes, readSources } from './route-registry.mjs';
+import { loadStore } from '../src/content-engine/i18n/store.mjs';
+
+// Locale variants (content-system M42, M47): a page under /<prefix>/ renders
+// its canonical route in that locale. The shell contract is the same; the
+// expected language, labels and link targets follow the locale.
+const I18N = loadStore({ registry: readRegistry(), sourceIds: readSources().sources.map((s) => s.id) });
+const LOCALE_PLANS = I18N.plan;
+function localeOfHref(href) {
+  for (const p of LOCALE_PLANS) {
+    const prefix = '/' + p.prefix + '/';
+    if (href.startsWith(prefix)) {
+      const rest = '/' + href.slice(prefix.length);
+      const variants = new Set([...p.pages.map((x) => x.route), ...p.docs.map((d) => '/docs/' + d.slug + '/')]);
+      return { locale: p.locale, prefix: p.prefix, route: rest === '/404/' ? '/404.html' : rest, localize: (r) => (variants.has(r) ? (r === '/404.html' ? prefix + '404/' : prefix + r.slice(1)) : r) };
+    }
+  }
+  return { locale: I18N.localesDoc.canonical, prefix: null, route: href, localize: (r) => r };
+}
 
 /**
  * MASTER_ROADMAP §1: the initial shell must reserve exactly these public routes.
@@ -75,6 +93,7 @@ function findBootstrap(html) {
 
 function auditThemeContract(file, h) {
   const label = file.split('\\').join('/');
+  const expectedLang = localeOfHref(pageHref(file)).locale;
   const htmlTag = /<html[^>]*>/.exec(h)?.[0] ?? '(no <html>)';
   const bodyStart = h.indexOf('<body');
   const head = h.slice(0, bodyStart > 0 ? bodyStart : 0);
@@ -82,7 +101,7 @@ function auditThemeContract(file, h) {
   console.log('\nTHEME CONTRACT ' + label);
 
   if (/<html[^>]*\sstyle=/.test(h)) fail(label + ': <html> carries an inline style attribute — a stale root palette outranks every [data-theme] scope');
-  if (!/<html lang="en" data-theme="goldendefault">/.test(h)) fail(label + ': SSR fallback is not lang="en" data-theme="goldendefault" (got ' + htmlTag + ')');
+  if (!new RegExp('<html lang="' + expectedLang + '"( dir="rtl")? data-theme="goldendefault">').test(h)) fail(label + ': SSR fallback is not lang="' + expectedLang + '" data-theme="goldendefault" (got ' + htmlTag + ')');
 
   // Palette CSS inline in <head>: the whole point is that first paint needs no request.
   const styles = [...head.matchAll(/<style([^>]*)>([\s\S]*?)<\/style>/g)];
@@ -177,27 +196,28 @@ const REGISTRY = new Map(readRoutes().map((route) => [route.href, route]));
 
 function auditShell(file, h) {
   const label = file.split('\\').join('/');
-  const href = pageHref(file);
+  const where = localeOfHref(pageHref(file));
+  const href = where.route;
   const isHome = href === '/';
   const route = REGISTRY.get(href);
 
   console.log('\nSHELL CONTRACT ' + label);
 
-  if (!/<nav class="w-menubar" aria-label="Main">/.test(h)) fail(label + ': no desktop primary nav landmark');
-  if (!/<nav class="w-compactnav" aria-label="Site">/.test(h)) fail(label + ': no compact nav landmark');
+  if (!/<nav class="w-menubar" aria-label="[^"]+">/.test(h)) fail(label + ': no labelled desktop primary nav landmark');
+  if (!/<nav class="w-compactnav" aria-label="[^"]+">/.test(h)) fail(label + ': no labelled compact nav landmark');
   if (!/data-compact-nav/.test(h)) fail(label + ': compact nav has no [data-compact-nav] hook for the shell suite');
   if (/href="#"/.test(h)) fail(label + ': contains a dead href="#" navigation placeholder');
 
   // The canonical trail: semantic nav, one current item, and a real Home link
   // everywhere except the homepage itself (a self-referential "Home > Home"
   // would be noise, not depth).
-  const crumbNav = /<nav class="w-crumbs" aria-label="Breadcrumb">([\s\S]*?)<\/nav>/.exec(h);
+  const crumbNav = /<nav class="w-crumbs" aria-label="[^"]+">([\s\S]*?)<\/nav>/.exec(h);
   if (isHome) {
     if (crumbNav) fail(label + ': homepage renders a breadcrumb trail');
   } else if (!crumbNav) {
     fail(label + ': no <nav aria-label="Breadcrumb"> trail');
   } else {
-    if (!/<a href="\/">Home<\/a>/.test(crumbNav[1])) fail(label + ': breadcrumb has no real Home link');
+    if (!crumbNav[1].includes('<a href="' + where.localize('/') + '">')) fail(label + ': breadcrumb has no real Home link');
     if (!/aria-current="page"/.test(crumbNav[1])) fail(label + ': breadcrumb does not mark the current page');
   }
   console.log('  breadcrumb : ' + (crumbNav ? 'semantic trail with Home + current' : 'none (homepage)'));
@@ -205,7 +225,7 @@ function auditShell(file, h) {
   // Discoverability: the reserved routes live behind the More panel on desktop
   // and inside the compact nav below the breakpoint, so every public route is
   // an ordinary anchor in the markup of every public page.
-  const missing = PUBLIC_HREFS.filter((notHref) => !h.includes('href="' + notHref + '"'));
+  const missing = PUBLIC_HREFS.map(where.localize).filter((notHref) => !h.includes('href="' + notHref + '"'));
   if (missing.length) fail(label + ': no navigation anchor for ' + missing.join(', '));
   console.log('  public anchors: ' + (PUBLIC_HREFS.length - missing.length) + '/' + PUBLIC_HREFS.length);
 
@@ -243,7 +263,8 @@ for (const p of pages) {
   console.log('  maturity:', maturity.join(', ') || '(none)');
   console.log('  top     :', heads.slice(0, 5).map((x) => 'h' + x.l + ' "' + x.t + '"').join(' | '));
 
-  if (lang !== 'en') fail('html lang is not en');
+  const expectedLang = localeOfHref(pageHref(p)).locale;
+  if (lang !== expectedLang) fail('html lang is ' + lang + ', expected ' + expectedLang);
   if (counts.h1 !== 1) fail('expected exactly 1 h1, found ' + counts.h1);
   if (counts.main !== 1) fail('expected exactly 1 <main>, found ' + counts.main);
   if (counts.footer < 1) fail('no <footer> landmark');
@@ -292,7 +313,7 @@ function auditBudget() {
     const n = size(p2);
     if (n > largest.n) largest = { f: p2, n };
     if (n > BUDGET.pageHtml) fail(`${p2}: ${n} bytes of HTML exceeds the ${BUDGET.pageHtml}-byte page budget`);
-    const href = pageHref(p2);
+    const href = localeOfHref(pageHref(p2)).route;
     const external = [...readFileSync(p2, 'utf8').matchAll(/<script[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]);
     if (external.length && !SCRIPT_PAGES.test(href)) fail(`${p2}: loads ${external.join(', ')} but is not a page that needs a script`);
     const thirdParty = external.filter((src) => /^https?:/.test(src));

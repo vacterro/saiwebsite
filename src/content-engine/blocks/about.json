@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 1,
+  "domain": "about",
+  "usedBy": [
+    "page:about"
+  ],
+  "blocks": {
+    "about.title": {
+      "type": "text",
+      "text": "About"
+    },
+    "about.description": {
+      "type": "text",
+      "text": "Who builds SAIPEN and why, the multi-agent workflow behind it, the builder principles, and the engineering contract this website holds itself to."
+    },
+    "about.motto.label": {
+      "type": "text",
+      "text": "In one line"
+    },
+    "about.motto.body": {
+      "type": "text",
+      "text": "Built by one human working with replaceable AI agents. The agents change. The project state survives."
+    },
+    "about.author.title": {
+      "type": "text",
+      "text": "Who builds SAIPEN"
+    },
+    "about.author.body1": {
+      "type": "inline",
+      "text": "SAIPEN is created and maintained by [vacterro]({author}) and developed through practical multi-agent workflows: AI coding agents from different vendors do much of the implementation, and a human operator sets direction, decides, audits and keeps the work continuous across them. The protocol is the written-down form of that arrangement."
+    },
+    "about.author.body2": {
+      "type": "inline",
+      "text": "[SAIPEN HQ]({organization}) is the organization identity, and the [SAIPEN Community]({community}) on Discord is the shared discussion space."
+    },
+    "about.why.title": {
+      "type": "text",
+      "text": "Why it exists"
+    },
+    "about.why.body1": {
+      "type": "text",
+      "text": "One person running many projects with many agents hits the same wall every day. A session ends, a context limit is reached, a provider has a bad hour, a cheaper model takes over for the afternoon — and every new agent arrives as a brilliant stranger who has to be briefed from scratch: what are we building, what was already tried, what must not be touched, is this actually finished."
+    },
+    "about.why.body2": {
+      "type": "text",
+      "text": "The person ends up carrying the project between sessions in their own head, retelling it again and again. That is the failure SAIPEN removes:"
+    },
+    "about.why.quote": {
+      "type": "text",
+      "text": "The human should not be the project's memory bus."
+    },
+    "about.why.body3": {
+      "type": "text",
+      "text": "So the memory moved out of the chat and into the project, in plain files, with one exact next step and rules that make a cold agent continue instead of asking. Everything else in the protocol — checkpoints, VERIFY, evidence, honest WAITs — exists to make that handoff safe."
+    },
+    "about.workflow.title": {
+      "type": "text",
+      "text": "How the work is done"
+    },
+    "about.workflow.idea": {
+      "type": "inline",
+      "text": "**Idea** — a real problem from running projects, not a hypothetical agent stack."
+    },
+    "about.workflow.target": {
+      "type": "inline",
+      "text": "**Narrow target** — one ticket with a verify contract, small enough to prove."
+    },
+    "about.workflow.agent": {
+      "type": "inline",
+      "text": "**Agent** — whichever model and host is available and suited."
+    },
+    "about.workflow.verify": {
+      "type": "inline",
+      "text": "**VERIFY** — the strongest available check, with a red control first."
+    },
+    "about.workflow.audit": {
+      "type": "inline",
+      "text": "**Audit** — an independent review, often by a different model, packaged as evidence."
+    },
+    "about.workflow.handoff": {
+      "type": "inline",
+      "text": "**Handoff** — the session ends; the state is already on disk."
+    },
+    "about.workflow.next": {
+      "type": "inline",
+      "text": "**Another agent** — runs `saipen continue` and picks up the next step."
+    },
+    "about.workflow.tools": {
+      "type": "inline",
+      "text": "The operator tooling in the ecosystem grew out of the same loop: {tools}. The longer version is in the design note [How SAIPEN is built: one operator, many agents](/blog/how-saipen-is-built/).",
+      "note": "{tools} is a list of linked project names built by the page; keep it where the list reads naturally."
+    },
+    "about.workflow.and": {
+      "type": "text",
+      "text": " and ",
+      "note": "Joins the last two project names in a list, with surrounding spaces."
+    },
+    "about.workflow.comma": {
+      "type": "text",
+      "text": ", ",
+      "note": "Joins project names in a list."
+    },
+    "about.principles.title": {
+      "type": "text",
+      "text": "Builder principles"
+    },
+    "about.principles.note": {
+      "type": "inline",
+      "text": "These are the author's product instincts across SAIPEN and the tools around it — a fingerprint, not protocol law. The normative rules are in the [specification](/spec/)."
+    },
+    "about.principles.local-first.name": {
+      "type": "text",
+      "text": "Local-first"
+    },
+    "about.principles.local-first.line": {
+      "type": "text",
+      "text": "State and tools live on your machine. A hosted service is an option, never a requirement."
+    },
+    "about.principles.no-account.name": {
+      "type": "text",
+      "text": "No account unless technically necessary"
+    },
+    "about.principles.no-account.line": {
+      "type": "text",
+      "text": "Nothing here asks who you are, because nothing here needs to know."
+    },
+    "about.principles.open-core.name": {
+      "type": "text",
+      "text": "Open core"
+    },
+    "about.principles.open-core.line": {
+      "type": "text",
+      "text": "The protocol, its specification and its validator are public and MIT-licensed."
+    },
+    "about.principles.independence.name": {
+      "type": "text",
+      "text": "Model and provider independence"
+    },
+    "about.principles.independence.line": {
+      "type": "text",
+      "text": "Any agent that can read files can continue the work; no vendor owns the memory."
+    },
+    "about.principles.visible-state.name": {
+      "type": "text",
+      "text": "Visible state"
+    },
+    "about.principles.visible-state.line": {
+      "type": "text",
+      "text": "Markdown, JSON and logs a person can open in a text editor, diff and commit."
+    },
+    "about.principles.evidence.name": {
+      "type": "text",
+      "text": "Evidence over claims"
+    },
+    "about.principles.evidence.line": {
+      "type": "text",
+      "text": "A check proves it can fail before it is trusted; \"done\" needs a recorded result."
+    },
+    "about.principles.degrade.name": {
+      "type": "text",
+      "text": "Degrade gracefully where it is safe"
+    },
+    "about.principles.degrade.line": {
+      "type": "text",
+      "text": "Missing capabilities lower the mode explicitly instead of failing silently or pretending."
+    },
+    "about.principles.automate.name": {
+      "type": "text",
+      "text": "Automate the repetition"
+    },
+    "about.principles.automate.line": {
+      "type": "text",
+      "text": "If a human has to repeat the same briefing or click twice a day, it is a tool waiting to be written."
+    },
+    "about.principles.control.name": {
+      "type": "text",
+      "text": "The human stays in control"
+    },
+    "about.principles.control.line": {
+      "type": "text",
+      "text": "Direction, destructive steps and publication are human decisions — but no one should have to babysit every continuation."
+    },
+    "about.dogfooding.title": {
+      "type": "text",
+      "text": "This website is built under SAIPEN"
+    },
+    "about.dogfooding.body": {
+      "type": "inline",
+      "text": "The site you are reading is itself a SAIPEN project, built by AI agents working through the same lifecycle the docs describe. The list below is read at build time from this repository's own `.saipen/BOARD.md`, not typed by hand."
+    },
+    "about.dogfooding.events": {
+      "type": "text",
+      "text": "Recorded events"
+    },
+    "about.dogfooding.events-value": {
+      "type": "text",
+      "text": "{count} in .saipen/LOG.md"
+    },
+    "about.dogfooding.closed": {
+      "type": "text",
+      "text": "Tickets closed"
+    },
+    "about.dogfooding.closed-value": {
+      "type": "text",
+      "text": "{done} of {total}"
+    },
+    "about.dogfooding.last": {
+      "type": "text",
+      "text": "Last verification"
+    },
+    "about.dogfooding.last-value": {
+      "type": "text",
+      "text": "site v{version} on {date}: {pages} pages, {checks} browser checks, {gates} static gates"
+    },
+    "about.dogfooding.col.ticket": {
+      "type": "text",
+      "text": "Ticket"
+    },
+    "about.dogfooding.col.work": {
+      "type": "text",
+      "text": "Work"
+    },
+    "about.dogfooding.col.state": {
+      "type": "text",
+      "text": "State"
+    },
+    "about.dogfooding.red": {
+      "type": "text",
+      "text": "Every gate below was shown able to fail before its green result was trusted:"
+    },
+    "about.dogfooding.none": {
+      "type": "text",
+      "text": "This build was made from a checkout without project memory, so there is nothing to show."
+    },
+    "about.scope.title": {
+      "type": "text",
+      "text": "What this website is"
+    },
+    "about.scope.body": {
+      "type": "text",
+      "text": "The public surface of the SAIPEN protocol: documentation, a generated specification reference, the ecosystem catalogue and a deterministic playground. It explains and indexes; it does not define."
+    },
+    "about.scope.not-protocol": {
+      "type": "inline",
+      "text": "**Not the protocol.** The protocol is the [SAIPEN repository]({repository})."
+    },
+    "about.scope.not-engine": {
+      "type": "inline",
+      "text": "**Not an execution engine.** It cannot run an agent and has no backend to run one on."
+    },
+    "about.scope.authority": {
+      "type": "inline",
+      "text": "**Authority runs one way.** Canonical protocol source outranks the generated reference, which outranks the explanatory docs, which outrank any summary copy. Summary copy never redefines behaviour."
+    },
+    "about.beyond.title": {
+      "type": "text",
+      "text": "Beyond SAIPEN"
+    },
+    "about.beyond.body": {
+      "type": "inline",
+      "text": "The protocol does not exist in a vacuum. The author builds local-first tools for AI agents, automation and Windows — AI-agent infrastructure, operator workbenches and quota monitors, desktop utilities, and creative and technical software. Only the projects that belong to SAIPEN are catalogued on the [ecosystem page](/ecosystem/); the rest are on [github.com/vacterro]({author})."
+    },
+    "about.design.title": {
+      "type": "text",
+      "text": "Why it looks like this"
+    },
+    "about.design.body": {
+      "type": "inline",
+      "text": "The site is a native [Wintage](/ecosystem/#wintage) interface: Golden Default palette, 2px bevels, zero radius, zero shadow, instant interaction — the same design language SAIPEN's own UI.md prescribes for every SAIPEN tool. Text is drawn with pixel-grid faces built from openly licensed fonts, so it renders without anti-aliasing. The [design note](/blog/no-antialiasing-on-the-web/) explains how and how it is tested."
+    },
+    "about.a11y.title": {
+      "type": "text",
+      "text": "Accessibility"
+    },
+    "about.a11y.landmarks": {
+      "type": "inline",
+      "text": "A skip link, one `main`, labelled navigation landmarks and one `h1` per page, with no skipped heading levels."
+    },
+    "about.a11y.focus": {
+      "type": "text",
+      "text": "Visible, hard-edged focus on every control; the theme menu is a labelled native select."
+    },
+    "about.a11y.nojs": {
+      "type": "text",
+      "text": "Navigation and disclosures are native elements and work with JavaScript disabled."
+    },
+    "about.a11y.colour": {
+      "type": "text",
+      "text": "No state is carried by colour alone: every badge and callout has a word."
+    },
+    "about.a11y.text": {
+      "type": "text",
+      "text": "Text is real DOM text: selectable, searchable, translatable and readable by screen readers."
+    },
+    "about.a11y.motion": {
+      "type": "text",
+      "text": "No motion except the one-pixel press of a button; reduced-motion preferences are respected."
+    },
+    "about.perf.title": {
+      "type": "text",
+      "text": "Performance budget"
+    },
+    "about.perf.body": {
+      "type": "inline",
+      "text": "Mostly static HTML with small scripts. `npm run audit:build` fails the build when a page exceeds its HTML budget, when total JavaScript or font weight passes its ceiling, or when a page loads a script it does not need. There is no client framework and no hydration; the twelve pixel faces are 6–17 KB each, and the audit fails if any exceeds 20 KB or all of them together exceed 200 KB."
+    },
+    "about.gates.title": {
+      "type": "text",
+      "text": "Quality gates"
+    },
+    "about.gates.col.command": {
+      "type": "text",
+      "text": "Command"
+    },
+    "about.gates.col.fails": {
+      "type": "text",
+      "text": "Fails when"
+    },
+    "about.gates.build": {
+      "type": "text",
+      "text": "Static production build; content front-matter is schema-validated here."
+    },
+    "about.gates.check": {
+      "type": "text",
+      "text": "Astro and TypeScript type check."
+    },
+    "about.gates.lint": {
+      "type": "text",
+      "text": "Style law: no radius, shadow, blur, transparency, motion, hex colour, em unit or size without its pixel face."
+    },
+    "about.gates.validate-themes": {
+      "type": "text",
+      "text": "All 16 palettes carry exactly the 21 tokens."
+    },
+    "about.gates.validate-canonical": {
+      "type": "text",
+      "text": "The protocol snapshot still matches its recorded SHA-256 hashes."
+    },
+    "about.gates.validate-content": {
+      "type": "text",
+      "text": "Every internal link and anchor in the built site resolves; no duplicate ids; required metadata present."
+    },
+    "about.gates.validate-baselines": {
+      "type": "text",
+      "text": "Every versioned screenshot baseline is present and matches the manifest, so an archive cannot silently drop the visual evidence."
+    },
+    "about.gates.audit-build": {
+      "type": "text",
+      "text": "Structure, theme contract, route registry, performance budget and protocol data of the built output."
+    },
+    "about.gates.test-pixel": {
+      "type": "text",
+      "text": "Every pixel of every page is one of the palette colours, in Chromium and WebKit."
+    },
+    "about.gates.test-shell": {
+      "type": "text",
+      "text": "Routes, maturity badges, navigation, breadcrumbs, landmarks, overflow at 320 / 390 / 640 / 1280 px."
+    },
+    "about.gates.test-content": {
+      "type": "text",
+      "text": "Docs chrome, spec visualizer and aliases, playground, search, agent-readable files."
+    },
+    "about.gates.test-runtime": {
+      "type": "text",
+      "text": "Theme persistence, pre-paint restore, fallback and nested palette isolation."
+    },
+    "about.gates.test-visual": {
+      "type": "text",
+      "text": "Screenshot baselines, compared with zero tolerance."
+    },
+    "about.deploy.title": {
+      "type": "text",
+      "text": "Deployment readiness"
+    },
+    "about.deploy.static": {
+      "type": "text",
+      "text": "Fully static output with directory-style URLs and a trailing slash on every page."
+    },
+    "about.deploy.links": {
+      "type": "text",
+      "text": "Every internal link is root-relative; the canonical origin ({domain}) is configured in one place."
+    },
+    "about.deploy.generated": {
+      "type": "inline",
+      "text": "A [404 page](/404.html), [sitemap.xml](/sitemap.xml), [robots.txt](/robots.txt) and [llms.txt](/llms.txt) are generated with the build."
+    },
+    "about.deploy.aliases": {
+      "type": "inline",
+      "text": "Aliases such as `/spec/latest/` are static redirects that need no server rules."
+    },
+    "about.deploy.status": {
+      "type": "inline",
+      "text": "The site is not deployed: attaching a domain and a host is future gate FG-001. Everything it ships is redistributable — the pixel faces come from DejaVu Sans and Spleen with their licence notices, checked by `npm run validate:licenses`, and listed with the other shipped assets in THIRD_PARTY_NOTICES.md."
+    },
+    "about.sources.title": {
+      "type": "text",
+      "text": "Sources of this build"
+    },
+    "about.sources.protocol": {
+      "type": "text",
+      "text": "Protocol facts"
+    },
+    "about.sources.protocol-value": {
+      "type": "text",
+      "text": "SAIPEN {version} @ {commit}"
+    },
+    "about.sources.ecosystem": {
+      "type": "text",
+      "text": "Ecosystem facts"
+    },
+    "about.sources.ecosystem-value": {
+      "type": "text",
+      "text": "SAIPEN HQ project map and GitHub, {date}"
+    },
+    "about.sources.design": {
+      "type": "text",
+      "text": "Design language"
+    },
+    "about.sources.design-value": {
+      "type": "text",
+      "text": "Wintage Golden Default and SAIPEN UI.md"
+    }
+  }
+}

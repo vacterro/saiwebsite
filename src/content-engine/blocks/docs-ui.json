@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "domain": "docs-ui",
+  "usedBy": [
+    "page:docs.*"
+  ],
+  "blocks": {
+    "docs-ui.section.getting-started": {
+      "type": "text",
+      "text": "Getting started"
+    },
+    "docs-ui.section.concepts": {
+      "type": "text",
+      "text": "Concepts"
+    },
+    "docs-ui.section.protocol": {
+      "type": "text",
+      "text": "Protocol"
+    },
+    "docs-ui.section.recovery": {
+      "type": "text",
+      "text": "Recovery"
+    },
+    "docs-ui.section.evidence": {
+      "type": "text",
+      "text": "Evidence"
+    },
+    "docs-ui.section.operation": {
+      "type": "text",
+      "text": "Operation"
+    },
+    "docs-ui.section.reference": {
+      "type": "text",
+      "text": "Reference"
+    },
+    "docs-ui.lead.getting-started": {
+      "type": "text",
+      "text": "What SAIPEN is, why it exists, and how to install it."
+    },
+    "docs-ui.lead.concepts": {
+      "type": "text",
+      "text": "The files in .saipen/ and the ideas each one carries."
+    },
+    "docs-ui.lead.protocol": {
+      "type": "text",
+      "text": "The state machine, routing, checkpoints and verification rules."
+    },
+    "docs-ui.lead.recovery": {
+      "type": "text",
+      "text": "What happens when an agent, a session or a file breaks."
+    },
+    "docs-ui.lead.evidence": {
+      "type": "text",
+      "text": "What counts as proof, and what SAIPEN does and does not guarantee."
+    },
+    "docs-ui.lead.operation": {
+      "type": "text",
+      "text": "Commands, autonomous modes and supported agent hosts."
+    },
+    "docs-ui.lead.reference": {
+      "type": "text",
+      "text": "Glossary and frequently asked questions."
+    },
+    "docs-ui.authority.reference": {
+      "type": "text",
+      "text": "reference — states protocol facts; the linked canonical source wins on any conflict"
+    },
+    "docs-ui.authority.engineering": {
+      "type": "text",
+      "text": "engineering — how the protocol works and how to use it"
+    },
+    "docs-ui.authority.explanation": {
+      "type": "text",
+      "text": "explanation — the reasoning behind the protocol, not normative text"
+    },
+    "docs-ui.tree.label": {
+      "type": "text",
+      "text": "Documentation contents",
+      "note": "Accessible name of the contents navigation and the compact disclosure."
+    },
+    "docs-ui.tree.title": {
+      "type": "text",
+      "text": "Contents"
+    },
+    "docs-ui.tree.search": {
+      "type": "text",
+      "text": "Search docs"
+    },
+    "docs-ui.tree.spec": {
+      "type": "text",
+      "text": "Specification"
+    },
+    "docs-ui.tree.spec-index": {
+      "type": "text",
+      "text": "Spec index"
+    },
+    "docs-ui.tree.state-machine": {
+      "type": "text",
+      "text": "State machine"
+    },
+    "docs-ui.toc.title": {
+      "type": "text",
+      "text": "On this page"
+    },
+    "docs-ui.sources.title": {
+      "type": "text",
+      "text": "Canonical sources"
+    },
+    "docs-ui.sources.note": {
+      "type": "text",
+      "text": "Links are pinned to the protocol commit this site was built from. Where this page and the source disagree, the source wins."
+    },
+    "docs-ui.pager.label": {
+      "type": "text",
+      "text": "Previous and next page"
+    },
+    "docs-ui.pager.prev": {
+      "type": "text",
+      "text": "Previous"
+    },
+    "docs-ui.pager.next": {
+      "type": "text",
+      "text": "Next"
+    },
+    "docs-ui.raw.note": {
+      "type": "text",
+      "text": "Plain Markdown of this page for agents and tools:"
+    },
+    "docs-ui.translation.note": {
+      "type": "text",
+      "text": "This page is a translation of the English original, which is authoritative:",
+      "note": "Shown on translated documentation pages, followed by a link to the English page."
+    }
+  }
+}

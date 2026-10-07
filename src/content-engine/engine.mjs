@@ -15,6 +15,7 @@ import { builtRoutes, checkDiscovery } from './inventory/built.mjs';
 import { computeLock, diffLock, LOCK_FILE, serialize } from './sources/lock.mjs';
 import { checkIntegrity, validateGenerated } from './generated/integrity.mjs';
 import { buildGraph, findCycles } from './graph/graph.mjs';
+import { discoveryTargets, inventoryVariants, loadStore } from './i18n/store.mjs';
 
 export const FILES = {
   pages: 'src/content-engine/registry/pages.json',
@@ -46,14 +47,19 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
 
   // Built site: inventory + discovery flags. Without dist/ these are UNKNOWN, not failures.
   const hasDist = existsSync(at(dist));
+  const store = contracts.length ? null : loadStore({ root, registry, sourceIds: declared, overrides: overrides.store });
+  if (store) contracts.push(...store.problems);
   let inventory = null;
   let records = [];
   if (hasDist && !contracts.length) {
-    const built = buildInventory(registry, overrides.routes ?? builtRoutes(at(dist)));
+    const built = buildInventory(registry, overrides.routes ?? builtRoutes(at(dist)), inventoryVariants(store));
     contracts.push(...built.problems);
     inventory = built.inventory;
     records = [...inventory.public, ...inventory.internal];
-    if (!built.problems.length) contracts.push(...checkDiscovery(records, at(dist)));
+    if (!built.problems.length) {
+      contracts.push(...checkDiscovery(records, at(dist), { search: null, llms: null, sitemap: 'sitemap.xml' }));
+      for (const t of discoveryTargets(store)) contracts.push(...checkDiscovery(records.filter((r) => r.locale === t.locale), at(dist), t.files));
+    }
   } else if (!hasDist && !contracts.length) {
     // Offline: reuse the committed inventory so the graph still works.
     const committed = readText(at(FILES.inventory));
@@ -79,6 +85,7 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
     lock,
     sourceStates,
     contracts,
+    store,
     manifests: [],
     extraGraph: { nodes: [], edges: [] },
     translations: [],

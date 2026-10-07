@@ -1,0 +1,13 @@
+---
+/** /search/ in every routed locale (content-system M47). */
+import SearchView from '../../../views/SearchView.astro';
+import { PLAN } from '../../../content-engine/i18n/catalog';
+
+export function getStaticPaths() {
+  return PLAN.filter((p) => p.pages.some((x) => x.pageId === 'search')).map((p) => ({ params: { locale: p.prefix }, props: { locale: p.locale } }));
+}
+
+const { locale } = Astro.props;
+---
+
+<SearchView locale={locale} />

@@ -25,13 +25,14 @@ interface Props {
   items: Crumb[];
   /** Pathname the crumbs were derived from; the last item is marked current. */
   current: string;
+  label?: string;
 }
 
-const { items, current } = Astro.props;
+const { items, current, label = 'Breadcrumb' } = Astro.props;
 const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
 ---
 
-<nav class="w-crumbs" aria-label="Breadcrumb">
+<nav class="w-crumbs" aria-label={label}>
   <ol class="w-crumbs__list">
     {
       items.map((item, index) => {

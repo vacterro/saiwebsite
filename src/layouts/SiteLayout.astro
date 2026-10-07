@@ -19,6 +19,7 @@
  * Golden Default first (WINTAGE_WEB_CONTRACT §6).
  */
 import { SITE_VERSION } from '../content-engine/models/versions';
+import LanguageSelector from '../components/LanguageSelector.astro';
 import ThemeSelector from '../components/ThemeSelector.astro';
 import WintageBreadcrumbs from '../components/WintageBreadcrumbs.astro';
 import WintageCompactNav from '../components/WintageCompactNav.astro';
@@ -27,6 +28,7 @@ import WintageStatusBar from '../components/WintageStatusBar.astro';
 import WintageWindow from '../components/WintageWindow.astro';
 import { MENU_ROUTES, PUBLIC_ROUTES, SITE, SECONDARY_ROUTES, routeByHref } from '../data/site';
 import { SHORT_COMMIT, meta as canonical } from '../content-engine/models/protocol';
+import { CANONICAL_LOCALE, alternatesOf, localeOf, splitPath, translator } from '../content-engine/i18n/catalog';
 import { defaultTheme, themeCss } from '../themes';
 import {
   PALETTE_STATUS_ID,
@@ -56,22 +58,27 @@ interface Props {
   /** Extra <head> content, e.g. a refresh for an alias page. */
   noindex?: boolean;
   ogType?: 'website' | 'article';
+  /** Locale this page renders in; every UI string of the shell follows it. */
+  locale?: string;
 }
 
+const { locale = CANONICAL_LOCALE } = Astro.props;
+const tx = translator(locale);
+const localeInfo = localeOf(locale);
 const {
   title = SITE.name,
   tag,
-  description = `${SITE.name} — ${SITE.tagline} Documentation, specification and ecosystem index.`,
+  description = tx.text('ui.site.description', { site: SITE.name, tagline: SITE.tagline }),
   crumbs: explicitCrumbs,
   canonicalPath,
-  noindex = false,
+  noindex = localeInfo.stage === 'pseudo',
   ogType = 'website',
 } = Astro.props;
 
 const palette = defaultTheme;
 // The window title already carries the project name on the homepage, so do not
 // repeat it in <title>. Every other route appends the project name.
-const documentTitle = title === SITE.name ? SITE.name : `${title} — ${SITE.name}`;
+const documentTitle = title === SITE.name ? SITE.name : tx.text('ui.title.suffix', { title, site: SITE.name });
 const statusFields = [
   { text: 'READY', grow: true },
   { text: `palette: ${palette.label}`, id: PALETTE_STATUS_ID },
@@ -84,33 +91,48 @@ const statusFields = [
 // "Debug" segment because no /debug/ route exists to link to, and every other
 // top level route is simply Home > <route label>.
 const pathname = Astro.url.pathname;
+// A localized page answers for its canonical route: /et/about/ is /about/ in et.
+const { route } = splitPath(pathname);
 const currentRoute =
-  routeByHref(pathname) ??
-  routeByHref(pathname.endsWith('/') ? pathname : `${pathname}/`);
+  routeByHref(route) ??
+  routeByHref(route.endsWith('/') ? route : `${route}/`);
+const label = (r: { id: string }) => tx.text(`pages.${r.id}.label`);
 const crumbs: Crumb[] = explicitCrumbs ?? (
-  pathname === '/'
+  route === '/'
     ? []
     : currentRoute?.href.startsWith('/debug/')
       ? [
-          { label: 'Home', href: '/' },
-          { label: 'Debug' },
-          { label: currentRoute.label, href: currentRoute.href },
+          { label: tx.text('ui.crumbs.home'), href: '/' },
+          { label: tx.text('ui.crumbs.debug') },
+          { label: label(currentRoute), href: currentRoute.href },
         ]
       : [
-          { label: 'Home', href: '/' },
-          { label: currentRoute?.label ?? 'Page', href: currentRoute?.href },
+          { label: tx.text('ui.crumbs.home'), href: tx.href('/') },
+          { label: currentRoute ? label(currentRoute) : tx.text('ui.crumbs.page'), href: currentRoute ? tx.href(currentRoute.href) : undefined },
         ]);
+const localize = (r: (typeof MENU_ROUTES)[number]) => ({ ...r, href: tx.href(r.href), label: label(r) });
+const menu = MENU_ROUTES.map(localize);
+const secondary = SECONDARY_ROUTES.map(localize);
+const compact = PUBLIC_ROUTES.map(localize);
+// Language alternatives of this page. Only public locales are advertised to
+// search engines; the selector also lists the pseudo-locale while it is active.
+const alternates = alternatesOf(route);
+const publicAlternates = alternates.filter((a) => a.public);
+const choices = alternates.filter((a) => a.public || a.locale === locale);
 const canonicalUrl = new URL(canonicalPath ?? pathname, SITE.origin).href;
+const hreflang = publicAlternates.length > 1 ? publicAlternates : [];
 ---
 
 <!doctype html>
-<html lang="en" data-theme={palette.slug}>
+<html lang={tx.lang} dir={tx.dir === 'rtl' ? 'rtl' : undefined} data-theme={palette.slug}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {hreflang.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.path, SITE.origin).href} />)}
+    {hreflang.length > 0 && <link rel="alternate" hreflang="x-default" href={new URL(route, SITE.origin).href} />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
@@ -147,14 +169,15 @@ const canonicalUrl = new URL(canonicalPath ?? pathname, SITE.origin).href;
     <script is:inline set:html={themeBootstrapScript()} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{tx.text('ui.skip-link')}</a>
     <div class="shell">
       <WintageWindow title={title} tag={tag} bodyTag="main" bodyId="main">
         <Fragment slot="menu">
-          <WintageMenuBar items={MENU_ROUTES} more={SECONDARY_ROUTES} path={pathname} />
-          <WintageCompactNav items={PUBLIC_ROUTES} path={pathname} />
-          <ThemeSelector />
-          {crumbs.length > 0 && <WintageBreadcrumbs items={crumbs} current={pathname} />}
+          <WintageMenuBar items={menu} more={secondary} path={pathname} label={tx.text('ui.nav.main-label')} moreLabel={tx.text('ui.nav.more')} />
+          <WintageCompactNav items={compact} path={pathname} label={tx.text('ui.nav.compact-label')} summary={tx.text('ui.nav.navigate')} />
+          <ThemeSelector label={tx.text('ui.theme.label')} note={tx.text('ui.theme.note')} />
+          {choices.length > 1 && <LanguageSelector choices={choices} current={locale} label={tx.text('ui.lang.label')} />}
+          {crumbs.length > 0 && <WintageBreadcrumbs items={crumbs} current={pathname} label={tx.text('ui.crumbs.label')} />}
         </Fragment>
         <slot />
       </WintageWindow>

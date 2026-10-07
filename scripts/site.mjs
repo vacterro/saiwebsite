@@ -48,10 +48,16 @@ function redControls(engine) {
   });
   check('graph cycle is detected', findCycles(cyclic).length > 0);
 
-  // A known mutation has a known blast radius: exactly /pricing/, nothing else.
+  // A known mutation has a known blast radius: /pricing/ and its locale
+  // variants, nothing else.
   if (engine.records.length) {
     const support = impact(engine.graph, 'source:vacterro.support.public');
-    check('support source impacts exactly pricing', JSON.stringify(support.pages) === JSON.stringify(['pricing']));
+    const pricingFamily = new Set(engine.records.filter((r) => r.id === 'pricing' || r.variantOf === 'pricing').map((r) => r.id));
+    check('support source impacts exactly pricing and its variants', support.pages.includes('pricing') && support.pages.every((id) => pricingFamily.has(id)));
+    // One canonical block change marks exactly its own unit in every locale stale.
+    const block = impact(engine.graph, 'block:pricing.support.copy');
+    const blockLocales = engine.store.localesDoc.locales.filter((l) => l.id !== engine.store.localesDoc.canonical).map((l) => `${l.id}:pricing.support.copy`);
+    check('one block change touches only its own units', JSON.stringify(block.units) === JSON.stringify(blockLocales.sort()) && block.pages.every((id) => pricingFamily.has(id)));
     check('support source recommends test:support', support.gates.includes('test:support'));
     const protocol = impact(engine.graph, 'source:saipen.protocol.registry');
     check('protocol registry impact leaves /about/ alone', !protocol.pages.includes('about') && protocol.pages.includes('spec.v8.lifecycle'));

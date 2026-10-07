@@ -21,16 +21,17 @@ interface Props {
   path: string;
   /** Landmark label. Overridden by the component lab so its specimen is distinguishable. */
   label?: string;
+  summary?: string;
 }
 
-const { items, path, label = 'Site' } = Astro.props;
+const { items, path, label = 'Site', summary = 'Navigate' } = Astro.props;
 const withSlash = (value: string) => (value.endsWith('/') ? value : `${value}/`);
 const current = withSlash(path);
 ---
 
 <nav class="w-compactnav" aria-label={label}>
   <details class="w-compactnav__panel" data-compact-nav>
-    <summary class="w-compactnav__summary">Navigate</summary>
+    <summary class="w-compactnav__summary">{summary}</summary>
     <ul class="w-compactnav__list">
       {
         items.map((item) => (

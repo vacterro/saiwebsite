@@ -1,0 +1,37 @@
+---
+/**
+ * Language selector (content-system roadmap M47). Plain links, one per locale
+ * that has this page, each named in its own language and marked with its
+ * language, so it works with JavaScript disabled and screen readers announce
+ * every name correctly. Rendered only when the page exists in more than one
+ * locale; locales are data (locales.json), never branches here.
+ */
+import { localeOf } from '../content-engine/i18n/catalog';
+
+interface Props {
+  choices: { locale: string; path: string }[];
+  current: string;
+  label: string;
+}
+
+const { choices, current, label } = Astro.props;
+---
+
+<nav class="w-langbar" aria-label={label}>
+  <ul class="w-langbar__list">
+    {
+      choices.map((choice) => (
+        <li>
+          <a
+            href={choice.path}
+            lang={choice.locale}
+            hreflang={choice.locale}
+            aria-current={choice.locale === current ? 'true' : undefined}
+          >
+            {localeOf(choice.locale).nativeName}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

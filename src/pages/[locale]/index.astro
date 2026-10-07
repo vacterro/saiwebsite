@@ -1,0 +1,16 @@
+---
+/**
+ * Homepage in every routed locale (content-system M42, M47). Which locales
+ * build is data: src/content-engine/i18n/locales.json and the variant plan.
+ */
+import HomeView from '../../views/HomeView.astro';
+import { PLAN } from '../../content-engine/i18n/catalog';
+
+export function getStaticPaths() {
+  return PLAN.filter((p) => p.pages.some((x) => x.pageId === 'home')).map((p) => ({ params: { locale: p.prefix }, props: { locale: p.locale } }));
+}
+
+const { locale } = Astro.props;
+---
+
+<HomeView locale={locale} />
