@@ -10,12 +10,14 @@ sources:
   - { path: GUIDE.md, label: GUIDE.md — Memory, not just rules }
 ---
 
+<!-- i18n:docs.concepts.project-memory.intro -->
 All SAIPEN state for a project lives in one folder at the project root:
 `.saipen/`. Every unqualified path in the protocol means
 `<project_root>/.saipen/<name>`, and changing the working directory never
 changes that binding. Nothing is stored in a hosted database, and nothing is
 lost when a session ends.
 
+<!-- i18n:docs.concepts.project-memory.canonical-state -->
 ## Canonical state
 
 These three files are the checkpoint. They are written in a fixed order and
@@ -27,6 +29,7 @@ validated together.
 | `BOARD.md` | The Work authority: every ticket in exactly one of `## DOING`, `## TODO`, `## DONE`, `## BLOCKED`. |
 | `LOG.md` | The append-only event graph: one bounded line per event, each with a unique `E-` id. |
 
+<!-- i18n:docs.concepts.project-memory.durable-knowledge -->
 ## Durable knowledge
 
 | Path | Role |
@@ -35,6 +38,7 @@ validated together.
 | `KNOWLEDGE/INDEX.md` | A generated, deletable projection that tells a cold agent which knowledge cards are relevant. |
 | `IDENTITY.md` | The project identity carrier. Committed to Git once, so a fresh clone recovers the same identity. |
 
+<!-- i18n:docs.concepts.project-memory.working-and-evidence-areas -->
 ## Working and evidence areas
 
 | Path | Role |
@@ -44,6 +48,7 @@ validated together.
 | `recovery/` | Operation journals and preserved corrupt checkpoints. Never deleted to make validation green. |
 | `logs/` | Sealed `LOG-NNN.md` segments, once the active log crosses its size cap. Cold history, read only for audits and counter rebuilds. |
 
+<!-- i18n:docs.concepts.project-memory.plain-files-on-purpose -->
 ## Plain files on purpose
 
 Because everything is Markdown, the state is human-readable, diffable and

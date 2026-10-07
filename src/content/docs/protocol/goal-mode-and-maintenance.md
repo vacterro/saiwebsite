@@ -10,10 +10,12 @@ sources:
   - { path: README.md, anchor: architecture, label: README — Architecture }
 ---
 
+<!-- i18n:docs.protocol.goal-mode-and-maintenance.intro -->
 The Maintenance layer sits on top of Core. Core never depends on it: switch
 autonomous evolution off and SAIPEN is still a complete continuation
 protocol.
 
+<!-- i18n:docs.protocol.goal-mode-and-maintenance.goal-driven-execution -->
 ## Goal-driven execution
 
 Any actionable objective enters goal-driven execution by default;
@@ -34,6 +36,7 @@ across a crash or a fresh session.
 `WAIT: safety valve`. A resume resets the counters only when the valve
 actually tripped, and the reset is logged with the real pre-reset counts.
 
+<!-- i18n:docs.protocol.goal-mode-and-maintenance.when-the-board-runs-empty -->
 ## When the board runs empty
 
 A **halt** means no workable TODO ticket and no DOING ticket. From a halt the
@@ -52,6 +55,7 @@ operator input > DOING / recovery > workable TODO > actionable audit
 Two exceptions are absolute: a session sitting at BLOCKED never auto-hunts,
 and `read-only` mode runs HUNT report-only and never enters ADD.
 
+<!-- i18n:docs.protocol.goal-mode-and-maintenance.complete-before-you-extend -->
 ## Complete before you extend
 
 When a user asks for one step of a well-known workflow, the agent evaluates

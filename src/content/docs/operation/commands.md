@@ -11,11 +11,13 @@ sources:
   - { path: saipen/COMMANDS.md, label: COMMANDS.md }
 ---
 
+<!-- i18n:docs.operation.commands.intro -->
 SAIPEN commands are typed to the agent as chat messages, or run through the
 installed launcher in a terminal. `COMMANDS.md` owns what each command means;
 `REGISTRY.json` owns the closed vocabulary, which the engine resolves before
 any conversational interpretation.
 
+<!-- i18n:docs.operation.commands.everyday-commands -->
 ## Everyday commands
 
 | Command | Does |
@@ -34,6 +36,7 @@ that fixes nothing, `saipen test` runs the declared tests and only reports,
 and integrate handoff work, `saipen ship` runs release gates, and
 `saipen brief` prints a cold-handoff summary.
 
+<!-- i18n:docs.operation.commands.shortcut-keys -->
 ## Shortcut keys
 
 A shortcut is **the whole message**, never a prefix. `cc` continues, `sss`
@@ -49,6 +52,7 @@ generated from the registry on the [commands reference page](/spec/v8/commands/)
 > because `ss` and `sss` (status) were too easy for agents to confuse; it now
 > performs no action.
 
+<!-- i18n:docs.operation.commands.compound-messages -->
 ## Compound messages
 
 A message containing several commands is split before interpretation. Quoted
@@ -56,6 +60,7 @@ text is opaque payload; malformed quoting refuses the whole message. Every
 recognised segment gets a recorded outcome, and the default chain policy is to
 stop on the first failure.
 
+<!-- i18n:docs.operation.commands.user-requests-are-captured-first -->
 ## User requests are captured first
 
 A new, actionable request is persisted — as an intake receipt and a board

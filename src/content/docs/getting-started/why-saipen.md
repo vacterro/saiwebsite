@@ -10,6 +10,7 @@ sources:
   - { path: SPEC.md, anchor: the-saipen-litmus-test, label: SPEC.md — Litmus test }
 ---
 
+<!-- i18n:docs.getting-started.why-saipen.intro -->
 SAIPEN targets one specific failure: an AI coding agent that remembers nothing
 once the session ends. Other tools and habits cover part of that problem.
 
@@ -25,6 +26,7 @@ The difference is not any one file. It is that the resume step becomes
 dictated by the persisted `next_action` and verified by a validator, not
 reconstructed from memory or from a long instruction file.
 
+<!-- i18n:docs.getting-started.why-saipen.project-state-over-model-memory -->
 ## Project state over model memory
 
 The specification states the design goal directly: a cold agent with zero
@@ -36,6 +38,7 @@ That shifts the arrangement from `Project → Memory → LLM` to
 today, another tomorrow, a third the day after — they all operate against the
 same state.
 
+<!-- i18n:docs.getting-started.why-saipen.the-litmus-test -->
 ## The litmus test
 
 Every proposed change to the protocol must answer three questions:
@@ -48,6 +51,7 @@ If the answer is "no" to at least two, the idea is rejected. SAIPEN prefers
 discipline, reproducibility and reliability over novelty — which is also why
 this website describes only behaviour the protocol actually has.
 
+<!-- i18n:docs.getting-started.why-saipen.who-it-is-for -->
 ## Who it is for
 
 SAIPEN is useful when you work with several coding agents, keep hitting

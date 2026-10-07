@@ -1,0 +1,58 @@
+{
+  "blocking_findings": {
+    "problem_count": 2,
+    "problems": [
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "8ef07216a69f7c43",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-8",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "ac8fe87afc1d71b8",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-9",
+        "subject_kind": "work",
+        "subject_ref": null
+      }
+    ],
+    "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+    "ruleset_version": 1,
+    "status": "complete",
+    "warning_count": 2
+  },
+  "board_hash": "5b5aac413fc9abad",
+  "canonical_next_command": "saipen work reverify T-8",
+  "content_hash": "e0fca56828049173",
+  "exit_code": 1,
+  "external_actions": [],
+  "gate": "core",
+  "install_fingerprint": "install-v1:0c77614f79b37007c3043d9c5e74b412cb28211e8635ce3d70f9379ab9c77d0d",
+  "install_home": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN",
+  "kind": "conformance_receipt",
+  "log_hash": "0420349c871587c1",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "receipt_id": "receipt-635dfe8e7b62",
+  "remediation_commands": [
+    "saipen work reverify T-8",
+    "saipen work reverify T-9"
+  ],
+  "schema_version": 2,
+  "source_head": "27f7335db58fea9be9bfc7e9d8413e9d195d38ff",
+  "source_tree_fingerprint": "git-delta-v1:c66baf69a8306f3b95dfc7badb5f72b088f8de8408e933efadc4d149721a1195",
+  "state_hash": "0f3b8e3496f7ddad",
+  "timestamp_utc": "2026-10-07T09:14:26.272317Z",
+  "validator_protocol_version": "1",
+  "verdict": "FAIL"
+}

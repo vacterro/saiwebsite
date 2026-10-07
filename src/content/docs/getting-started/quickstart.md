@@ -10,10 +10,12 @@ sources:
   - { path: GUIDE.md, label: GUIDE.md }
 ---
 
+<!-- i18n:docs.getting-started.quickstart.intro -->
 Requirements: **Git, Python 3.11 or newer**, and a coding agent. No `pip`
 install, account, server or daemon. Keep the clone until you uninstall: the
 installed agent instructions and update checks refer to its location.
 
+<!-- i18n:docs.getting-started.quickstart.clone-once -->
 ## 1. Clone once
 
 ```bash
@@ -21,6 +23,7 @@ git clone https://github.com/vacterro/saipen
 cd saipen
 ```
 
+<!-- i18n:docs.getting-started.quickstart.install-once-per-machine -->
 ## 2. Install once per machine
 
 Windows (PowerShell):
@@ -42,6 +45,7 @@ agent that was already running. Which hosts are supported, and how strongly
 each one can enforce the protocol, is on the
 [compatibility page](/compatibility/).
 
+<!-- i18n:docs.getting-started.quickstart.adopt-a-project -->
 ## 3. Adopt a project
 
 Open your own project in the agent and type these as chat commands:
@@ -57,6 +61,7 @@ saipen validate
 later sessions — tomorrow, with another model, after a crash — the same
 `saipen continue` resumes. `validate` must report PASS.
 
+<!-- i18n:docs.getting-started.quickstart.commit-the-memory-once -->
 ## 4. Commit the memory once
 
 ```bash
@@ -74,6 +79,7 @@ same project identity. After that, ordinary commits keep the memory.
 > `& "$env:USERPROFILE\.agents\skills\saipen\bin\saipen.cmd" continue` in
 > PowerShell. No PATH change is required.
 
+<!-- i18n:docs.getting-started.quickstart.uninstall -->
 ## Uninstall
 
 From the clone, Windows:
@@ -92,6 +98,7 @@ Removal strips the marked instruction block and SAIPEN hook entries and
 removes unchanged installed files. It preserves your other settings, hooks and
 skills, your later edits, backups, and every project's `.saipen/` memory.
 
+<!-- i18n:docs.getting-started.quickstart.try-it-without-installing -->
 ## Try it without installing
 
 Tell your agent to read `<clone>/saipen/BOOT.md` and follow its cold-start

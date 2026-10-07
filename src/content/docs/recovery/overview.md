@@ -10,10 +10,12 @@ sources:
   - { path: saipen/CORE.md, anchor: protocol-state-repair-contract-normative, label: CORE.md — Protocol-state repair contract }
 ---
 
+<!-- i18n:docs.recovery.overview.intro -->
 SAIPEN assumes every agent may vanish mid-word. It does not try to prevent
 that; it makes it survivable. Recovery is therefore not an emergency
 procedure but the first stage of every `saipen continue`.
 
+<!-- i18n:docs.recovery.overview.the-procedure -->
 ## The procedure
 
 Recovery is read-only in `read-only` mode. Otherwise:
@@ -30,12 +32,14 @@ Recovery is read-only in `read-only` mode. Otherwise:
    `last_event` — including sealed log segments. No invented legacy evidence.
 6. **Reconcile** board checkboxes and STATE counters, validate, and route.
 
+<!-- i18n:docs.recovery.overview.idempotent-by-rule -->
 ## Idempotent by rule
 
 A second recovery run over unchanged evidence writes nothing. Deterministic
 drift is repaired; contradictory authority returns a precise CORRUPT or
 BLOCKED result, never a guessed state.
 
+<!-- i18n:docs.recovery.overview.three-outcomes -->
 ## Three outcomes
 
 | Class | Meaning | Result |

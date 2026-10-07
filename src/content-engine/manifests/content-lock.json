@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "scripts/site.mjs refresh",
-  "note": "Canonical hash of every content block and documentation page. A translation records the hash it was made from; a different hash here makes it STALE. Regenerate with npm run site:refresh.",
+  "note": "Canonical hash of every content block and of every stable documentation SEGMENT (title, description and each section). A translation records the hash it was made from; a different hash here makes exactly that unit STALE. Regenerate with npm run site:refresh.",
   "blocks": {
     "about.a11y.colour": "3cd52836bf05db17",
     "about.a11y.focus": "7ec260676abc0104",
@@ -305,33 +305,322 @@
     "ui.title.suffix": "898a10e71297bcc8"
   },
   "docs": {
-    "concepts/board-and-tickets": "006ebebdc10a3c41",
-    "concepts/claims-and-ownership": "bad3f1279d365543",
-    "concepts/knowledge": "f2854003f4cec687",
-    "concepts/log-and-events": "016d37ba171635db",
-    "concepts/modes-and-capabilities": "86550275f33dd851",
-    "concepts/project-memory": "b03949cb5cc98fe3",
-    "concepts/state-and-next-action": "83720fc99d1d0be1",
-    "concepts/work-and-attempts": "2fb3e6a9a6692008",
-    "evidence/guarantees": "55710cbdc513af09",
-    "evidence/overview": "6cec6219209fbcc7",
-    "getting-started/introduction": "20b6fdb3a9bd275d",
-    "getting-started/mental-model": "6556e0481957e3f4",
-    "getting-started/quickstart": "6be39cbf5fe34e9e",
-    "getting-started/why-saipen": "b6710babdc728c4c",
-    "operation/commands": "169f46ba30661ee4",
-    "operation/hosts-and-install": "19fdabd996a3cf98",
-    "protocol/checkpointing": "34c854eebd2da4ee",
-    "protocol/concurrency": "9209686d463968b9",
-    "protocol/goal-mode-and-maintenance": "a0665bcada20ebc2",
-    "protocol/lifecycle": "8523d4806f801050",
-    "protocol/routing": "20f86a6a0265eec4",
-    "protocol/verification": "ed34063554d247b9",
-    "protocol/wait-boundaries": "ec07c6a8f2e0631b",
-    "recovery/corrupt-state": "679e7a38da5e5abc",
-    "recovery/interrupted-work": "a4f161591ae55fdb",
-    "recovery/overview": "8667333aa34b6f00",
-    "reference/faq": "9506e2ddb21c86e8",
-    "reference/glossary": "52953fe786f30ffd"
+    "concepts/board-and-tickets": {
+      "title": "3a726ebca2469b6d",
+      "description": "97e7d1e2e7f3ebd0",
+      "segments": {
+        "docs.concepts.board-and-tickets.intro": "3f2c61a1618a4253",
+        "docs.concepts.board-and-tickets.rules-that-keep-the-board-honest": "f3c8e67176324ded",
+        "docs.concepts.board-and-tickets.three-terminal-verdicts": "e276ad74026907ee",
+        "docs.concepts.board-and-tickets.which-ticket-is-next": "f0d8637a3231e640"
+      }
+    },
+    "concepts/claims-and-ownership": {
+      "title": "715167e3f65df16a",
+      "description": "6ff2d15b98360445",
+      "segments": {
+        "docs.concepts.claims-and-ownership.claiming-work": "d70737ead18ab491",
+        "docs.concepts.claims-and-ownership.a-dirty-working-tree-is-normal": "9f79665153980c2a"
+      }
+    },
+    "concepts/knowledge": {
+      "title": "e71908edd643ddea",
+      "description": "93cff7c09cfcf5f0",
+      "segments": {
+        "docs.concepts.knowledge.intro": "8102c7e074dc36a5",
+        "docs.concepts.knowledge.what-belongs-here-and-what-does-not": "2dd7aa6aef1086c9",
+        "docs.concepts.knowledge.knowledge-cards": "add229367209ca17",
+        "docs.concepts.knowledge.the-index": "38feb34c50bb77f3"
+      }
+    },
+    "concepts/log-and-events": {
+      "title": "6dc9f793e9e3d98e",
+      "description": "5b92fe8eb06c11e9",
+      "segments": {
+        "docs.concepts.log-and-events.intro": "349d3d5dc7dcca78",
+        "docs.concepts.log-and-events.the-event-line": "fb4941136b3c6507",
+        "docs.concepts.log-and-events.append-only-then-sealed": "54d8ad2946985afd",
+        "docs.concepts.log-and-events.why-a-log-and-not-just-a-status-file": "08f385d23c78b9e1"
+      }
+    },
+    "concepts/modes-and-capabilities": {
+      "title": "286a43078a60dcab",
+      "description": "0e3e67a3a4a4b94c",
+      "segments": {
+        "docs.concepts.modes-and-capabilities.intro": "058b483960501f0b",
+        "docs.concepts.modes-and-capabilities.the-handshake": "9f5589c8c836379a",
+        "docs.concepts.modes-and-capabilities.the-four-modes": "3a2860effb1b93ab",
+        "docs.concepts.modes-and-capabilities.why-it-matters": "03cfdd923f35b8fe"
+      }
+    },
+    "concepts/project-memory": {
+      "title": "9c574f144723211d",
+      "description": "f4f529d03a30e652",
+      "segments": {
+        "docs.concepts.project-memory.intro": "ad771e04ee567817",
+        "docs.concepts.project-memory.canonical-state": "2dcfe842d86b5b20",
+        "docs.concepts.project-memory.durable-knowledge": "5a56a7cec639f23f",
+        "docs.concepts.project-memory.working-and-evidence-areas": "6a93a4ef96c40580",
+        "docs.concepts.project-memory.plain-files-on-purpose": "05f868b9f0ab9993"
+      }
+    },
+    "concepts/state-and-next-action": {
+      "title": "c87ea1de2173b747",
+      "description": "f7a0fada39b425ff",
+      "segments": {
+        "docs.concepts.state-and-next-action.intro": "0a1019fae6efae74",
+        "docs.concepts.state-and-next-action.fields": "995669be339ec953",
+        "docs.concepts.state-and-next-action.next-action": "f0fe5b3052fecf25",
+        "docs.concepts.state-and-next-action.persisted-intent": "36db098932a35fb8"
+      }
+    },
+    "concepts/work-and-attempts": {
+      "title": "31f9196da255be41",
+      "description": "509f1b56344c6a53",
+      "segments": {
+        "docs.concepts.work-and-attempts.intro": "bfe983ba968ea495",
+        "docs.concepts.work-and-attempts.how-an-attempt-ends": "c054a24bfc80f63a",
+        "docs.concepts.work-and-attempts.completion-authority-is-not-transferable": "3d41c1ab4de60c95",
+        "docs.concepts.work-and-attempts.a-cold-handoff-in-one-command": "b5bfc0458ee30199"
+      }
+    },
+    "evidence/guarantees": {
+      "title": "249b5b8dd9294221",
+      "description": "0aaa112614762df8",
+      "segments": {
+        "docs.evidence.guarantees.intro": "e02f2f11edf0ffc9",
+        "docs.evidence.guarantees.guaranteed-implemented-and-validated": "d326e95435b94ec2",
+        "docs.evidence.guarantees.bounded-designed-for-environment-dependent": "cbd336192e9986d4",
+        "docs.evidence.guarantees.not-guaranteed": "2340f78d63ad4147",
+        "docs.evidence.guarantees.maturity-vocabulary": "fbe704e7d12acf04"
+      }
+    },
+    "evidence/overview": {
+      "title": "b5dd89b240feb340",
+      "description": "6af31a2d1a13ecdc",
+      "segments": {
+        "docs.evidence.overview.intro": "14ca94a177b8ad77",
+        "docs.evidence.overview.what-counts-as-evidence": "5aa3be9161f24ffa",
+        "docs.evidence.overview.witness-surfaces": "80ab673c1175cbce",
+        "docs.evidence.overview.retention": "a340a9d126ca0cbf"
+      }
+    },
+    "getting-started/introduction": {
+      "title": "3ffba5ed45c656e6",
+      "description": "9f7d061e45347d9f",
+      "segments": {
+        "docs.getting-started.introduction.intro": "ef08cde3fa37e528",
+        "docs.getting-started.introduction.the-problem-it-solves": "247fb1ff29562ee4",
+        "docs.getting-started.introduction.what-persists": "88b0b791ce7d7ac9",
+        "docs.getting-started.introduction.what-makes-it-a-protocol-not-a-habit": "9051cddc4c37009c",
+        "docs.getting-started.introduction.what-it-is-not": "554e149a9d510d8d"
+      }
+    },
+    "getting-started/mental-model": {
+      "title": "be1f5dad42887883",
+      "description": "bf6c947c7c290dc1",
+      "segments": {
+        "docs.getting-started.mental-model.intro": "eadfb2556ba3974c",
+        "docs.getting-started.mental-model.three-ideas-carry-everything": "1b1d362ccd357123",
+        "docs.getting-started.mental-model.how-a-session-looks": "c2a5dc60d0694314",
+        "docs.getting-started.mental-model.three-layers": "20ce3138f9fb3a0a"
+      }
+    },
+    "getting-started/quickstart": {
+      "title": "893546674ad7a85c",
+      "description": "617c05f66332e6b2",
+      "segments": {
+        "docs.getting-started.quickstart.intro": "0653e8f00be15606",
+        "docs.getting-started.quickstart.clone-once": "7d7c525d8e3ce5ec",
+        "docs.getting-started.quickstart.install-once-per-machine": "58d92329238b7e5d",
+        "docs.getting-started.quickstart.adopt-a-project": "f269d4e0da4b4ca5",
+        "docs.getting-started.quickstart.commit-the-memory-once": "9b522158534e4f24",
+        "docs.getting-started.quickstart.uninstall": "b20c33a0ec240d98",
+        "docs.getting-started.quickstart.try-it-without-installing": "422dc4a3ef3ab505"
+      }
+    },
+    "getting-started/why-saipen": {
+      "title": "d1fe2df2869da71d",
+      "description": "574123d3c919dbfe",
+      "segments": {
+        "docs.getting-started.why-saipen.intro": "d7a6c356713e92c0",
+        "docs.getting-started.why-saipen.project-state-over-model-memory": "74abeaff6532f594",
+        "docs.getting-started.why-saipen.the-litmus-test": "44d50a57eb0fc014",
+        "docs.getting-started.why-saipen.who-it-is-for": "6aba37a3174c5957"
+      }
+    },
+    "operation/commands": {
+      "title": "546648ffe016511c",
+      "description": "7686e6b67b5c6f7d",
+      "segments": {
+        "docs.operation.commands.intro": "b3e3e81e7673f92b",
+        "docs.operation.commands.everyday-commands": "869d47ee8848f5c4",
+        "docs.operation.commands.shortcut-keys": "6bfdb22384bb3922",
+        "docs.operation.commands.compound-messages": "912cb3f48ef9afb6",
+        "docs.operation.commands.user-requests-are-captured-first": "623a78ccadaa5ae9"
+      }
+    },
+    "operation/hosts-and-install": {
+      "title": "58ab5cb4066a9b8a",
+      "description": "f8baec8bfc0a9f9b",
+      "segments": {
+        "docs.operation.hosts-and-install.intro": "bd3a7e56547e8b12",
+        "docs.operation.hosts-and-install.what-the-installer-writes": "a9dc10f0224e0aa3",
+        "docs.operation.hosts-and-install.enforcement-is-declared-per-host": "13cf5eb45f9f3d56",
+        "docs.operation.hosts-and-install.removal": "70040ab14869dbf2"
+      }
+    },
+    "protocol/checkpointing": {
+      "title": "8b04fc670f00f6fc",
+      "description": "9cf0f71bbb86d4cc",
+      "segments": {
+        "docs.protocol.checkpointing.intro": "9b37425c5f849b93",
+        "docs.protocol.checkpointing.why-this-order": "cde3fae47e7bab2d",
+        "docs.protocol.checkpointing.readback-is-the-evidence": "8aeea8df453109bd",
+        "docs.protocol.checkpointing.atomic-writes-honestly-bounded": "03fdb9a104c09c15"
+      }
+    },
+    "protocol/concurrency": {
+      "title": "1f91919a83d57852",
+      "description": "62583f728604ac2a",
+      "segments": {
+        "docs.protocol.concurrency.intro": "509f72274d69223f",
+        "docs.protocol.concurrency.what-that-covers": "0496f220b505b327",
+        "docs.protocol.concurrency.what-it-does-not-cover": "66fffa85c75520b2"
+      }
+    },
+    "protocol/goal-mode-and-maintenance": {
+      "title": "d02c75697698c0a2",
+      "description": "111ca7a91a584a60",
+      "segments": {
+        "docs.protocol.goal-mode-and-maintenance.intro": "9861e6f1c3e186fb",
+        "docs.protocol.goal-mode-and-maintenance.goal-driven-execution": "d1746936a0614fe8",
+        "docs.protocol.goal-mode-and-maintenance.when-the-board-runs-empty": "67625148ad795d75",
+        "docs.protocol.goal-mode-and-maintenance.complete-before-you-extend": "95d842b70782551e"
+      }
+    },
+    "protocol/lifecycle": {
+      "title": "029ef66ea79134bb",
+      "description": "59c50c20d837d9bc",
+      "segments": {
+        "docs.protocol.lifecycle.intro": "20514bc3ec1e1856",
+        "docs.protocol.lifecycle.the-core-lifecycle": "419b80d72a3d7c2e",
+        "docs.protocol.lifecycle.edges-that-matter": "a7fe0cc9f8602fbb",
+        "docs.protocol.lifecycle.maintenance-and-infrastructure-phases": "b61dbcfa4784509f",
+        "docs.protocol.lifecycle.phase-documents": "6821f0cfe41c2789"
+      }
+    },
+    "protocol/routing": {
+      "title": "fb11b1ed66eec60d",
+      "description": "e25452ba1c3e5826",
+      "segments": {
+        "docs.protocol.routing.intro": "a8126dbd11ad93d4",
+        "docs.protocol.routing.the-continuation-pipeline": "255278ba32f14c27",
+        "docs.protocol.routing.action-priority": "7e21f601e6e094b4",
+        "docs.protocol.routing.which-ticket-is-topmost-workable": "04595aa7591df054",
+        "docs.protocol.routing.invariants-that-keep-routing-honest": "b05f7d8250770dc0"
+      }
+    },
+    "protocol/verification": {
+      "title": "87ff0fdd2fb3ff79",
+      "description": "654cc4dd7f28740b",
+      "segments": {
+        "docs.protocol.verification.intro": "b679cac3fb3da3ee",
+        "docs.protocol.verification.a-gate-that-cannot-fail-is-not-a-gate": "149662d6af374c2a",
+        "docs.protocol.verification.fixing-a-bug-requires-a-regression-that-failed-f": "4c70528d8cfde850",
+        "docs.protocol.verification.when-a-human-has-to-check": "14cde9fd4fd638ff",
+        "docs.protocol.verification.confidence": "afedfdf44cfefd0f"
+      }
+    },
+    "protocol/wait-boundaries": {
+      "title": "95df431d9a31171e",
+      "description": "435570d6899c9fd4",
+      "segments": {
+        "docs.protocol.wait-boundaries.intro": "e8380b61e8db9505",
+        "docs.protocol.wait-boundaries.what-is-not-a-wait": "61e474088e0a20d9"
+      }
+    },
+    "recovery/corrupt-state": {
+      "title": "c23d42e61f4f817a",
+      "description": "8049462172a15cee",
+      "segments": {
+        "docs.recovery.corrupt-state.stale": "0ad43655037643bf",
+        "docs.recovery.corrupt-state.corrupt": "84b227f82a49888f",
+        "docs.recovery.corrupt-state.preserved-never-deleted": "3cb0eec8ef471ef1",
+        "docs.recovery.corrupt-state.future-timestamps": "7da558cb7d245dca"
+      }
+    },
+    "recovery/interrupted-work": {
+      "title": "3780e20e70f3db52",
+      "description": "aaa7cbea57bb75fb",
+      "segments": {
+        "docs.recovery.interrupted-work.intro": "da24d9e1c29b78d9",
+        "docs.recovery.interrupted-work.what-survives": "98af057b1b8c6bc7",
+        "docs.recovery.interrupted-work.what-the-next-agent-does": "3aae082c1572de33",
+        "docs.recovery.interrupted-work.across-models": "451842d54f66acb6"
+      }
+    },
+    "recovery/overview": {
+      "title": "35074e0100ab3b01",
+      "description": "176d1436e1fd03f5",
+      "segments": {
+        "docs.recovery.overview.intro": "c1f39bb145a73212",
+        "docs.recovery.overview.the-procedure": "5a396b280b052d59",
+        "docs.recovery.overview.idempotent-by-rule": "b266a35c04fce633",
+        "docs.recovery.overview.three-outcomes": "c4db84e2651489e9"
+      }
+    },
+    "reference/faq": {
+      "title": "361f7af3eee40d49",
+      "description": "5c50a187a78b2cae",
+      "segments": {
+        "docs.reference.faq.is-saipen-an-agent-framework": "2ec549e292393846",
+        "docs.reference.faq.does-it-require-a-specific-model": "c41975b967763c85",
+        "docs.reference.faq.does-it-require-cloud-infrastructure": "cadd9a6116d0601c",
+        "docs.reference.faq.can-it-run-entirely-locally": "ea740d72610f16b3",
+        "docs.reference.faq.what-happens-when-an-agent-crashes": "24e741cfccdd98bb",
+        "docs.reference.faq.what-happens-when-a-provider-is-unavailable": "79ef715dfa80cc47",
+        "docs.reference.faq.how-is-recovery-different-from-retry": "5bf9fadc9a2d1336",
+        "docs.reference.faq.what-is-evidence": "324da2c85f0a154c",
+        "docs.reference.faq.is-the-protocol-open": "9457e03c003f1abd",
+        "docs.reference.faq.is-saipen-cloud-required": "de310aa60fc374cd",
+        "docs.reference.faq.does-it-replace-git": "f7a73fd8b23208d4"
+      }
+    },
+    "reference/glossary": {
+      "title": "60d1cfda58ca6684",
+      "description": "b456ce2ccbdd68b0",
+      "segments": {
+        "docs.reference.glossary.agent": "837f39c1a90aa756",
+        "docs.reference.glossary.attempt": "e53f623fdae8b894",
+        "docs.reference.glossary.blocked": "73a41143e850a742",
+        "docs.reference.glossary.board": "f7ad5e413d26c93e",
+        "docs.reference.glossary.checkpoint": "089400bdbcb41008",
+        "docs.reference.glossary.claim": "e480a00fc440b35e",
+        "docs.reference.glossary.cold-agent": "6d04683149d3bd69",
+        "docs.reference.glossary.continuation": "91287747d983854b",
+        "docs.reference.glossary.core": "905296d87cfb7ad5",
+        "docs.reference.glossary.done": "da3b550e814a5a26",
+        "docs.reference.glossary.evidence": "b76dd6a39af976a8",
+        "docs.reference.glossary.goal-mode": "176af784d3fb622b",
+        "docs.reference.glossary.hunt-add": "1f6715c1cf6498d5",
+        "docs.reference.glossary.intake": "6eb1662a36d5c35a",
+        "docs.reference.glossary.kitchen": "1ec766fc1197e77d",
+        "docs.reference.glossary.knowledge": "cd707142c1ea29ba",
+        "docs.reference.glossary.log": "d499a13f50dde49a",
+        "docs.reference.glossary.maintenance": "4c38d560e6cdd1ef",
+        "docs.reference.glossary.mode": "c1bad8ed1ac487e7",
+        "docs.reference.glossary.next-action": "ace3eb6870df0c7e",
+        "docs.reference.glossary.phase": "6e29ad9aeafbda27",
+        "docs.reference.glossary.producer": "00d14a2c8a2026ab",
+        "docs.reference.glossary.red-control": "767f9480d923fa8b",
+        "docs.reference.glossary.retired": "fdb5844d7626d674",
+        "docs.reference.glossary.state": "23dffc1d5227c322",
+        "docs.reference.glossary.ticket": "78dcc25868868057",
+        "docs.reference.glossary.wait": "bae132b7bfb6171a",
+        "docs.reference.glossary.work": "20220cbd62ff909c",
+        "docs.reference.glossary.workable": "85351a8c4b0b3c8d"
+      }
+    }
   }
 }

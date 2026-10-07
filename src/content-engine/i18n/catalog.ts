@@ -2,20 +2,23 @@
  * Build-time catalogue for Astro pages (roadmap M37, M42, M43, M47).
  *
  * Loads every canonical block catalogue, the page registry labels, every
- * translation unit file and every document translation with
+ * translation unit file and every document SEGMENT translation with
  * import.meta.glob, validates them, and hands out translators and the variant
  * plan. The Node gates load the same files through store.mjs and feed the
  * same pure functions, so a page and a gate cannot disagree.
  */
-import { createMarkdownProcessor, markdownConfigDefaults, parseFrontmatter } from '@astrojs/markdown-remark';
+import { createMarkdownProcessor, markdownConfigDefaults } from '@astrojs/markdown-remark';
 import localesDoc from './locales.json';
 import glossary from './glossary.json';
 import registry from '../registry/pages.json';
 import sources from '../registry/sources.json';
 import rehypeWintage from '../../lib/rehype-wintage.mjs';
-import { documentHash, validateCatalog } from '../blocks/blocks.mjs';
+import remarkI18n from '../../lib/remark-i18n.mjs';
+import { validateCatalog } from '../blocks/blocks.mjs';
 import { sourceIdsOf } from '../registry/sources.mjs';
 import { localePrefix, pseudoLocalize, publicLocales, validateLocales, variantPlan, variantRoute } from './i18n.mjs';
+import { markFallback, resolveSegment } from './assemble.mjs';
+import { documentSegmentPrefix, parseDocument } from './segments.mjs';
 import { createTranslator } from './translator.mjs';
 import { mergeCatalogs, pageLabelBlocks, unitsByLocale } from './units.mjs';
 
@@ -24,18 +27,13 @@ type Doc = Record<string, any>;
 const catalogFiles = import.meta.glob<Doc>('../blocks/*.json', { eager: true, import: 'default' });
 const unitFiles = import.meta.glob<Doc>('../../locales/*/*.json', { eager: true, import: 'default' });
 const canonicalDocRaw = import.meta.glob<string>('../../content/docs/**/*.md', { eager: true, query: '?raw', import: 'default' });
-const translatedDocRaw = import.meta.glob<string>('../../locales/*/docs/**/*.md', { eager: true, query: '?raw', import: 'default' });
+const docUnitRaw = import.meta.glob<Doc>('../../locales/*/docs/**/*.json', { eager: true, import: 'default' });
 
 const problems = [
   ...validateLocales(localesDoc),
   ...Object.entries(catalogFiles).flatMap(([file, doc]) => validateCatalog(doc, file, sourceIdsOf(sources))),
 ];
 if (problems.length) throw new Error(`i18n catalogue is invalid:\n  ${problems.join('\n  ')}`);
-
-const parse = (raw: string) => {
-  const { frontmatter, content } = parseFrontmatter(raw.replace(/\r\n/g, '\n'));
-  return { frontmatter: frontmatter as Doc, body: content };
-};
 
 export const BLOCKS: Record<string, any> = mergeCatalogs([...Object.values(catalogFiles), ...pageLabelBlocks(registry)]);
 export const UNITS = unitsByLocale(Object.values(unitFiles)) as Record<string, Record<string, any>>;
@@ -45,21 +43,30 @@ export const CANONICAL_LOCALE: string = localesDoc.canonical;
 export const PUBLIC_LOCALES = publicLocales(localesDoc);
 export { localePrefix };
 
-const DOCS: Record<string, { hash: string; section: string; frontmatter: Doc; body: string }> = {};
+export type Segment = { id: string; name: string; kind: 'text' | 'markdown'; text: string; hash: string };
+const DOCS: Record<string, { prefix: string; section: string; title: string; description: string; segments: Segment[]; segmentsById: Record<string, Segment> }> = {};
 for (const [file, raw] of Object.entries(canonicalDocRaw)) {
   const slug = file.replace(/^.*\/content\/docs\//, '').replace(/\.md$/, '');
-  const { frontmatter, body } = parse(raw);
-  DOCS[slug] = { hash: documentHash(raw), section: frontmatter.section, frontmatter, body };
+  const parsed = parseDocument({ raw, slug }) as { frontmatter: Doc; segments: Segment[] };
+  DOCS[slug] = {
+    prefix: documentSegmentPrefix(slug),
+    section: parsed.frontmatter.section,
+    title: String(parsed.frontmatter.title ?? ''),
+    description: String(parsed.frontmatter.description ?? ''),
+    segments: parsed.segments,
+    segmentsById: Object.fromEntries(parsed.segments.map((s) => [s.id, s])),
+  };
 }
-const DOC_TRANSLATIONS: Record<string, Record<string, { frontmatter: Doc; body: string }>> = {};
-for (const [file, raw] of Object.entries(translatedDocRaw)) {
-  const m = /\/locales\/([^/]+)\/docs\/(.+)\.md$/.exec(file);
+/** locale -> document slug -> `{units: {segment id: unit}}` (src/locales/<locale>/docs/<section>/<name>.json). */
+const DOC_UNITS: Record<string, Record<string, { units: Record<string, any> }>> = {};
+for (const [file, doc] of Object.entries(docUnitRaw)) {
+  const m = /\/locales\/([^/]+)\/docs\/(.+)\.json$/.exec(file);
   if (!m) continue;
-  (DOC_TRANSLATIONS[m[1]] ??= {})[m[2]] = parse(raw);
+  ((DOC_UNITS[m[1]] ??= {})[m[2]] = doc as { units: Record<string, any> });
 }
 
 /** Which localized routes exist; identical to the plan the registry gate computes. */
-export const PLAN = variantPlan({ localesDoc, registry, docs: DOCS, docTranslations: DOC_TRANSLATIONS });
+export const PLAN = variantPlan({ localesDoc, registry, docs: DOCS, docUnits: DOC_UNITS });
 /** Locales that build their own routes (pseudo included). */
 export const ROUTED_LOCALES = PLAN.map((p) => p.locale);
 
@@ -121,7 +128,7 @@ export function splitPath(pathname: string): { locale: string; route: string } {
 
 let processor: Awaited<ReturnType<typeof createMarkdownProcessor>> | null = null;
 async function markdown() {
-  processor ??= await createMarkdownProcessor({ ...markdownConfigDefaults, syntaxHighlight: false, smartypants: false, rehypePlugins: [rehypeWintage] });
+  processor ??= await createMarkdownProcessor({ ...markdownConfigDefaults, syntaxHighlight: false, smartypants: false, remarkPlugins: [remarkI18n], rehypePlugins: [rehypeWintage] });
   return processor;
 }
 
@@ -130,26 +137,79 @@ export function localizedDocSlugs(locale: string): string[] {
   return PLAN.find((p) => p.locale === locale)?.docs.map((d) => d.slug) ?? [];
 }
 
-/** Title and description of a doc as a locale shows it (falls back to English). */
-export function docMeta(slug: string, locale: string): { title: string; description: string; lang: string } {
-  const doc = DOCS[slug];
-  const l = localeOf(locale);
-  if (locale !== CANONICAL_LOCALE && localizedDocSlugs(locale).includes(slug)) {
-    if (l.stage === 'pseudo') {
-      return { title: pseudoLocalize(doc.frontmatter.title, glossary, 'text'), description: pseudoLocalize(doc.frontmatter.description, glossary, 'text'), lang: locale };
-    }
-    const tr = DOC_TRANSLATIONS[locale][slug];
-    return { title: String(tr.frontmatter.title), description: String(tr.frontmatter.description), lang: locale };
-  }
-  return { title: doc.frontmatter.title, description: doc.frontmatter.description, lang: CANONICAL_LOCALE };
+/**
+ * One segment as a locale shows it. A segment renders in the locale only when
+ * its unit exists, is current and carries a status the locale accepts;
+ * otherwise the English text is used and marked with its real language, so a
+ * page is never all-English just because one paragraph is stale.
+ */
+function segmentOf(segment: Segment, l: Doc, units: Record<string, any>, locale: string) {
+  return resolveSegment({
+    segment,
+    locale,
+    canonical: CANONICAL_LOCALE,
+    stage: l.stage,
+    units,
+    renderStatuses: l.renderStatuses,
+    localize: (text: string, kind: string) => pseudoLocalize(text, glossary, kind),
+  });
 }
 
-/** Render a localized document. Only call for slugs in localizedDocSlugs(locale). */
+/** Title and description of a doc as a locale shows it (per-segment English fallback). */
+export function docMeta(slug: string, locale: string): { title: string; description: string; lang: string; fallbacks: string[] } {
+  const doc = DOCS[slug];
+  const titleId = `${doc.prefix}.title`;
+  const descriptionId = `${doc.prefix}.description`;
+  if (locale === CANONICAL_LOCALE || !localizedDocSlugs(locale).includes(slug)) {
+    return { title: doc.title, description: doc.description, lang: CANONICAL_LOCALE, fallbacks: [] };
+  }
+  const l = localeOf(locale);
+  const units = DOC_UNITS[locale]?.[slug]?.units ?? {};
+  const title = segmentOf(doc.segmentsById[titleId], l, units, locale);
+  const description = segmentOf(doc.segmentsById[descriptionId], l, units, locale);
+  const fallbacks = [title, description].map((r, i) => (r.lang === locale ? null : [titleId, descriptionId][i])).filter(Boolean) as string[];
+  return { title: title.text, description: description.text, lang: title.lang === locale ? locale : CANONICAL_LOCALE, fallbacks };
+}
+
+/**
+ * Render a localized document segment by segment. Each segment is rendered on
+ * its own and a fallback segment is wrapped in `lang="en"`, so the reader (and
+ * the tests) can see exactly which parts are still English. Only call for
+ * slugs in localizedDocSlugs(locale).
+ */
 export async function renderLocalizedDoc(slug: string, locale: string) {
   const l = localeOf(locale);
   const doc = DOCS[slug];
-  const body = l.stage === 'pseudo' ? pseudoLocalize(doc.body, glossary, 'markdown') : DOC_TRANSLATIONS[locale][slug].body;
+  const units = DOC_UNITS[locale]?.[slug]?.units ?? {};
   const md = await markdown();
-  const result = await md.render(body);
-  return { html: result.code, headings: result.metadata.headings, body, ...docMeta(slug, locale) };
+  const html: string[] = [];
+  const body: string[] = [];
+  const headings: any[] = [];
+  const fallbacks: string[] = [];
+  // Heading anchors are made unique per SEGMENT by the rehype plugin, so two
+  // segments whose headings slugify the same (or to nothing) would collide.
+  // Dedupe across the document here, rewriting the id and its anchor link.
+  const usedIds = new Set<string>();
+  for (const segment of doc.segments.filter((s) => s.kind === 'markdown')) {
+    const r = segmentOf(segment, l, units, locale);
+    body.push(r.text);
+    if (r.lang !== locale) fallbacks.push(segment.id);
+    const result = await md.render(r.text);
+    let code = result.code;
+    for (const h of (result.metadata.headings ?? []) as any[]) {
+      let slug = String(h.slug);
+      if (usedIds.has(slug)) {
+        let n = 1;
+        while (usedIds.has(`${slug}-${n}`)) n++;
+        const next = `${slug}-${n}`;
+        code = code.split(`id="${slug}"`).join(`id="${next}"`).split(`href="#${slug}"`).join(`href="#${next}"`);
+        h.slug = next;
+        slug = next;
+      }
+      usedIds.add(slug);
+      headings.push(h);
+    }
+    html.push(r.lang === locale ? code : markFallback(code, r.lang));
+  }
+  return { html: html.join('\n'), headings, body: body.join('\n\n'), ...docMeta(slug, locale), fallbacks };
 }

@@ -34,3 +34,6 @@ __pycache__/
 
 # Translation work packages (npm run i18n:export); scratch, never committed.
 i18n-work/
+
+# Freebuff desktop agent workspace (tool-local identity, not project source).
+.freebuff/

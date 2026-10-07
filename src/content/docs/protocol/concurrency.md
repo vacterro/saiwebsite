@@ -10,10 +10,12 @@ sources:
   - { path: README.md, anchor: what-saipen-is-not, label: README — What SAIPEN is not }
 ---
 
+<!-- i18n:docs.protocol.concurrency.intro -->
 SAIPEN keeps state consistent with file-based claims (`owner`,
 `claim_time`), a sequential event graph, a project-scoped writer lock for its
 journaled state operations, and a recovery journal.
 
+<!-- i18n:docs.protocol.concurrency.what-that-covers -->
 ## What that covers
 
 - **One machine, or a shared filesystem.** Claim serialization, one open
@@ -25,6 +27,7 @@ journaled state operations, and a recovery journal.
   over complete, verified packages. Only Core integrates them; producers cannot
   mutate Core state, forge readiness or ship.
 
+<!-- i18n:docs.protocol.concurrency.what-it-does-not-cover -->
 ## What it does not cover
 
 Ordinary edits to project files, and writers on disconnected machines, are

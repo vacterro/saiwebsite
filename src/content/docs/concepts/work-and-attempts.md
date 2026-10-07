@@ -10,6 +10,7 @@ sources:
   - { path: saipen/CORE.md, anchor: 16-core-state-machine--ticket-dag, label: CORE.md §1.6 }
 ---
 
+<!-- i18n:docs.concepts.work-and-attempts.intro -->
 SAIPEN separates **what must be done** from **one agent's try at doing it**.
 
 - **Work** is the BOARD ticket. It is durable: it survives crashes, model
@@ -19,6 +20,7 @@ SAIPEN separates **what must be done** from **one agent's try at doing it**.
   one optional `STATE.attempt` pointer. It is deliberately not a storage
   subsystem: no database, no daemon, no second writer.
 
+<!-- i18n:docs.concepts.work-and-attempts.how-an-attempt-ends -->
 ## How an attempt ends
 
 An attempt ends `candidate`, `failed`, `interrupted`, `yielded` or
@@ -31,6 +33,7 @@ action requires a logged difference — a changed input, evidence, environment
 or hypothesis. With no change, a retry is forbidden and the Work blocks rather
 than looping.
 
+<!-- i18n:docs.concepts.work-and-attempts.completion-authority-is-not-transferable -->
 ## Completion authority is not transferable
 
 A candidate attempt's run lines and its own assertions are **claims**. Only
@@ -38,6 +41,7 @@ verification evidence recorded after the claim, plus the independent
 VERIFY → REVIEW → SHIP gates, admit a transition to DONE. A producer cannot
 close its own Work, and retroactive self-admission fails validation.
 
+<!-- i18n:docs.concepts.work-and-attempts.a-cold-handoff-in-one-command -->
 ## A cold handoff in one command
 
 `saipen brief` builds a handoff projection: the Work, its objective, the

@@ -11,10 +11,12 @@ sources:
   - { path: SECURITY.md, label: SECURITY.md — Scope }
 ---
 
+<!-- i18n:docs.operation.hosts-and-install.intro -->
 SAIPEN is plain files plus instructions; a host is the agent program that
 reads them. The installer (`bootstrap/inject.ps1` or `inject.sh`) teaches each
 supported host about SAIPEN once per machine.
 
+<!-- i18n:docs.operation.hosts-and-install.what-the-installer-writes -->
 ## What the installer writes
 
 - **A marked instruction block** (`SAIPEN:BEGIN` / `END`) in each supported
@@ -29,6 +31,7 @@ The README lists Claude Code, Codex, Gemini, OpenCode, Aider, Antigravity and
 generic `~/.agents/skills` readers; per-platform notes for other hosts live in
 `extensions/adapters/`.
 
+<!-- i18n:docs.operation.hosts-and-install.enforcement-is-declared-per-host -->
 ## Enforcement is declared per host
 
 Hosts differ in what they let a protocol enforce. The adapter registry is the
@@ -45,6 +48,7 @@ computed at runtime and is never stronger than the installed state proves.
 The [compatibility matrix](/compatibility/) renders every host and claim
 straight from the registry.
 
+<!-- i18n:docs.operation.hosts-and-install.removal -->
 ## Removal
 
 `bootstrap/uninstall.ps1` or `uninstall.sh` strips the marked blocks and hook

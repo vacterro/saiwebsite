@@ -69,7 +69,12 @@ registerExtension((engine, { at }) => {
     summary[r.locale][r.status] = (summary[r.locale][r.status] ?? 0) + 1;
   }
   engine.translationSummary = summary;
-  engine.blockSummary = { blocks: Object.keys(store.blocks).length, documents: Object.keys(store.docs).length, domains: new Set(Object.values(store.blocks).map((b) => b.domain)).size };
+  engine.blockSummary = {
+    blocks: Object.keys(store.blocks).length,
+    documents: Object.keys(store.docs).length,
+    segments: Object.values(store.docs).reduce((n, d) => n + d.segments.filter((s) => s.kind === 'markdown').length, 0),
+    domains: new Set(Object.values(store.blocks).map((b) => b.domain)).size,
+  };
   // Translation work never fails the build: the page falls back to English and
   // the doctor lists the work (severity "work"), per locale and per unit.
   for (const r of report) {
@@ -98,12 +103,21 @@ registerExtension((engine, { at }) => {
       for (const page of pages) for (const v of variantsOf.get(`${l.id}\0${page.id}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
     }
   }
+  // A documentation SEGMENT is a first-class impacted unit: the document page
+  // owns its segments, each segment owns one translation unit per locale, and a
+  // unit feeds the locale's variant pages. Changing one segment therefore marks
+  // exactly that segment's units stale — never every unit of the document.
   for (const doc of Object.values(store.docs)) {
     const pageId = `docs.${doc.slug.split('/').join('.')}`;
-    for (const l of locales) {
-      const unit = `unit:${l.id}:docs/${doc.slug}`;
-      engine.extraGraph.edges.push([`page:${pageId}`, unit]);
-      for (const v of variantsOf.get(`${l.id}\0${pageId}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
+    for (const segment of doc.segments) {
+      const node = `segment:${segment.id}`;
+      engine.extraGraph.nodes.push(node);
+      engine.extraGraph.edges.push([`page:${pageId}`, node]);
+      for (const l of locales) {
+        const unit = `unit:${l.id}:${segment.id}`;
+        engine.extraGraph.edges.push([node, unit]);
+        for (const v of variantsOf.get(`${l.id}\0${pageId}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
+      }
     }
   }
 });

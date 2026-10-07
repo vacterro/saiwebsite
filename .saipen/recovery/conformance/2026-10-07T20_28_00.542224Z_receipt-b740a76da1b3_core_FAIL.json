@@ -1,0 +1,71 @@
+{
+  "blocking_findings": {
+    "problem_count": 3,
+    "problems": [
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "08886c31d44d83da",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-10",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "8ef07216a69f7c43",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-8",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "ac8fe87afc1d71b8",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-9",
+        "subject_kind": "work",
+        "subject_ref": null
+      }
+    ],
+    "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+    "ruleset_version": 1,
+    "status": "complete",
+    "warning_count": 3
+  },
+  "board_hash": "f506d87dd1cbf706",
+  "canonical_next_command": "saipen work reverify T-10",
+  "content_hash": "e16e5f9e6390cd95",
+  "exit_code": 1,
+  "external_actions": [],
+  "gate": "core",
+  "install_fingerprint": "install-v1:d428786a80358f5ac10276e9123ac8024d819c9c60b5b1edbc90cfd924e3fed0",
+  "install_home": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN",
+  "kind": "conformance_receipt",
+  "log_hash": "334779fd88fbdcdb",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "receipt_id": "receipt-b740a76da1b3",
+  "remediation_commands": [
+    "saipen work reverify T-10",
+    "saipen work reverify T-8",
+    "saipen work reverify T-9"
+  ],
+  "schema_version": 2,
+  "source_head": "1e745690744a8f0992e5ffa40918c317d25a42c9",
+  "source_tree_fingerprint": "git-delta-v1:45369bcac4c52c56015fe376444b70c432805f7c26aa464c66f8ec6e7e69fd8c",
+  "state_hash": "b363ec0724dc76ef",
+  "timestamp_utc": "2026-10-07T20:28:00.542224Z",
+  "validator_protocol_version": "1",
+  "verdict": "FAIL"
+}

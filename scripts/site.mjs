@@ -192,6 +192,7 @@ function impactCommand() {
   list('pages', result.pages);
   list('families', result.families);
   list('blocks', result.blocks);
+  list('segments', result.segments);
   list('locales', result.locales);
   list('units', result.units);
   list('gates', result.gates);
@@ -294,13 +295,18 @@ function affected() {
   const sourceOf = (f) => engine.sourcesDoc.sources.find((s) => s.paths.some((p) => f === p || f.startsWith(`${p}/`)));
   for (const f of files) {
     const doc = /^src\/content\/docs\/(.+)\.md$/.exec(f);
-    const unitDoc = /^src\/locales\/([^/]+)\/docs\/(.+)\.md$/.exec(f);
+    const unitDoc = /^src\/locales\/([^/]+)\/docs\/(.+)\.json$/.exec(f);
     const unitFile = /^src\/locales\/([^/]+)\/([^/]+)\.json$/.exec(f);
     const catalogue = /^src\/content-engine\/blocks\/([^/]+)\.json$/.exec(f);
     const composition = /^src\/content-engine\/compositions\/[^/]+\.json$/.test(f) && existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')).page : null;
     if (composition) starts.add(`page:${composition}`);
     else if (doc) starts.add(`page:docs.${doc[1].split('/').join('.')}`);
-    else if (unitDoc) starts.add(`unit:${unitDoc[1]}:docs/${unitDoc[2]}`);
+    else if (unitDoc) {
+      // A segment unit file touches only the segments it actually stores.
+      const store = engine.store;
+      const entry = store?.docUnits?.[unitDoc[1]]?.[unitDoc[2]];
+      for (const id of Object.keys(entry?.doc?.units ?? {})) starts.add(`unit:${unitDoc[1]}:${id}`);
+    }
     else if (unitFile) for (const id of Object.keys(engine.store?.units[unitFile[1]] ?? {}).filter((id) => engine.store.blocks[id]?.domain === unitFile[2])) starts.add(`unit:${unitFile[1]}:${id}`);
     else if (catalogue) for (const [id, b] of Object.entries(engine.store?.blocks ?? {})) { if (b.domain === catalogue[1]) starts.add(`block:${id}`); }
     else if (sourceOf(f)) starts.add(`source:${sourceOf(f).id}`);

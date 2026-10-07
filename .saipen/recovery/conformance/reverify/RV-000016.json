@@ -1,0 +1,63 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-07T20:29:45Z",
+  "evidence_class": "executed",
+  "findings_digest": "52763b2a5f7854adc6758d49d39f8b256057eac0da3d3ea55e3c5bd247a25729",
+  "gate": "core",
+  "integrity_digest": "4bd299d97125c777",
+  "journal_op_id": "reverify.fc9bab9b44fe",
+  "original_closure": {
+    "claim_time": "2026-10-07T05:37:41Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-101",
+    "owner": "saipen",
+    "source_receipts": "SRC-007"
+  },
+  "own_problem_keys": [
+    "8ef07216a69f7c43"
+  ],
+  "problem_count": 2,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000016",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "236c9087e917b0bcb582f2e964a6a5e0d12ab2d6",
+  "source_tree_fingerprint": "git-delta-v1:45369bcac4c52c56015fe376444b70c432805f7c26aa464c66f8ec6e7e69fd8c",
+  "verdict": "PASS_WITH_CARRIED_DEBT",
+  "verification": [
+    {
+      "command": "npm run validate:licenses",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 257,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 271,
+      "output_digest": "ba29863024278e93",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run validate:content",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 336,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 175,
+      "output_digest": "d3a601a69d0975d1",
+      "result": "PASS"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "npm run validate:licenses",
+      "npm run validate:content"
+    ],
+    "findings_digest": "52763b2a5f7854adc6758d49d39f8b256057eac0da3d3ea55e3c5bd247a25729",
+    "gate": "core"
+  },
+  "verification_contract_digest": "94977d2c7315e4f6",
+  "verifier": "saipen",
+  "warning_count": 3,
+  "work": "T-8"
+}

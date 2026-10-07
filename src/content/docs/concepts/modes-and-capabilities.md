@@ -10,10 +10,12 @@ sources:
   - { path: SPEC.md, anchor: two-way-capability-negotiation, label: SPEC.md — Two-way capability negotiation }
 ---
 
+<!-- i18n:docs.concepts.modes-and-capabilities.intro -->
 Agents run in very different hosts: some have a shell and Git, some can only
 read files, some cannot publish. SAIPEN does not let an agent quietly pretend
 it can do what it cannot.
 
+<!-- i18n:docs.concepts.modes-and-capabilities.the-handshake -->
 ## The handshake
 
 The project declares what it needs, for example
@@ -22,6 +24,7 @@ the agent compares that list with its actual runtime capabilities. A missing
 required capability **changes the mode**; it is never silently ignored, and
 an unknown `requires` entry counts as unmet.
 
+<!-- i18n:docs.concepts.modes-and-capabilities.the-four-modes -->
 ## The four modes
 
 | Mode | What it permits |
@@ -37,6 +40,7 @@ INIT, PLAN, SCOUT, BUILD, SHIP, ADD, CLEAN, TRANSLATE, PREPARE — are
 unavailable; VALIDATE, MARKHUNT, status and focus may run only when their
 implementation stays read-only.
 
+<!-- i18n:docs.concepts.modes-and-capabilities.why-it-matters -->
 ## Why it matters
 
 When a host cannot run a command, SAIPEN says so and hands over the exact

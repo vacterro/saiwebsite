@@ -10,12 +10,14 @@ sources:
   - { path: saipen/REGISTRY.json, label: REGISTRY.json — phases }
 ---
 
+<!-- i18n:docs.protocol.lifecycle.intro -->
 Work in SAIPEN moves through a fixed state machine. The machine-readable
 version — the phase enum, every legal edge, the phases enterable from
 anywhere, and the ticket-bearing subset — lives in `REGISTRY.json` and is the
 only thing the runtime and the validator consume. The
 [interactive state machine](/spec/v8/lifecycle/) renders it directly.
 
+<!-- i18n:docs.protocol.lifecycle.the-core-lifecycle -->
 ## The Core lifecycle
 
 ```text
@@ -36,6 +38,7 @@ INIT -> PLAN -> SCOUT -> BUILD -> VERIFY -> REVIEW -> SHIP -> DONE
 SCOUT, BUILD, VERIFY, REVIEW and SHIP are **ticket-bearing**: their
 `next_action` must name the ticket.
 
+<!-- i18n:docs.protocol.lifecycle.edges-that-matter -->
 ## Edges that matter
 
 - **VERIFY can go back** to BUILD or SCOUT. A failed check loops through
@@ -46,6 +49,7 @@ SCOUT, BUILD, VERIFY, REVIEW and SHIP are **ticket-bearing**: their
 - **Every phase can exit to BLOCKED**, the honest stop with an exact reason.
   BLOCKED returns to PLAN, SCOUT or DONE once the reason is removed.
 
+<!-- i18n:docs.protocol.lifecycle.maintenance-and-infrastructure-phases -->
 ## Maintenance and infrastructure phases
 
 Around the Core lifecycle sit HUNT and ADD (autonomous maintenance), MARKHUNT
@@ -54,6 +58,7 @@ a handoff) and VALIDATE. Several of them can be entered from any phase by an
 explicit command — but command recognition never bypasses SHIP's requirement
 of an approved REVIEW.
 
+<!-- i18n:docs.protocol.lifecycle.phase-documents -->
 ## Phase documents
 
 Each of the sixteen phases has its own short document, loaded only while that

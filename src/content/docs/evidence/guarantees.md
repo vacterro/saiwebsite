@@ -9,9 +9,11 @@ sources:
   - { path: SPEC.md, anchor: guarantees-bounds-and-non-claims, label: SPEC.md — Guarantees, bounds and non-claims }
 ---
 
+<!-- i18n:docs.evidence.guarantees.intro -->
 The specification states its promises in three groups. This page restates
 them; the linked section of `SPEC.md` is authoritative.
 
+<!-- i18n:docs.evidence.guarantees.guaranteed-implemented-and-validated -->
 ## Guaranteed — implemented and validated
 
 - **Project-local persistent state.** Work, objective, last attempt, stop
@@ -24,6 +26,7 @@ them; the linked section of `SPEC.md` is authoritative.
   serialization, one open attempt, and the LOG → BOARD → STATE transaction
   order.
 
+<!-- i18n:docs.evidence.guarantees.bounded-designed-for-environment-dependent -->
 ## Bounded — designed for, environment-dependent
 
 - **Filesystem assumptions.** Atomicity is temp-file-plus-rename ordering, not
@@ -31,6 +34,7 @@ them; the linked section of `SPEC.md` is authoritative.
 - **Supported versions.** Older states read as legacy and upgrade at the next
   checkpoint; newer-than-running states are refused, fail-closed.
 
+<!-- i18n:docs.evidence.guarantees.not-guaranteed -->
 ## Not guaranteed
 
 - Distributed consensus across disconnected machines.
@@ -39,6 +43,7 @@ them; the linked section of `SPEC.md` is authoritative.
 - Provider availability, model quality, or uninterrupted execution.
 - Durability beyond what the host filesystem itself promises.
 
+<!-- i18n:docs.evidence.guarantees.maturity-vocabulary -->
 ## Maturity vocabulary
 
 Claims about the protocol use one ladder:

@@ -10,6 +10,7 @@ sources:
   - { path: GUIDE.md, anchor: when-agent-cant-do-something, label: GUIDE.md — When agent can't do something }
 ---
 
+<!-- i18n:docs.protocol.wait-boundaries.intro -->
 An agent following SAIPEN must not guess — but it also must not stop out of
 convenience. Stopping is a protocol action with a fixed shape:
 
@@ -32,6 +33,7 @@ unblocks the work:
 
 Answer the question and the agent continues.
 
+<!-- i18n:docs.protocol.wait-boundaries.what-is-not-a-wait -->
 ## What is not a WAIT
 
 - Queued work. It goes on the board.

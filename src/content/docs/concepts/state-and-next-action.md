@@ -11,10 +11,12 @@ sources:
   - { path: extensions/schemas/state.schema.json, label: state.schema.json }
 ---
 
+<!-- i18n:docs.concepts.state-and-next-action.intro -->
 `STATE.md` answers one question: **what do I do right now?** It is YAML
 frontmatter, and it is the last file written in every checkpoint — the commit
 pointer that makes the rest of the checkpoint count.
 
+<!-- i18n:docs.concepts.state-and-next-action.fields -->
 ## Fields
 
 `phase`, `task`, `next_action`, `blocker`, `agent`, `saipen_version`, `mode`
@@ -34,6 +36,7 @@ A few rules carry most of the weight:
 - `saipen_version` is the installed protocol's major version. A state written
   by a newer major is refused read-only rather than guessed at.
 
+<!-- i18n:docs.concepts.state-and-next-action.next-action -->
 ## next_action
 
 `next_action` is the heart of SAIPEN: the exact action the next agent executes,
@@ -56,6 +59,7 @@ only for an actual boundary — queued work belongs on the board, not in a wait.
 > phase rules and verify ticket T-42. It does not need to read the chat, ask
 > what was going on, or decide what to do.
 
+<!-- i18n:docs.concepts.state-and-next-action.persisted-intent -->
 ## Persisted intent
 
 Alongside `next_action`, STATE records the run's intent: `execution_intent`

@@ -10,10 +10,12 @@ sources:
   - { path: SPEC.md, anchor: graph-based-event-logging, label: SPEC.md — Graph-based event logging }
 ---
 
+<!-- i18n:docs.concepts.log-and-events.intro -->
 `LOG.md` answers **why did the project reach this state?** Not "we are going
 to check", not "probably fixed", but a concrete event, command and result,
 linked to the decision before it.
 
+<!-- i18n:docs.concepts.log-and-events.the-event-line -->
 ## The event line
 
 ```text
@@ -39,6 +41,7 @@ For example:
   that the line references; an oversized event is refused, never silently
   truncated.
 
+<!-- i18n:docs.concepts.log-and-events.append-only-then-sealed -->
 ## Append-only, then sealed
 
 The log is never rewritten. A wrong future timestamp is repaired by a
@@ -48,6 +51,7 @@ into the next `.saipen/logs/LOG-NNN.md` through staging, fsync and atomic
 replace. Sealed history is cold: it is read only for parent-chain checks,
 counter rebuilds, audits or forensics.
 
+<!-- i18n:docs.concepts.log-and-events.why-a-log-and-not-just-a-status-file -->
 ## Why a log and not just a status file
 
 `STATE.md` tells an agent where it is; `LOG.md` lets anyone — another agent,

@@ -1,0 +1,99 @@
+{
+  "board_sha256": "ad63343ea12df671",
+  "bound_work": "T-12",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-07T19:12:34Z",
+  "findings_digest": "561a1b20d15ddcfbe8bf71f7d098c784d5e517999e9058e7709eb87a0d2a3411",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-5147438df703",
+  "log_fingerprint": "5992c482c77c8b96",
+  "problem_count": 3,
+  "problems": [
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "08886c31d44d83da",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-10",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "8ef07216a69f7c43",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-8",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "ac8fe87afc1d71b8",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-9",
+      "subject_kind": "work",
+      "subject_ref": null
+    }
+  ],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-12",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000009",
+  "source_head": "8e8d605ce7fbdbb434687352e0e67bd7c700b81c",
+  "source_tree_fingerprint": "git-delta-v1:45369bcac4c52c56015fe376444b70c432805f7c26aa464c66f8ec6e7e69fd8c",
+  "state_sha256": "1300027351e402b1",
+  "validator_protocol_version": "1",
+  "warning_count": 3,
+  "warnings": [
+    {
+      "category": "no-conformance-record",
+      "credential": false,
+      "detail": "no LOG line records a conformance run in \u00a7 1.2's fixed form (`RUN: validate.py -> PASS` or `-> FAIL`), so \u00a7 1.10's `saipen status` has nothing to report under Conformance and a cold agent must either ",
+      "detail_hash": "0f511cf104b0873e",
+      "finding_key": "76b48f23558dce11",
+      "rule_id": "unclassified",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "wiki-mirror-stale",
+      "credential": false,
+      "detail": "the saiwiki Scenarios page mirrors conformance corpus rows 1-257 at digest 43ab86d596572a90, and those canonical rows now digest to f46193d66010358e -- a mirrored row's title moved and the page did not follow",
+      "detail_hash": "ee7fc29cc5e8d29c",
+      "finding_key": "d1eb1853a0fef38e",
+      "rule_id": "wiki_mirror",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}

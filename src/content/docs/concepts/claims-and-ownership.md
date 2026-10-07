@@ -10,6 +10,7 @@ sources:
   - { path: saipen/CORE.md, anchor: 15-checkpointing--recovery, label: CORE.md §1.5 — dirty-tree continuation }
 ---
 
+<!-- i18n:docs.concepts.claims-and-ownership.claiming-work -->
 ## Claiming work
 
 An agent claims only the **topmost workable TODO ticket**. It moves the line
@@ -28,6 +29,7 @@ When active Work A discovers that it needs new Work B first,
 resume phase. B becomes the only claimable continuation, and when B is done, A
 is restored to exactly the phase it left.
 
+<!-- i18n:docs.concepts.claims-and-ownership.a-dirty-working-tree-is-normal -->
 ## A dirty working tree is normal
 
 Uncommitted changes are expected: SAIPEN commits at ship time, not at every

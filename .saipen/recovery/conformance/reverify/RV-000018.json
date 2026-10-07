@@ -1,0 +1,63 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-07T20:43:39Z",
+  "evidence_class": "executed",
+  "findings_digest": "561a1b20d15ddcfbe8bf71f7d098c784d5e517999e9058e7709eb87a0d2a3411",
+  "gate": "core",
+  "integrity_digest": "741c015241f19d3d",
+  "journal_op_id": "reverify.dd7bee5d0d3b",
+  "original_closure": {
+    "claim_time": "2026-10-07T07:15:00Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-102",
+    "owner": "saipen",
+    "source_receipts": "SRC-009"
+  },
+  "own_problem_keys": [
+    "08886c31d44d83da"
+  ],
+  "problem_count": 3,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000018",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "cbded0519deab0d1ffbf51c7ce38c6817382ecc3",
+  "source_tree_fingerprint": "git-delta-v1:45369bcac4c52c56015fe376444b70c432805f7c26aa464c66f8ec6e7e69fd8c",
+  "verdict": "PASS_WITH_CARRIED_DEBT",
+  "verification": [
+    {
+      "command": "npm run test:support",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 2184,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 896,
+      "output_digest": "cbacb6b772e30e34",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run validate:licenses",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 214,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 271,
+      "output_digest": "ba29863024278e93",
+      "result": "PASS"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "npm run test:support",
+      "npm run validate:licenses"
+    ],
+    "findings_digest": "561a1b20d15ddcfbe8bf71f7d098c784d5e517999e9058e7709eb87a0d2a3411",
+    "gate": "core"
+  },
+  "verification_contract_digest": "10112cec797a9397",
+  "verifier": "saipen",
+  "warning_count": 3,
+  "work": "T-10"
+}

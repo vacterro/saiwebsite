@@ -6,17 +6,21 @@
  *   src/content-engine/i18n/locales.json            locale registry
  *   src/content-engine/i18n/glossary.json           terminology contract
  *   src/locales/<locale>/<domain>.json              block translation units
- *   src/locales/<locale>/docs/<section>/<name>.md   document-level translations
+ *   src/locales/<locale>/docs/<section>/<name>.json document SEGMENT translations
  *   src/content/docs/<section>/<name>.md            canonical English docs
+ *
+ * Documentation is not one unit: every canonical document is split into
+ * stable segments (see segments.mjs) and a locale stores one entry per segment
+ * ID, so editing one paragraph marks one segment STALE, never a whole page.
  *
  * Everything returned here is computed from those files; nothing is cached on
  * disk except the content lock, which site:refresh rewrites.
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseFrontmatter } from '@astrojs/markdown-remark';
-import { blockHash, documentHash, validateCatalog } from '../blocks/blocks.mjs';
-import { checkTranslation, docStatus, enabledLocales, pseudoLocalize, STORED_STATUSES, uncoveredScripts, unitStatus, validateLocales, variantPlan } from './i18n.mjs';
+import { blockHash, validateCatalog } from '../blocks/blocks.mjs';
+import { checkTranslation, enabledLocales, pseudoLocalize, STORED_STATUSES, uncoveredScripts, unitStatus, validateLocales, variantPlan } from './i18n.mjs';
+import { documentSegmentPrefix, parseDocument } from './segments.mjs';
 import { mergeCatalogs, pageLabelBlocks, unitsByLocale } from './units.mjs';
 
 export const PATHS = {
@@ -39,12 +43,6 @@ function walk(dir, ext) {
     else if (e.name.endsWith(ext)) out.push(full);
   }
   return out.sort();
-}
-
-/** Parse a Markdown file into front matter and body, as Astro does. */
-export function parseDoc(raw) {
-  const { frontmatter, content } = parseFrontmatter(String(raw).replace(/\r\n/g, '\n'));
-  return { frontmatter, body: content };
 }
 
 /**
@@ -83,27 +81,38 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
     if (doc.schemaVersion !== 1) problems.push(`[schema-version] ${file}: schemaVersion ${doc.schemaVersion}`);
   }
 
-  // Canonical docs and their document-level translations.
+  // Canonical docs, split into their stable segments.
   const docs = {};
   for (const file of walk(at(PATHS.docs), '.md')) {
     const slug = file.slice(at(PATHS.docs).length + 1).replace(/\.md$/, '');
-    const raw = readFileSync(file, 'utf8');
-    const { frontmatter, body } = parseDoc(raw);
-    docs[slug] = { slug, hash: documentHash(raw), section: frontmatter.section, title: frontmatter.title, description: frontmatter.description, body };
+    const raw = overrides.docRaw?.[file] ?? readFileSync(file, 'utf8');
+    const parsed = parseDocument({ raw, slug });
+    for (const problem of parsed.problems) problems.push(`[${file}] ${problem}`);
+    docs[slug] = {
+      slug,
+      section: parsed.frontmatter.section,
+      title: String(parsed.frontmatter.title ?? ''),
+      description: String(parsed.frontmatter.description ?? ''),
+      body: parsed.body,
+      segments: parsed.segments,
+      segmentsById: Object.fromEntries(parsed.segments.map((s) => [s.id, s])),
+    };
   }
-  const docTranslations = {};
+
+  // Document segment translations: src/locales/<locale>/docs/<section>/<name>.json
+  const docUnits = {};
   if (existsSync(at(PATHS.units))) {
     for (const locale of readdirSync(at(PATHS.units), { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()) {
-      for (const file of walk(at(`${PATHS.units}/${locale}/docs`), '.md')) {
-        const slug = file.slice(at(`${PATHS.units}/${locale}/docs`).length + 1).replace(/\.md$/, '');
-        docTranslations[locale] ??= {};
-        docTranslations[locale][slug] = { file, ...parseDoc(overrides.docFiles?.[file] ?? readFileSync(file, 'utf8')) };
+      for (const file of walk(at(`${PATHS.units}/${locale}/docs`), '.json')) {
+        const slug = file.slice(at(`${PATHS.units}/${locale}/docs`).length + 1).replace(/\.json$/, '');
+        docUnits[locale] ??= {};
+        docUnits[locale][slug] = { file, doc: overrides.docUnitDocs?.[file] ?? readJson(file) };
       }
     }
   }
 
-  const store = { localesDoc, glossary, blocks, units, unitFiles, docs, docTranslations, problems };
-  store.plan = problems.length ? [] : variantPlan({ localesDoc, registry, docs, docTranslations });
+  const store = { localesDoc, glossary, blocks, units, unitFiles, docs, docUnits, problems };
+  store.plan = problems.length ? [] : variantPlan({ localesDoc, registry, docs, docUnits });
   return store;
 }
 
@@ -133,15 +142,35 @@ export function unitReport(store) {
       const block = store.blocks[id];
       rows.push({ locale: l.id, kind: 'block', id, status: block ? unitStatus(unit, blockHash(block)) : 'ORPHANED', unit, outOfScope: Boolean(block) });
     }
-    const knownDocs = new Set();
+    // Documentation: one row per stable segment, not one per document.
+    const knownSegments = new Set();
     for (const slug of docSlugs) {
-      knownDocs.add(slug);
-      rows.push({ locale: l.id, kind: 'doc', id: slug, status: docStatus(store.docTranslations[l.id]?.[slug], store.docs[slug].hash), unit: store.docTranslations[l.id]?.[slug] });
-    }
-    for (const [slug, tr] of Object.entries(store.docTranslations[l.id] ?? {})) {
-      if (knownDocs.has(slug)) continue;
       const doc = store.docs[slug];
-      rows.push({ locale: l.id, kind: 'doc', id: slug, status: doc ? docStatus(tr, doc.hash) : 'ORPHANED', unit: tr, outOfScope: Boolean(doc) });
+      const entry = store.docUnits[l.id]?.[slug];
+      const units = entry?.doc?.units ?? {};
+      for (const segment of doc.segments) {
+        knownSegments.add(segment.id);
+        rows.push({
+          locale: l.id,
+          kind: 'segment',
+          id: segment.id,
+          document: slug,
+          hash: segment.hash,
+          type: segment.kind,
+          file: entry?.file,
+          status: unitStatus(units[segment.id], segment.hash),
+          unit: units[segment.id],
+        });
+      }
+    }
+    for (const [slug, entry] of Object.entries(store.docUnits[l.id] ?? {})) {
+      const doc = store.docs[slug];
+      for (const [id, unit] of Object.entries(entry.doc?.units ?? {})) {
+        if (knownSegments.has(id)) continue;
+        const segment = doc?.segmentsById[id];
+        rows.push({ locale: l.id, kind: 'segment', id, document: slug, file: entry.file, type: segment?.kind,
+          status: segment ? unitStatus(unit, segment.hash) : 'ORPHANED', unit, outOfScope: Boolean(doc) });
+      }
     }
   }
   return rows;
@@ -169,17 +198,27 @@ export function validateTranslations(store, coverage = null, { forEnable = false
       problems.push(...checkTranslation({ id, type: block.type, en: block.text, text: unit.text, glossary, locale: doc.locale }));
     }
   }
-  for (const [locale, byslug] of Object.entries(store.docTranslations)) {
-    for (const [slug, tr] of Object.entries(byslug)) {
-      const where = `${tr.file}`;
-      const fm = tr.frontmatter;
-      for (const key of ['title', 'description', 'sourceHash', 'status']) if (!(key in fm)) problems.push(`[missing-field] ${where}: front matter has no "${key}"`);
-      if (!STORED_STATUSES.includes(fm.status)) problems.push(`[bad-enum] ${where}: status "${fm.status}"`);
+  // Document segment units: src/locales/<locale>/docs/<section>/<name>.json
+  for (const [locale, byslug] of Object.entries(store.docUnits)) {
+    for (const [slug, entry] of Object.entries(byslug)) {
+      const where = entry.file;
       const doc = store.docs[slug];
-      if (!doc) continue;
-      problems.push(...checkTranslation({ id: `docs/${slug}`, type: 'markdown', en: doc.body, text: tr.body, glossary, locale }));
-      problems.push(...checkTranslation({ id: `docs/${slug}#title`, type: 'text', en: doc.title, text: String(fm.title ?? ''), glossary, locale }));
-      problems.push(...checkTranslation({ id: `docs/${slug}#description`, type: 'text', en: doc.description, text: String(fm.description ?? ''), glossary, locale }));
+      if (entry.doc?.schemaVersion !== 1) problems.push(`[schema-version] ${where}: schemaVersion ${entry.doc?.schemaVersion}`);
+      if (entry.doc?.locale !== locale) problems.push(`[malformed] ${where}: locale "${entry.doc?.locale}" does not match its directory`);
+      if (entry.doc?.document !== slug) problems.push(`[malformed] ${where}: document "${entry.doc?.document}" does not match its path`);
+      if (!doc) {
+        problems.push(`[orphaned] ${where}: no canonical document "${slug}"`);
+        continue;
+      }
+      for (const [id, unit] of Object.entries(entry.doc?.units ?? {})) {
+        const at = `${where} ${id}`;
+        for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer'].includes(key)) problems.push(`[unknown-field] ${at}: "${key}"`);
+        if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${at}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
+        if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${at}: sourceHash must be the 16-hex segment hash from the work package`);
+        const segment = doc.segmentsById[id];
+        if (!segment) continue;
+        problems.push(...checkTranslation({ id, type: segment.kind, en: segment.text, text: unit.text, glossary, locale }));
+      }
     }
   }
 
@@ -204,15 +243,13 @@ export function validateTranslations(store, coverage = null, { forEnable = false
     for (const l of store.localesDoc.locales) {
       if (l.id === store.localesDoc.canonical) continue;
       // The pseudo-locale is generated, so its output is checked instead of stored units.
+      const docUnitTexts = Object.values(store.docUnits[l.id] ?? {}).flatMap((entry) => Object.values(entry.doc?.units ?? {}).map((u) => u.text));
       const texts = l.stage === 'pseudo'
         ? [
             ...Object.values(store.blocks).map((b) => pseudoLocalize(b.text, store.glossary, b.type)),
-            ...Object.values(store.docs).flatMap((d) => [pseudoLocalize(d.body, store.glossary, 'markdown'), pseudoLocalize(d.title, store.glossary, 'text')]),
+            ...Object.values(store.docs).flatMap((d) => d.segments.map((s) => pseudoLocalize(s.text, store.glossary, s.kind))),
           ]
-        : [
-            ...Object.values(store.units[l.id] ?? {}).map((u) => u.text),
-            ...Object.values(store.docTranslations[l.id] ?? {}).flatMap((t) => [t.body, String(t.frontmatter.title ?? ''), String(t.frontmatter.description ?? '')]),
-          ];
+        : [...Object.values(store.units[l.id] ?? {}).map((u) => u.text), ...docUnitTexts];
       const missingGlyphs = new Set();
       for (const text of texts) for (const ch of text) if (!coverage.has(ch.codePointAt(0)) && !/\s/.test(ch)) missingGlyphs.add(ch);
       if (missingGlyphs.size) problems.push(`[glyph-coverage] locale ${l.id}: the pixel faces cannot draw ${[...missingGlyphs].slice(0, 20).map((c) => `U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')} ${c}`).join(', ')}${missingGlyphs.size > 20 ? ' …' : ''}`);
@@ -221,14 +258,24 @@ export function validateTranslations(store, coverage = null, { forEnable = false
   return problems;
 }
 
-/** The content lock (M41): every canonical block and document hash, sorted. */
+/**
+ * The content lock (M41): every canonical block hash and, for documentation,
+ * the hash of every stable SEGMENT rather than one hash for the whole page.
+ * A translation records the hash it was made from; a different hash here makes
+ * exactly that unit STALE. Regenerate with npm run site:refresh.
+ */
 export function contentLock(store) {
   const blocks = Object.fromEntries(Object.keys(store.blocks).sort().map((id) => [id, blockHash(store.blocks[id])]));
-  const docs = Object.fromEntries(Object.keys(store.docs).sort().map((slug) => [slug, store.docs[slug].hash]));
+  const docs = {};
+  for (const slug of Object.keys(store.docs).sort()) {
+    const doc = store.docs[slug];
+    const segments = Object.fromEntries(doc.segments.filter((s) => s.kind === 'markdown').map((s) => [s.id, s.hash]));
+    docs[slug] = { title: doc.segmentsById[`${documentSegmentPrefix(slug)}.title`].hash, description: doc.segmentsById[`${documentSegmentPrefix(slug)}.description`].hash, segments };
+  }
   return {
     schemaVersion: 1,
     generator: 'scripts/site.mjs refresh',
-    note: 'Canonical hash of every content block and documentation page. A translation records the hash it was made from; a different hash here makes it STALE. Regenerate with npm run site:refresh.',
+    note: 'Canonical hash of every content block and of every stable documentation SEGMENT (title, description and each section). A translation records the hash it was made from; a different hash here makes exactly that unit STALE. Regenerate with npm run site:refresh.',
     blocks,
     docs,
   };

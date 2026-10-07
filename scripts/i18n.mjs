@@ -8,7 +8,10 @@
  *       Write a bounded work package (JSON): only the units to do, with the
  *       English source, its hash, placeholders, markup to keep, context notes,
  *       glossary, the previous translation of stale units and exact matches
- *       from translation memory. Default file: i18n-work/<locale>.work.json.
+ *       from translation memory. Documentation arrives as ordinary bounded
+ *       units — one per stable SEGMENT — with the surrounding segments as
+ *       context, so a translator never receives (or re-translates) a whole
+ *       page. Default file: i18n-work/<locale>.work.json.
  *   npm run i18n:import -- FILE [--status MACHINE_DRAFT|REVIEWED|CURRENT] [--reviewer NAME]
  *       Validate every filled unit (hash still current, placeholders, markup,
  *       glossary, glyph coverage) and write it into src/locales/<locale>/.
@@ -33,6 +36,8 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { dirname } from 'node:path';
 import { blockHash, markupSignature, normalizeText, placeholders } from '../src/content-engine/blocks/blocks.mjs';
 import { checkTranslation, markdownSignature, uncoveredScripts, unitStatus, validateLocales } from '../src/content-engine/i18n/i18n.mjs';
+import { markFallback, planSegments } from '../src/content-engine/i18n/assemble.mjs';
+import { segmentHash } from '../src/content-engine/i18n/segments.mjs';
 import { createTranslator } from '../src/content-engine/i18n/translator.mjs';
 import { loadStore, PATHS, unitReport, validateTranslations } from '../src/content-engine/i18n/store.mjs';
 import { loadCoverage } from '../src/content-engine/i18n/engine-ext.mjs';
@@ -107,14 +112,35 @@ function status() {
 // ---------------------------------------------------------------------------
 // translation memory: exact normalized English -> approved translation
 // ---------------------------------------------------------------------------
+/** Every canonical segment of every document, keyed by its stable ID. */
+function segmentIndex(store) {
+  const index = new Map();
+  for (const [slug, doc] of Object.entries(store.docs)) for (const segment of doc.segments) index.set(segment.id, { slug, segment });
+  return index;
+}
+
 function memoryIndex(store, locale) {
   const index = new Map();
+  const add = (type, source, from, text) => {
+    const key = `${type}\0${normalizeText(source)}`;
+    if (!index.has(key)) index.set(key, { from, text });
+  };
   for (const [id, unit] of Object.entries(store.units[locale] ?? {})) {
     const block = store.blocks[id];
     if (!block) continue;
     if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, blockHash(block)))) continue;
-    const key = `${block.type}\0${normalizeText(block.text)}`;
-    if (!index.has(key)) index.set(key, { from: id, text: unit.text });
+    add(block.type, block.text, id, unit.text);
+  }
+  // Documentation segments take part in translation memory exactly like blocks.
+  for (const [slug, entry] of Object.entries(store.docUnits[locale] ?? {})) {
+    const doc = store.docs[slug];
+    if (!doc) continue;
+    for (const [id, unit] of Object.entries(entry.doc?.units ?? {})) {
+      const segment = doc.segmentsById[id];
+      if (!segment) continue;
+      if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, segment.hash))) continue;
+      add(segment.kind, segment.text, id, unit.text);
+    }
   }
   return index;
 }
@@ -133,7 +159,7 @@ function exportPackage() {
     terms: store.glossary.terms.filter((t) => t.translate).map((t) => ({ id: t.id, en: t.en, notes: t.notes, ...(store.glossary.locales?.[l.id]?.[t.id] ?? {}) })),
   };
   const units = [];
-  const documents = [];
+  let segments = 0;
   for (const r of report) {
     if (r.kind === 'block') {
       const block = store.blocks[r.id];
@@ -141,6 +167,7 @@ function exportPackage() {
       const tm = memory.get(`${block.type}\0${normalizeText(block.text)}`);
       units.push({
         id: r.id,
+        kind: 'block',
         domain: block.domain,
         status: r.status,
         type: block.type,
@@ -154,44 +181,55 @@ function exportPackage() {
         memory: tm ? [tm] : [],
         translation: '',
       });
-    } else {
-      const doc = store.docs[r.id];
-      if (!doc) continue;
-      documents.push({
-        slug: r.id,
-        section: doc.section,
-        status: r.status,
-        sourceHash: doc.hash,
-        source: { title: doc.title, description: doc.description, body: doc.body },
-        keepMarkdown: JSON.parse(markdownSignature(doc.body)),
-        previous: r.unit ? { title: r.unit.frontmatter.title, description: r.unit.frontmatter.description, body: r.unit.body, status: r.unit.frontmatter.status } : null,
-        translation: { title: '', description: '', body: '' },
-      });
+      continue;
     }
+    // A documentation segment is an ordinary bounded unit with context.
+    const doc = store.docs[r.document];
+    const segment = doc?.segmentsById[r.id];
+    if (!doc || !segment) continue;
+    segments++;
+    const all = doc.segments;
+    const at = all.findIndex((s) => s.id === segment.id);
+    const tm = memory.get(`${segment.kind}\0${normalizeText(segment.text)}`);
+    units.push({
+      id: segment.id,
+      kind: 'segment',
+      domain: doc.section,
+      document: doc.slug,
+      section: doc.section,
+      status: r.status,
+      type: segment.kind,
+      source: segment.text,
+      sourceHash: segment.hash,
+      note: segment.name === 'title' || segment.name === 'description' ? `The document's front-matter ${segment.name}.` : `Documentation segment "${segment.name}" of ${doc.slug}.`,
+      usedBy: [`page:docs.${doc.slug.split('/').join('.')}`],
+      placeholders: placeholders(segment.text),
+      keepMarkdown: segment.kind === 'markdown' ? JSON.parse(markdownSignature(segment.text)) : null,
+      keepMarkup: null,
+      context: { before: (all[at - 1]?.text ?? '').slice(-240), after: (all[at + 1]?.text ?? '').slice(0, 240) },
+      previous: r.unit ? { text: r.unit.text, status: r.unit.status } : null,
+      memory: tm ? [tm] : [],
+      translation: '',
+    });
   }
   const pkg = {
     kind: 'sai-website-translation-package',
-    schemaVersion: 1,
+    schemaVersion: 2,
     locale: l.id,
     localeInfo: { displayName: l.displayName, nativeName: l.nativeName, direction: l.direction, scripts: l.scripts },
     statuses: wanted,
-    instructions: 'Read src/content-engine/i18n/TRANSLATING.md first. Fill `translation` of every unit and document; leave a unit empty to skip it. Keep every {placeholder}, `code span`, link target and **emphasis** structure, keep every doNotTranslate term verbatim, and use only characters the pixel faces draw. Then run: npm run i18n:import -- <this file>',
+    instructions: 'Read src/content-engine/i18n/TRANSLATING.md first. Fill `translation` of every unit; leave a unit empty to skip it. A unit is a UI block or one stable documentation segment (`kind: segment`) — the surrounding segments are in `context` for reference only, never translate them. Keep every {placeholder}, `code span`, link target, **emphasis** structure and fenced code block, keep every doNotTranslate term verbatim, and use only characters the pixel faces draw. Then run: npm run i18n:import -- <this file>',
     glossary,
     units,
-    documents,
   };
   const out = flag('out') ?? `i18n-work/${l.id}.work.json`;
   writeJson(out, pkg);
-  console.log(`wrote ${out}: ${units.length} block unit(s), ${documents.length} document(s) for ${l.id} (${wanted.join(', ')})`);
+  console.log(`wrote ${out}: ${units.length - segments} block unit(s), ${segments} documentation segment(s) for ${l.id} (${wanted.join(', ')})`);
 }
 
 // ---------------------------------------------------------------------------
 // import
 // ---------------------------------------------------------------------------
-function frontmatterValue(v) {
-  return JSON.stringify(String(v));
-}
-
 function importPackage() {
   const file = positional[0];
   if (!file || !existsSync(file)) die('usage: npm run i18n:import -- <package.json> [--status MACHINE_DRAFT|REVIEWED|CURRENT] [--reviewer NAME]');
@@ -211,26 +249,47 @@ function importPackage() {
     return bad.length ? [`[glyph-coverage] ${l.id} ${id}: the pixel faces cannot draw ${bad.join(' ')}`] : [];
   };
 
+  const segments = segmentIndex(store);
   const byDomain = new Map();
+  const byDocument = new Map();
   let written = 0;
+  let segmentsWritten = 0;
   for (const u of pkg.units ?? []) {
     if (!normalizeText(u.translation ?? '')) continue;
     const block = store.blocks[u.id];
-    if (!block) {
-      refused.push(`[orphaned] ${u.id}: no canonical block any more`);
+    const found = block ? null : segments.get(u.id);
+    if (!block && !found) {
+      refused.push(`[orphaned] ${u.id}: no canonical block or documentation segment any more`);
       continue;
     }
-    if (blockHash(block) !== u.sourceHash) {
+    if (block) {
+      if (blockHash(block) !== u.sourceHash) {
+        refused.push(`[source-moved] ${u.id}: the English changed after export — export again`);
+        continue;
+      }
+      const problems = [...checkTranslation({ id: u.id, type: block.type, en: block.text, text: u.translation, glossary: store.glossary, locale: l.id }), ...glyphCheck(u.id, u.translation)];
+      if (problems.length) {
+        refused.push(...problems);
+        continue;
+      }
+      if (!byDomain.has(block.domain)) byDomain.set(block.domain, []);
+      byDomain.get(block.domain).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...(reviewer ? { reviewer } : {}) }]);
+      written++;
+      continue;
+    }
+    const { slug, segment } = found;
+    if (segment.hash !== u.sourceHash) {
       refused.push(`[source-moved] ${u.id}: the English changed after export — export again`);
       continue;
     }
-    const problems = [...checkTranslation({ id: u.id, type: block.type, en: block.text, text: u.translation, glossary: store.glossary, locale: l.id }), ...glyphCheck(u.id, u.translation)];
+    const problems = [...checkTranslation({ id: u.id, type: segment.kind, en: segment.text, text: u.translation, glossary: store.glossary, locale: l.id }), ...glyphCheck(u.id, u.translation)];
     if (problems.length) {
       refused.push(...problems);
       continue;
     }
-    if (!byDomain.has(block.domain)) byDomain.set(block.domain, []);
-    byDomain.get(block.domain).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...(reviewer ? { reviewer } : {}) }]);
+    if (!byDocument.has(slug)) byDocument.set(slug, []);
+    byDocument.get(slug).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...(reviewer ? { reviewer } : {}) }]);
+    segmentsWritten++;
   }
   for (const [domain, entries] of byDomain) {
     const path = `${PATHS.units}/${l.id}/${domain}.json`;
@@ -238,40 +297,19 @@ function importPackage() {
     for (const [id, unit] of entries) doc.units[id] = unit;
     doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
     writeJson(path, doc);
-    written += entries.length;
   }
-
-  let docsWritten = 0;
-  for (const d of pkg.documents ?? []) {
-    const t = d.translation ?? {};
-    if (!normalizeText(t.body ?? '')) continue;
-    const doc = store.docs[d.slug];
-    if (!doc) {
-      refused.push(`[orphaned] docs/${d.slug}: no canonical document any more`);
-      continue;
-    }
-    if (doc.hash !== d.sourceHash) {
-      refused.push(`[source-moved] docs/${d.slug}: the English changed after export — export again`);
-      continue;
-    }
-    const problems = [
-      ...checkTranslation({ id: `docs/${d.slug}`, type: 'markdown', en: doc.body, text: t.body, glossary: store.glossary, locale: l.id }),
-      ...checkTranslation({ id: `docs/${d.slug}#title`, type: 'text', en: doc.title, text: t.title ?? '', glossary: store.glossary, locale: l.id }),
-      ...checkTranslation({ id: `docs/${d.slug}#description`, type: 'text', en: doc.description, text: t.description ?? '', glossary: store.glossary, locale: l.id }),
-      ...glyphCheck(`docs/${d.slug}`, `${t.title}${t.description}${t.body}`),
-    ];
-    if (problems.length) {
-      refused.push(...problems);
-      continue;
-    }
-    const fm = ['---', `title: ${frontmatterValue(t.title)}`, `description: ${frontmatterValue(t.description)}`, `sourceHash: ${JSON.stringify(d.sourceHash)}`, `status: ${status}`, ...(reviewer ? [`reviewer: ${frontmatterValue(reviewer)}`] : []), '---', ''];
-    const path = `${PATHS.units}/${l.id}/docs/${d.slug}.md`;
-    mkdirSync(dirname(path), { recursive: true });
-    writeFileSync(path, `${fm.join('\n')}\n${t.body.replace(/\r\n/g, '\n').trim()}\n`);
-    docsWritten++;
+  for (const [slug, entries] of byDocument) {
+    const path = `${PATHS.units}/${l.id}/docs/${slug}.json`;
+    const doc = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { schemaVersion: 1, locale: l.id, document: slug, units: {} };
+    doc.schemaVersion = 1;
+    doc.locale = l.id;
+    doc.document = slug;
+    for (const [id, unit] of entries) doc.units[id] = unit;
+    doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
+    writeJson(path, doc);
   }
   for (const r of refused) console.log('  REFUSED ' + r);
-  console.log(`${refused.length ? 'PARTIAL' : 'OK'}: wrote ${written} unit(s) and ${docsWritten} document(s) to src/locales/${l.id}/ as ${status}${refused.length ? `; ${refused.length} refused` : ''}`);
+  console.log(`${refused.length ? 'PARTIAL' : 'OK'}: wrote ${written} block unit(s) and ${segmentsWritten} documentation segment(s) to src/locales/${l.id}/ as ${status}${refused.length ? `; ${refused.length} refused` : ''}`);
   console.log('next: npm run site:refresh && npm run i18n:validate && npm run build');
   process.exit(refused.length ? 1 : 0);
 }
@@ -283,21 +321,44 @@ function memory() {
   const store = load();
   const l = localeOrDie(store, flag('locale'));
   const index = memoryIndex(store, l.id);
-  const todo = unitReport(store).filter((r) => r.locale === l.id && r.kind === 'block' && ['MISSING', 'STALE'].includes(r.status));
+  const todo = unitReport(store).filter((r) => r.locale === l.id && ['MISSING', 'STALE'].includes(r.status));
   const hits = [];
   for (const r of todo) {
-    const block = store.blocks[r.id];
-    if (!block) continue;
-    const tm = index.get(`${block.type}\0${normalizeText(block.text)}`);
-    if (tm && tm.from !== r.id) hits.push({ id: r.id, domain: block.domain, from: tm.from, text: tm.text, sourceHash: blockHash(block) });
+    if (r.kind === 'block') {
+      const block = store.blocks[r.id];
+      if (!block) continue;
+      const tm = index.get(`${block.type}\0${normalizeText(block.text)}`);
+      if (tm && tm.from !== r.id) hits.push({ id: r.id, where: { domain: block.domain }, kind: 'block', from: tm.from, text: tm.text, sourceHash: blockHash(block) });
+    } else {
+      const doc = store.docs[r.document];
+      const segment = doc?.segmentsById[r.id];
+      if (!segment) continue;
+      const tm = index.get(`${segment.kind}\0${normalizeText(segment.text)}`);
+      if (tm && tm.from !== r.id) hits.push({ id: r.id, where: { document: doc.slug }, kind: 'segment', from: tm.from, text: tm.text, sourceHash: segment.hash });
+    }
   }
   for (const h of hits) console.log(`  ${h.id}  <=  ${h.from}: ${h.text}`);
   if (has('apply') && hits.length) {
     const byDomain = new Map();
-    for (const h of hits) byDomain.set(h.domain, [...(byDomain.get(h.domain) ?? []), h]);
+    const byDocument = new Map();
+    for (const h of hits) {
+      const map = h.kind === 'block' ? byDomain : byDocument;
+      const key = h.where.domain ?? h.where.document;
+      map.set(key, [...(map.get(key) ?? []), h]);
+    }
     for (const [domain, list] of byDomain) {
       const path = `${PATHS.units}/${l.id}/${domain}.json`;
       const doc = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { schemaVersion: 1, locale: l.id, domain, units: {} };
+      for (const h of list) doc.units[h.id] = { text: h.text, sourceHash: h.sourceHash, status: 'MACHINE_DRAFT' };
+      doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
+      writeJson(path, doc);
+    }
+    for (const [slug, list] of byDocument) {
+      const path = `${PATHS.units}/${l.id}/docs/${slug}.json`;
+      const doc = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { schemaVersion: 1, locale: l.id, document: slug, units: {} };
+      doc.schemaVersion = 1;
+      doc.locale = l.id;
+      doc.document = slug;
       for (const h of list) doc.units[h.id] = { text: h.text, sourceHash: h.sourceHash, status: 'MACHINE_DRAFT' };
       doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
       writeJson(path, doc);
@@ -435,6 +496,92 @@ function redControls() {
     threw = true;
   }
   check('a raw key can never render', threw);
+
+  // -------------------------------------------------------------------------
+  // Documentation segment granularity: one hash per SEGMENT, not per page.
+  // These controls mutate the model in memory only, so nothing on disk moves.
+  // -------------------------------------------------------------------------
+  const segSlug = 'getting-started/introduction';
+  const canonical = base.docs[segSlug];
+  const body = canonical.segments.filter((s) => s.kind === 'markdown');
+  const [keep, edit] = body;
+  const ids = [keep.id, edit.id];
+  const withDocUnits = (slug, units) => {
+    const s = load();
+    s.docUnits.et = { ...(s.docUnits.et ?? {}), [slug]: { file: `src/locales/et/docs/${slug}.json`, doc: { schemaVersion: 1, locale: 'et', document: slug, units } } };
+    return s;
+  };
+  const mutate = (s, slug, fn) => {
+    const doc = s.docs[slug];
+    const segments = fn(doc.segments);
+    s.docs[slug] = { ...doc, segments, segmentsById: Object.fromEntries(segments.map((x) => [x.id, x])) };
+    return s;
+  };
+  const rowsFor = (s, list) => unitReport(s).filter((r) => r.locale === 'et' && list.includes(r.id));
+  const aUnit = { [keep.id]: { text: 'Säilitatud', sourceHash: keep.hash, status: 'CURRENT' }, [edit.id]: { text: 'Muudetud', sourceHash: edit.hash, status: 'CURRENT' } };
+  const baseline = rowsFor(withDocUnits(segSlug, aUnit), ids);
+
+  // 1. Change one canonical paragraph: exactly that segment goes STALE.
+  const changedText = `${edit.text}\n\nUus lõik.`;
+  const editedRows = rowsFor(
+    mutate(withDocUnits(segSlug, aUnit), segSlug, (list) => list.map((x) => (x.id === edit.id ? { ...x, text: changedText, hash: segmentHash(x.kind, changedText) } : x))),
+    ids,
+  );
+  check(
+    'one canonical paragraph edit stales exactly its segment',
+    baseline.length === 2 && baseline.every((r) => r.status === 'CURRENT') && editedRows.filter((r) => r.status === 'STALE').length === 1 && editedRows.find((r) => r.id === keep.id)?.status === 'CURRENT',
+  );
+
+  // 2. Add a segment: the new one is MISSING, the others stay CURRENT.
+  const freshId = `${canonical.prefix}.fresh-section`;
+  const addedRows = rowsFor(
+    mutate(withDocUnits(segSlug, aUnit), segSlug, (list) => [...list, { id: freshId, name: 'fresh-section', kind: 'markdown', text: '## Fresh', hash: segmentHash('markdown', '## Fresh') }]),
+    [...ids, freshId],
+  );
+  check('a new documentation segment is MISSING and leaves the others CURRENT', addedRows.find((r) => r.id === freshId)?.status === 'MISSING' && rowsFor(withDocUnits(segSlug, aUnit), ids).every((r) => r.status === 'CURRENT'));
+
+  // 3. Delete a segment: its translation is ORPHANED, the others stay CURRENT.
+  const deletedRows = rowsFor(
+    mutate(withDocUnits(segSlug, aUnit), segSlug, (list) => list.filter((x) => x.id !== edit.id)),
+    ids,
+  );
+  check('a deleted documentation segment ORPHANS its translation', deletedRows.find((r) => r.id === edit.id)?.status === 'ORPHANED' && deletedRows.find((r) => r.id === keep.id)?.status === 'CURRENT');
+
+  // 4. Reorder segments: identities and translations are unchanged.
+  const reorderedRows = rowsFor(
+    mutate(withDocUnits(segSlug, aUnit), segSlug, (list) => [...list].reverse()),
+    ids,
+  );
+  check('reordering documentation segments keeps their translations CURRENT', reorderedRows.length === 2 && reorderedRows.every((r) => r.status === 'CURRENT'));
+
+  // 5. Change a stable ID: the old translation is ORPHANED, the new ID MISSING.
+  const renamedId = `${canonical.prefix}.renamed-section`;
+  const renamedRows = rowsFor(
+    mutate(withDocUnits(segSlug, aUnit), segSlug, (list) => list.map((x) => (x.id === edit.id ? { ...x, id: renamedId, name: 'renamed-section' } : x))),
+    [...ids, renamedId],
+  );
+  check('changing a stable segment ID ORPHANS the old unit and MISSES the new one', renamedRows.find((r) => r.id === edit.id)?.status === 'ORPHANED' && renamedRows.find((r) => r.id === renamedId)?.status === 'MISSING');
+
+  // 6. Markup damage inside a translated segment fails validation.
+  const linked = body.find((s) => /\]\([^)]+\)/.test(s.text));
+  const damaged = withDocUnits(segSlug, { [linked.id]: { text: linked.text.replace(/\]\([^)]+\)/, '](/wrong-target/)'), sourceHash: linked.hash, status: 'CURRENT' } });
+  check('a changed link target in a translated segment is refused', validateTranslations(damaged, coverage).some((p) => p.startsWith('[markup]') && p.includes(linked.id)));
+
+  // 7. A partially translated document: translated segments stay in the
+  //    locale, every English fallback fragment carries lang="en".
+  const plan = planSegments({
+    segments: [keep, edit],
+    locale: 'et',
+    canonical: 'en',
+    stage: 'pilot',
+    units: { [keep.id]: { text: 'Säilitatud', sourceHash: keep.hash, status: 'REVIEWED' } },
+    renderStatuses: ['CURRENT', 'REVIEWED', 'MACHINE_DRAFT'],
+  });
+  const assembled = plan.map((p) => (p.lang === 'et' ? `<p>${p.text}</p>` : markFallback(`<p>${p.text}</p>`, p.lang))).join('');
+  check(
+    'a partially translated document marks each English fallback fragment lang="en"',
+    plan.filter((p) => p.lang === 'et').length === 1 && (assembled.match(/lang="en" data-i18n-fallback/g) ?? []).length === 1 && assembled.includes('Säilitatud') && plan.find((p) => p.id === edit.id).lang === 'en',
+  );
   return results;
 }
 

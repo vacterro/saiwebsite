@@ -84,6 +84,59 @@ test.describe('language selector', () => {
   });
 });
 
+/**
+ * Segmented documentation (pre-scale foundation): a documentation page is
+ * assembled from stable segments, not one translated file. These assertions
+ * cover what only the built site can show — no directive leaks, the localized
+ * title is really the locale's, and the discovery outputs consume the
+ * assembled text rather than the canonical one.
+ */
+test.describe('segmented documentation renders', () => {
+  const doc = VARIANTS.find((r) => r.variantOf === 'docs.getting-started.introduction');
+  const index = [...inventory.public, ...inventory.internal].find((r) => r.variantOf === 'machine.search-index' && r.locale === doc?.locale);
+  const llms = [...inventory.public, ...inventory.internal].find((r) => r.variantOf === 'machine.llms' && r.locale === doc?.locale);
+
+  test('a localized documentation page carries no segment directive', async ({ page }) => {
+    test.skip(!doc, 'no localized docs variant is built');
+    await page.goto(doc.route);
+    const html = await page.content();
+    expect(html, 'a segment directive leaked into the page').not.toContain('i18n:docs.');
+    expect(html, 'a documentation segment ID leaked into the page').not.toMatch(/\bdocs\.[a-z0-9-]+\.[a-z0-9-]+\.[a-z0-9-]+\b/);
+  });
+
+  test('headings keep unique ids across segments', async ({ page }) => {
+    test.skip(!doc, 'no localized docs variant is built');
+    await page.goto(doc.route);
+    const ids = await page.$$eval('[id]', (els) => els.map((el) => el.id));
+    const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
+    expect(duplicates, `duplicate ids on ${doc.route}`).toEqual([]);
+  });
+
+  test('the localized title comes from the locale, not the English original', async ({ page }) => {
+    test.skip(!doc, 'no localized docs variant is built');
+    await page.goto(doc.route);
+    const title = await page.title();
+    expect(title).not.toContain('Introduction');
+    expect(title.length).toBeGreaterThan(0);
+  });
+
+  test('the locale search index is built from the assembled document', async ({ page }) => {
+    test.skip(!index, 'no localized search index is built');
+    const body = await (await page.request.get(index.route)).text();
+    expect(body, 'a segment directive leaked into the search index').not.toContain('i18n:docs.');
+    const entries = JSON.parse(body);
+    expect(entries.length).toBeGreaterThan(0);
+    expect(entries.every((e) => e.text && e.text.length > 0)).toBe(true);
+  });
+
+  test('the locale llms.txt lists the document with its translation status', async ({ page }) => {
+    test.skip(!llms, 'no localized llms.txt is built');
+    const body = await (await page.request.get(llms.route)).text();
+    expect(body).toContain('status CURRENT');
+    expect(body).toContain('/docs/getting-started/introduction/');
+  });
+});
+
 test('localized search reads the locale index', async ({ page }) => {
   const search = VARIANTS.find((r) => r.variantOf === 'search');
   const index = [...inventory.public, ...inventory.internal].find((r) => r.variantOf === 'machine.search-index' && r.locale === search?.locale);

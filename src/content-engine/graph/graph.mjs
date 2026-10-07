@@ -6,7 +6,8 @@
  *   family:<id>   route family (pages.json)
  *   page:<id>     one built address (inventory record, static page or family member)
  *   block:<id>    stable content block (blocks catalogue, M37)
- *   unit:<locale>:<block id>   translation unit (M43)
+ *   segment:<id>  stable documentation segment (segments.mjs)
+ *   unit:<locale>:<block or segment id>   translation unit (M43)
  *   gate:<id>     verification gate (tests.json)
  *
  * Edges point from a dependency to its dependant: `source -> page` reads
@@ -122,7 +123,7 @@ export function findCycles(graph) {
 /** Resolve a bare ID (`pricing`, `vacterro.support.public`, `docs.page`) to a node ID. */
 export function resolveNode(graph, id) {
   if (graph.nodes.has(id)) return id;
-  const hits = ['source', 'page', 'family', 'block', 'gate'].map((t) => `${t}:${id}`).filter((n) => graph.nodes.has(n));
+  const hits = ['source', 'page', 'family', 'block', 'segment', 'gate'].map((t) => `${t}:${id}`).filter((n) => graph.nodes.has(n));
   return hits.length === 1 ? hits[0] : hits.length ? { ambiguous: hits } : null;
 }
 
@@ -152,6 +153,7 @@ export function impact(graph, start) {
     pages: of('page'),
     families: of('family'),
     blocks: of('block'),
+    segments: of('segment'),
     units,
     locales: sortUnique(units.map((u) => u.split(':')[0])),
     gates: of('gate'),

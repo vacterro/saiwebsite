@@ -10,9 +10,11 @@ sources:
   - { path: saipen/CORE.md, anchor: protocol-state-repair-contract-normative, label: CORE.md — Protocol-state repair contract }
 ---
 
+<!-- i18n:docs.protocol.routing.intro -->
 Two different agents given the same project files must choose the same next
 step. SAIPEN makes that choice mechanical.
 
+<!-- i18n:docs.protocol.routing.the-continuation-pipeline -->
 ## The continuation pipeline
 
 `cc`, a bare `saipen` and `saipen continue` all run one implementation:
@@ -24,6 +26,7 @@ resolve install -> resolve project -> recover journal -> reconcile metadata -> v
 A dry run plans the same steps against the projected post-recovery state,
 writes nothing, and must surface the same refusal the real run would.
 
+<!-- i18n:docs.protocol.routing.action-priority -->
 ## Action priority
 
 Routing walks a fixed list; the first match wins.
@@ -39,6 +42,7 @@ Routing walks a fixed list; the first match wins.
 6. **MAINTAIN** — only when no real Work remains and the active intent
    authorizes maintenance.
 
+<!-- i18n:docs.protocol.routing.which-ticket-is-topmost-workable -->
 ## Which ticket is "topmost workable"
 
 A ticket is workable when it is in TODO, every `needs:` dependency is DONE,
@@ -47,6 +51,7 @@ The pick is the topmost workable line in board order — board order is
 priority. A release ticket whose required tickets are blocked is never chosen
 while independent workable Work exists.
 
+<!-- i18n:docs.protocol.routing.invariants-that-keep-routing-honest -->
 ## Invariants that keep routing honest
 
 - **Read to the end.** A truncated observation of a file, list or command

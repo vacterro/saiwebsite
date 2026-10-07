@@ -10,6 +10,7 @@ sources:
   - { path: saipen/REGISTRY.json, label: REGISTRY.json — ticket_states }
 ---
 
+<!-- i18n:docs.concepts.board-and-tickets.intro -->
 `BOARD.md` answers **what work exists, and what am I picking up?** It always
 has the four sections `## DOING`, `## TODO`, `## DONE` and `## BLOCKED`, even
 when they are empty.
@@ -28,6 +29,7 @@ when they are empty.
 - [ ] T-9 [P3] Publish package | verify: release exists | blocker: first-publish needs owner confirmation
 ```
 
+<!-- i18n:docs.concepts.board-and-tickets.rules-that-keep-the-board-honest -->
 ## Rules that keep the board honest
 
 - **Section is lifecycle truth.** The checkbox must match the section
@@ -52,6 +54,7 @@ Unknown ticket fields are rejected; the closed field set is owned by the
 registry. The sections, checkboxes and required fields are rendered on the
 [BOARD reference page](/spec/v8/board/).
 
+<!-- i18n:docs.concepts.board-and-tickets.three-terminal-verdicts -->
 ## Three terminal verdicts
 
 DONE and BLOCKED are joined by **RETIRED**, for Work that was minted into the
@@ -60,6 +63,7 @@ to forensic storage; no completion is fabricated for it. Legitimate old Work
 that a later ticket implemented and verified closes as `superseded_verified`,
 with explicit evidence and authority.
 
+<!-- i18n:docs.concepts.board-and-tickets.which-ticket-is-next -->
 ## Which ticket is next
 
 The next ticket is chosen mechanically: the topmost **workable** TODO line —

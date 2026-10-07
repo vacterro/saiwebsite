@@ -11,10 +11,12 @@ sources:
   - { path: BROCHURE_EN.md, label: Brochure — Survive interruptions }
 ---
 
+<!-- i18n:docs.recovery.interrupted-work.intro -->
 The everyday failure is not a corrupted file. It is an agent that stopped:
 the session hit its context or usage limit, the provider went down, the
 process crashed, or the user closed the window.
 
+<!-- i18n:docs.recovery.interrupted-work.what-survives -->
 ## What survives
 
 Whatever was checkpointed. The last complete checkpoint records the phase, the
@@ -22,6 +24,7 @@ active ticket, the verification results so far and the next step. Work in
 progress that had not reached a checkpoint is still on disk — in the working
 tree and in `.saipen/kitchen/` — it is just not yet canonical.
 
+<!-- i18n:docs.recovery.interrupted-work.what-the-next-agent-does -->
 ## What the next agent does
 
 1. Runs `saipen continue`. Recovery closes the interrupted operation and
@@ -37,6 +40,7 @@ tree and in `.saipen/kitchen/` — it is just not yet canonical.
 5. Re-verifies. A claim the previous agent made but did not prove is still
    only a claim.
 
+<!-- i18n:docs.recovery.interrupted-work.across-models -->
 ## Across models
 
 None of this depends on which model wrote the checkpoint. The next agent may be

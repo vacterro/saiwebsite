@@ -11,11 +11,13 @@ sources:
   - { path: BROCHURE_EN.md, label: Brochure — Demand evidence }
 ---
 
+<!-- i18n:docs.evidence.overview.intro -->
 SAIPEN is built against familiar model habits: claiming a file was read when
 it was not, saying tests passed without running them, inventing a plausible
 path, stopping after the first green result. The answer is a trail that
 anyone can check.
 
+<!-- i18n:docs.evidence.overview.what-counts-as-evidence -->
 ## What counts as evidence
 
 - **A log event with the exact command and its result.** Test and validation
@@ -29,6 +31,7 @@ What does not count: a summary, a promise, or an agent's own assertion that it
 finished. Those are claims until verification evidence recorded *after* them
 admits the transition.
 
+<!-- i18n:docs.evidence.overview.witness-surfaces -->
 ## Witness surfaces
 
 Acceptance evidence declares how close to reality it was gathered, from a
@@ -47,6 +50,7 @@ narrower PASS is reported as `EVIDENCE_SCOPE_TOO_WEAK`, not satisfied. If a
 defect escapes later, an `AC-ESCAPED` record links it to the exact earlier PASS
 without rewriting either event.
 
+<!-- i18n:docs.evidence.overview.retention -->
 ## Retention
 
 Evidence is kept minimal and durable: proof is extracted from each run, and

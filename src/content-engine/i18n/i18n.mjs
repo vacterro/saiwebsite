@@ -205,23 +205,31 @@ export function variantRoute(route, locale, canonical = 'en') {
 }
 
 /**
- * Status of a document-level unit (a docs page translation).
- * @param {{frontmatter: object} | undefined} translation
+ * How much of a document a locale actually renders, from its per-segment units.
+ * A document is no longer all-or-nothing: a locale renders the segments it has
+ * (to a status it accepts, with a current hash) and falls back to English for
+ * the rest, so a page can be 30 % translated and still be built.
+ *
+ * @param {{segments: {id: string, kind: string, hash: string}[]}} doc
+ * @param {Record<string, {sourceHash: string, status: string}>} units  segment ID -> unit
+ * @param {string[]} renderStatuses  the statuses this locale accepts
  */
-export function docStatus(translation, canonicalHash) {
-  if (!translation) return 'MISSING';
-  return unitStatus({ sourceHash: translation.frontmatter.sourceHash, status: translation.frontmatter.status }, canonicalHash);
+export function docSegmentStatus(doc, units, renderStatuses) {
+  const body = doc.segments.filter((s) => s.kind === 'markdown');
+  let rendered = 0;
+  for (const s of body) if (renderStatuses.includes(unitStatus(units?.[s.id], s.hash))) rendered++;
+  return { status: rendered === 0 ? 'MISSING' : rendered === body.length ? 'CURRENT' : 'PARTIAL', rendered, total: body.length };
 }
 
 /**
  * @param {object} o
  * @param {object} o.localesDoc
  * @param {object} o.registry          pages.json
- * @param {Record<string, {hash: string, section: string}>} o.docs  canonical docs by slug
- * @param {Record<string, Record<string, {frontmatter: object, body: string}>>} o.docTranslations  locale -> slug -> parsed file
+ * @param {Record<string, {section: string, segments: object[]}>} o.docs  canonical docs by slug
+ * @param {Record<string, Record<string, {units: Record<string, object>}>>} o.docUnits  locale -> slug -> segment units
  * @returns {{locale: string, prefix: string, stage: string, pages: {pageId: string, route: string, variant: string}[], docs: {slug: string, status: string, variant: string}[]}[]}
  */
-export function variantPlan({ localesDoc, registry, docs, docTranslations }) {
+export function variantPlan({ localesDoc, registry, docs, docUnits }) {
   const plan = [];
   for (const l of enabledLocales(localesDoc)) {
     const scope = l.scope === 'all' ? null : localesDoc.scopes[l.scope];
@@ -233,12 +241,11 @@ export function variantPlan({ localesDoc, registry, docs, docTranslations }) {
     });
     const docList = [];
     for (const [slug, doc] of Object.entries(docs).sort(([a], [b]) => a.localeCompare(b))) {
-      let status;
-      if (l.stage === 'pseudo') status = scope && !scope.docSections.includes(doc.section) ? 'MISSING' : 'CURRENT';
-      else status = docStatus(docTranslations?.[l.id]?.[slug], doc.hash);
-      if (l.stage === 'pseudo' ? status === 'CURRENT' : l.renderStatuses.includes(status)) {
-        docList.push({ slug, status, variant: variantRoute(`/docs/${slug}/`, l.id, localesDoc.canonical) });
-      }
+      // A document is served in a locale whenever it is in the locale's scope:
+      // segments the locale does not render fall back to English per segment.
+      if (scope && !scope.docSections.includes(doc.section)) continue;
+      const status = l.stage === 'pseudo' ? 'CURRENT' : docSegmentStatus(doc, docUnits?.[l.id]?.[slug]?.units, l.renderStatuses).status;
+      docList.push({ slug, status, variant: variantRoute(`/docs/${slug}/`, l.id, localesDoc.canonical) });
     }
     plan.push({ locale: l.id, prefix: localePrefix(l.id), stage: l.stage, pages, docs: docList });
   }

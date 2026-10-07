@@ -10,6 +10,7 @@ sources:
   - { path: saipen/REGISTRY.json, label: REGISTRY.json — checkpoint_order }
 ---
 
+<!-- i18n:docs.protocol.checkpointing.intro -->
 A checkpoint happens after each phase transition, after each ticket, and
 before stopping. Its write order is fixed by the registry:
 
@@ -19,6 +20,7 @@ before stopping. Its write order is fixed by the registry:
 3. STATE.md  atomic write last, validate and re-read every required field
 ```
 
+<!-- i18n:docs.protocol.checkpointing.why-this-order -->
 ## Why this order
 
 Each step makes the next one derivable. The log line is the evidence; the
@@ -32,12 +34,14 @@ STATE records the current schema, the actual highest event id, the style
 marker, the real UTC time, the current phase and task, and the deterministic
 next action.
 
+<!-- i18n:docs.protocol.checkpointing.readback-is-the-evidence -->
 ## Readback is the evidence
 
 A success message from a writer is not evidence. Each file is re-read after it
 is written, and STATE is validated field by field. "I saved it" is a claim;
 the readback is the proof.
 
+<!-- i18n:docs.protocol.checkpointing.atomic-writes-honestly-bounded -->
 ## Atomic writes, honestly bounded
 
 Canonical files are replaced with temp-file-plus-rename ordering. That gives

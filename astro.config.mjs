@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import rehypeWintage from './src/lib/rehype-wintage.mjs';
+import remarkI18n from './src/lib/remark-i18n.mjs';
 
 // Static output only: no adapter, no server, no runtime service
 // (BOOTSTRAP_CORRIDOR §2, MASTER_ROADMAP M25).
@@ -16,6 +17,8 @@ export default defineConfig({
     // No highlighter: it would emit inline colours outside the 21-token palette.
     syntaxHighlight: false,
     smartypants: false,
+    // Segment directives are content-engine metadata; they never reach output.
+    remarkPlugins: [remarkI18n],
     rehypePlugins: [rehypeWintage],
   },
 });

@@ -10,6 +10,7 @@ sources:
   - { path: SPEC.md, anchor: architecture-decision-records-adr, label: SPEC.md — ADRs }
 ---
 
+<!-- i18n:docs.concepts.knowledge.intro -->
 `KNOWLEDGE/` answers **what is the durable truth of this project?** It holds
 facts that must survive sessions and are worth a future agent's attention:
 architecture decisions, constraints, conventions.
@@ -19,6 +20,7 @@ chronological; a decision buried at event 1,400 is a decision nobody will find.
 SAIPEN therefore asks that structural decisions are persisted as architecture
 decision records, for example `KNOWLEDGE/ADR-001-use-sqlite.md`.
 
+<!-- i18n:docs.concepts.knowledge.what-belongs-here-and-what-does-not -->
 ## What belongs here, and what does not
 
 Belongs: verified, reusable facts and decisions.
@@ -26,6 +28,7 @@ Belongs: verified, reusable facts and decisions.
 Does not belong: tasks (they go on the board), logs, guesses, protocol rules
 (they live in the protocol), and never credentials.
 
+<!-- i18n:docs.concepts.knowledge.knowledge-cards -->
 ## Knowledge cards
 
 Optional `KNOWLEDGE/cards/*.md` lessons are promoted only when a lesson is
@@ -34,6 +37,7 @@ not transient, and safe. The default is zero cards per piece of work and
 normally at most one. A superseded card stays for forensics with a link to its
 single active replacement.
 
+<!-- i18n:docs.concepts.knowledge.the-index -->
 ## The index
 
 `KNOWLEDGE/INDEX.md` is generated and deletable. A cold agent reads it and

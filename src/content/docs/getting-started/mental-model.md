@@ -10,6 +10,7 @@ sources:
   - { path: saipen/CORE.md, anchor: 12-file-model, label: CORE.md §1.2 File Model }
 ---
 
+<!-- i18n:docs.getting-started.mental-model.intro -->
 Picture a workshop where the workers change every shift and nobody may rely on
 being told anything by the previous worker. The workshop survives because the
 job sheet on the bench says exactly what is going on and what to do next.
@@ -33,6 +34,7 @@ Project
      next_action -> work -> checkpoint -> next ticket
 ```
 
+<!-- i18n:docs.getting-started.mental-model.three-ideas-carry-everything -->
 ## Three ideas carry everything
 
 **1. Files outrank memory.** What is on disk is authoritative. If `STATE.md`
@@ -49,6 +51,7 @@ does not re-plan the project every session; it executes the next step.
 checkpoint, and a ticket closes only through VERIFY, REVIEW and SHIP with
 evidence recorded in the log. "Done" without evidence weighs nothing.
 
+<!-- i18n:docs.getting-started.mental-model.how-a-session-looks -->
 ## How a session looks
 
 1. A cold agent runs `saipen continue`.
@@ -59,6 +62,7 @@ evidence recorded in the log. "Done" without evidence weighs nothing.
 4. Each step ends in a checkpoint: `LOG`, then `BOARD`, then `STATE`.
 5. The session may end at any moment. The next agent starts again at step 1.
 
+<!-- i18n:docs.getting-started.mental-model.three-layers -->
 ## Three layers
 
 ```text

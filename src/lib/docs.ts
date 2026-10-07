@@ -7,6 +7,7 @@
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { DOC_SECTIONS } from '../content.config';
+import { stripSegmentDirectives } from '../content-engine/i18n/segments.mjs';
 
 export type Doc = CollectionEntry<'docs'>;
 
@@ -32,10 +33,17 @@ export const SECTION_LEADS: Record<(typeof DOC_SECTIONS)[number], string> = {
 
 export const docHref = (doc: Doc) => `/docs/${doc.id}/`;
 
+/**
+ * Every documentation page, in the one site order. Segment directives are
+ * content-engine metadata: they are stripped here so the raw `.md` twin, the
+ * search index and `llms-full.txt` carry the prose exactly as it was written.
+ */
 export async function allDocs(): Promise<Doc[]> {
   const docs = await getCollection('docs');
   const rank = (doc: Doc) => DOC_SECTIONS.indexOf(doc.data.section);
-  return docs.sort((a, b) => rank(a) - rank(b) || a.data.order - b.data.order);
+  return docs
+    .map((doc) => ({ ...doc, body: stripSegmentDirectives(doc.body ?? '') }))
+    .sort((a, b) => rank(a) - rank(b) || a.data.order - b.data.order);
 }
 
 export async function docTree() {

@@ -10,6 +10,7 @@ sources:
   - { path: SPEC.md, anchor: abstract, label: SPEC.md — Abstract }
 ---
 
+<!-- i18n:docs.getting-started.introduction.intro -->
 SAIPEN is a **continuation protocol for AI coding agents**. It keeps a
 project's working memory in plain Markdown files inside the project, in a
 folder called `.saipen/`, so that any compatible agent — one with no chat
@@ -22,6 +23,7 @@ saipen continue
 
 or, as a whole message, just `cc`.
 
+<!-- i18n:docs.getting-started.introduction.the-problem-it-solves -->
 ## The problem it solves
 
 A coding agent remembers nothing once its session ends. It may have spent
@@ -34,6 +36,7 @@ SAIPEN moves that memory out of the conversation and into the project:
 
 > The agent forgets. The project remembers.
 
+<!-- i18n:docs.getting-started.introduction.what-persists -->
 ## What persists
 
 A cold agent answers five questions from the files alone:
@@ -50,6 +53,7 @@ A cold agent answers five questions from the files alone:
 truth. `next_action`, a field inside `STATE.md`, is the heart of the protocol:
 it is never prose to interpret, always one immediately executable action.
 
+<!-- i18n:docs.getting-started.introduction.what-makes-it-a-protocol-not-a-habit -->
 ## What makes it a protocol, not a habit
 
 - **Fixed checkpoint order.** Every phase transition and every stop writes
@@ -62,6 +66,7 @@ it is never prose to interpret, always one immediately executable action.
   the machine-readable contract: STATE shape, legal transitions, the ticket
   dependency graph, the event graph and recovery state.
 
+<!-- i18n:docs.getting-started.introduction.what-it-is-not -->
 ## What it is not
 
 SAIPEN is not a model, not an IDE, not a hosted memory database and not a

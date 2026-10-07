@@ -1,0 +1,74 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-07T09:15:26Z",
+  "evidence_class": "executed",
+  "findings_digest": "1818c529140dc312b56525586ac2331459900b467872e225ac6b58fe9db3db2b",
+  "gate": "core",
+  "integrity_digest": "cd9aef65214d9824",
+  "journal_op_id": "reverify.031f4ca90c64",
+  "original_closure": {
+    "claim_time": "2026-10-07T05:43:00Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-99",
+    "owner": "saipen",
+    "source_receipts": "SRC-008"
+  },
+  "own_problem_keys": [
+    "ac8fe87afc1d71b8"
+  ],
+  "problem_count": 1,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000011",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "27f7335db58fea9be9bfc7e9d8413e9d195d38ff",
+  "source_tree_fingerprint": "git-delta-v1:c66baf69a8306f3b95dfc7badb5f72b088f8de8408e933efadc4d149721a1195",
+  "verdict": "PASS_WITH_CARRIED_DEBT",
+  "verification": [
+    {
+      "command": "npm run build",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 7465,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 13865,
+      "output_digest": "90c13dcd5cdb6fa1",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run audit:build",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 358,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 49602,
+      "output_digest": "4fa0e288ab887b30",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run test:shell",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 36335,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 14198,
+      "output_digest": "0eaf4a5990d3eca8",
+      "result": "PASS"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "npm run build",
+      "npm run audit:build",
+      "npm run test:shell"
+    ],
+    "findings_digest": "1818c529140dc312b56525586ac2331459900b467872e225ac6b58fe9db3db2b",
+    "gate": "core"
+  },
+  "verification_contract_digest": "b5626698e2c2efb0",
+  "verifier": "saipen",
+  "warning_count": 2,
+  "work": "T-9"
+}

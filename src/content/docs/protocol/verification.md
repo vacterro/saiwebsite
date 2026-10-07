@@ -10,6 +10,7 @@ sources:
   - { path: saipen/CORE.md, anchor: 16-core-state-machine--ticket-dag, label: CORE.md §1.6 }
 ---
 
+<!-- i18n:docs.protocol.verification.intro -->
 VERIFY proves the current ticket works before REVIEW. It uses the
 repository's own harness, strongest available, cheapest first:
 
@@ -22,6 +23,7 @@ green cannot repair it. A failure is advisory only when the repository or
 ticket explicitly says so — unclassified gates are mandatory. The ticket's
 `verify:` field is the minimum check, not the whole of it.
 
+<!-- i18n:docs.protocol.verification.a-gate-that-cannot-fail-is-not-a-gate -->
 ## A gate that cannot fail is not a gate
 
 Before relying on a new or inherited check, the agent gives it a known-bad
@@ -34,6 +36,7 @@ The converse holds too: before reporting a broad negative, the agent runs a
 known-good control. If the instrument cannot recognise it, the result is a
 broken verifier, not a failed subject.
 
+<!-- i18n:docs.protocol.verification.fixing-a-bug-requires-a-regression-that-failed-f -->
 ## Fixing a bug requires a regression that failed first
 
 The same test, fixture, oracle and configuration must be red against the
@@ -42,6 +45,7 @@ the implementation, never the definition of success. Weakening the fixture to
 get green is exactly the failure this rule exists to stop. Tickets that owe
 this comparison carry a machine-owned `regression: required` field.
 
+<!-- i18n:docs.protocol.verification.when-a-human-has-to-check -->
 ## When a human has to check
 
 If a check needs a person — a GUI, a device, an environment the agent cannot
@@ -50,6 +54,7 @@ not a verdict. The verdict is a separate event beginning
 `MANUAL-VERIFY RESULT: PASS` or `MANUAL-VERIFY RESULT: FAIL`, written only
 from what the human reported.
 
+<!-- i18n:docs.protocol.verification.confidence -->
 ## Confidence
 
 A VERIFY result ends with `conf: high` for green tests (with controls),

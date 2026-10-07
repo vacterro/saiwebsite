@@ -15,7 +15,16 @@ split into stable units:
 |------|-------------------------|----------------------------|
 | Block (UI string, paragraph, label) | `src/content-engine/blocks/<domain>.json` | `src/locales/<locale>/<domain>.json` |
 | Navigation label | `src/content-engine/registry/pages.json` (`label`) | `src/locales/<locale>/pages.json` |
-| Documentation page | `src/content/docs/<section>/<name>.md` | `src/locales/<locale>/docs/<section>/<name>.md` |
+| Documentation **segment** | `src/content/docs/<section>/<name>.md`, one `<!-- i18n:<segment id> -->` line before each segment | `src/locales/<locale>/docs/<section>/<name>.json`, one entry per segment ID |
+
+A documentation page is **not** one unit. Its title, its description and every
+section are separate, stable segments, each with its own hash and its own
+entry, so editing one paragraph marks one segment stale — not the whole page,
+and not the same paragraph in thirty-three languages at once. The segment ID
+(`docs.getting-started.introduction.what-persists`) is permanent: it does not
+change when the heading is reworded, when a section is reordered, or when the
+text is edited. You never invent an ID; `i18n:export` hands you the ones that
+exist.
 
 You do not create or edit these files by hand. `i18n:export` gives you the
 units, `i18n:import` writes them. The English files are not yours to change.
@@ -28,7 +37,13 @@ pseudo-locale used by the tests; ignore it.
 The pilot scope — what a locale must cover before it can be enabled — is the
 site shell, the home, about, pricing, search and 404 pages, the navigation
 labels, the documentation chrome, and the four pages of the *Getting started*
-docs section: 271 blocks and 4 documents, 275 units in all.
+docs section.
+
+The exact current unit count is authoritative from
+`npm run i18n:status -- --locale <id>` (add `--json` for a machine-readable
+form) and from each `i18n:export` work package. Do not trust a number written
+down in prose — a hand-kept total is exactly the drift this content engine
+exists to prevent.
 
 ## The workflow
 
@@ -71,7 +86,8 @@ touch nothing else:
   "units": [
     {
       "id": "home.hero.licence",          // stable ID, do not change
-      "type": "text",                     // text | inline
+      "kind": "block",                    // block | segment
+      "type": "text",                     // text | inline (block), text | markdown (segment)
       "source": "MIT-licensed. Protocol {version}; this site describes commit {commit}.",
       "sourceHash": "3f0c…",              // ties your text to this exact English
       "note": null,                       // context, when the English alone is ambiguous
@@ -81,14 +97,20 @@ touch nothing else:
       "previous": null,                   // your old text, when the English changed (STALE)
       "memory": [],                       // an approved identical string to reuse
       "translation": ""                   // <- fill this
-    }
-  ],
-  "documents": [
+    },
     {
-      "slug": "getting-started/introduction",
-      "source": { "title": "...", "description": "...", "body": "...markdown..." },
-      "keepMarkdown": { "fences": [...], "code": [...], "links": [...], "headings": [2, 2, 3] },
-      "translation": { "title": "", "description": "", "body": "" }   // <- fill these
+      "id": "docs.getting-started.introduction.what-persists",  // stable segment ID
+      "kind": "segment",
+      "type": "markdown",                 // text (title/description) | markdown (a section)
+      "document": "getting-started/introduction",
+      "section": "getting-started",
+      "source": "## What persists\n\nA cold agent answers five questions…",
+      "sourceHash": "88b0…",
+      "keepMarkdown": { "fences": [], "code": ["STATE.md"], "links": [], "headings": [2] },
+      "context": { "before": "…the previous segment…", "after": "…the next segment…" },
+      "previous": null,
+      "memory": [],
+      "translation": ""                   // <- fill this
     }
   ]
 }
@@ -96,7 +118,9 @@ touch nothing else:
 
 Leave a `translation` empty to skip that unit for now; import writes only
 filled units. Never edit `sourceHash`: import refuses a unit whose English
-changed after export, and that is the point.
+changed after export, and that is the point. A segment's `context` is the
+neighbouring segments for orientation only — never translate it, and never
+send back a whole document.
 
 ## Rules a translation must keep
 
@@ -112,9 +136,12 @@ the reason. `i18n:validate` checks them again over everything stored.
    never the code or the target. Only these three markups exist; do not add
    others.
 3. **Plain text** (`type: "text"`) carries no markup at all.
-4. **Documents** — keep every fenced code block byte for byte, every inline
-   code span, every link target, and the same headings at the same levels in
-   the same order. Translate prose, headings, list items and table text.
+4. **Documentation segments** — a `markdown` segment keeps every fenced code
+   block byte for byte, every inline code span, every link target, and the same
+   headings at the same levels in the same order as its own English. A `text`
+   segment (a document title or description) carries no markup at all.
+   Translate prose, headings, list items and table text. Code, commands, file
+   names and URLs stay exactly as the English has them.
 5. **Do-not-translate terms** — every term in `glossary.doNotTranslate` that
    occurs in the English must occur verbatim in the translation: `SAIPEN`,
    `SAIPEN Protocol`, `Wintage`, `Golden Default`, `.saipen/`, `STATE.md`,
@@ -169,9 +196,31 @@ the reason. `i18n:validate` checks them again over everything stored.
 | `ORPHANED` | The English unit no longer exists; the translation can be removed | computed |
 
 Pilot locales render `CURRENT`, `REVIEWED` and `MACHINE_DRAFT`. A `STALE` or
-`MISSING` unit is never shown: the page shows the English text in its place,
-marked with `lang="en"`, and `site:doctor` lists it as translation work. An
-English edit therefore never breaks the build; it only creates work for you.
+`MISSING` unit is never shown: that unit shows the English text in its place,
+marked with `lang="en"`, and `site:doctor` lists it as translation work. This
+is per segment, so one stale paragraph falls back to English inside an
+otherwise translated page; the rest of the page stays translated. An English
+edit therefore never breaks the build; it only creates work for you — and only
+for the segments it actually touched.
+
+## Authoring a new section (canonical English)
+
+A documentation page is segmented with one directive on its own line, before
+each translatable segment:
+
+```markdown
+<!-- i18n:docs.getting-started.introduction.what-persists -->
+## What persists
+
+A cold agent answers five questions from the files alone:
+…
+```
+
+Give the new segment a stable ID: `docs.<section>.<name>.<segment>`, lower-case
+and dotted, matching the page's path. Then run `npm run site:refresh`. The new
+segment appears to every translator as one `MISSING` unit; no locale file is
+touched by hand and no translated segment is disturbed. Renaming or reordering
+sections leaves every ID — and every translation attached to one — alone.
 
 ## When the English changes
 
