@@ -27,11 +27,11 @@
      write that field name next to a concrete id anywhere in this file. -->
 
 ## DOING
-- [/] T-11 [P2] Хорошо, опус, добей пожалуйста до конца этот сайт | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-009 | owner: saipen | claim_time: 2026-10-07T09:10:04Z
 
 ## TODO
 
 ## DONE
+- [x] T-11 [P2] Хорошо, опус, добей пожалуйста до конца этот сайт | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-009 | owner: saipen | claim_time: 2026-10-07T09:10:47Z | closure_mode: own_patch
 - [x] T-10 [P2] Finishing convergence: SAI Pixel font convergence to canonical Verdana_m1 (0.0px canonical sentence delta, open license preserved), complete Pricing support section (LHV, crypto with explicit networks, copy buttons, optionality contract), Vintage Classic brand mark contrast (#000000 on white), and version 1.3.0 | verify: npm run fonts:compare delta 0.0px, Playwright suites, 8 static gates, and red controls pass | request_witness: model_supplied | source_receipts: SRC-009 | owner: saipen | claim_time: 2026-10-07T07:15:00Z | closure_mode: own_patch
 - [x] T-9 [P2] Tint the images in src/media/ to the site palette and place them where they fit; the SAIPEN wordmark image is the hero/header for now; favicon from __SAIPEN_Alpha.png tinted in golden default | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-008 | owner: saipen | claim_time: 2026-10-07T05:43:00Z | closure_mode: own_patch
 - [x] T-8 [P2] Release-readiness convergence: open-licence production pixel fonts + social card, validate:licenses gate, bench as production verification, stale copy, single-sourced facts, ecosystem:sync + snapshot validation, AUDAPACK mandatory-include check, local git only, T-6 honest reconcile, consistency pass, THIRD_PARTY_NOTICES, v1.2.0; no publish/push/deploy | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-007 | owner: saipen | claim_time: 2026-10-07T05:37:41Z | closure_mode: own_patch
