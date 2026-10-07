@@ -1293,6 +1293,9 @@
         "site.identity",
         "saipen.protocol.meta",
         "site.content.docs"
+      ],
+      "consumes": [
+        "family:docs.page"
       ]
     },
     {
@@ -1312,6 +1315,9 @@
         "site.identity",
         "saipen.protocol.meta",
         "site.content.docs"
+      ],
+      "consumes": [
+        "flag:llmVisible"
       ]
     },
     {
@@ -1455,6 +1461,9 @@
         "saipen.protocol.registry",
         "site.phases",
         "saipen.hq.project-map"
+      ],
+      "consumes": [
+        "flag:searchable"
       ]
     },
     {

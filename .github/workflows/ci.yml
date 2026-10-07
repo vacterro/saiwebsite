@@ -43,6 +43,9 @@ jobs:
       - name: Validate page registry and inventory
         run: npm run validate:registry
 
+      - name: Content engine doctor (sources, lock, graph, generated outputs)
+        run: npm run site:doctor
+
       - name: Validate visual baselines manifest
         run: npm run validate:baselines
 

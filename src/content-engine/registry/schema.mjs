@@ -43,8 +43,7 @@ const ENTRY_FIELDS = ['id', 'label', 'intent', 'kind', 'owner', 'maturity', 'aud
 const PAGE_FIELDS = [...ENTRY_FIELDS, 'route'];
 const FAMILY_FIELDS = [...ENTRY_FIELDS, 'routePattern', 'params', 'idTemplate'];
 const FAMILY_OPTIONAL = ['twinOf'];
-const SOURCE_FIELDS = ['id', 'location', 'note'];
-const TOP_FIELDS = ['schemaVersion', 'sources', 'pages', 'families'];
+const TOP_FIELDS = ['schemaVersion', 'pages', 'families'];
 
 const SEGMENT = '[a-z0-9]+(?:-[a-z0-9]+)*';
 /** Dotted lowercase segments: `home`, `docs.index`, `saipen.protocol.registry`. */
@@ -55,6 +54,7 @@ const DIR_ROUTE = new RegExp(`^/(?:${SEGMENT}/)*$`);
 const FILE_ROUTE = new RegExp(`^/(?:${SEGMENT}/)*[a-z0-9]+(?:[.-][a-z0-9]+)*\\.(html|txt|xml|json|md)$`);
 
 const NON_NAV_KINDS = ['alias', 'system', 'machine'];
+export const CONSUMABLE_FLAGS = ['searchable', 'llmVisible', 'sitemap', 'localizable'];
 
 /** Shape of a route: `dir`, an extension such as `txt`/`html`, or null when malformed. */
 export function routeShape(route) {
@@ -135,7 +135,7 @@ function checkEntry(entry, where, isFamily, sourceIds, problems) {
         if (typeof id !== 'string' || !ID_PATTERN.test(id) || !id.includes('.')) {
           problems.push(`[bad-source-id] ${where}: "${id}" is not a dotted source ID such as saipen.protocol.registry`);
         } else if (!sourceIds.has(id)) {
-          problems.push(`[unknown-source] ${where}: "${id}" is not declared in sources`);
+          problems.push(`[unknown-source] ${where}: "${id}" is not declared in sources.json`);
         }
         if (seen.has(id)) problems.push(`[duplicate-source] ${where}: "${id}" listed twice`);
         seen.add(id);
@@ -175,30 +175,21 @@ function checkRouteKind(route, kind, where, problems) {
 }
 
 /**
- * Validate a parsed registry. Returns problem strings; empty means valid.
- * Covers shape, closed enums, ID/route/source syntax, uniqueness, family
- * patterns and static-versus-family ambiguity. Nothing here reads disk.
+ * Validate a parsed page registry against the declared source IDs (from
+ * sources.json). Returns problem strings; empty means valid. Covers shape,
+ * closed enums, ID/route/source syntax, uniqueness, family patterns and
+ * static-versus-family ambiguity. Nothing here reads disk.
  */
-export function validateRegistry(registry) {
+export function validateRegistry(registry, declaredSources = []) {
   const problems = [];
   if (!checkFields(registry, 'registry', TOP_FIELDS, [], problems)) return problems;
   if (registry.schemaVersion !== SCHEMA_VERSION) problems.push(`[schema-version] registry: schemaVersion ${registry.schemaVersion} is not ${SCHEMA_VERSION}`);
-  for (const list of ['sources', 'pages', 'families']) {
+  for (const list of ['pages', 'families']) {
     if (!Array.isArray(registry[list])) problems.push(`[malformed] registry: ${list} must be an array`);
   }
   if (problems.length) return problems;
 
-  const sourceIds = new Set();
-  registry.sources.forEach((source, i) => {
-    const where = `sources[${i}]${source?.id ? ` ${source.id}` : ''}`;
-    if (!checkFields(source, where, SOURCE_FIELDS, [], problems)) return;
-    if (typeof source.id !== 'string' || !ID_PATTERN.test(source.id) || !source.id.includes('.')) problems.push(`[bad-source-id] ${where}: "${source.id}" is not a dotted source ID`);
-    else if (sourceIds.has(source.id)) problems.push(`[duplicate-source] ${where}: declared twice`);
-    sourceIds.add(source.id);
-    for (const field of ['location', 'note']) {
-      if (typeof source[field] !== 'string' || !source[field].trim()) problems.push(`[malformed] ${where}: ${field} must be a non-empty string`);
-    }
-  });
+  const sourceIds = new Set(declaredSources);
 
   const ids = new Map();
   const claimId = (id, where) => {
@@ -210,7 +201,7 @@ export function validateRegistry(registry) {
 
   registry.pages.forEach((page, i) => {
     const where = `pages[${i}]${page?.id ? ` ${page.id}` : ''}`;
-    if (!checkFields(page, where, PAGE_FIELDS, [], problems)) return;
+    if (!checkFields(page, where, PAGE_FIELDS, ['consumes'], problems)) return;
     checkEntry(page, where, false, sourceIds, problems);
     claimId(page.id, where);
     if (!routeShape(page.route)) {
@@ -268,6 +259,27 @@ export function validateRegistry(registry) {
   const used = new Set([...registry.pages, ...registry.families].flatMap((entry) => (Array.isArray(entry?.sourceIds) ? entry.sourceIds : [])));
   for (const id of sourceIds) if (!used.has(id)) problems.push(`[unused-source] sources ${id}: no page or family depends on it`);
 
+  // `consumes` names what a page is assembled from beyond its sources: every
+  // page carrying a flag, every member of a family, or one other page. The
+  // dependency graph turns these into page -> output edges.
+  const pageIds = new Set(registry.pages.map((p) => p?.id));
+  registry.pages.forEach((page, i) => {
+    if (page?.consumes === undefined) return;
+    const where = `pages[${i}] ${page.id}`;
+    if (!Array.isArray(page.consumes) || !page.consumes.length) {
+      problems.push(`[malformed] ${where}: consumes must be a non-empty array`);
+      return;
+    }
+    for (const ref of page.consumes) {
+      const [kind, value] = String(ref).split(/:(.*)/s);
+      const ok =
+        (kind === 'flag' && CONSUMABLE_FLAGS.includes(value)) ||
+        (kind === 'family' && families.has(value)) ||
+        (kind === 'page' && pageIds.has(value) && value !== page.id);
+      if (!ok) problems.push(`[bad-consumes] ${where}: "${ref}" is not flag:<${CONSUMABLE_FLAGS.join('|')}>, family:<id> or page:<other id>`);
+    }
+  });
+
   // A static route that a family pattern also matches would resolve twice.
   if (!problems.some((p) => p.startsWith('[bad-pattern]'))) {
     for (const family of families.values()) {
@@ -279,8 +291,8 @@ export function validateRegistry(registry) {
 }
 
 /** Throws one error listing every problem. Used where an invalid registry must stop the build. */
-export function assertValidRegistry(registry, label = 'src/content-engine/registry/pages.json') {
-  const problems = validateRegistry(registry);
+export function assertValidRegistry(registry, declaredSources, label = 'src/content-engine/registry/pages.json') {
+  const problems = validateRegistry(registry, declaredSources);
   if (problems.length) throw new Error(`${label} is invalid:\n  ${problems.join('\n  ')}`);
   return registry;
 }
@@ -300,6 +312,7 @@ function record(entry, route, id, origin) {
     llmVisible: entry.llmVisible,
     sitemap: inSitemap(entry),
     sourceIds: [...entry.sourceIds],
+    ...(entry.consumes ? { consumes: [...entry.consumes] } : {}),
   };
 }
 

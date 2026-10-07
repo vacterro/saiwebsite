@@ -2,8 +2,8 @@
  * Page registry gate (content-system roadmap M31).
  *
  * Checks, in order:
- *   1. schema         src/content-engine/registry/pages.json against schema.mjs
- *   2. sources        every declared source location exists on disk
+ *   1. schema         pages.json against schema.mjs, sources.json against sources.mjs
+ *   2. sources        every declared source path exists on disk
  *   3. built site     every built route resolves to exactly one registry entry,
  *                     every static page is built, every family has members
  *   4. flags          searchable / llmVisible / sitemap tell the truth about
@@ -17,17 +17,15 @@
  *   node scripts/validate-registry.mjs            check (CI)
  *   node scripts/validate-registry.mjs --write    regenerate the inventory
  */
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { builtRoutes, checkDiscovery } from '../src/content-engine/inventory/built.mjs';
 import { buildInventory, validateRegistry } from '../src/content-engine/registry/schema.mjs';
+import { sourceIdsOf, validateSources } from '../src/content-engine/registry/sources.mjs';
 
 const REGISTRY = 'src/content-engine/registry/pages.json';
+const SOURCES = 'src/content-engine/registry/sources.json';
 const INVENTORY = 'src/content-engine/inventory/pages.inventory.json';
 const DIST = 'dist';
-/** Static asset trees: files there are resources of pages, not addressable documents. */
-const ASSET_DIRS = new Set(['_astro', 'fonts', 'media', 'social']);
-const DOCUMENT_EXT = /\.(html|txt|xml|json|md)$/;
-
 const write = process.argv.includes('--write');
 
 if (!existsSync(DIST)) {
@@ -35,78 +33,10 @@ if (!existsSync(DIST)) {
   process.exit(2);
 }
 
-/** Every addressable document in dist/, as the route a visitor would request. */
-function builtRoutes(dist = DIST) {
-  const out = [];
-  (function walk(dir) {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      const full = join(dir, e.name);
-      const rel = relative(dist, full).split(sep).join('/');
-      if (e.isDirectory()) {
-        if (!(dir === dist && ASSET_DIRS.has(e.name))) walk(full);
-      } else if (e.name === 'index.html') {
-        out.push('/' + rel.replace(/index\.html$/, ''));
-      } else if (DOCUMENT_EXT.test(e.name)) {
-        out.push('/' + rel);
-      }
-    }
-  })(dist);
-  return out.sort();
-}
-
-const pathOf = (url) => {
-  const u = new URL(url, 'https://registry.invalid');
-  return u.pathname;
-};
-
-/**
- * The three discovery outputs must agree with the flags, in both directions:
- * an index entry for a page that says it is not indexed is as much a lie as a
- * flagged page that no index mentions.
- */
-function checkDiscovery(records, dist = DIST) {
-  const problems = [];
-  const byRoute = new Map(records.map((r) => [r.route, r]));
-
-  const search = JSON.parse(readFileSync(join(dist, 'search-index.json'), 'utf8'));
-  const searched = new Set(search.map((entry) => pathOf(entry.url)));
-  for (const route of searched) {
-    const r = byRoute.get(route);
-    if (!r) problems.push(`[flag-searchable] search-index.json points at ${route}, which is not a registered route`);
-    else if (!r.searchable) problems.push(`[flag-searchable] ${r.id}: in search-index.json but declared searchable: false`);
-  }
-  for (const r of records) if (r.searchable && !searched.has(r.route)) problems.push(`[flag-searchable] ${r.id}: declared searchable but absent from search-index.json`);
-
-  const llms = readFileSync(join(dist, 'llms.txt'), 'utf8');
-  const listed = new Set([...llms.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)].map((m) => pathOf(m[1])));
-  const credited = new Set();
-  for (const route of listed) {
-    const r = byRoute.get(route);
-    if (!r) {
-      problems.push(`[flag-llm] llms.txt points at ${route}, which is not a registered route`);
-      continue;
-    }
-    if (!r.llmVisible) problems.push(`[flag-llm] ${r.id}: listed in llms.txt but declared llmVisible: false`);
-    credited.add(r.id);
-    if (r.twinOf) credited.add(r.twinOf);
-  }
-  for (const r of records) if (r.llmVisible && !credited.has(r.id)) problems.push(`[flag-llm] ${r.id}: declared llmVisible but neither it nor a twin is listed in llms.txt`);
-
-  const sitemap = readFileSync(join(dist, 'sitemap.xml'), 'utf8');
-  const located = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => pathOf(m[1])));
-  for (const route of located) {
-    const r = byRoute.get(route);
-    if (!r) problems.push(`[flag-sitemap] sitemap.xml lists ${route}, which is not a registered route`);
-    else if (!r.sitemap) problems.push(`[flag-sitemap] ${r.id}: in sitemap.xml but a ${r.audience} ${r.kind} page is not indexable`);
-  }
-  for (const r of records) if (r.sitemap && !located.has(r.route)) problems.push(`[flag-sitemap] ${r.id}: an indexable page absent from sitemap.xml`);
-  return problems;
-}
-
 const records = (inventory) => [...inventory.public, ...inventory.internal];
 
 function audit(registry, routes) {
-  const problems = validateRegistry(registry);
+  const problems = validateRegistry(registry, declared);
   if (problems.length) return { problems };
   const { inventory, problems: built } = buildInventory(registry, routes);
   if (built.length) return { problems: built, inventory };
@@ -119,6 +49,8 @@ const fail = (msg) => {
   console.log('  FAIL ' + msg);
 };
 
+const sourceDoc = JSON.parse(readFileSync(SOURCES, 'utf8'));
+const declared = sourceIdsOf(sourceDoc);
 const text = readFileSync(REGISTRY, 'utf8');
 const registry = JSON.parse(text);
 const routes = builtRoutes();
@@ -130,11 +62,12 @@ const pageOf = (reg, id) => reg.pages.find((p) => p.id === id);
 // ---------------------------------------------------------------------------
 console.log('REGISTRY ' + REGISTRY);
 const { problems, inventory } = audit(registry, routes);
+for (const p of validateSources(sourceDoc)) fail(p);
 for (const p of problems) fail(p);
-for (const source of registry.sources) {
-  if (!existsSync(source.location)) fail(`[missing-source] ${source.id}: location ${source.location} does not exist`);
+for (const source of sourceDoc.sources) {
+  for (const path of source.paths ?? []) if (!existsSync(path)) fail(`[missing-source] ${source.id}: path ${path} does not exist`);
 }
-console.log(`  ${registry.pages.length} pages, ${registry.families.length} families, ${registry.sources.length} sources`);
+console.log(`  ${registry.pages.length} pages, ${registry.families.length} families, ${sourceDoc.sources.length} sources`);
 if (inventory) {
   const t = inventory.totals;
   console.log(`  built routes ${routes.length} -> ${t.routes} registered (${t.public} public, ${t.internal} internal)`);
@@ -197,9 +130,9 @@ if (inventory && !problems.length) {
     writeFileSync(INVENTORY, fresh);
     console.log('  written');
   } else if (!existsSync(INVENTORY)) {
-    fail(`${INVENTORY} does not exist — run npm run registry:inventory`);
+    fail(`${INVENTORY} does not exist — run npm run site:refresh`);
   } else if (readFileSync(INVENTORY, 'utf8').replace(/\r\n/g, '\n') !== fresh) {
-    fail(`${INVENTORY} is stale against the registry and the built site — run npm run registry:inventory`);
+    fail(`${INVENTORY} is stale against the registry and the built site — run npm run site:refresh`);
   } else {
     console.log('  current');
   }

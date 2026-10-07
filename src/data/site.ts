@@ -13,7 +13,9 @@
  *                       | unavailable | unknown
  */
 import registry from '../content-engine/registry/pages.json';
+import sources from '../content-engine/registry/sources.json';
 import { assertValidRegistry } from '../content-engine/registry/schema.mjs';
+import { sourceIdsOf, validateSources } from '../content-engine/registry/sources.mjs';
 
 export type PageMaturity =
   | 'placeholder'
@@ -81,7 +83,9 @@ export const SITE = {
  * entries that live in the shell (nav primary | secondary | debug). The
  * registry is validated here, so an invalid registry fails `astro build`.
  */
-assertValidRegistry(registry);
+const sourceProblems = validateSources(sources);
+if (sourceProblems.length) throw new Error(`src/content-engine/registry/sources.json is invalid:\n  ${sourceProblems.join('\n  ')}`);
+assertValidRegistry(registry, sourceIdsOf(sources));
 
 export const ROUTES: SiteRoute[] = (registry.pages as RegistryPage[])
   .filter((page): page is RegistryPage & { nav: SiteNav } => page.nav !== 'none')

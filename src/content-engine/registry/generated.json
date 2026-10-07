@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "note": "Every generated artifact in the repository: what produces it, from which sources, and how its integrity is proven. Generated artifacts are never hand-edited; site:doctor verifies each one listed here.",
+  "artifacts": [
+    {
+      "id": "content-engine.inventory",
+      "paths": ["src/content-engine/inventory/pages.inventory.json"],
+      "generator": "npm run site:refresh",
+      "inputs": ["registry:pages", "dist"],
+      "integrity": { "kind": "regenerate" }
+    },
+    {
+      "id": "content-engine.source-lock",
+      "paths": ["src/content-engine/manifests/source-lock.json"],
+      "generator": "npm run site:refresh",
+      "inputs": ["registry:sources"],
+      "integrity": { "kind": "regenerate" }
+    },
+    {
+      "id": "canonical.snapshot",
+      "paths": ["src/data/canonical/registry.json", "src/data/canonical/stateSchema.json", "src/data/canonical/adapters.json", "src/data/canonical/meta.json"],
+      "generator": "npm run canonical:sync",
+      "inputs": ["source:saipen.protocol.registry", "source:saipen.protocol.state-schema", "source:saipen.protocol.adapters", "source:saipen.protocol.meta"],
+      "integrity": { "kind": "manifest-map", "manifest": "src/data/canonical/meta.json", "map": "files", "base": "src/data/canonical", "fileTemplate": "{key}.json" }
+    },
+    {
+      "id": "ecosystem.snapshot",
+      "paths": ["src/data/ecosystem.snapshot.json"],
+      "generator": "npm run ecosystem:sync",
+      "inputs": ["source:github.vacterro.releases"],
+      "integrity": { "kind": "provenance", "manifest": "src/data/ecosystem.snapshot.json", "require": ["note", "snapshot.date", "snapshot.source", "repos"] }
+    },
+    {
+      "id": "fonts.pixel-faces",
+      "paths": ["public/fonts"],
+      "generator": "npm run fonts:build",
+      "inputs": ["source:site.fonts"],
+      "integrity": { "kind": "manifest-list", "manifest": "public/fonts/manifest.json", "list": "faces", "base": "public/fonts" }
+    },
+    {
+      "id": "media.brand-marks",
+      "paths": ["public/media"],
+      "generator": "npm run media:build",
+      "inputs": [],
+      "integrity": { "kind": "manifest-list", "manifest": "public/media/MANIFEST.json", "list": "assets", "base": "public/media" }
+    },
+    {
+      "id": "social.card",
+      "paths": ["public/social/card.png"],
+      "generator": "npm run social:build",
+      "inputs": [],
+      "integrity": { "kind": "manifest-fields", "manifest": "public/social/MANIFEST.json", "fields": ["image"], "base": "public/social" }
+    },
+    {
+      "id": "tests.visual-baselines",
+      "paths": ["tests/baselines"],
+      "generator": "npm run test:visual:update",
+      "inputs": [],
+      "integrity": { "kind": "manifest-map", "manifest": "tests/baselines/MANIFEST.json", "map": "files", "base": "tests/baselines", "fileTemplate": "{key}" }
+    }
+  ]
+}

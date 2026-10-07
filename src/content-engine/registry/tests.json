@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "note": "Which gate covers which pages and sources. site:impact recommends a gate when an impacted page or source matches one of its selectors. Selectors: all-html, kind:<kind>, nav:<nav>, page:<id or prefix.*>, source:<id or prefix.*>.",
+  "gates": [
+    { "id": "audit:build", "command": "npm run audit:build", "covers": ["all-html"] },
+    { "id": "validate:content", "command": "npm run validate:content", "covers": ["all-html"] },
+    { "id": "validate:registry", "command": "npm run validate:registry", "covers": ["all-html", "kind:machine"] },
+    { "id": "test:pixel", "command": "npm run test:pixel", "covers": ["all-html", "source:wintage.theme-packs", "source:site.fonts"] },
+    { "id": "test:shell", "command": "npm run test:shell", "covers": ["nav:primary", "nav:secondary", "nav:debug"] },
+    { "id": "test:content", "command": "npm run test:content", "covers": ["page:docs.*", "page:spec.*", "page:playground.*", "page:search", "kind:machine"] },
+    { "id": "test:support", "command": "npm run test:support", "covers": ["page:pricing", "source:vacterro.support.public"] },
+    { "id": "test:runtime", "command": "npm run test:runtime", "covers": ["source:wintage.theme-packs"] },
+    { "id": "test:visual", "command": "npm run test:visual", "covers": ["page:home", "page:docs.index", "page:docs.getting-started.introduction", "page:spec.index", "page:spec.v8.lifecycle", "page:ecosystem", "page:compatibility", "page:playground.index", "page:pricing", "page:security", "page:status", "page:debug.*", "source:wintage.theme-packs", "source:site.fonts"] },
+    { "id": "validate:canonical", "command": "npm run validate:canonical", "covers": ["source:saipen.protocol.*"] },
+    { "id": "validate:themes", "command": "npm run validate:themes", "covers": ["source:wintage.theme-packs"] },
+    { "id": "validate:licenses", "command": "npm run validate:licenses", "covers": ["source:site.fonts"] }
+  ]
+}

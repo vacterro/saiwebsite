@@ -1,26 +1,5 @@
 {
   "schemaVersion": 1,
-  "sources": [
-    { "id": "saipen.protocol.registry", "location": "src/data/canonical/registry.json", "note": "Snapshot of saipen/REGISTRY.json: phases, STATE shape, commands, error codes, limits." },
-    { "id": "saipen.protocol.state-schema", "location": "src/data/canonical/stateSchema.json", "note": "Snapshot of extensions/schemas/state.schema.json." },
-    { "id": "saipen.protocol.adapters", "location": "src/data/canonical/adapters.json", "note": "Snapshot of extensions/adapters/registry.json: hosts and declared enforcement." },
-    { "id": "saipen.protocol.meta", "location": "src/data/canonical/meta.json", "note": "Identity of the canonical snapshot: SAIPEN version, commit, per-file SHA-256." },
-    { "id": "saipen.hq.project-map", "location": "src/data/ecosystem.ts", "note": "Curated ecosystem catalogue after the SAIPEN HQ project map." },
-    { "id": "github.vacterro.releases", "location": "src/data/ecosystem.snapshot.json", "note": "GitHub facts of the curated projects: descriptions, latest releases, asset digests." },
-    { "id": "vacterro.support.public", "location": "src/data/support.ts", "note": "Public voluntary-support details shown on /pricing/." },
-    { "id": "wintage.theme-packs", "location": "src/themes/packs", "note": "The sixteen canonical Wintage palette packs." },
-    { "id": "site.identity", "location": "src/data/site.ts", "note": "Site name, tagline, canonical origin and public repository links." },
-    { "id": "site.package", "location": "package.json", "note": "Site version." },
-    { "id": "site.verification", "location": "src/data/verification.ts", "note": "Recorded verification facts of the current site build." },
-    { "id": "site.milestones", "location": "src/data/milestones.ts", "note": "Delivered roadmap milestones." },
-    { "id": "site.scenarios", "location": "src/data/scenarios.ts", "note": "Deterministic playground scenarios." },
-    { "id": "site.phases", "location": "src/data/phases.ts", "note": "Editorial purpose sentence for every protocol phase." },
-    { "id": "site.fonts", "location": "public/fonts/manifest.json", "note": "Manifest of the built pixel faces and their licences." },
-    { "id": "site.project-memory", "location": ".saipen", "note": "This repository's own SAIPEN project memory, read at build time." },
-    { "id": "site.content.docs", "location": "src/content/docs", "note": "Documentation collection." },
-    { "id": "site.content.blog", "location": "src/content/blog", "note": "Blog collection." },
-    { "id": "site.content.changelog", "location": "src/content/changelog", "note": "Site changelog collection." }
-  ],
   "pages": [
     {
       "id": "home",
@@ -365,7 +344,8 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"]
+      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"],
+      "consumes": ["flag:llmVisible"]
     },
     {
       "id": "machine.llms-full",
@@ -380,7 +360,8 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"]
+      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"],
+      "consumes": ["family:docs.page"]
     },
     {
       "id": "machine.sitemap",
@@ -410,7 +391,8 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.docs", "site.content.blog", "saipen.protocol.registry", "site.phases", "saipen.hq.project-map"]
+      "sourceIds": ["site.content.docs", "site.content.blog", "saipen.protocol.registry", "site.phases", "saipen.hq.project-map"],
+      "consumes": ["flag:searchable"]
     },
     {
       "id": "machine.robots",
@@ -432,7 +414,9 @@
     {
       "id": "docs.page",
       "routePattern": "/docs/{slug}/",
-      "params": { "slug": "[a-z0-9-]+/[a-z0-9-]+" },
+      "params": {
+        "slug": "[a-z0-9-]+/[a-z0-9-]+"
+      },
       "idTemplate": "docs.{slug}",
       "label": "Documentation page",
       "intent": "One page of the docs collection; its maturity is declared in its own front matter.",
@@ -449,7 +433,9 @@
     {
       "id": "docs.markdown",
       "routePattern": "/docs/{slug}.md",
-      "params": { "slug": "[a-z0-9-]+/[a-z0-9-]+" },
+      "params": {
+        "slug": "[a-z0-9-]+/[a-z0-9-]+"
+      },
       "idTemplate": "docs.{slug}.markdown",
       "twinOf": "docs.page",
       "label": "Documentation Markdown twin",
@@ -467,7 +453,9 @@
     {
       "id": "blog.post",
       "routePattern": "/blog/{slug}/",
-      "params": { "slug": "[a-z0-9-]+" },
+      "params": {
+        "slug": "[a-z0-9-]+"
+      },
       "idTemplate": "blog.{slug}",
       "label": "Blog post",
       "intent": "One design note or explanation. Editorial, never protocol authority.",
@@ -484,7 +472,9 @@
     {
       "id": "playground.scenario",
       "routePattern": "/playground/{scenario}/",
-      "params": { "scenario": "[a-z0-9-]+" },
+      "params": {
+        "scenario": "[a-z0-9-]+"
+      },
       "idTemplate": "playground.{scenario}",
       "label": "Playground scenario",
       "intent": "One deterministic protocol scenario, stepped in the browser.",
@@ -501,7 +491,9 @@
     {
       "id": "spec.version",
       "routePattern": "/spec/{version}/",
-      "params": { "version": "v[0-9]+" },
+      "params": {
+        "version": "v[0-9]+"
+      },
       "idTemplate": "spec.{version}",
       "label": "Specification version",
       "intent": "Overview of one permanent protocol major and its generated reference topics.",
@@ -518,7 +510,10 @@
     {
       "id": "spec.topic",
       "routePattern": "/spec/{version}/{topic}/",
-      "params": { "version": "v[0-9]+", "topic": "[a-z0-9-]+" },
+      "params": {
+        "version": "v[0-9]+",
+        "topic": "[a-z0-9-]+"
+      },
       "idTemplate": "spec.{version}.{topic}",
       "label": "Specification topic",
       "intent": "One reference topic generated from the canonical registry under a permanent version URL.",
@@ -535,7 +530,10 @@
     {
       "id": "spec.file",
       "routePattern": "/spec/{version}/{file}.json",
-      "params": { "version": "v[0-9]+", "file": "[a-z0-9]+(?:\\.[a-z0-9]+)*" },
+      "params": {
+        "version": "v[0-9]+",
+        "file": "[a-z0-9]+(?:\\.[a-z0-9]+)*"
+      },
       "idTemplate": "spec.{version}.file.{file}",
       "label": "Specification file",
       "intent": "A canonical machine file published byte-exact under a permanent version URL.",
@@ -552,7 +550,9 @@
     {
       "id": "spec.latest-topic",
       "routePattern": "/spec/latest/{topic}/",
-      "params": { "topic": "[a-z0-9-]+" },
+      "params": {
+        "topic": "[a-z0-9-]+"
+      },
       "idTemplate": "spec.latest.{topic}",
       "label": "Latest specification topic",
       "intent": "Alias that redirects to the same topic under the newest protocol major.",
