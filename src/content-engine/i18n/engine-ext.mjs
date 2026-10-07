@@ -26,6 +26,17 @@ export function loadCoverage(root = '.') {
   return set;
 }
 
+/** The coverage file must describe the faces actually shipped. */
+export function coverageFreshness(root = '.') {
+  const file = join(root, COVERAGE_FILE);
+  if (!existsSync(file)) return [`[generated-missing] ${COVERAGE_FILE}: run npm run fonts:coverage`];
+  const doc = JSON.parse(readFileSync(file, 'utf8'));
+  const manifest = JSON.parse(readFileSync(join(root, 'public/fonts/manifest.json'), 'utf8'));
+  const recorded = new Map(doc.faces.map((f) => [f.file, f.sha256]));
+  const stale = manifest.faces.filter((f) => recorded.get(f.file) !== f.sha256).map((f) => f.file);
+  return stale.length ? [`[generated-drift] ${COVERAGE_FILE}: describes other faces than public/fonts ships (${stale.join(', ')}) — run npm run fonts:coverage`] : [];
+}
+
 registerExtension((engine, { at }) => {
   const store = engine.store;
   if (!store) return;
@@ -38,6 +49,7 @@ registerExtension((engine, { at }) => {
   });
 
   engine.contracts.push(...validateTranslations(store, loadCoverage(engine.root)));
+  engine.contracts.push(...coverageFreshness(engine.root));
 
   const report = unitReport(store);
   engine.unitReport = report;
@@ -48,9 +60,11 @@ registerExtension((engine, { at }) => {
   }
   engine.translationSummary = summary;
   engine.blockSummary = { blocks: Object.keys(store.blocks).length, documents: Object.keys(store.docs).length, domains: new Set(Object.values(store.blocks).map((b) => b.domain)).size };
+  // Translation work never fails the build: the page falls back to English and
+  // the doctor lists the work (severity "work"), per locale and per unit.
   for (const r of report) {
-    if (r.status === 'STALE') engine.translations.push({ severity: 'stale', message: `[translation-stale] ${r.locale} ${r.kind} ${r.id}: the English changed after this translation — npm run i18n:export -- --locale ${r.locale} --status stale` });
-    if (r.status === 'ORPHANED') engine.translations.push({ severity: 'stale', message: `[translation-orphaned] ${r.locale} ${r.kind} ${r.id}: no canonical source any more — remove the unit` });
+    if (r.status === 'STALE') engine.translations.push({ severity: 'work', message: `[translation-stale] ${r.locale} ${r.kind} ${r.id}: the English changed after this translation — npm run i18n:export -- --locale ${r.locale} --status stale` });
+    if (r.status === 'ORPHANED') engine.translations.push({ severity: 'work', message: `[translation-orphaned] ${r.locale} ${r.kind} ${r.id}: no canonical source any more — remove the unit` });
   }
 
   // Graph: which pages each block feeds, and which locale units depend on it.

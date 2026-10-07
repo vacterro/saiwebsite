@@ -31,3 +31,6 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 
+
+# Translation work packages (npm run i18n:export); scratch, never committed.
+i18n-work/

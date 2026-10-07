@@ -46,6 +46,9 @@ jobs:
       - name: Content engine doctor (sources, lock, graph, generated outputs)
         run: npm run site:doctor
 
+      - name: Validate translations (placeholders, markup, glossary, glyph coverage)
+        run: npm run i18n:validate
+
       - name: Validate visual baselines manifest
         run: npm run validate:baselines
 

@@ -126,6 +126,8 @@ npm run validate:themes     # Schema conformance across all 16 palettes
 npm run validate:canonical  # Protocol snapshot integrity against upstream SHA-256
 npm run validate:content    # Verifies all internal links, anchors, version alignment, and metadata
 npm run validate:registry   # Page registry: stable IDs, every built route registered, honest flags
+npm run site:doctor         # Content engine health: sources, locks, impact graph, generated outputs
+npm run i18n:validate       # Translation rules and glyph coverage, with red controls
 npm run validate:baselines  # Checks 33 visual baselines against tests/baselines/MANIFEST.json
 npm run validate:licenses   # Redistribution license check for fonts, card, and notices
 npm run audit:build         # HTML landmarks, headings, budgets, and theme contracts
@@ -133,6 +135,7 @@ npm run test:runtime        # Theme runtime persistence, pre-paint restore, and 
 npm run test:shell          # Shell routes, overflow at 320/390/640/1280px, landmarks
 npm run test:content        # Documentation tree, spec visualizer, playground, search
 npm run test:support        # Public donation and support details verification
+npm run test:i18n           # Locale variants: language, raw keys, overflow at 320/390/1280px, selector
 npm run test:pixel          # Zero-tolerance 21-color pixel closure (Chromium + WebKit)
 npm run test:visual         # Visual regression baselines comparison (33 baselines)
 npm test                    # Full Playwright test suite
@@ -163,7 +166,9 @@ saiwebsite/
 │   └── social/             # OpenGraph preview card and provenance manifest
 ├── src/
 │   ├── components/         # Wintage UI primitives (Window, Panel, Button, MenuBar)
-│   ├── content-engine/     # Page registry (single route authority) and generated inventory
+│   ├── content-engine/     # Registries, models, impact graph, content blocks, i18n kernel
+│   ├── locales/            # Translation units per locale (written by npm run i18n:import)
+│   ├── views/              # Page views rendered once per locale
 │   ├── content/docs/       # Technical documentation pages (7 sections)
 │   ├── content/changelog/  # Site version release notes (0.1.0, 1.0.0, 1.1.0, 1.2.0, 1.3.0)
 │   ├── data/canonical/     # Upstream SAIPEN registry & schema snapshots

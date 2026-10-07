@@ -16,7 +16,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { blockHash, documentHash, validateCatalog } from '../blocks/blocks.mjs';
-import { checkTranslation, docStatus, enabledLocales, STORED_STATUSES, unitStatus, validateLocales, variantPlan } from './i18n.mjs';
+import { checkTranslation, docStatus, enabledLocales, pseudoLocalize, STORED_STATUSES, uncoveredScripts, unitStatus, validateLocales, variantPlan } from './i18n.mjs';
 import { mergeCatalogs, pageLabelBlocks, unitsByLocale } from './units.mjs';
 
 export const PATHS = {
@@ -67,7 +67,7 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
   // Block translation units: src/locales/<locale>/<domain>.json
   const unitFiles = [];
   if (existsSync(at(PATHS.units))) {
-    for (const locale of readdirSync(at(PATHS.units)).sort()) {
+    for (const locale of readdirSync(at(PATHS.units), { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()) {
       for (const file of walk(at(`${PATHS.units}/${locale}`), '.json').filter((f) => !f.includes('/docs/'))) {
         const doc = overrides.unitDocs?.[file] ?? readJson(file);
         unitFiles.push({ file, locale, doc });
@@ -90,7 +90,7 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
   }
   const docTranslations = {};
   if (existsSync(at(PATHS.units))) {
-    for (const locale of readdirSync(at(PATHS.units)).sort()) {
+    for (const locale of readdirSync(at(PATHS.units), { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()) {
       for (const file of walk(at(`${PATHS.units}/${locale}/docs`), '.md')) {
         const slug = file.slice(at(`${PATHS.units}/${locale}/docs`).length + 1).replace(/\.md$/, '');
         docTranslations[locale] ??= {};
@@ -144,8 +144,15 @@ export function unitReport(store) {
   return rows;
 }
 
-/** Translation correctness: stored shape, placeholders, markup, glossary, enablement. */
-export function validateTranslations(store, coverage = null) {
+/**
+ * Translation correctness: stored shape, placeholders, markup, glossary and
+ * glyph coverage are always enforced. Completeness is enforced only when a
+ * locale is being enabled (`forEnable`): once it is live, an English edit
+ * makes units STALE or MISSING, the page falls back to English for them, and
+ * the work is reported — an English author is never blocked by a translation.
+ * ORPHANED units (their block was deleted) are reported the same way.
+ */
+export function validateTranslations(store, coverage = null, { forEnable = false } = {}) {
   const problems = [];
   const { glossary } = store;
   for (const { file, doc } of store.unitFiles) {
@@ -155,10 +162,7 @@ export function validateTranslations(store, coverage = null) {
       if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${where}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
       if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${where}: sourceHash must be the 16-hex canonical hash from the work package`);
       const block = store.blocks[id];
-      if (!block) {
-        problems.push(`[orphaned] ${where}: no canonical block with this ID (deleted or renamed) — remove the unit`);
-        continue;
-      }
+      if (!block) continue;
       problems.push(...checkTranslation({ id, type: block.type, en: block.text, text: unit.text, glossary, locale: doc.locale }));
     }
   }
@@ -169,31 +173,38 @@ export function validateTranslations(store, coverage = null) {
       for (const key of ['title', 'description', 'sourceHash', 'status']) if (!(key in fm)) problems.push(`[missing-field] ${where}: front matter has no "${key}"`);
       if (!STORED_STATUSES.includes(fm.status)) problems.push(`[bad-enum] ${where}: status "${fm.status}"`);
       const doc = store.docs[slug];
-      if (!doc) {
-        problems.push(`[orphaned] ${where}: no canonical document ${slug}`);
-        continue;
-      }
+      if (!doc) continue;
       problems.push(...checkTranslation({ id: `docs/${slug}`, type: 'markdown', en: doc.body, text: tr.body, glossary, locale }));
       problems.push(...checkTranslation({ id: `docs/${slug}#title`, type: 'text', en: doc.title, text: String(fm.title ?? ''), glossary, locale }));
       problems.push(...checkTranslation({ id: `docs/${slug}#description`, type: 'text', en: doc.description, text: String(fm.description ?? ''), glossary, locale }));
     }
   }
 
-  // An enabled, non-pseudo locale must have every required unit renderable,
-  // and the pixel faces must draw every character it uses.
+  // Enabling a locale requires every required unit renderable; the pixel
+  // faces must always draw every character an enabled locale uses.
   const report = unitReport(store);
   for (const l of enabledLocales(store.localesDoc)) {
-    if (l.stage === 'pseudo') continue;
+    if (l.stage === 'pseudo' || !forEnable) continue;
     const missing = report.filter((r) => r.locale === l.id && !r.outOfScope && r.status !== 'ORPHANED' && !l.renderStatuses.includes(r.status));
     if (missing.length) problems.push(`[enable-blocked] locale ${l.id} is enabled but ${missing.length} required unit(s) are not renderable (${[...new Set(missing.map((m) => m.status))].join(', ')}) — finish them or set enabled: false`);
   }
   if (coverage) {
+    for (const l of enabledLocales(store.localesDoc)) {
+      const missingScripts = uncoveredScripts(l, coverage);
+      if (missingScripts.length) problems.push(`[enable-blocked] locale ${l.id} is enabled but the pixel faces do not cover ${missingScripts.join(', ')} — keep it planned until a font milestone adds the script`);
+    }
     for (const l of store.localesDoc.locales) {
       if (l.id === store.localesDoc.canonical) continue;
-      const texts = [
-        ...Object.values(store.units[l.id] ?? {}).map((u) => u.text),
-        ...Object.values(store.docTranslations[l.id] ?? {}).flatMap((t) => [t.body, String(t.frontmatter.title ?? ''), String(t.frontmatter.description ?? '')]),
-      ];
+      // The pseudo-locale is generated, so its output is checked instead of stored units.
+      const texts = l.stage === 'pseudo'
+        ? [
+            ...Object.values(store.blocks).map((b) => pseudoLocalize(b.text, store.glossary, b.type)),
+            ...Object.values(store.docs).flatMap((d) => [pseudoLocalize(d.body, store.glossary, 'markdown'), pseudoLocalize(d.title, store.glossary, 'text')]),
+          ]
+        : [
+            ...Object.values(store.units[l.id] ?? {}).map((u) => u.text),
+            ...Object.values(store.docTranslations[l.id] ?? {}).flatMap((t) => [t.body, String(t.frontmatter.title ?? ''), String(t.frontmatter.description ?? '')]),
+          ];
       const missingGlyphs = new Set();
       for (const text of texts) for (const ch of text) if (!coverage.has(ch.codePointAt(0)) && !/\s/.test(ch)) missingGlyphs.add(ch);
       if (missingGlyphs.size) problems.push(`[glyph-coverage] locale ${l.id}: the pixel faces cannot draw ${[...missingGlyphs].slice(0, 20).map((c) => `U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')} ${c}`).join(', ')}${missingGlyphs.size > 20 ? ' …' : ''}`);

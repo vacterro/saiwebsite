@@ -91,8 +91,8 @@ function doctor() {
   const stale = [
     ...engine.sourceStates.filter((s) => ['STALE', 'NEW', 'REMOVED'].includes(s.state)).map((s) => `[source-${s.state.toLowerCase()}] ${s.id}: changed since the source lock — review site:impact ${s.id}, then npm run site:refresh`),
     ...manifests.filter((m) => m.state === 'STALE').map((m) => `[manifest-stale] ${m.path}: run npm run site:refresh`),
-    ...engine.translations.filter((t) => t.severity === 'stale').map((t) => t.message),
   ];
+  const work = engine.translations.filter((t) => t.severity === 'work').map((t) => t.message);
 
   const report = {
     status: broken.length ? 'BROKEN' : stale.length ? 'STALE' : 'HEALTHY',
@@ -110,6 +110,7 @@ function doctor() {
     redControls: controls,
     broken,
     stale,
+    translationWork: work,
   };
 
   if (json) {
@@ -136,6 +137,11 @@ function doctor() {
     if (stale.length) {
       console.log('\nSTALE');
       for (const p of stale) console.log('  STALE ' + p);
+    }
+    if (work.length) {
+      console.log('\nTRANSLATION WORK (pages fall back to English; never fails the build)');
+      for (const p of work.slice(0, 20)) console.log('  TODO ' + p);
+      if (work.length > 20) console.log(`  … ${work.length - 20} more: npm run i18n:status -- --locale <id>`);
     }
     console.log(`\n${report.status}: ${broken.length} broken, ${stale.length} stale`);
   }

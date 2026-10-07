@@ -45,6 +45,8 @@ Certain files are deterministically produced from canonical sources or scripts:
 - `src/content-engine/inventory/pages.inventory.json`: Route inventory derived from the page registry and the built site (`npm run registry:inventory`).
 
 Routes are declared in exactly one place, `src/content-engine/registry/pages.json` (see `src/content-engine/README.md`).
+After a content change run `npm run build && npm run site:refresh && npm run site:doctor`. Translators follow
+`src/content-engine/i18n/TRANSLATING.md` and never edit files under `src/locales/` by hand.
 
 ---
 
@@ -59,6 +61,8 @@ npm run validate:themes     # Validates all 16 theme packs against schema
 npm run validate:canonical  # Validates canonical protocol snapshot hashes
 npm run validate:content    # Verifies every internal link, anchor, and id
 npm run validate:registry   # Page registry schema, built routes, discovery flags, inventory, red controls
+npm run site:doctor         # Content engine: sources, locks, impact graph, generated outputs, translations
+npm run i18n:validate       # Translations: placeholders, markup, glossary, glyph coverage, red controls
 npm run validate:baselines  # Checks screenshot baselines against manifest
 npm run validate:licenses   # Font provenance and redistribution license gate
 npm run audit:build         # Checks HTML landmarks, headings, budgets, and themes in dist/

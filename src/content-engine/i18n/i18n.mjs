@@ -26,6 +26,32 @@ const LOCALE_FIELDS = ['id', 'displayName', 'nativeName', 'stage', 'enabled', 'f
 const BCP47 = /^[a-z]{2,3}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}|[0-9]{3}))?(?:-[a-z0-9]{4,8})*$/;
 export const SCRIPTS = ['Latn', 'Cyrl', 'Grek', 'Arab', 'Hebr', 'Hani', 'Jpan', 'Kore', 'Deva', 'Thai'];
 
+/**
+ * The letters a script needs at minimum, as code point ranges. A locale whose
+ * scripts the pixel faces cannot draw may stay planned, never enabled
+ * (roadmap M48: unsupported glyphs are detected before publish).
+ */
+export const SCRIPT_SAMPLES = {
+  Latn: [[0x41, 0x5a], [0x61, 0x7a]],
+  Cyrl: [[0x410, 0x44f]],
+  Grek: [[0x391, 0x3a9], [0x3b1, 0x3c9]],
+  Arab: [[0x627, 0x64a]],
+  Hebr: [[0x5d0, 0x5ea]],
+  Hani: [[0x4e00, 0x4e00], [0x7684, 0x7684]],
+  Jpan: [[0x3042, 0x3093], [0x30a2, 0x30f3]],
+  Kore: [[0xac00, 0xac00], [0xd55c, 0xd55c]],
+  Deva: [[0x905, 0x939]],
+  Thai: [[0xe01, 0xe2e]],
+};
+
+/** Scripts of a locale the coverage set cannot draw. */
+export function uncoveredScripts(locale, coverage) {
+  return (locale.scripts ?? []).filter((s) => (SCRIPT_SAMPLES[s] ?? []).some(([a, b]) => {
+    for (let cp = a; cp <= b; cp++) if (!coverage.has(cp)) return true;
+    return false;
+  }));
+}
+
 /** URL segment for a locale: lowercase, so /pt-br/ and /qps-ploc/ stay valid registry routes. */
 export const localePrefix = (id) => id.toLowerCase();
 
@@ -135,29 +161,33 @@ export function markdownSignature(md) {
 // keeps markup, placeholders, code and URLs intact. It proves routing,
 // fallback, glyph coverage and layout stretch without a real translation.
 // ---------------------------------------------------------------------------
+// Only Latin-1 and Latin Extended-A letters: the pixel faces draw them, so the
+// pseudo-locale stresses diacritics without leaving the glyph coverage.
 const ACCENT = {
-  a: 'å', b: 'ƀ', c: 'ç', d: 'ð', e: 'é', f: 'ƒ', g: 'ĝ', h: 'ĥ', i: 'î', j: 'ĵ', k: 'ķ', l: 'ļ', m: 'm', n: 'ñ', o: 'ö', p: 'þ', q: 'q', r: 'ŕ', s: 'š', t: 'ţ', u: 'û', v: 'v', w: 'ŵ', x: 'x', y: 'ý', z: 'ž',
-  A: 'Å', B: 'Ɓ', C: 'Ç', D: 'Ð', E: 'É', F: 'F', G: 'Ĝ', H: 'Ĥ', I: 'Î', J: 'Ĵ', K: 'Ķ', L: 'Ļ', M: 'M', N: 'Ñ', O: 'Ö', P: 'Þ', Q: 'Q', R: 'Ŕ', S: 'Š', T: 'Ţ', U: 'Û', V: 'V', W: 'Ŵ', X: 'X', Y: 'Ý', Z: 'Ž',
+  a: 'å', c: 'ç', d: 'ð', e: 'é', g: 'ĝ', h: 'ĥ', i: 'î', j: 'ĵ', k: 'ķ', l: 'ļ', n: 'ñ', o: 'ö', p: 'þ', r: 'ŕ', s: 'š', t: 'ţ', u: 'û', w: 'ŵ', y: 'ý', z: 'ž',
+  A: 'Å', C: 'Ç', D: 'Ð', E: 'É', G: 'Ĝ', H: 'Ĥ', I: 'Î', J: 'Ĵ', K: 'Ķ', L: 'Ļ', N: 'Ñ', O: 'Ö', P: 'Þ', R: 'Ŕ', S: 'Š', T: 'Ţ', U: 'Û', W: 'Ŵ', Y: 'Ý', Z: 'Ž',
 };
 const VOWEL = /[aeiouAEIOU]/;
 
-function pseudoWords(text, keep) {
+function pseudoWords(text) {
   return text.replace(/[A-Za-z]+/g, (word) => {
-    if (keep.some((k) => k === word)) return word;
     let out = '';
     for (const ch of word) out += VOWEL.test(ch) && word.length > 3 ? ACCENT[ch] + ACCENT[ch] : ACCENT[ch] ?? ch;
     return out;
   });
 }
 
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 /** Protected spans: placeholders, `code`, link targets, URLs, and do-not-translate terms. */
 export function pseudoLocalize(text, glossary, type = 'inline') {
-  const keep = (glossary?.terms ?? []).filter((t) => !t.translate).flatMap((t) => t.en.split(/[^A-Za-z]+/)).filter(Boolean);
+  const terms = (glossary?.terms ?? []).filter((t) => !t.translate).map((t) => t.en).sort((a, b) => b.length - a.length);
+  const keep = terms.length ? `|${terms.map(escapeRegExp).join('|')}` : '';
   const pattern = type === 'markdown'
-    ? /(^```[\s\S]*?^```$|`[^`\n]+`|\]\([^)]*\)|\{[a-zA-Z0-9]+\}|https?:\/\/\S+|<[^>]+>|^#{1,6} |^\s*[-*] |^\s*\d+\. |\*\*|\[)/gm
-    : /(`[^`]+`|\]\([^)]*\)|\{[a-zA-Z0-9]+\}|https?:\/\/\S+|\*\*|\[)/g;
+    ? new RegExp(`(^\`\`\`[\\s\\S]*?^\`\`\`$|\`[^\`\\n]+\`|\\]\\([^)]*\\)|\\{[a-zA-Z0-9]+\\}|https?:\\/\\/\\S+|<[^>]+>|^#{1,6} |^\\s*[-*] |^\\s*\\d+\\. |\\*\\*|\\[${keep})`, 'gm')
+    : new RegExp(`(\`[^\`]+\`|\\]\\([^)]*\\)|\\{[a-zA-Z0-9]+\\}|https?:\\/\\/\\S+|\\*\\*|\\[${keep})`, 'g');
   const parts = String(text).split(pattern);
-  const body = parts.map((part, i) => (i % 2 === 1 ? part : pseudoWords(part, keep))).join('');
+  const body = parts.map((part, i) => (i % 2 === 1 ? part : pseudoWords(part))).join('');
   return type === 'markdown' ? body : `«${body}»`;
 }
 

@@ -848,6 +848,9 @@ hr {
   padding: 0 2px;
   background-color: var(--ui-code-bg);
   border: 1px solid var(--ui-edge-muted);
+  /* A long command or path in running text breaks inside the code span
+     instead of pushing the page wider than a 320px viewport. */
+  overflow-wrap: anywhere;
 }
 
 main blockquote {
@@ -1942,4 +1945,12 @@ main blockquote > :last-child,
 
 .about__banner {
   margin: 0 0 var(--gap-6);
+}
+
+/* The banner is a 332px raster that cannot be scaled off the pixel grid; on
+   viewports too narrow to hold it, it is left out like the large wordmark. */
+@media (max-width: 400px) {
+  .about__banner {
+    display: none;
+  }
 }
