@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "private": true,
   "type": "module",
-  "description": "SAIPEN Protocol public web surface \u2014 Wintage-native static site.",
+  "description": "SAIPEN Protocol public web surface — Wintage-native static site.",
   "scripts": {
     "dev": "astro dev",
     "fonts:build": "python scripts/fonts/build_pixel_fonts.py --out public/fonts",
@@ -21,6 +21,9 @@
     "site:doctor": "node scripts/site.mjs doctor",
     "site:impact": "node scripts/site.mjs impact",
     "site:refresh": "node scripts/site.mjs refresh",
+    "site:sync": "node scripts/site.mjs sync",
+    "site:drift": "node scripts/site.mjs drift",
+    "site:affected": "node scripts/site.mjs affected",
     "i18n:status": "node scripts/i18n.mjs status",
     "i18n:export": "node scripts/i18n.mjs export",
     "i18n:import": "node scripts/i18n.mjs import",

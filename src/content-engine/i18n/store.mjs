@@ -47,7 +47,10 @@ export function parseDoc(raw) {
   return { frontmatter, body: content };
 }
 
-export function loadStore({ root = '.', registry, sourceIds = [], overrides = {} } = {}) {
+/**
+ * @param {{ root?: string, registry: any, sourceIds?: string[], overrides?: Record<string, any> }} options
+ */
+export function loadStore({ root = '.', registry, sourceIds = [], overrides = {} }) {
   const at = (p) => join(root, p).split('\\').join('/');
   const problems = [];
 

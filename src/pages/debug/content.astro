@@ -1,0 +1,140 @@
+---
+/**
+ * Content health dashboard (content-system roadmap M52). Diagnostic, not
+ * public evidence: it shows, at build time, what `npm run site:doctor` and
+ * `npm run i18n:status` report — source identities and drift against the
+ * source lock, the page inventory, content blocks, and translation progress
+ * per locale. Everything is computed from the registries, the locks and the
+ * translation store; nothing is typed here.
+ */
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import MaturityBadge from '../../components/MaturityBadge.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import registry from '../../content-engine/registry/pages.json';
+import sourcesDoc from '../../content-engine/registry/sources.json';
+import generatedDoc from '../../content-engine/registry/generated.json';
+import { computeLock, diffLock } from '../../content-engine/sources/lock.mjs';
+import { loadStore, unitReport } from '../../content-engine/i18n/store.mjs';
+import { PLAN } from '../../content-engine/i18n/catalog';
+
+const root = process.cwd();
+const read = (p: string) => JSON.parse(readFileSync(join(root, p), 'utf8'));
+const inventory = read('src/content-engine/inventory/pages.inventory.json');
+const committedLock = read('src/content-engine/manifests/source-lock.json');
+const { lock } = computeLock(sourcesDoc, root);
+const states = diffLock(committedLock, lock);
+const lockSources: Record<string, any> = lock.sources;
+const stateOf = new Map(states.map((s: { id: string; state: string }) => [s.id, s.state]));
+const store = loadStore({ root, registry, sourceIds: sourcesDoc.sources.map((s) => s.id) });
+const report = unitReport(store);
+
+const count = (list: string[]) => list.reduce<Record<string, number>>((acc, k) => ({ ...acc, [k]: (acc[k] ?? 0) + 1 }), {});
+const sourceCounts = count(states.map((s: { state: string }) => s.state));
+const locales = store.localesDoc.locales
+  .filter((l: { id: string }) => l.id !== store.localesDoc.canonical)
+  .map((l: { id: string; displayName: string; stage: string; enabled: boolean; renderStatuses: string[] }) => {
+    const rows = report.filter((r: { locale: string }) => r.locale === l.id);
+    const required = rows.filter((r: { outOfScope?: boolean; status: string }) => !r.outOfScope && r.status !== 'ORPHANED');
+    const done = required.filter((r: { status: string }) => l.renderStatuses.includes(r.status)).length;
+    const routes = PLAN.find((p) => p.locale === l.id);
+    return {
+      ...l,
+      counts: count(rows.map((r: { status: string }) => r.status)),
+      completion: l.stage === 'pseudo' ? 'generated' : `${required.length ? ((done / required.length) * 100).toFixed(1) : '100.0'} %`,
+      routes: routes ? routes.pages.length + routes.docs.length : 0,
+    };
+  });
+const blockDomains = count(Object.values(store.blocks).map((b: any) => b.domain));
+const t = inventory.totals;
+---
+
+<SiteLayout title="Content health" tag="/debug/content/" description="Content engine dashboard: source drift, page inventory, content blocks and translation progress, computed at build time.">
+  <h1>Content health</h1>
+  <p><MaturityBadge level="draft" note="diagnostic — what site:doctor and i18n:status report, at build time" /></p>
+
+  <dl class="diag">
+    <dt>Sources</dt>
+    <dd>{sourcesDoc.sources.length} registered — {Object.entries(sourceCounts).map(([k, n]) => `${n} ${k}`).join(', ')}</dd>
+    <dt>Pages</dt>
+    <dd>{t.routes} routes — {t.public} public, {t.internal} internal</dd>
+    <dt>Content blocks</dt>
+    <dd>{Object.keys(store.blocks).length} blocks in {Object.keys(blockDomains).length} domains, {Object.keys(store.docs).length} documents</dd>
+    <dt>Generated artifacts</dt>
+    <dd>{generatedDoc.artifacts.length} declared, each with its generator and integrity proof</dd>
+    <dt>Locales</dt>
+    <dd>{store.localesDoc.locales.length} registered — {store.localesDoc.locales.filter((l: { enabled: boolean }) => l.enabled).length} enabled</dd>
+  </dl>
+
+  <h2>Sources</h2>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Source</th><th scope="col">Kind</th><th scope="col">Identity</th><th scope="col">Since lock</th></tr>
+      </thead>
+      <tbody>
+        {
+          sourcesDoc.sources.map((s) => {
+            const id = lockSources[s.id];
+            return (
+              <tr>
+                <th scope="row"><code>{s.id}</code></th>
+                <td>{s.kind} / {s.authority}</td>
+                <td>{id?.version ? `${id.version}${id.revision ? ` @ ${id.revision.slice(0, 8)}` : ''}` : id?.sha256 ? id.sha256.slice(0, 12) : 'volatile'}</td>
+                <td>{stateOf.get(s.id)}</td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Pages</h2>
+  <dl class="diag">
+    <dt>By kind</dt>
+    <dd>{Object.entries(t.byKind).map(([k, n]) => `${k} ${n}`).join(', ')}</dd>
+    <dt>By owner</dt>
+    <dd>{Object.entries(t.byOwner).map(([k, n]) => `${k} ${n}`).join(', ')}</dd>
+    <dt>Flags</dt>
+    <dd>localizable {t.flags.localizable}, searchable {t.flags.searchable}, LLM-visible {t.flags.llmVisible}, in sitemap {t.flags.sitemap}</dd>
+  </dl>
+
+  <h2>Content blocks</h2>
+  <dl class="diag">
+    {
+      Object.entries(blockDomains).map(([domain, n]) => (
+        <>
+          <dt><code>{domain}</code></dt>
+          <dd>{n} blocks</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>Translations</h2>
+  <div class="wide-scroll">
+    <table class="w-table">
+      <thead>
+        <tr><th scope="col">Locale</th><th scope="col">Stage</th><th scope="col">Routes</th><th scope="col">Required units</th><th scope="col">Units by status</th></tr>
+      </thead>
+      <tbody>
+        {
+          locales.map((l: any) => (
+            <tr>
+              <th scope="row"><code>{l.id}</code> {l.displayName}</th>
+              <td>{l.stage}{l.enabled ? ', enabled' : ', disabled'}</td>
+              <td>{l.routes}</td>
+              <td>{l.completion}</td>
+              <td>{Object.entries(l.counts).map(([k, n]) => `${k} ${n}`).join(', ') || '—'}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="w-panel__note">
+    Live state: <code>npm run site:doctor</code>, <code>npm run i18n:status</code>, <code>npm run site:drift</code>. A
+    translator starts at <code>src/content-engine/i18n/TRANSLATING.md</code>.
+  </p>
+</SiteLayout>

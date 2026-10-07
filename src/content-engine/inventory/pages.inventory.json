@@ -3,13 +3,13 @@
   "generator": "scripts/validate-registry.mjs --write",
   "registry": "src/content-engine/registry/pages.json",
   "totals": {
-    "routes": 126,
+    "routes": 127,
     "public": 107,
-    "internal": 19,
+    "internal": 20,
     "byKind": {
       "alias": 9,
       "article": 43,
-      "debug": 4,
+      "debug": 5,
       "index": 5,
       "landing": 2,
       "machine": 42,
@@ -19,7 +19,7 @@
     },
     "byOwner": {
       "editorial": 42,
-      "generated": 63,
+      "generated": 64,
       "interactive": 10,
       "mixed": 11
     },
@@ -2063,6 +2063,24 @@
       "sourceIds": [
         "wintage.theme-packs",
         "site.identity"
+      ]
+    },
+    {
+      "id": "debug.content",
+      "route": "/debug/content/",
+      "locale": "en",
+      "entry": "debug.content",
+      "kind": "debug",
+      "owner": "generated",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sitemap": false,
+      "sourceIds": [
+        "site.content.docs"
       ]
     },
     {

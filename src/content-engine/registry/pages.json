@@ -302,6 +302,21 @@
       "sourceIds": ["wintage.theme-packs"]
     },
     {
+      "id": "debug.content",
+      "route": "/debug/content/",
+      "label": "Content",
+      "intent": "Content engine dashboard: source drift, page inventory, content blocks and translation progress.",
+      "kind": "debug",
+      "owner": "generated",
+      "maturity": "draft",
+      "audience": "internal",
+      "nav": "debug",
+      "localizable": false,
+      "searchable": false,
+      "llmVisible": false,
+      "sourceIds": ["site.content.docs"]
+    },
+    {
       "id": "system.not-found",
       "route": "/404.html",
       "label": "Page not found",

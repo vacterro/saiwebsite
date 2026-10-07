@@ -41,10 +41,15 @@ export function listFiles(path) {
   return out.sort();
 }
 
-/** One hash over a set of paths: sorted `path\0hash` lines. */
-export function treeHash(paths) {
+/**
+ * One hash over a set of paths: sorted `path\0hash` lines. Paths are named
+ * relative to the repository root (`prefix` is stripped), so the same tree
+ * hashes the same from any working directory.
+ */
+export function treeHash(paths, prefix = '') {
   const files = paths.flatMap(listFiles).sort();
-  return { sha256: sha256(files.map((f) => `${f}\0${fileHash(f)}`).join('\n')), files: files.length };
+  const name = (f) => (prefix && f.startsWith(prefix) ? f.slice(prefix.length) : f);
+  return { sha256: sha256(files.map((f) => `${name(f)}\0${fileHash(f)}`).join('\n')), files: files.length };
 }
 
 function readJson(path) {
@@ -54,6 +59,8 @@ function readJson(path) {
 /** Identity of one source, computed by its adapter. Missing paths are reported, never guessed. */
 export function identify(source, root = '.') {
   const at = (p) => join(root, p).split('\\').join('/');
+  const prefix = root === '.' ? '' : `${join(root).split('\\').join('/').replace(/\/$/, '')}/`;
+  const tree = (paths) => treeHash(paths.map(at), prefix);
   const missing = source.paths.filter((p) => !existsSync(at(p)));
   if (missing.length) return { status: 'FAILED', reason: `missing ${missing.join(', ')}` };
 
@@ -70,7 +77,7 @@ export function identify(source, root = '.') {
       return {
         status: 'OK',
         ...base,
-        ...treeHash(source.paths.map(at)),
+        ...tree(source.paths),
         version: meta.version ?? null,
         revision: meta.commit ?? null,
         revisionDate: meta.commitDate ?? null,
@@ -82,13 +89,13 @@ export function identify(source, root = '.') {
       return {
         status: 'OK',
         ...base,
-        ...treeHash(source.paths.map(at)),
+        ...tree(source.paths),
         revisionDate: snapshot.snapshot?.date ?? null,
         syncTool: 'scripts/sync-ecosystem.mjs',
       };
     }
     default:
-      return { status: 'OK', ...base, ...treeHash(source.paths.map(at)) };
+      return { status: 'OK', ...base, ...tree(source.paths) };
   }
 }
 

@@ -13,6 +13,8 @@ import { registerExtension } from '../engine.mjs';
 import { selectorMatches } from '../graph/graph.mjs';
 import { serialize } from '../sources/lock.mjs';
 import { contentLock, PATHS, unitReport, validateTranslations } from './store.mjs';
+import { validateComposition } from '../compositions/compositions.mjs';
+import { readdirSync } from 'node:fs';
 
 export const COVERAGE_FILE = 'src/content-engine/i18n/font-coverage.json';
 
@@ -50,6 +52,14 @@ registerExtension((engine, { at }) => {
 
   engine.contracts.push(...validateTranslations(store, loadCoverage(engine.root)));
   engine.contracts.push(...coverageFreshness(engine.root));
+  // Page composition manifests (M38) reference only existing blocks and bindings.
+  const compDir = at('src/content-engine/compositions');
+  if (existsSync(compDir)) {
+    for (const name of readdirSync(compDir).filter((f) => f.endsWith('.json')).sort()) {
+      const doc = JSON.parse(readFileSync(`${compDir}/${name}`, 'utf8'));
+      engine.contracts.push(...validateComposition(doc, `src/content-engine/compositions/${name}`, store.blocks, engine.registry.pages.map((p) => p.id)));
+    }
+  }
 
   const report = unitReport(store);
   engine.unitReport = report;

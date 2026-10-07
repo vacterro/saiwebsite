@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "page": "community",
+  "note": "Page composition manifest (content-system M38). Sections render in this order through src/views/ComposedView.astro; reorder or remove a section here, and every locale follows without a page copy.",
+  "title": "community.title",
+  "description": "community.description",
+  "bindings": {
+    "community": "site:community",
+    "issues": "site:issues",
+    "contributing": "saipen-source:CONTRIBUTING.md",
+    "conduct": "saipen-source:CODE_OF_CONDUCT.md"
+  },
+  "sections": [
+    {
+      "type": "cards",
+      "cards": [
+        {
+          "title": "community.discuss.title",
+          "body": [
+            "community.discuss.body"
+          ],
+          "action": {
+            "label": "community.discuss.action",
+            "href": "{community}"
+          }
+        },
+        {
+          "title": "community.report.title",
+          "body": [
+            "community.report.body"
+          ],
+          "action": {
+            "label": "community.report.action",
+            "href": "{issues}"
+          }
+        },
+        {
+          "title": "community.contribute.title",
+          "body": [
+            "community.contribute.body"
+          ],
+          "action": {
+            "label": "community.contribute.action",
+            "href": "{contributing}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "community.proposal.title"
+    },
+    {
+      "type": "paragraph",
+      "text": "community.proposal.intro"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "community.proposal.q1",
+        "community.proposal.q2",
+        "community.proposal.q3"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "community.proposal.body"
+    },
+    {
+      "type": "heading",
+      "text": "community.decided.title"
+    },
+    {
+      "type": "paragraph",
+      "text": "community.decided.intro"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "community.decided.consensus",
+        "community.decided.grammar",
+        "community.decided.doctor"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "community.conduct.title"
+    },
+    {
+      "type": "paragraph",
+      "text": "community.conduct.body"
+    }
+  ]
+}

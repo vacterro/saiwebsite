@@ -8,19 +8,33 @@
  *   npm run site:impact -- <id> [--json]
  *       What becomes stale when <id> (source, page, family or block) changes.
  *   npm run site:refresh
- *       Rewrite every manifest the content engine owns (source lock,
- *       inventory, and later content and translation locks) from the current
- *       tree. Never touches editorial text or upstream snapshots.
+ *       Rewrite every manifest the content engine owns (source lock, content
+ *       lock, inventory) from the current tree. Never touches editorial text
+ *       or upstream snapshots.
+ *   npm run site:sync -- [--source <id>] [--dry-run]                     (M40)
+ *       Refresh upstream snapshots through their own sync tools, keep the last
+ *       valid snapshot on failure, drop date-only churn, classify the drift
+ *       and print its impact. Network only here, only when run.
+ *   npm run site:drift [-- --json]                                         (M53)
+ *       Meaningful drift (sources changed since the lock, translation work) as
+ *       a ready-to-file SAIPEN ticket. Prints; files nothing.
+ *   npm run site:affected [-- --base <git ref>] [--json]                   (M54)
+ *       The gates a change actually needs: changed files -> sources, blocks,
+ *       documents -> impact graph -> gates, plus the mandatory smoke set.
+ *       Unknown files (layouts, styles, scripts) mean the full suite.
  *
  * Works offline. Pages and the inventory need `npm run build` first; without
  * dist/ they are reported UNKNOWN instead of failing.
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { loadEngine, manifestStates } from '../src/content-engine/engine.mjs';
 import { buildGraph, findCycles, impact, resolveNode } from '../src/content-engine/graph/graph.mjs';
 import { checkIntegrity } from '../src/content-engine/generated/integrity.mjs';
-import { serialize } from '../src/content-engine/sources/lock.mjs';
+import { listFiles, serialize } from '../src/content-engine/sources/lock.mjs';
+import { syncSources } from '../src/content-engine/sync/sync.mjs';
+import { validateComposition } from '../src/content-engine/compositions/compositions.mjs';
+import { execFileSync } from 'node:child_process';
 import '../src/content-engine/extensions.mjs';
 
 const [command, ...args] = process.argv.slice(2);
@@ -61,6 +75,12 @@ function redControls(engine) {
     check('support source recommends test:support', support.gates.includes('test:support'));
     const protocol = impact(engine.graph, 'source:saipen.protocol.registry');
     check('protocol registry impact leaves /about/ alone', !protocol.pages.includes('about') && protocol.pages.includes('spec.v8.lifecycle'));
+  }
+
+  // A composition that names a block that does not exist must be caught.
+  if (engine.store) {
+    const comp = { schemaVersion: 1, page: 'community', title: 'community.title', description: 'community.description', bindings: {}, sections: [{ type: 'heading', text: 'community.no-such-block' }] };
+    check('composition with an unknown block is refused', validateComposition(comp, 'control.json', engine.store.blocks, engine.registry.pages.map((p) => p.id)).some((p) => p.startsWith('[unknown-block]')));
   }
 
   // A manifest hash that no longer matches its file must be caught.
@@ -197,9 +217,121 @@ function refresh() {
   console.log(`OK: ${written} manifest(s) refreshed, ${engine.manifests.length - written} already current`);
 }
 
-const commands = { doctor, impact: impactCommand, refresh };
+function flagValue(name) {
+  const i = args.indexOf(`--${name}`);
+  return i >= 0 ? args[i + 1] : undefined;
+}
+
+function sync() {
+  const engine = loadEngine();
+  const only = flagValue('source') ? [flagValue('source')] : [];
+  const unknown = only.filter((id) => !engine.sourcesDoc.sources.some((s) => s.id === id));
+  if (unknown.length) {
+    console.error(`unknown source ${unknown.join(', ')}`);
+    process.exit(2);
+  }
+  const dryRun = args.includes('--dry-run');
+  const results = syncSources({ sourcesDoc: engine.sourcesDoc, only, dryRun });
+  if (!results.length) console.log('no upstream source with a refresh command matches');
+  let failed = 0;
+  for (const r of results) {
+    console.log(`\n${r.drift.padEnd(26)} ${r.sources.join(', ')}  (${r.command})`);
+    console.log(`  kept       ${r.kept}`);
+    if (r.detail) console.log(`  detail     ${r.detail}`);
+    if (r.changedFiles.length) console.log(`  changed    ${r.changedFiles.join(', ')}`);
+    if (['SOURCE_UNAVAILABLE', 'SNAPSHOT_INVALID', 'SOURCE_CHANGED_SCHEMA'].includes(r.drift)) failed++;
+    if (r.drift.startsWith('SOURCE_CHANGED')) {
+      for (const id of r.sources) {
+        const result = impact(engine.graph, `source:${id}`);
+        console.log(`  impact     ${id}: ${result.pages.length} page(s), ${result.locales.length} locale(s), gates ${result.gates.join(' ')}`);
+      }
+    }
+  }
+  const kept = results.some((r) => r.kept === 'new snapshot');
+  if (kept) console.log('\nnext: npm run build && npm run site:refresh && npm run site:doctor');
+  process.exit(failed ? 1 : 0);
+}
+
+function drift() {
+  const engine = loadEngine();
+  const changed = engine.sourceStates.filter((s) => ['STALE', 'NEW', 'REMOVED'].includes(s.state));
+  const work = engine.unitReport?.filter((r) => ['STALE', 'MISSING', 'ORPHANED'].includes(r.status)) ?? [];
+  const enabled = new Set(engine.store?.localesDoc.locales.filter((l) => l.enabled).map((l) => l.id) ?? []);
+  // Only drift that changes what visitors see is a ticket: upstream sources
+  // that moved, and stale or missing units of locales that are live.
+  const liveWork = work.filter((r) => enabled.has(r.locale));
+  const impacts = changed.map((s) => ({ id: s.id, state: s.state, was: s.was ? { version: s.was.version, revision: s.was.revision } : null, now: s.now ? { version: s.now.version, revision: s.now.revision } : null, ...impact(engine.graph, `source:${s.id}`) }));
+  const meaningful = impacts.length > 0 || liveWork.length > 0;
+  const lines = [
+    ...impacts.map((i) => `${i.id} ${i.state}${i.was && i.now && (i.was.version !== i.now.version || i.was.revision !== i.now.revision) ? ` ${i.was.version ?? ''}@${(i.was.revision ?? '').slice(0, 8)} -> ${i.now.version ?? ''}@${(i.now.revision ?? '').slice(0, 8)}` : ''}: ${i.pages.length} pages, ${i.blocks.length} blocks, ${i.locales.length} locales`),
+    ...[...new Set(liveWork.map((r) => r.locale))].map((l) => `translations ${l}: ${liveWork.filter((r) => r.locale === l).length} unit(s) stale or missing`),
+  ];
+  const title = `Website drift: ${lines.length} item(s) — ${lines.map((l) => l.split(':')[0]).join('; ')}`.slice(0, 160);
+  const ticket = meaningful
+    ? `saipen ticket add P2 ${JSON.stringify(title)} --verify ${JSON.stringify('npm run site:doctor ends HEALTHY with no STALE source and no translation work for enabled locales; npm run build and npm test pass')}`
+    : null;
+  if (json) {
+    console.log(JSON.stringify({ meaningful, sources: impacts, translationWork: liveWork.map(({ locale, kind, id, status }) => ({ locale, kind, id, status })), ticket }, null, 2));
+    return;
+  }
+  if (!meaningful) {
+    console.log('NO DRIFT: every source matches the lock and every enabled locale is current. No ticket.');
+    return;
+  }
+  console.log('DRIFT');
+  for (const l of lines) console.log(`  ${l}`);
+  console.log('\nTo file it as SAIPEN work (run it yourself; this command files nothing):');
+  console.log(`  ${ticket}`);
+}
+
+function affected() {
+  const engine = loadEngine();
+  const base = flagValue('base');
+  const git = (...a) => execFileSync('git', ['-c', 'core.quotePath=false', ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\n').filter(Boolean);
+  const files = [...new Set([...(base ? git('diff', '--name-only', `${base}...HEAD`) : []), ...git('diff', '--name-only', 'HEAD'), ...git('ls-files', '--others', '--exclude-standard')])].filter((f) => !f.startsWith('.saipen/'));
+  const starts = new Set();
+  const unknown = [];
+  const sourceOf = (f) => engine.sourcesDoc.sources.find((s) => s.paths.some((p) => f === p || f.startsWith(`${p}/`)));
+  for (const f of files) {
+    const doc = /^src\/content\/docs\/(.+)\.md$/.exec(f);
+    const unitDoc = /^src\/locales\/([^/]+)\/docs\/(.+)\.md$/.exec(f);
+    const unitFile = /^src\/locales\/([^/]+)\/([^/]+)\.json$/.exec(f);
+    const catalogue = /^src\/content-engine\/blocks\/([^/]+)\.json$/.exec(f);
+    const composition = /^src\/content-engine\/compositions\/[^/]+\.json$/.test(f) && existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')).page : null;
+    if (composition) starts.add(`page:${composition}`);
+    else if (doc) starts.add(`page:docs.${doc[1].split('/').join('.')}`);
+    else if (unitDoc) starts.add(`unit:${unitDoc[1]}:docs/${unitDoc[2]}`);
+    else if (unitFile) for (const id of Object.keys(engine.store?.units[unitFile[1]] ?? {}).filter((id) => engine.store.blocks[id]?.domain === unitFile[2])) starts.add(`unit:${unitFile[1]}:${id}`);
+    else if (catalogue) for (const [id, b] of Object.entries(engine.store?.blocks ?? {})) { if (b.domain === catalogue[1]) starts.add(`block:${id}`); }
+    else if (sourceOf(f)) starts.add(`source:${sourceOf(f).id}`);
+    else if (/^(src\/content-engine\/(manifests|inventory)\/|README\.md|CONTRIBUTING\.md|roadmap\/|src\/content-engine\/.*\.md$)/.test(f)) continue;
+    else unknown.push(f);
+  }
+  const gates = new Set(['audit:build', 'validate:content', 'validate:registry']);
+  const pages = new Set();
+  for (const start of starts) {
+    if (!engine.graph.nodes.has(start)) continue;
+    const r = impact(engine.graph, start);
+    r.gates.forEach((g) => gates.add(g));
+    r.pages.forEach((p) => pages.add(p));
+    if (start.startsWith('page:')) pages.add(start.slice(5));
+  }
+  const full = unknown.length > 0;
+  const result = { files: files.length, starts: [...starts].sort(), pages: [...pages].sort(), gates: full ? ['npm test (full suite)'] : [...gates].sort(), fullSuiteBecause: unknown };
+  if (json) return console.log(JSON.stringify(result, null, 2));
+  console.log(`${files.length} changed file(s) -> ${starts.size} engine node(s) -> ${pages.size} page(s)`);
+  if (full) {
+    console.log(`full suite: ${unknown.length} file(s) outside the dependency graph (${unknown.slice(0, 6).join(', ')}${unknown.length > 6 ? ' …' : ''})`);
+    console.log('  npm run build && npm run check && npm run lint && npm test');
+  } else {
+    console.log('gates (impacted + mandatory smoke set):');
+    for (const g of result.gates) console.log(`  npm run ${g}`);
+  }
+}
+
+const commands = { doctor, impact: impactCommand, refresh, sync, drift, affected };
 if (!commands[command]) {
-  console.error('usage: node scripts/site.mjs doctor|impact|refresh');
+  console.error('usage: node scripts/site.mjs doctor|impact|refresh|sync|drift|affected');
   process.exit(2);
 }
 commands[command]();

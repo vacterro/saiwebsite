@@ -34,7 +34,7 @@ import { dirname } from 'node:path';
 import { blockHash, markupSignature, normalizeText, placeholders } from '../src/content-engine/blocks/blocks.mjs';
 import { checkTranslation, markdownSignature, uncoveredScripts, unitStatus, validateLocales } from '../src/content-engine/i18n/i18n.mjs';
 import { createTranslator } from '../src/content-engine/i18n/translator.mjs';
-import { loadStore, PATHS, requiredUnits, unitReport, validateTranslations } from '../src/content-engine/i18n/store.mjs';
+import { loadStore, PATHS, unitReport, validateTranslations } from '../src/content-engine/i18n/store.mjs';
 import { loadCoverage } from '../src/content-engine/i18n/engine-ext.mjs';
 import { readRegistry, readSources } from './route-registry.mjs';
 

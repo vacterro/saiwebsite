@@ -7,6 +7,7 @@
  *    the snapshot must be byte-identical to that checkout. Otherwise the website would be
  *    describing a protocol state that no longer exists.
  */
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { FILES, SNAPSHOT_DIR, sha256 } from './sync-canonical.mjs';
@@ -20,8 +21,12 @@ for (const key of Object.keys(FILES)) {
     problems.push(`missing snapshot file ${file}`);
     continue;
   }
+  // The recorded hash is of the LF bytes the sync wrote. A Windows checkout
+  // with core.autocrlf turns them into CRLF without changing a single fact,
+  // so the LF-normalised content is accepted too; any other edit still fails.
   const actual = sha256(file);
-  if (actual !== meta.files[key]?.sha256) {
+  const normalised = createHash('sha256').update(readFileSync(file, 'utf8').replace(/\r\n/g, '\n')).digest('hex');
+  if (actual !== meta.files[key]?.sha256 && normalised !== meta.files[key]?.sha256) {
     problems.push(`${file} hash ${actual.slice(0, 12)} != recorded ${meta.files[key]?.sha256?.slice(0, 12)} (hand-edited?)`);
   }
   try {

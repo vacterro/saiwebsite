@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "domain": "community",
+  "usedBy": [
+    "page:community"
+  ],
+  "blocks": {
+    "community.title": {
+      "type": "text",
+      "text": "Community"
+    },
+    "community.description": {
+      "type": "text",
+      "text": "Where to talk about SAIPEN, where to file bugs, and how to propose a protocol change."
+    },
+    "community.discuss.title": {
+      "type": "text",
+      "text": "Discuss"
+    },
+    "community.discuss.body": {
+      "type": "text",
+      "text": "The SAIPEN Community on Discord: quick questions, screenshots, rough ideas and cross-project feedback."
+    },
+    "community.discuss.action": {
+      "type": "text",
+      "text": "Join the Discord"
+    },
+    "community.report.title": {
+      "type": "text",
+      "text": "Report"
+    },
+    "community.report.body": {
+      "type": "text",
+      "text": "Reproducible bugs and durable feature requests belong in GitHub Issues, so they do not disappear into chat history. Each ecosystem project has its own tracker."
+    },
+    "community.report.action": {
+      "type": "text",
+      "text": "Open SAIPEN issues"
+    },
+    "community.contribute.title": {
+      "type": "text",
+      "text": "Contribute"
+    },
+    "community.contribute.body": {
+      "type": "text",
+      "text": "SAIPEN is a specification first: most contributions change the protocol documents, a phase file or the conformance tooling. Read the contributing guide before proposing a change."
+    },
+    "community.contribute.action": {
+      "type": "text",
+      "text": "Read CONTRIBUTING.md"
+    },
+    "community.proposal.title": {
+      "type": "text",
+      "text": "Proposing a protocol change"
+    },
+    "community.proposal.intro": {
+      "type": "text",
+      "text": "Every idea is first run through the litmus test:"
+    },
+    "community.proposal.q1": {
+      "type": "text",
+      "text": "Does it make the transition between agents more reliable?"
+    },
+    "community.proposal.q2": {
+      "type": "text",
+      "text": "Does it make the behaviour of different models more uniform?"
+    },
+    "community.proposal.q3": {
+      "type": "text",
+      "text": "Does it reduce the probability of context loss?"
+    },
+    "community.proposal.body": {
+      "type": "inline",
+      "text": "Two \"no\" answers put it out of scope for the protocol, however useful it is elsewhere. A good report names the file and section, shows concrete evidence — a quote, a command and its output, a breaking scenario — and says what you expected instead. Normative changes need a changelog entry and, where practical, validator or scenario coverage, and the canonical validator (`python tools/validate.py`) must pass."
+    },
+    "community.decided.title": {
+      "type": "text",
+      "text": "Already decided"
+    },
+    "community.decided.intro": {
+      "type": "text",
+      "text": "These were proposed and evaluated before; reopening them needs new evidence, not a new request:"
+    },
+    "community.decided.consensus": {
+      "type": "text",
+      "text": "turning SAIPEN into a distributed consensus system;"
+    },
+    "community.decided.grammar": {
+      "type": "text",
+      "text": "a machine-parseable LOG marker grammar beyond the existing line skeleton;"
+    },
+    "community.decided.doctor": {
+      "type": "inline",
+      "text": "a `saipen doctor` command that would duplicate `validate` and `status`."
+    },
+    "community.conduct.title": {
+      "type": "text",
+      "text": "Conduct"
+    },
+    "community.conduct.body": {
+      "type": "inline",
+      "text": "The project's [code of conduct]({conduct}) applies in the repository and in the community channels."
+    }
+  }
+}
