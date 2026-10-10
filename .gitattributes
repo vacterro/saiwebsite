@@ -1,3 +1,13 @@
+# Canonical line endings (T-31). A clean checkout must produce the same bytes
+# on every host: Windows git defaults to core.autocrlf=true, which silently
+# rewrote digest-verified sources (e.g. scripts/fonts/src/spleen-6x12.bdf) and
+# made validate-licenses.mjs fail on a fresh clone. Pin LF as the canonical
+# working-tree form; the rules below override it for byte-bound evidence.
+* text=auto eol=lf
+
+# cmd.exe requires CRLF in batch files.
+*.cmd text eol=crlf
+
 # SAIPEN byte-bound evidence (digest-verified; never convert line endings) -- T-1508.
 .saipen/intake/** -text
 .saipen/archive/source/** -text
@@ -9,3 +19,7 @@
 
 # SAIPEN byte-bound evidence (digest-verified; never convert line endings) -- T-1508.
 .saipen/recovery/board-scrub/** -text
+
+# Approved redistributable font sources: validate-licenses.mjs hashes these
+# bytes against scripts/fonts/sources.json, so git must never convert them.
+scripts/fonts/src/** -text

@@ -14,7 +14,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { inspectStore, repairStores } from '../release-doctor.mjs';
+import { inspectStore, repairStores, diagnose } from '../release-doctor.mjs';
 
 const ORIGIN = 'https://doctor-fixture.example';
 
@@ -230,5 +230,18 @@ describe('repairStores', () => {
     const r = await repairStores(root);
     assert.equal(r.ok, false);
     assert.match(r.refused, /origin conflict/);
+  });
+
+  it('a lock held on another root never decides this root', async () => {
+    healthyStore();
+    const other = mkdtempSync(join(tmpdir(), 'sai-doc-other-'));
+    try {
+      writeTree(other, { '.site-work/release/factory.lock/owner.json': JSON.stringify({ pid: process.pid, command: 'other-root', at: new Date().toISOString() }) });
+      assert.equal(diagnose(other).lock.state, 'held', 'the lock inside the inspected root is what counts');
+      const r = await repairStores(root);
+      assert.equal(r.ok, true, 'a lock held elsewhere must not refuse this root');
+    } finally {
+      rmSync(other, { recursive: true, force: true });
+    }
   });
 });

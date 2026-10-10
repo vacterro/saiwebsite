@@ -37,6 +37,16 @@ export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const CANDIDATES = join(ROOT, '.site-work', 'release', 'candidates');
 export const FACTORY_LOCK = join(ROOT, '.site-work', 'release', 'factory.lock');
 
+/**
+ * The lock guards one candidate tree: a holder that locks root A does not
+ * block root B. Reading the module-level FACTORY_LOCK while diagnosing another
+ * root reported this repository's ambient lock and made the verdict depend on
+ * whatever else was running here.
+ */
+export function factoryLockDir(root = ROOT) {
+  return join(resolve(root), '.site-work', 'release', 'factory.lock');
+}
+
 function computeDigest(dir) {
   const files = [];
   (function walk(current) {
@@ -250,8 +260,9 @@ export function diagnose(root = ROOT) {
   }
   // Factory lock state.
   let lock = { state: 'absent' };
-  if (existsSync(FACTORY_LOCK)) {
-    const r = readJson(join(FACTORY_LOCK, 'owner.json'));
+  const lockDir = factoryLockDir(root);
+  if (existsSync(lockDir)) {
+    const r = readJson(join(lockDir, 'owner.json'));
     if (!r.ok) {
       lock = { state: 'unreadable', detail: 'owner.json unreadable; never treat as permission to proceed — inspect manually' };
     } else {
