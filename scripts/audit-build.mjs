@@ -101,7 +101,7 @@ function auditThemeContract(file, h) {
   console.log('\nTHEME CONTRACT ' + label);
 
   if (/<html[^>]*\sstyle=/.test(h)) fail(label + ': <html> carries an inline style attribute — a stale root palette outranks every [data-theme] scope');
-  if (!new RegExp('<html lang="' + expectedLang + '"( dir="rtl")? data-theme="goldendefault">').test(h)) fail(label + ': SSR fallback is not lang="' + expectedLang + '" data-theme="goldendefault" (got ' + htmlTag + ')');
+  if (!new RegExp('\\slang="' + expectedLang + '"(?:\\s|>)').test(htmlTag) || !/\sdata-theme="goldendefault"(?:\s|>)/.test(htmlTag)) fail(label + ': SSR fallback is not lang="' + expectedLang + '" data-theme="goldendefault" (got ' + htmlTag + ')');
 
   // Palette CSS inline in <head>: the whole point is that first paint needs no request.
   const styles = [...head.matchAll(/<style([^>]*)>([\s\S]*?)<\/style>/g)];
@@ -247,7 +247,7 @@ for (const p of pages) {
     .map((m) => ({ l: Number(m[1][1]), t: m[2].replace(/<[^>]*>/g, '').trim().slice(0, 40) }));
   const seq = heads.map((x) => x.l);
   const title = /<title>([^<]*)<\/title>/.exec(h)?.[1] ?? '(none)';
-  const lang = /<html lang="([a-z-]+)"/.exec(h)?.[1];
+  const lang = /<html[^>]*\slang="([a-zA-Z0-9-]+)"/.exec(h)?.[1];
   const counts = {
     h1: seq.filter((x) => x === 1).length,
     main: (h.match(/<main/g) || []).length,
@@ -303,6 +303,22 @@ function filesUnder(dir, ext) {
     }
   })(dir);
   return out;
+}
+
+// ---------------------------------------------------------------------------
+// 4b. Indexing exclusions. Diagnostic (/debug/) and pseudo-locale pages carry
+//     noindex from the shell, not from each page author. Negative controls for
+//     this rule: scripts/tests/release-origin.test.mjs and release:verify.
+// ---------------------------------------------------------------------------
+function auditIndexing() {
+  console.log('\nINDEXING');
+  const rel = (p) => p.split('\\').join('/').replace(/^dist\//, '');
+  const diagnostic = pages.filter((p) => rel(p).startsWith('debug/'));
+  const pseudo = pages.filter((p) => rel(p).startsWith('qps-ploc/'));
+  const unmarked = [...diagnostic, ...pseudo].filter((p) => !/<meta name="robots" content="noindex"/.test(readFileSync(p, 'utf8')));
+  if (!diagnostic.length) fail('no /debug/ pages were built; the indexing contract cannot be checked');
+  if (unmarked.length) fail('pages without noindex: ' + unmarked.map(rel).join(', '));
+  console.log(`  ${diagnostic.length} diagnostic and ${pseudo.length} pseudo-locale pages carry noindex`);
 }
 
 function auditBudget() {
@@ -364,6 +380,7 @@ function auditProtocolData() {
   }
 }
 
+auditIndexing();
 auditBudget();
 auditProtocolData();
 

@@ -1,0 +1,495 @@
+{
+  "schemaVersion": 2,
+  "page": "about",
+  "mode": "slots",
+  "note": "Native views own interactive/generated markup. This manifest owns section identity, visibility and order; ordinary paragraph/list/card sections use the shared renderer. Native slots supply their own model variables.",
+  "bindings": {},
+  "availableSlots": [
+    "overview",
+    "author",
+    "why",
+    "workflow",
+    "principles",
+    "dogfooding",
+    "scope",
+    "beyond",
+    "design",
+    "accessibility",
+    "performance",
+    "quality-gates",
+    "deployment",
+    "sources"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "owner": "about",
+      "order": 10,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ],
+        "required": true
+      },
+      "type": "slot",
+      "slot": "overview",
+      "blocks": [
+        "about.title",
+        "about.motto.label",
+        "about.motto.body"
+      ]
+    },
+    {
+      "id": "author",
+      "owner": "about",
+      "order": 20,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "author",
+      "blocks": [
+        "about.author.title",
+        "about.author.body1",
+        "about.author.body2"
+      ]
+    },
+    {
+      "id": "why",
+      "owner": "about",
+      "order": 30,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "why",
+      "blocks": [
+        "about.why.title",
+        "about.why.body1",
+        "about.why.body2",
+        "about.why.quote",
+        "about.why.body3"
+      ]
+    },
+    {
+      "id": "workflow",
+      "owner": "about",
+      "order": 40,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "workflow",
+      "blocks": [
+        "about.workflow.title",
+        "about.workflow.idea",
+        "about.workflow.target",
+        "about.workflow.agent",
+        "about.workflow.verify",
+        "about.workflow.audit",
+        "about.workflow.handoff",
+        "about.workflow.next",
+        "about.workflow.tools",
+        "about.workflow.and",
+        "about.workflow.comma"
+      ]
+    },
+    {
+      "id": "principles",
+      "owner": "about",
+      "order": 50,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "principles",
+      "blocks": [
+        "about.principles.title",
+        "about.principles.note",
+        "about.principles.local-first.name",
+        "about.principles.local-first.line",
+        "about.principles.no-account.name",
+        "about.principles.no-account.line",
+        "about.principles.open-core.name",
+        "about.principles.open-core.line",
+        "about.principles.independence.name",
+        "about.principles.independence.line",
+        "about.principles.visible-state.name",
+        "about.principles.visible-state.line",
+        "about.principles.evidence.name",
+        "about.principles.evidence.line",
+        "about.principles.degrade.name",
+        "about.principles.degrade.line",
+        "about.principles.automate.name",
+        "about.principles.automate.line",
+        "about.principles.control.name",
+        "about.principles.control.line"
+      ]
+    },
+    {
+      "id": "dogfooding",
+      "owner": "about",
+      "order": 60,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "dogfooding",
+      "blocks": [
+        "about.dogfooding.title",
+        "about.dogfooding.body",
+        "about.dogfooding.events",
+        "about.dogfooding.events-value",
+        "about.dogfooding.closed",
+        "about.dogfooding.closed-value",
+        "about.dogfooding.last",
+        "about.dogfooding.last-value",
+        "about.dogfooding.col.ticket",
+        "about.dogfooding.col.work",
+        "about.dogfooding.col.state",
+        "about.dogfooding.red",
+        "about.dogfooding.none"
+      ]
+    },
+    {
+      "id": "scope",
+      "owner": "about",
+      "order": 70,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "scope",
+      "blocks": [
+        "about.scope.title",
+        "about.scope.body",
+        "about.scope.not-protocol",
+        "about.scope.not-engine",
+        "about.scope.authority"
+      ]
+    },
+    {
+      "id": "beyond",
+      "owner": "about",
+      "order": 80,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "beyond",
+      "blocks": [
+        "about.beyond.title",
+        "about.beyond.body"
+      ]
+    },
+    {
+      "id": "design",
+      "owner": "about",
+      "order": 90,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "design",
+      "blocks": [
+        "about.design.title",
+        "about.design.body"
+      ]
+    },
+    {
+      "id": "accessibility",
+      "owner": "about",
+      "order": 100,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "accessibility",
+      "blocks": [
+        "about.a11y.title",
+        "about.a11y.landmarks",
+        "about.a11y.focus",
+        "about.a11y.nojs",
+        "about.a11y.colour",
+        "about.a11y.text",
+        "about.a11y.motion"
+      ]
+    },
+    {
+      "id": "performance",
+      "owner": "about",
+      "order": 110,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "performance",
+      "blocks": [
+        "about.perf.title",
+        "about.perf.body"
+      ]
+    },
+    {
+      "id": "quality-gates",
+      "owner": "about",
+      "order": 120,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "quality-gates",
+      "blocks": [
+        "about.gates.title",
+        "about.gates.col.command",
+        "about.gates.col.fails",
+        "about.gates.build",
+        "about.gates.check",
+        "about.gates.lint",
+        "about.gates.validate-themes",
+        "about.gates.validate-canonical",
+        "about.gates.validate-content",
+        "about.gates.validate-baselines",
+        "about.gates.audit-build",
+        "about.gates.test-pixel",
+        "about.gates.test-shell",
+        "about.gates.test-content",
+        "about.gates.test-runtime",
+        "about.gates.test-visual"
+      ]
+    },
+    {
+      "id": "deployment",
+      "owner": "about",
+      "order": 130,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "deployment",
+      "blocks": [
+        "about.deploy.title",
+        "about.deploy.static",
+        "about.deploy.links",
+        "about.deploy.generated",
+        "about.deploy.aliases",
+        "about.deploy.status"
+      ]
+    },
+    {
+      "id": "sources",
+      "owner": "about",
+      "order": 140,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "sources",
+      "blocks": [
+        "about.sources.title",
+        "about.sources.protocol",
+        "about.sources.protocol-value",
+        "about.sources.ecosystem",
+        "about.sources.ecosystem-value",
+        "about.sources.design",
+        "about.sources.design-value"
+      ]
+    }
+  ],
+  "metadataBlocks": [
+    "about.description"
+  ]
+}

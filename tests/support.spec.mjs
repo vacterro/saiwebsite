@@ -43,6 +43,67 @@ test.describe('Support & Pricing page', () => {
     await expect(firstCopyBtn).toHaveText('Copied');
   });
 
+  test('copy success is announced in a polite status region', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/pricing/');
+    const btn = page.locator('.js-copy').first();
+    const status = page.locator('[data-copy-status]').first();
+    await expect(status).toHaveAttribute('role', 'status');
+    await btn.click();
+    await expect(btn).toHaveText('Copied');
+    await expect(status).toHaveText('Copied');
+    await expect(btn).toHaveText('Copy', { timeout: 5000 });
+    await expect(status).toBeEmpty();
+  });
+
+  test('denied clipboard never shows success', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window.navigator, 'clipboard', {
+        value: { writeText: () => Promise.reject(new DOMException('denied', 'NotAllowedError')) },
+      });
+    });
+    await page.goto('/pricing/');
+    const btn = page.locator('.js-copy').first();
+    const status = page.locator('[data-copy-status]').first();
+    await btn.click();
+    await expect(btn).toHaveText('Copy');
+    await expect(status).toContainText('Copy failed');
+  });
+
+  test('missing clipboard API never shows success', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window.navigator, 'clipboard', { value: undefined });
+    });
+    await page.goto('/pricing/');
+    const btn = page.locator('.js-copy').first();
+    const status = page.locator('[data-copy-status]').first();
+    await btn.click();
+    await expect(btn).toHaveText('Copy');
+    await expect(status).toContainText('Copy failed');
+  });
+
+  test('rapid clicks settle on one coherent message', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/pricing/');
+    const btn = page.locator('.js-copy').first();
+    const status = page.locator('[data-copy-status]').first();
+    await btn.click();
+    await btn.click();
+    await btn.click();
+    await expect(btn).toHaveText('Copied');
+    await expect(status).toHaveText('Copied');
+    await expect(btn).toHaveText('Copy', { timeout: 5000 });
+  });
+
+  test('keyboard Enter activates copy', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/pricing/');
+    const btn = page.locator('.js-copy').first();
+    await btn.focus();
+    await page.keyboard.press('Enter');
+    await expect(btn).toHaveText('Copied');
+  });
+
   test('page retains selectable addresses without JavaScript', async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();

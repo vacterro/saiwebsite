@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "ui",
+  "units": {
+    "ui.crumbs.debug": {
+      "text": "Diagnostika",
+      "sourceHash": "2cd3f1100eb9daac",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.crumbs.home": {
+      "text": "Avaleht",
+      "sourceHash": "3cca2d92785e90ad",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.crumbs.label": {
+      "text": "Asukohariba",
+      "sourceHash": "33d0ab01d8fb73ea",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.crumbs.page": {
+      "text": "Leht",
+      "sourceHash": "c0b2c187ead675db",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.lang.label": {
+      "text": "Keel",
+      "sourceHash": "a87cdf9c4f81a546",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.nav.compact-label": {
+      "text": "Sait",
+      "sourceHash": "a68a3f97be9d8fa5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.nav.main-label": {
+      "text": "Peamenüü",
+      "sourceHash": "70da236abac9ec48",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.nav.more": {
+      "text": "Veel",
+      "sourceHash": "56266869ffc6c138",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.nav.navigate": {
+      "text": "Menüü",
+      "sourceHash": "22231aeb0cb90dd4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.site.description": {
+      "text": "{site} — {tagline} Dokumentatsioon, spetsifikatsioon ja ökosüsteemi ülevaade.",
+      "sourceHash": "cce070fcae08adf1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.skip-link": {
+      "text": "Liigu sisu juurde",
+      "sourceHash": "eed567642683bd97",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.theme.label": {
+      "text": "Teema:",
+      "sourceHash": "45ef636b423ff695",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.theme.note": {
+      "text": "16 paletti — kohalikult salvestatud",
+      "sourceHash": "4cf07f6848b5bb72",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "ui.title.suffix": {
+      "text": "{title} — {site}",
+      "sourceHash": "898a10e71297bcc8",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    }
+  }
+}

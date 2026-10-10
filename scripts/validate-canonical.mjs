@@ -11,9 +11,10 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { FILES, SNAPSHOT_DIR, sha256 } from './sync-canonical.mjs';
+import { validateCanonicalSnapshot } from '../src/content-engine/sources/canonical.mjs';
 
 const meta = JSON.parse(readFileSync(join(SNAPSHOT_DIR, 'meta.json'), 'utf8'));
-const problems = [];
+const problems = validateCanonicalSnapshot(SNAPSHOT_DIR);
 
 for (const key of Object.keys(FILES)) {
   const file = join(SNAPSHOT_DIR, `${key}.json`);

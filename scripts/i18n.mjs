@@ -42,6 +42,8 @@ import { createTranslator } from '../src/content-engine/i18n/translator.mjs';
 import { loadStore, PATHS, unitReport, validateTranslations } from '../src/content-engine/i18n/store.mjs';
 import { loadCoverage } from '../src/content-engine/i18n/engine-ext.mjs';
 import { readRegistry, readSources } from './route-registry.mjs';
+import { localeReadiness, independentReview } from '../src/content-engine/i18n/readiness.mjs';
+import { withMutationLock, writeTransaction } from '../src/content-engine/operations/files.mjs';
 
 const [command, ...rest] = process.argv.slice(2);
 const flag = (name) => {
@@ -49,7 +51,7 @@ const flag = (name) => {
   return i >= 0 ? rest[i + 1] : undefined;
 };
 const has = (name) => rest.includes(`--${name}`);
-const positional = rest.filter((a, i) => !a.startsWith('--') && !(i > 0 && rest[i - 1].startsWith('--') && !['--json', '--apply', '--disable'].includes(rest[i - 1])));
+const positional = rest.filter((a, i) => !a.startsWith('--') && !(i > 0 && rest[i - 1].startsWith('--') && !['--json', '--apply', '--disable', '--preview', '--dry-run'].includes(rest[i - 1])));
 
 const registry = readRegistry();
 const sourceIds = readSources().sources.map((s) => s.id);
@@ -64,8 +66,7 @@ const writeJson = (file, doc) => {
   writeFileSync(file, JSON.stringify(doc, null, 2) + '\n');
 };
 const die = (msg, code = 2) => {
-  console.error(msg);
-  process.exit(code);
+  const error=new Error(msg); error.exitCode=code; throw error;
 };
 
 function localeOrDie(store, id) {
@@ -99,12 +100,13 @@ function status() {
       completion: required.length ? Math.round((done / required.length) * 1000) / 10 : 100,
       counts,
       uncoveredScripts: coverage ? uncoveredScripts(l, coverage) : null,
+      readiness:localeReadiness(store,coverage,l.id,report),
       todo: flag('locale') ? rows.filter((r) => r.status !== 'CURRENT').map((r) => ({ kind: r.kind, id: r.id, status: r.status })) : undefined,
     };
   });
   if (has('json')) return console.log(JSON.stringify(out, null, 2));
   for (const o of out) {
-    console.log(`${o.locale.padEnd(8)} ${o.name.padEnd(12)} ${o.stage.padEnd(8)} ${o.enabled ? 'enabled ' : 'disabled'} ${String(o.completion).padStart(5)}%  ${Object.entries(o.counts).map(([k, n]) => `${k} ${n}`).join(' / ')}${o.uncoveredScripts?.length ? `  FONT GAP: ${o.uncoveredScripts.join(', ')}` : ''}`);
+    console.log(`${o.locale.padEnd(8)} ${o.name.padEnd(12)} ${o.stage.padEnd(8)} ${o.enabled ? 'enabled ' : 'disabled'} ${String(o.completion).padStart(5)}% renderable / ${o.readiness.publicationCompletion}% approved  ${Object.entries(o.counts).map(([k, n]) => `${k} ${n}`).join(' / ')}${o.readiness.fontGaps.length ? `  FONT GAP: ${o.readiness.fontGaps.join(', ')}` : ''}`);
     for (const t of o.todo ?? []) console.log(`  ${t.status.padEnd(13)} ${t.kind.padEnd(5)} ${t.id}`);
   }
 }
@@ -128,7 +130,7 @@ function memoryIndex(store, locale) {
   for (const [id, unit] of Object.entries(store.units[locale] ?? {})) {
     const block = store.blocks[id];
     if (!block) continue;
-    if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, blockHash(block)))) continue;
+    if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, blockHash(block))) || !independentReview(unit)) continue;
     add(block.type, block.text, id, unit.text);
   }
   // Documentation segments take part in translation memory exactly like blocks.
@@ -138,7 +140,7 @@ function memoryIndex(store, locale) {
     for (const [id, unit] of Object.entries(entry.doc?.units ?? {})) {
       const segment = doc.segmentsById[id];
       if (!segment) continue;
-      if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, segment.hash))) continue;
+      if (!['REVIEWED', 'CURRENT'].includes(unitStatus(unit, segment.hash)) || !independentReview(unit)) continue;
       add(segment.kind, segment.text, id, unit.text);
     }
   }
@@ -152,7 +154,14 @@ function exportPackage() {
   const store = load();
   const l = localeOrDie(store, flag('locale'));
   const wanted = (flag('status') ?? 'missing,stale').toUpperCase().split(',');
-  const report = unitReport(store).filter((r) => r.locale === l.id && wanted.includes(r.status));
+  let report = unitReport(store).filter((r) => r.locale === l.id && wanted.includes(r.status));
+  if (flag('domain')) report=report.filter((r)=>r.kind==='block' && store.blocks[r.id]?.domain===flag('domain'));
+  if (flag('document')) report=report.filter((r)=>r.document===flag('document'));
+  if (flag('id')) report=report.filter((r)=>r.id===flag('id'));
+  report.sort((a,b)=>a.id.localeCompare(b.id));
+  const offset=Number(flag('offset') ?? 0), limit=Number(flag('limit') ?? report.length);
+  if (!Number.isSafeInteger(offset)||offset<0||!Number.isSafeInteger(limit)||limit<0) die('--offset and --limit must be nonnegative integers');
+  report=report.slice(offset,offset+limit);
   const memory = memoryIndex(store, l.id);
   const glossary = {
     doNotTranslate: store.glossary.terms.filter((t) => !t.translate).map((t) => ({ term: t.en, notes: t.notes })),
@@ -240,7 +249,9 @@ function importPackage() {
   const status = flag('status') ?? 'MACHINE_DRAFT';
   if (!['MACHINE_DRAFT', 'REVIEWED', 'CURRENT'].includes(status)) die(`--status must be MACHINE_DRAFT, REVIEWED or CURRENT`);
   const reviewer = flag('reviewer');
+  const author=flag('author') ?? pkg.author;
   if (status !== 'MACHINE_DRAFT' && !reviewer) die(`--status ${status} records a review: pass --reviewer <who reviewed it>`);
+  if (status !== 'MACHINE_DRAFT' && (!author || author.trim().toLowerCase()===reviewer.trim().toLowerCase())) die('approved translations require --author and a different --reviewer; never record your own review as independent');
   const coverage = loadCoverage();
   const refused = [];
   const glyphCheck = (id, text) => {
@@ -254,7 +265,30 @@ function importPackage() {
   const byDocument = new Map();
   let written = 0;
   let segmentsWritten = 0;
+  const seen=new Set();
+  const sameIdentity = (a, b) => !!a && !!b && a.trim().toLowerCase() === b.trim().toLowerCase();
+  const storedUnit = (domain, slug, id) => {
+    try {
+      const path = slug ? `${PATHS.units}/${l.id}/docs/${slug}.json` : `${PATHS.units}/${l.id}/${domain}.json`;
+      if (!existsSync(path)) return null;
+      return JSON.parse(readFileSync(path, 'utf8')).units?.[id] ?? null;
+    } catch { return null; }
+  };
+  const provenanceRefusal = (id, stored) => {
+    if (stored?.author && author && !sameIdentity(stored.author, author))
+      return `[provenance] ${l.id} ${id}: stored author "${stored.author}" differs from asserted "${author}" — author replacement requires the documented provenance-correction workflow, never a review import`;
+    if (stored && !stored.author && author && status !== 'MACHINE_DRAFT')
+      return `[provenance] ${l.id} ${id}: no stored author — ${status} promotion on newly asserted authorship is refused; establish provenance first, never invent it`;
+    return null;
+  };
+  const effectiveMeta = (stored) => ({
+    ...((stored?.author ?? author) ? { author: stored?.author ?? author } : {}),
+    ...((reviewer ?? stored?.reviewer) ? { reviewer: reviewer ?? stored?.reviewer } : {}),
+    ...((flag('review-reference') ?? stored?.reviewReference) ? { reviewReference: flag('review-reference') ?? stored?.reviewReference } : {}),
+  });
   for (const u of pkg.units ?? []) {
+    if (seen.has(u.id)) {refused.push(`[duplicate-id] ${u.id}: repeated in the package`);continue;}
+    seen.add(u.id);
     if (!normalizeText(u.translation ?? '')) continue;
     const block = store.blocks[u.id];
     const found = block ? null : segments.get(u.id);
@@ -272,8 +306,15 @@ function importPackage() {
         refused.push(...problems);
         continue;
       }
+      const stored = storedUnit(block.domain, null, u.id);
+      const identityRefusal = provenanceRefusal(u.id, stored);
+      if (identityRefusal) { refused.push(identityRefusal); continue; }
+      if (stored && !stored.author && author && status === 'MACHINE_DRAFT' && normalizeText(u.translation) === normalizeText(stored.text ?? '')) {
+        refused.push(`[provenance] ${l.id} ${u.id}: identical text cannot acquire newly asserted authorship — translate anew to record a new author`);
+        continue;
+      }
       if (!byDomain.has(block.domain)) byDomain.set(block.domain, []);
-      byDomain.get(block.domain).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...(reviewer ? { reviewer } : {}) }]);
+      byDomain.get(block.domain).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...effectiveMeta(stored) }]);
       written++;
       continue;
     }
@@ -287,16 +328,25 @@ function importPackage() {
       refused.push(...problems);
       continue;
     }
+    const storedSeg = storedUnit(null, slug, u.id);
+    const segIdentityRefusal = provenanceRefusal(u.id, storedSeg);
+    if (segIdentityRefusal) { refused.push(segIdentityRefusal); continue; }
+    if (storedSeg && !storedSeg.author && author && status === 'MACHINE_DRAFT' && normalizeText(u.translation) === normalizeText(storedSeg.text ?? '')) {
+      refused.push(`[provenance] ${l.id} ${u.id}: identical text cannot acquire newly asserted authorship — translate anew to record a new author`);
+      continue;
+    }
     if (!byDocument.has(slug)) byDocument.set(slug, []);
-    byDocument.get(slug).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...(reviewer ? { reviewer } : {}) }]);
+    byDocument.get(slug).push([u.id, { text: u.translation, sourceHash: u.sourceHash, status, ...effectiveMeta(storedSeg) }]);
     segmentsWritten++;
   }
+  if (refused.length) die(`IMPORT REFUSED: no translation files were written\n${refused.join('\n')}`,1);
+  const changes={};
   for (const [domain, entries] of byDomain) {
     const path = `${PATHS.units}/${l.id}/${domain}.json`;
     const doc = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { schemaVersion: 1, locale: l.id, domain, units: {} };
     for (const [id, unit] of entries) doc.units[id] = unit;
     doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
-    writeJson(path, doc);
+    changes[path]=JSON.stringify(doc,null,2)+'\n';
   }
   for (const [slug, entries] of byDocument) {
     const path = `${PATHS.units}/${l.id}/docs/${slug}.json`;
@@ -306,12 +356,13 @@ function importPackage() {
     doc.document = slug;
     for (const [id, unit] of entries) doc.units[id] = unit;
     doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
-    writeJson(path, doc);
+    changes[path]=JSON.stringify(doc,null,2)+'\n';
   }
-  for (const r of refused) console.log('  REFUSED ' + r);
+  for (const file of Object.keys(changes)) if (existsSync(file) && readFileSync(file,'utf8').replace(/\r\n/g,'\n')===changes[file]) delete changes[file];
+  if (!has('dry-run')) writeTransaction('.',changes);
   console.log(`${refused.length ? 'PARTIAL' : 'OK'}: wrote ${written} block unit(s) and ${segmentsWritten} documentation segment(s) to src/locales/${l.id}/ as ${status}${refused.length ? `; ${refused.length} refused` : ''}`);
   console.log('next: npm run site:refresh && npm run i18n:validate && npm run build');
-  process.exit(refused.length ? 1 : 0);
+  return;
 }
 
 // ---------------------------------------------------------------------------
@@ -339,6 +390,7 @@ function memory() {
   }
   for (const h of hits) console.log(`  ${h.id}  <=  ${h.from}: ${h.text}`);
   if (has('apply') && hits.length) {
+    const changes={};
     const byDomain = new Map();
     const byDocument = new Map();
     for (const h of hits) {
@@ -351,7 +403,7 @@ function memory() {
       const doc = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : { schemaVersion: 1, locale: l.id, domain, units: {} };
       for (const h of list) doc.units[h.id] = { text: h.text, sourceHash: h.sourceHash, status: 'MACHINE_DRAFT' };
       doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
-      writeJson(path, doc);
+      changes[path]=JSON.stringify(doc,null,2)+'\n';
     }
     for (const [slug, list] of byDocument) {
       const path = `${PATHS.units}/${l.id}/docs/${slug}.json`;
@@ -361,10 +413,11 @@ function memory() {
       doc.document = slug;
       for (const h of list) doc.units[h.id] = { text: h.text, sourceHash: h.sourceHash, status: 'MACHINE_DRAFT' };
       doc.units = Object.fromEntries(Object.entries(doc.units).sort(([a], [b]) => a.localeCompare(b)));
-      writeJson(path, doc);
+      changes[path]=JSON.stringify(doc,null,2)+'\n';
     }
+    if (!has('dry-run')) writeTransaction('.',changes);
   }
-  console.log(`${hits.length} exact match(es) for ${l.id}${has('apply') ? ' applied as MACHINE_DRAFT (review them)' : '; add --apply to copy them in as MACHINE_DRAFT'}`);
+  console.log(`${hits.length} exact match(es) for ${l.id}${has('apply') ? has('dry-run')?' would apply as MACHINE_DRAFT':' applied as MACHINE_DRAFT (review them)' : '; add --apply to copy them in as MACHINE_DRAFT'}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -408,12 +461,44 @@ function enable() {
   const l = doc.locales.find((x) => x.id === id);
   if (!l || l.id === doc.canonical) die(`unknown or canonical locale ${id}`);
   l.enabled = !has('disable');
+  l.publication=has('preview')?'internal':'public';
   if (l.enabled && l.stage === 'planned') l.stage = 'pilot';
   const store = load({ localesDoc: doc });
   const problems = validateTranslations(store, loadCoverage(), { forEnable: true }).filter((p) => p.includes(`locale ${id} `));
   if (l.enabled && problems.length) die(`refused to enable ${id}:\n  ${problems.join('\n  ')}`, 1);
-  writeJson(PATHS.locales, doc);
+  if (!has('dry-run')) writeJson(PATHS.locales, doc);
   console.log(`${id} ${l.enabled ? 'enabled' : 'disabled'}; next: npm run build && npm run site:refresh && npm run site:doctor`);
+}
+
+function review() {
+  const store=load(), rows=unitReport(store), coverage=loadCoverage();
+  const locales=flag('locale')?[localeOrDie(store,flag('locale'))]:store.localesDoc.locales.filter((l)=>l.stage!=='pseudo');
+  const report=locales.map((l)=>({...localeReadiness(store,coverage,l.id,rows),reviewWork:rows.filter((r)=>r.locale===l.id && !r.outOfScope && (r.status!=='CURRENT'||!r.unit?.author||!r.unit?.reviewer)).map(({id,status,unit})=>({id,status,author:unit?.author ?? null,reviewer:unit?.reviewer ?? null}))}));
+  if (has('json')) return console.log(JSON.stringify(report,null,2));
+  for (const l of report) console.log(`${l.locale}: ${l.completion}% renderable; ${l.publicationCompletion}% approved; ${l.productionReady?'PRODUCTION_READY':l.blockers.join(', ')}; ${l.reviewWork.length} unit(s) need review or translation`);
+  console.log('Review packages: i18n:export -- --locale <id> --status machine_draft,reviewed --limit 40; approval requires a different actual reviewer and --author. This command approves nothing.');
+}
+
+function cleanup() {
+  const store=load();
+  const selected=flag('locale')?localeOrDie(store,flag('locale')).id:null;
+  const rows=unitReport(store).filter((r)=>r.status==='ORPHANED' && (!selected||r.locale===selected));
+  const changes={};
+  for (const row of rows) {
+    const file=row.kind==='segment'?row.file:`${PATHS.units}/${row.locale}/${row.unit.domain}.json`;
+    if (!changes[file]) changes[file]=JSON.parse(readFileSync(file,'utf8'));
+    delete changes[file].units[row.id];
+  }
+  if (!has('dry-run')) writeTransaction('.',Object.fromEntries(Object.entries(changes).map(([p,d])=>[p,JSON.stringify(d,null,2)+'\n'])));
+  console.log(JSON.stringify({dryRun:has('dry-run'),orphaned:rows.map(({locale,id})=>({locale,id})),changedFiles:Object.keys(changes)},null,2));
+}
+
+function deprecate() {
+  const store=load(), locale=localeOrDie(store,positional[0]);
+  const doc=store.localesDoc, entry=doc.locales.find((l)=>l.id===locale.id);
+  entry.enabled=false;entry.stage='deprecated';entry.publication='public';
+  if (!has('dry-run')) writeTransaction('.',{[PATHS.locales]:JSON.stringify(doc,null,2)+'\n'});
+  console.log(`${has('dry-run')?'PREVIEW':'OK'}: ${locale.id} deprecated and disabled; every translation file retained; run site:prepare`);
 }
 
 // ---------------------------------------------------------------------------
@@ -604,6 +689,9 @@ function validate() {
   process.exit(problems.length ? 1 : 0);
 }
 
-const commands = { status, export: exportPackage, import: importPackage, validate, memory, add, enable };
+const commands = { status, export: exportPackage, import: importPackage, validate, memory, add, enable, review, cleanup, deprecate };
 if (!commands[command]) die('usage: node scripts/i18n.mjs status|export|import|validate|memory|add|enable');
-commands[command]();
+try {
+  if ((['import','add','enable','cleanup','deprecate'].includes(command) || command==='memory'&&has('apply')) && !has('dry-run')) withMutationLock('.',()=>commands[command]());
+  else commands[command]();
+} catch (error) {console.error(error.message);process.exitCode=error.exitCode ?? 1;}

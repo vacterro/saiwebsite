@@ -13,8 +13,9 @@ import { registerExtension } from '../engine.mjs';
 import { selectorMatches } from '../graph/graph.mjs';
 import { serialize } from '../sources/lock.mjs';
 import { contentLock, PATHS, unitReport, validateTranslations } from './store.mjs';
-import { validateComposition } from '../compositions/compositions.mjs';
+import { compositionBlocks, sectionBlocks, validateComposition, visibleSections } from '../compositions/compositions.mjs';
 import { readdirSync } from 'node:fs';
+import { referenceSources } from '../sources/references.mjs';
 
 export const COVERAGE_FILE = 'src/content-engine/i18n/font-coverage.json';
 
@@ -50,14 +51,17 @@ registerExtension((engine, { at }) => {
     committed: existsSync(at(PATHS.contentLock)) ? readFileSync(at(PATHS.contentLock), 'utf8').replace(/\r\n/g, '\n') : null,
   });
 
-  engine.contracts.push(...validateTranslations(store, loadCoverage(engine.root)));
+  engine.contracts.push(...validateTranslations(store, loadCoverage(engine.root),{forEnable:true}));
   engine.contracts.push(...coverageFreshness(engine.root));
   // Page composition manifests (M38) reference only existing blocks and bindings.
   const compDir = at('src/content-engine/compositions');
+  const compositions=[];
   if (existsSync(compDir)) {
     for (const name of readdirSync(compDir).filter((f) => f.endsWith('.json')).sort()) {
       const doc = JSON.parse(readFileSync(`${compDir}/${name}`, 'utf8'));
-      engine.contracts.push(...validateComposition(doc, `src/content-engine/compositions/${name}`, store.blocks, engine.registry.pages.map((p) => p.id)));
+      const problems=validateComposition(doc, `src/content-engine/compositions/${name}`, store.blocks, engine.registry.pages.map((p) => p.id), engine.sourcesDoc.sources.map((s)=>s.id));
+      engine.contracts.push(...problems);
+      if (!problems.length) compositions.push(doc);
     }
   }
 
@@ -84,8 +88,19 @@ registerExtension((engine, { at }) => {
 
   // Graph: which pages each block feeds, and which locale units depend on it.
   const records = engine.records;
+  // Protocol provenance is shown in the common header/footer of every HTML route.
+  // It changes rendering without changing any editorial translation hash.
+  for (const r of records.filter((r)=>r.kind!=='machine')) for(const source of ['saipen.protocol.meta','site.package','site.identity','wintage.theme-packs','site.fonts'])engine.extraGraph.edges.push([`source:${source}`,`page:${r.id}`]);
   const matches = (selector, r) => (selector === 'all-html' ? r.kind !== 'machine' : selector.startsWith('page:') && selectorMatches(selector.slice(5), r.id));
   const canonicalRecords = records.filter((r) => !r.variantOf);
+  for (const ref of referenceSources(engine.root)) {
+    if (!engine.sourcesDoc.sources.some((s)=>s.id===ref.id)) {engine.contracts.push(`[canonical-reference] ${ref.path}: register ${ref.id} and synchronize its pinned identity`);continue;}
+    for (const page of ref.pages) {
+      engine.extraGraph.edges.push([`source:${ref.id}`,`page:${page}`]);
+      const doc=Object.values(store.docs).find((d)=>`docs.${d.slug.replaceAll('/','.')}`===page);
+      for(const segment of doc?.segments ?? [])engine.extraGraph.edges.push([`source:${ref.id}`,`segment:${segment.id}`]);
+    }
+  }
   const variantsOf = new Map();
   for (const r of records.filter((x) => x.variantOf)) {
     const key = `${r.locale}\0${r.variantOf}`;
@@ -95,10 +110,13 @@ registerExtension((engine, { at }) => {
   for (const [id, block] of Object.entries(store.blocks)) {
     const node = `block:${id}`;
     engine.extraGraph.nodes.push(node);
-    const pages = canonicalRecords.filter((r) => block.usedBy.some((s) => matches(s, r)));
+    for (const source of block.sourceIds ?? []) engine.extraGraph.edges.push([`source:${source}`,node]);
+    const composedOwners=new Set(compositions.filter((d)=>compositionBlocks({...d,sections:visibleSections(d)}).includes(id)).map((d)=>d.page));
+    const pages = canonicalRecords.filter((r) => block.usedBy.some((s) => matches(s, r)) || composedOwners.has(r.id));
     for (const page of pages) engine.extraGraph.edges.push([node, `page:${page.id}`]);
     for (const l of locales) {
       const unit = `unit:${l.id}:${id}`;
+      engine.extraGraph.nodes.push(unit);
       engine.extraGraph.edges.push([node, unit]);
       for (const page of pages) for (const v of variantsOf.get(`${l.id}\0${page.id}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
     }
@@ -109,15 +127,46 @@ registerExtension((engine, { at }) => {
   // exactly that segment's units stale — never every unit of the document.
   for (const doc of Object.values(store.docs)) {
     const pageId = `docs.${doc.slug.split('/').join('.')}`;
+    engine.extraGraph.nodes.push(`page:${pageId}`);
     for (const segment of doc.segments) {
       const node = `segment:${segment.id}`;
       engine.extraGraph.nodes.push(node);
-      engine.extraGraph.edges.push([`page:${pageId}`, node]);
+      engine.extraGraph.edges.push([`source:site.content.docs`, node]);
+      engine.extraGraph.edges.push([node,`page:${pageId}`]);
       for (const l of locales) {
         const unit = `unit:${l.id}:${segment.id}`;
+        engine.extraGraph.nodes.push(unit);
         engine.extraGraph.edges.push([node, unit]);
         for (const v of variantsOf.get(`${l.id}\0${pageId}`) ?? []) engine.extraGraph.edges.push([unit, `page:${v.id}`]);
       }
     }
+  }
+  for (const doc of compositions) for (const section of doc.sections) {
+    if (!section.id) continue;
+    const node=`section:${doc.page}.${section.id}`;
+    engine.extraGraph.nodes.push(node);
+    for (const source of section.sourceIds ?? []) engine.extraGraph.edges.push([`source:${source}`,node]);
+    if (section.visibility!=='hidden') {
+      engine.extraGraph.edges.push([node,`page:${doc.page}`]);
+      for (const block of sectionBlocks(section)) engine.extraGraph.edges.push([`block:${block}`,node]);
+    }
+    for (const gate of section.validation?.gates ?? []) engine.extraGraph.edges.push([node,`gate:${gate}`]);
+  }
+  for (const doc of compositions.filter((d)=>(d.mode ?? 'page')==='page')) {
+    if (engine.registry.pages.find((p)=>p.id===doc.page)?.llmVisible && records.some((r)=>r.id==='machine.llms-full')) engine.extraGraph.edges.push([`page:${doc.page}`,'page:machine.llms-full']);
+  }
+  if (records.some((r)=>r.id==='machine.sitemap')) for (const r of records.filter((r)=>r.sitemap && r.id!=='machine.sitemap')) engine.extraGraph.edges.push([`page:${r.id}`,'page:machine.sitemap']);
+  const projections=[['protocol',['saipen.protocol.registry','saipen.protocol.state-schema','saipen.protocol.adapters','saipen.protocol.meta']],['ecosystem',['saipen.hq.project-map','github.vacterro.releases']],['support',['vacterro.support.public']],['versions',['site.package','site.content.changelog']]];
+  for (const [id,inputs] of projections) {
+    for (const input of inputs) {
+      const model=`model:${id}.${input}`; engine.extraGraph.nodes.push(model);
+      engine.extraGraph.edges.push([`source:${input}`,model]);
+      for (const r of canonicalRecords.filter((r)=>r.sourceIds.includes(input))) engine.extraGraph.edges.push([model,`page:${r.id}`]);
+    }
+  }
+  for (const artifact of engine.generatedDoc.artifacts) {
+    const node=`artifact:${artifact.id}`;
+    engine.extraGraph.nodes.push(node);
+    for (const input of artifact.inputs.filter((s)=>s.startsWith('source:'))) engine.extraGraph.edges.push([input,node]);
   }
 });

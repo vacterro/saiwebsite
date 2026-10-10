@@ -1,0 +1,35 @@
+{
+  "tool": "release-package",
+  "verdict": "PASS",
+  "origin": "https://saipenprotocol.com",
+  "candidate": {
+    "store": ".site-work/release/candidates/saipenprotocol-com-6dc40565e4",
+    "generation": "g-f0b12a4c683ea764",
+    "files": 137,
+    "sha256": "f0b12a4c683ea76413a34b5d32c2c57cf964d2d90e632eb6dddf6566435f126e"
+  },
+  "package": {
+    "file": ".site-work/release/packages/saipenprotocol-com-6dc40565e4/saipenprotocol-com-6dc40565e4-f0b12a4c683e.zip",
+    "files": 137,
+    "sha256": "6777e831799aa44a20bdc51328cbbc5da8e40d9bd45f17ba174a9b9e7090e41c",
+    "bytes": 14838262
+  },
+  "extractionVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "extractionSmoke": {
+    "verdict": "LOCAL_STATIC_HOST_PASS",
+    "failing": []
+  },
+  "git": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "publicationAuthorized": false,
+  "external": "no upload or deployment performed or claimed",
+  "fullReceipt": {
+    "status": "FULL",
+    "reason": null,
+    "generation": "g-f0b12a4c683ea764",
+    "gateContract": "6"
+  },
+  "readiness": "FULL_RELEASE_READY"
+}

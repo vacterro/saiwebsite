@@ -16,10 +16,13 @@
  * Check: src/content-engine/models/ecosystem.ts fails the build when the
  * editorial list and this snapshot disagree; npm run site:doctor reports drift.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
+import { relative } from 'node:path';
+import { withMutationLock, writeTransaction } from '../src/content-engine/operations/files.mjs';
+import { validateEcosystemSnapshot, snapshotFacts } from '../src/content-engine/sync/sync.mjs';
 
 const OWNER = 'vacterro';
-const SNAPSHOT = 'src/data/ecosystem.snapshot.json';
+const SNAPSHOT = process.env.SAI_ECOSYSTEM_OUT ?? 'src/data/ecosystem.snapshot.json';
 const MAP = 'https://github.com/saipenhq/.github/blob/main/docs/PROJECTS.md';
 
 /** The curated list, read from the editorial file so there is one list. */
@@ -34,7 +37,7 @@ const headers = {
 };
 
 async function get(url, allow404 = false) {
-  const res = await fetch(url, { headers });
+  const res = await fetch(url, { headers, signal: AbortSignal.timeout(30_000) });
   if (allow404 && res.status === 404) return null;
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status} ${res.statusText}`);
   return res.json();
@@ -78,6 +81,14 @@ if (process.argv[1]?.endsWith('sync-ecosystem.mjs')) {
     },
     repos,
   };
-  writeFileSync(SNAPSHOT, `${JSON.stringify(snapshot, null, 2)}\n`);
+  const root = process.env.SAI_SYNC_STAGING_ROOT ?? '.';
+  const problems=validateEcosystemSnapshot(snapshot,readFileSync('src/data/ecosystem.ts','utf8'));
+  if(problems.length)throw new Error(`[ecosystem-sync-refused] ${problems.join('; ')}; previous snapshot retained`);
+  const {existsSync}=await import('node:fs');
+  if(existsSync(SNAPSHOT)&&snapshotFacts('ecosystem',{'src/data/ecosystem.snapshot.json':readFileSync(SNAPSHOT,'utf8')})===snapshotFacts('ecosystem',{'src/data/ecosystem.snapshot.json':JSON.stringify(snapshot)})){
+    console.log(`unchanged ${SNAPSHOT}; kept the previous verified freshness date`);
+    process.exit(0);
+  }
+  withMutationLock(root, () => writeTransaction(root, { [relative(root, SNAPSHOT)]: `${JSON.stringify(snapshot, null, 2)}\n` }));
   console.log(`wrote ${SNAPSHOT} (${Object.keys(repos).length} repositories)`);
 }

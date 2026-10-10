@@ -21,9 +21,10 @@ import { SITE } from '../../data/site';
 
   <h2>Scope</h2>
   <p>
-    SAIPEN is a specification plus a small set of local install, uninstall and export scripts. It runs no server,
-    collects no telemetry and transmits no data. Everything the scripts do is local filesystem writes to files you
-    already control: your agent configuration and each project's <code>.saipen/</code>.
+    SAIPEN includes a specification, a local Python runtime and install, uninstall and export tooling. Its documented
+    security policy states that it runs no hosted service and collects no telemetry. The runtime manages project
+    memory and supported host configuration. Operator-invoked Git and connector actions keep their own authorization
+    boundaries; reading memory alone does not prove execution access.
   </p>
   <ul>
     <li>
@@ -66,7 +67,7 @@ import { SITE } from '../../data/site';
   <p>
     SAIPEN installs from a Git clone, so the commit you check out is the integrity reference. For ecosystem binaries,
     the <a href="/downloads/">downloads catalogue</a> lists the SHA-256 digest GitHub reports for each release asset.
-    No project currently publishes a code signature.
+    This snapshot records digests; check each release page for current signature information.
   </p>
 
   <h2>This website</h2>
@@ -77,7 +78,7 @@ import { SITE } from '../../data/site';
       One value in your browser's local storage: the palette you picked in the theme menu. Nothing else is stored and
       nothing is sent anywhere.
     </li>
-    <li>Two small scripts: the pre-paint theme restore and the theme menu. The playground and search pages add their own, run locally.</li>
+    <li>Three small inline scripts: the pre-paint theme restore, the theme menu wiring, and the Ctrl+K search shortcut. The playground and search pages add their own, run locally.</li>
   </ul>
 
   <p class="w-panel__note">

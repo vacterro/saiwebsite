@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "notfound",
+  "units": {
+    "notfound.action.docs": {
+      "text": "Открыть документацию",
+      "sourceHash": "376aa1a3b06ce364",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.action.home": {
+      "text": "На главную",
+      "sourceHash": "ce47c7207ad4697d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.action.search": {
+      "text": "Поиск по сайту",
+      "sourceHash": "cbbca2d5e9c67b01",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.crumb": {
+      "text": "Не найдено",
+      "sourceHash": "a02f1823d775d205",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.description": {
+      "text": "Такого адреса на сайте SAIPEN нет.",
+      "sourceHash": "224d9a17a4dc2a08",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.panel.body": {
+      "text": "В адресе была опечатка либо страница переехала. Адреса страниц спецификации с версией (`/spec/v8/...`) сохраняются постоянно; если ссылка устарела, все версии доступны в обзоре спецификации.",
+      "sourceHash": "a12b740dc070870e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.panel.title": {
+      "text": "По этому адресу нет страницы",
+      "sourceHash": "9c89b6a398b94e18",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "notfound.title": {
+      "text": "Страница не найдена",
+      "sourceHash": "b047773ab3855f3c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    }
+  }
+}

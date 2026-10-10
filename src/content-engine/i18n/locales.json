@@ -19,7 +19,8 @@
       "renderStatuses": [
         "CURRENT"
       ],
-      "scope": "all"
+      "scope": "all",
+      "publication": "public"
     },
     {
       "id": "qps-ploc",
@@ -37,7 +38,8 @@
       "renderStatuses": [
         "CURRENT"
       ],
-      "scope": "pilot"
+      "scope": "pilot",
+      "publication": "internal"
     },
     {
       "id": "et",
@@ -57,7 +59,8 @@
         "REVIEWED",
         "MACHINE_DRAFT"
       ],
-      "scope": "pilot"
+      "scope": "pilot",
+      "publication": "public"
     },
     {
       "id": "ru",
@@ -78,7 +81,8 @@
         "REVIEWED",
         "MACHINE_DRAFT"
       ],
-      "scope": "pilot"
+      "scope": "pilot",
+      "publication": "public"
     }
   ],
   "scopes": {

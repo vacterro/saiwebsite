@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "docs-ui",
+  "units": {
+    "docs-ui.authority.engineering": {
+      "text": "техническое руководство — устройство и применение протокола",
+      "sourceHash": "2ee09d2406de6d73",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.authority.explanation": {
+      "text": "объяснение — обоснование протокола, а не нормативный текст",
+      "sourceHash": "6e5e589ae07e78fe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.authority.reference": {
+      "text": "справочник — факты о протоколе; при противоречии действует указанный канонический источник",
+      "sourceHash": "6ae80d7936d29a05",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.concepts": {
+      "text": "Файлы в .saipen/ и назначение каждого из них.",
+      "sourceHash": "ee7820d59ed99b4a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.evidence": {
+      "text": "Что считается доказательством и какие гарантии даёт SAIPEN.",
+      "sourceHash": "eb170fad1d19eb4b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.getting-started": {
+      "text": "Что такое SAIPEN, зачем он нужен и как его установить.",
+      "sourceHash": "cd0a2c3b30c5e9b3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.operation": {
+      "text": "Команды, автономные режимы и поддерживаемые среды агентов.",
+      "sourceHash": "1426628fe00337ff",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.protocol": {
+      "text": "Автомат состояний, маршрутизация, контрольные точки и правила проверки.",
+      "sourceHash": "be8a29a9eecb8ea5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.recovery": {
+      "text": "Что происходит при сбое агента, сеанса или файла.",
+      "sourceHash": "193091e0693803fa",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.lead.reference": {
+      "text": "Глоссарий и частые вопросы.",
+      "sourceHash": "0ca62dfad0cac514",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.pager.label": {
+      "text": "Предыдущая и следующая страницы",
+      "sourceHash": "6580af6bcb45c201",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.pager.next": {
+      "text": "Далее",
+      "sourceHash": "5d70cb36788fcb66",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "docs-ui.pager.prev": {
+      "text": "Назад",
+      "sourceHash": "8dfae9b0b8894e7f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.raw.note": {
+      "text": "Эта страница в обычном Markdown для агентов и инструментов:",
+      "sourceHash": "9cf83aaa4a458815",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.concepts": {
+      "text": "Понятия",
+      "sourceHash": "1adca7a73d537bf8",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.evidence": {
+      "text": "Доказательства",
+      "sourceHash": "8bc10a8788ca4083",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.getting-started": {
+      "text": "Начало работы",
+      "sourceHash": "a2e1e3ae973286f9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.operation": {
+      "text": "Эксплуатация",
+      "sourceHash": "d37d6cd6058fe07f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.protocol": {
+      "text": "Протокол",
+      "sourceHash": "2cd1e556b1e715c0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.recovery": {
+      "text": "Восстановление",
+      "sourceHash": "c588c66cd494c4d3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.section.reference": {
+      "text": "Справочник",
+      "sourceHash": "b8df6aa774b5ed70",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.sources.note": {
+      "text": "Ссылки закреплены за коммитом протокола, из которого собран сайт. При расхождении страницы и источника действует источник.",
+      "sourceHash": "3f059b8505f55e2b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.sources.title": {
+      "text": "Канонические источники",
+      "sourceHash": "12f7268a400d8504",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.toc.title": {
+      "text": "На этой странице",
+      "sourceHash": "910104b6b253cf12",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.translation.note": {
+      "text": "Эта страница — перевод английского оригинала, который имеет приоритет:",
+      "sourceHash": "50431fda99e5eb13",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.label": {
+      "text": "Содержание документации",
+      "sourceHash": "c3550e786963d4e4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.search": {
+      "text": "Поиск по документации",
+      "sourceHash": "ccca71bbb33eb9e4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.spec": {
+      "text": "Спецификация",
+      "sourceHash": "e264d260689d006c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.spec-index": {
+      "text": "Обзор спецификации",
+      "sourceHash": "9b2fb56fc93346f5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.state-machine": {
+      "text": "Автомат состояний",
+      "sourceHash": "50b9e42b0d7490ac",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs-ui.tree.title": {
+      "text": "Содержание",
+      "sourceHash": "64f88b749a8a87bc",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    }
+  }
+}

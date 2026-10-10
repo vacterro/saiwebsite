@@ -13,9 +13,11 @@ sources:
 <!-- i18n:docs.getting-started.introduction.intro -->
 SAIPEN is a **continuation protocol for AI coding agents**. It keeps a
 project's working memory in plain Markdown files inside the project, in a
-folder called `.saipen/`, so that any compatible agent — one with no chat
+folder called `.saipen/`, so that a compatible agent — one with no chat
 history and no session memory — can open the project, run one command and
-carry on from exactly where the last agent stopped.
+carry on from the recorded state. The protocol defines what the next agent
+must read and do; how reliably a given agent follows it depends on the
+agent and its host — see [Compatibility](/compatibility/).
 
 ```text
 saipen continue

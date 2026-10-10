@@ -11,6 +11,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { assertValidRegistry } from '../src/content-engine/registry/schema.mjs';
+import { referenceSources } from '../src/content-engine/sources/references.mjs';
 import { sourceIdsOf } from '../src/content-engine/registry/sources.mjs';
 
 export const REGISTRY_FILE = 'src/content-engine/registry/pages.json';
@@ -21,7 +22,7 @@ export function readSources(file = SOURCES_FILE) {
 }
 
 export function readRegistry(file = REGISTRY_FILE) {
-  return assertValidRegistry(JSON.parse(readFileSync(file, 'utf8')), sourceIdsOf(readSources()), file);
+  return assertValidRegistry(JSON.parse(readFileSync(file, 'utf8')), sourceIdsOf(readSources()), file,{derivedSourceIds:referenceSources().filter((r)=>r.pages.length).map((r)=>r.id)});
 }
 
 /** Every route the navigation shell knows: nav primary, secondary or debug. */

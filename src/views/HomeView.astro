@@ -14,6 +14,7 @@ import MaturityBadge from '../components/MaturityBadge.astro';
 import PixelMark from '../components/PixelMark.astro';
 import WintageButton from '../components/WintageButton.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import PageSections from '../components/PageSections.astro';
 import { SITE } from '../data/site';
 import { CORE_LIFECYCLE, SHORT_COMMIT, SPEC_VERSION, meta } from '../content-engine/models/protocol';
 import { PROJECTS, projectsIn } from '../content-engine/models/ecosystem';
@@ -50,7 +51,11 @@ const core = projectsIn('core');
 ---
 
 <SiteLayout locale={tx.locale} title={SITE.name} tag="/" description={tx.text('home.description', { site: SITE.name, tagline: SITE.tagline, motto: SITE.motto })}>
+  <PageSections page="home" locale={tx.locale} requiredSlot="hero">
+    <Fragment slot="hero">
+
   <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__body">
     <PixelMark name="saipen-wordmark-480" width={480} height={82} class="hero__wordmark hero__wordmark--large" />
     <PixelMark name="saipen-wordmark-288" width={288} height={49} class="hero__wordmark hero__wordmark--small" />
     <h1 id="hero-title">{SITE.name}</h1>
@@ -65,8 +70,18 @@ const core = projectsIn('core');
       <WintageButton href={SITE.repository!}><Fragment set:html={tx.html('home.action.github')} /></WintageButton>
     </div>
     <p class="w-panel__note" set:html={tx.html('home.hero.licence', { version: meta.version, commit: SHORT_COMMIT })}></p>
+    </div>
+    <figure class="hero__art">
+      <picture>
+        <source srcset="/media/saipen-cosmos-still.png" media="(prefers-reduced-motion: reduce)" />
+        <source srcset="/media/saipen-cosmos.webp" type="image/webp" />
+        <img class="hero__cosmos" src="/media/saipen-cosmos.gif" width="480" height="270" lang="en" data-pixel-exempt
+          alt="SAIPEN cosmos artwork: an astronaut on a balcony overlooking a glowing planet and a space station" />
+      </picture>
+    </figure>
   </section>
-
+    </Fragment>
+    <Fragment slot="practice">
   <section class="w-panel w-panel--sunken home__section" aria-labelledby="practice">
     <div class="with-mark">
       <PixelMark name="saipen-emblem-96" width={96} height={96} />
@@ -78,6 +93,8 @@ const core = projectsIn('core');
     </div>
   </section>
 
+    </Fragment>
+    <Fragment slot="breaks-and-memory">
   <div class="grid-2 home__pair">
     <section class="w-panel" aria-labelledby="breaks">
       <h2 class="w-panel__title" id="breaks" set:html={tx.html('home.breaks.title')}></h2>
@@ -104,7 +121,8 @@ const core = projectsIn('core');
       <p class="w-panel__note" set:html={tx.html('home.persists.link')} />
     </section>
   </div>
-
+    </Fragment>
+    <Fragment slot="lifecycle">
   <section class="home__section" aria-labelledby="lifecycle">
     <h2 id="lifecycle" set:html={tx.html('home.lifecycle.title')}></h2>
     <p set:html={tx.html('home.lifecycle.body')}></p>
@@ -122,7 +140,8 @@ const core = projectsIn('core');
     </ol>
     <p class="w-panel__note" set:html={tx.html('home.lifecycle.note', { lifecycle: `/spec/${SPEC_VERSION}/lifecycle/` })} />
   </section>
-
+    </Fragment>
+    <Fragment slot="story">
   <section class="w-panel home__section" aria-labelledby="story">
     <h2 class="w-panel__title" id="story" set:html={tx.html('home.story.title')}></h2>
     <p>
@@ -136,7 +155,8 @@ const core = projectsIn('core');
       <WintageButton href={tx.href('/docs/recovery/interrupted-work/')}><Fragment set:html={tx.html('home.story.read')} /></WintageButton>
     </div>
   </section>
-
+    </Fragment>
+    <Fragment slot="principles">
   <section class="home__section" aria-labelledby="principles">
     <h2 id="principles" set:html={tx.html('home.principles.title')}></h2>
     <div class="cards cards--compact">
@@ -152,7 +172,8 @@ const core = projectsIn('core');
       }
     </div>
   </section>
-
+    </Fragment>
+    <Fragment slot="eco">
   <section class="home__section" aria-labelledby="eco">
     <h2 id="eco" set:html={tx.html('home.eco.title')}></h2>
     <p set:html={tx.html('home.eco.body', { count: PROJECTS.length })} />
@@ -184,7 +205,8 @@ const core = projectsIn('core');
     </div>
     <p set:html={tx.html('home.eco.link')} />
   </section>
-
+    </Fragment>
+    <Fragment slot="next">
   <section class="w-panel w-panel--sunken home__section" aria-labelledby="next">
     <h2 class="w-panel__title" id="next" set:html={tx.html('home.next.title')}></h2>
     <div class="row">
@@ -195,4 +217,6 @@ const core = projectsIn('core');
       <WintageButton href={tx.href('/community/')}><Fragment set:html={tx.html('home.next.community')} /></WintageButton>
     </div>
   </section>
+    </Fragment>
+  </PageSections>
 </SiteLayout>

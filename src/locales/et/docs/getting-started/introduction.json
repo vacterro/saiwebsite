@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "document": "getting-started/introduction",
+  "units": {
+    "docs.getting-started.introduction.description": {
+      "text": "Mis on SAIPEN, mida see säilitab ja milline üks käsk laseb teisel agendil sinu projektiga ilma sissejuhatuseta jätkata.",
+      "sourceHash": "9f7d061e45347d9f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.intro": {
+      "text": "SAIPEN on **jätkamisprotokoll AI-koodiagentidele**. See hoiab projekti töömälu projekti sees lihtsates Markdown-failides kaustas `.saipen/`. Iga ühilduv agent — ilma vestlusajaloo ja seansi mäluta — saab projekti avada, käivitada ühe käsu ja jätkata täpselt sealt, kus eelmine agent peatus.\n\n```text\nsaipen continue\n```\n\nvõi terve sõnumina lihtsalt `cc`.",
+      "sourceHash": "ef08cde3fa37e528",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.the-problem-it-solves": {
+      "text": "## Millise probleemi see lahendab\n\nKoodiagent ei mäleta pärast seansi lõppu midagi. Ta võis kakskümmend minutit arhitektuuri õppida, kolm oletust välistada ja paranduse pooleldi valmis teha. Sule aken, jõua kasutuspiirini või vaheta mudelit ning see kõik kaob. Järgmine agent alustab nullist ja inimene seletab projekti uuesti.\n\nSAIPEN viib selle mälu vestlusest projekti:\n\n> Agent unustab. Projekt mäletab.",
+      "sourceHash": "247fb1ff29562ee4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.title": {
+      "text": "Sissejuhatus",
+      "sourceHash": "3ffba5ed45c656e6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-it-is-not": {
+      "text": "## Mida see ei ole\n\nSAIPEN pole mudel, IDE, majutatud mäluandmebaas ega Giti asendus. See ei muuda agendi tehnilisi otsuseid õigeks; see muudab töö oleku selgesõnaliseks, kontrollitavaks ja jätkatavaks, et agente saaks vahetada.\n\nJärgmisena võrdleb [Miks SAIPEN](/docs/getting-started/why-saipen/) seda vestlusajaloo, juhisefailide ja ülesandehalduritega ning [Kiiralustus](/docs/getting-started/quickstart/) juhendab paigaldamist.",
+      "sourceHash": "554e149a9d510d8d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-makes-it-a-protocol-not-a-habit": {
+      "text": "## Mis teeb sellest protokolli, mitte harjumuse\n\n- **Kindel kontrollpunkti järjekord.** Iga etapivahetus ja peatus kirjutab `LOG`, siis `BOARD` ja siis `STATE` ning loeb iga faili tagasi. `STATE` on kontrollpunkti commit-viide.\n- **Range olekumasin.** Töö liigub `INIT → PLAN → SCOUT → BUILD →\n  VERIFY → REVIEW → SHIP → DONE`, ausa väljapääsuga `BLOCKED`. Ülesannet ei saa pärast esimest rohelist testi valmis kuulutada.\n- **Validaator.** Ainult standardteeki kasutav Pythoni validaator kontrollib faile masinloetava leppe järgi: STATE kuju, lubatud üleminekud, ülesannete sõltuvuste graaf, sündmuste graaf ja taastamise olek.",
+      "sourceHash": "9051cddc4c37009c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-persists": {
+      "text": "## Mis säilib\n\nKülm agent leiab ainult failidest vastused viiele küsimusele:\n\n| Fail / väli | Vastus |\n|---|---|\n| `STATE.md` | Mis toimub praegu? Etapp, aktiivne ülesanne, režiim, takistus. |\n| `BOARD.md` | Milline töö on olemas? Ülesanded olekutes DOING, TODO, DONE ja BLOCKED. |\n| `LOG.md` | Miks jõudis projekt sellesse olekusse? Ainult lisatav sündmuste graaf. |\n| `KNOWLEDGE/` | Millised püsivad faktid peavad seansside vahel säilima? |\n| `next_action` | Millise täpse tegevuse peab järgmine agent tegema? |\n\n`STATE` on praegune seis, `BOARD` on töö, `LOG` on ajalugu ja `KNOWLEDGE` on taaskasutatavad faktid. `next_action`, väli failis `STATE.md`, on protokolli süda: see pole kunagi tõlgendatav jutustus, vaid alati üks kohe täidetav tegevus.",
+      "sourceHash": "88b0b791ce7d7ac9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    }
+  }
+}

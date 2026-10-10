@@ -20,15 +20,17 @@
  */
 import { SITE_VERSION } from '../content-engine/models/versions';
 import LanguageSelector from '../components/LanguageSelector.astro';
+import ComposedSections from '../components/ComposedSections.astro';
+import pageRegistry from '../content-engine/registry/pages.json';
 import ThemeSelector from '../components/ThemeSelector.astro';
 import WintageBreadcrumbs from '../components/WintageBreadcrumbs.astro';
 import WintageCompactNav from '../components/WintageCompactNav.astro';
 import WintageMenuBar from '../components/WintageMenuBar.astro';
 import WintageStatusBar from '../components/WintageStatusBar.astro';
 import WintageWindow from '../components/WintageWindow.astro';
-import { MENU_ROUTES, PUBLIC_ROUTES, SITE, SECONDARY_ROUTES, routeByHref } from '../data/site';
+import { MENU_ROUTES, PUBLIC_ROUTES, SITE, SECONDARY_ROUTES, isDiagnosticRoute, routeByHref } from '../data/site';
 import { SHORT_COMMIT, meta as canonical } from '../content-engine/models/protocol';
-import { CANONICAL_LOCALE, alternatesOf, localeOf, splitPath, translator } from '../content-engine/i18n/catalog';
+import { CANONICAL_LOCALE, alternatesOf, localeOf, pagePublicationReady, splitPath, translator } from '../content-engine/i18n/catalog';
 import { defaultTheme, themeCss } from '../themes';
 import {
   PALETTE_STATUS_ID,
@@ -71,7 +73,7 @@ const {
   description = tx.text('ui.site.description', { site: SITE.name, tagline: SITE.tagline }),
   crumbs: explicitCrumbs,
   canonicalPath,
-  noindex = localeInfo.stage === 'pseudo',
+  noindex = false,
   ogType = 'website',
 } = Astro.props;
 
@@ -118,27 +120,35 @@ const compact = PUBLIC_ROUTES.map(localize);
 // search engines; the selector also lists the pseudo-locale while it is active.
 const alternates = alternatesOf(route);
 const publicAlternates = alternates.filter((a) => a.public);
-const choices = alternates.filter((a) => a.public || a.locale === locale);
-const canonicalUrl = new URL(canonicalPath ?? pathname, SITE.origin).href;
+const choices = alternates.filter((a) => a.public || a.locale === locale || localeInfo.publication==='internal'&&localeOf(a.locale).stage!=='pseudo');
+// The not-found page answers for no route of its own, so it declares no canonical.
+const isNotFound = route === '/404.html' || route === '/404/';
+const canonicalUrl = isNotFound ? null : new URL(canonicalPath ?? pathname, SITE.origin).href;
+// Shell-level indexing rule (decided here, not by each page author). A page is
+// indexable only when it is a public route in a publicly approved locale.
+// Diagnostic routes, pseudo and internal locales, unapproved or stale
+// translations and explicit noindex (alias, 404) all carry the robots marker.
+const localeIsInternal = localeInfo.stage === 'pseudo' || localeInfo.publication === 'internal';
+const effectiveNoindex = noindex || localeIsInternal || isDiagnosticRoute(route) || !pagePublicationReady(route, locale);
 const hreflang = publicAlternates.length > 1 ? publicAlternates : [];
 ---
 
 <!doctype html>
-<html lang={tx.lang} dir={tx.dir === 'rtl' ? 'rtl' : undefined} data-theme={palette.slug}>
+<html lang={tx.lang} dir={tx.dir === 'rtl' ? 'rtl' : undefined} data-theme={palette.slug} data-search-href={tx.href('/search/')}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     {hreflang.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.path, SITE.origin).href} />)}
     {hreflang.length > 0 && <link rel="alternate" hreflang="x-default" href={new URL(route, SITE.origin).href} />}
-    {noindex && <meta name="robots" content="noindex" />}
+    {effectiveNoindex && <meta name="robots" content="noindex" />}
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={new URL('/social/card.png', SITE.origin).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -180,6 +190,7 @@ const hreflang = publicAlternates.length > 1 ? publicAlternates : [];
           {crumbs.length > 0 && <WintageBreadcrumbs items={crumbs} current={pathname} label={tx.text('ui.crumbs.label')} />}
         </Fragment>
         <slot />
+        <ComposedSections page={pageRegistry.pages.find((p) => p.route === route)?.id ?? ''} locale={locale} mode="append" />
       </WintageWindow>
       <WintageStatusBar fields={statusFields} />
     </div>
@@ -194,7 +205,7 @@ const hreflang = publicAlternates.length > 1 ? publicAlternates : [];
         event.preventDefault();
         var field = document.querySelector('input[type="search"]');
         if (field && field.offsetParent !== null) field.focus();
-        else location.href = '/search/';
+        else location.href = document.documentElement.getAttribute('data-search-href') || '/search/';
       });
     </script>
   </body>

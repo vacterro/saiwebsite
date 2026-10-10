@@ -59,7 +59,9 @@ export function checkIntegrity(artifact, root = '.', manifestOverride = undefine
   const spec = artifact.integrity;
   if (spec.kind === 'regenerate' || problems.length) return problems;
   if (!existsSync(at(spec.manifest))) return [`[generated-missing] ${where}: manifest ${spec.manifest} does not exist`];
-  const manifest = manifestOverride ?? JSON.parse(readFileSync(at(spec.manifest), 'utf8'));
+  let manifest;
+  try {manifest = manifestOverride ?? JSON.parse(readFileSync(at(spec.manifest), 'utf8'));}
+  catch (error) {return [`[generated-manifest] ${where}: ${spec.manifest}: ${error.message}`];}
 
   const pairs = [];
   if (spec.kind === 'manifest-list') {

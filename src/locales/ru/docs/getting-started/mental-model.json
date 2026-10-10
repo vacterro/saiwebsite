@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "document": "getting-started/mental-model",
+  "units": {
+    "docs.getting-started.mental-model.description": {
+      "text": "Четыре файла, один указатель и автомат состояний. Как представить проект SAIPEN до чтения правил.",
+      "sourceHash": "bf6c947c7c290dc1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.mental-model.how-a-session-looks": {
+      "text": "## Как выглядит сеанс\n\n1. Холодный агент запускает `saipen continue`.\n2. SAIPEN связывает проект, восстанавливает прерванные операции, согласует производные метаданные, проверяет и выбирает маршрут.\n3. Агент выполняет возвращённое действие: завершает текущую задачу, начинает первую доступную задачу или останавливается на реальной границе участия человека.\n4. Каждый шаг заканчивается контрольной точкой: `LOG`, затем `BOARD` и `STATE`.\n5. Сеанс может закончиться в любой момент. Следующий агент снова начинает с шага 1.",
+      "sourceHash": "c2a5dc60d0694314",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.mental-model.intro": {
+      "text": "Представьте мастерскую, где работники меняются каждую смену и никто не может полагаться на рассказ предыдущего. Мастерская продолжает работу, потому что лист задания на столе точно сообщает, что происходит и что делать дальше. SAIPEN — такой лист задания, хранящийся в проекте.\n\n```text\nProject\n  |\n  +-- .saipen/STATE.md ------ what is happening right now\n  +-- .saipen/BOARD.md ------ what work exists\n  +-- .saipen/LOG.md -------- why the project reached this state\n  +-- .saipen/KNOWLEDGE/ ---- what durable facts must survive sessions\n          |\n          v\n   saipen continue\n          |\n          v\n      cold agent\n          |\n          v\n     next_action -> work -> checkpoint -> next ticket\n```",
+      "sourceHash": "eadfb2556ba3974c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.mental-model.three-ideas-carry-everything": {
+      "text": "## Всё держится на трёх идеях\n\n**1. Файлы выше памяти.** Содержимое диска имеет приоритет. Если `STATE.md` называет другого агента или новее последней записи работающего агента, все его воспоминания о проекте устарели и должны быть перечитаны.\n\n**2. Один точный следующий шаг.** `next_action` — заранее вычисленный ответ на вопрос «что делать прямо сейчас?». Он всегда имеет одну из немногих машинораспознаваемых форм: `PHASE BUILD T-12`, `RUN: <command>`, `saipen <command>`, `RESUME: T-12 VERIFY` или `WAIT:`, объясняющий необходимость участия человека. Агент не планирует проект заново каждый сеанс; он выполняет следующий шаг.\n\n**3. Прогресс — доказательства, а не рассказ.** Фаза продвигается только через контрольную точку, а задача закрывается только через VERIFY, REVIEW и SHIP с доказательствами в журнале. «Готово» без доказательств ничего не значит.",
+      "sourceHash": "1b1d362ccd357123",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.mental-model.three-layers": {
+      "text": "## Три слоя\n\n```text\nCORE            continuation / state / checkpoint / validation   required\n  └─ MAINTENANCE   autonomous HUNT / ADD / CLEAN evolution        optional\n       └─ GOAL MODE / SUBAGENTS   throughput                      opt-in\n```\n\nЯдро никогда не зависит от верхних слоёв: даже при отключённом автономном развитии SAIPEN остаётся полным протоколом продолжения, и холодный агент продолжает корректно.",
+      "sourceHash": "20ce3138f9fb3a0a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.mental-model.title": {
+      "text": "Мысленная модель",
+      "sourceHash": "be1f5dad42887883",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    }
+  }
+}

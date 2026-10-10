@@ -4,7 +4,7 @@
 
 **Official documentation and public web surface for the SAIPEN Protocol.**
 
-[![Version](https://img.shields.io/badge/version-1.4.0-D4B86A?style=flat-square)](package.json)
+[![Version](https://img.shields.io/badge/version-1.5.0-D4B86A?style=flat-square)](package.json)
 ![Astro](https://img.shields.io/badge/Astro-static%20site-BC52EE?style=flat-square&logo=astro&logoColor=white)
 ![Tracking](https://img.shields.io/badge/tracking-none-4A7A20?style=flat-square)
 ![Theme](https://img.shields.io/badge/UI-Wintage%20native-6B5A2B?style=flat-square)
@@ -49,7 +49,7 @@ SAIPEN solves this by anchoring memory in the repository itself (`.saipen/`):
 - **Fast Local Search:** Keyboard-first search (Ctrl+K) indexed statically at build time.
 - **Agent-First Accessibility:** Includes complete `/llms.txt` and `/llms-full.txt` endpoints for LLM consumers.
 - **Self-Maintaining Content Engine:** One page registry, a source registry with a lock, normalized models and an impact graph: `npm run site:doctor` reports drift, `npm run site:impact -- <id>` shows what a change affects. See [`src/content-engine/README.md`](src/content-engine/README.md).
-- **Internationalization Foundation:** Content blocks with hashes, locales as data, fallback that never shows a stale or raw string, and a translation CLI. Estonian and Russian wait for translation; translators start at [`src/content-engine/i18n/TRANSLATING.md`](src/content-engine/i18n/TRANSLATING.md).
+- **Internationalization Foundation:** Content blocks with hashes, locales as data, fallback that never shows a stale or raw string, and a translation CLI. Estonian and Russian pilot translations are mixed: 296 of 299 units per locale are REVIEWED, three per locale remain MACHINE_DRAFT awaiting a genuinely independent reviewer, and both locales stay disabled — nothing is production-approved. Translators start at [`src/content-engine/i18n/TRANSLATING.md`](src/content-engine/i18n/TRANSLATING.md).
 
 ---
 
@@ -145,6 +145,15 @@ npm run test:support        # Public donation and support details verification
 npm run test:i18n           # Locale variants: language, raw keys, overflow at 320/390/1280px, selector
 npm run test:pixel          # Zero-tolerance 21-color pixel closure (Chromium + WebKit)
 npm run test:visual         # Visual regression baselines comparison (33 baselines)
+npm run test:visual:update  # Approved baseline refresh ONLY: rewrites PNGs plus MANIFEST, then re-verify plain
+node scripts/browser-matrix.mjs  # Mandatory FULL browser matrix from the single suite registry (BROWSER_SUITES)
+npm run release:verify      # Artifact contract verification (JSON verdict: PASS / FAIL / BLOCKED)
+npm run release:dual-origin # Two-origin build plus stale-origin mutation control
+npm run release:candidate   # One-command public release candidate: build, verify, project, smoke, snapshot, evidence
+npm run release:doctor      # Read-only candidate-store health + recovery choices (never modifies)
+npm run release:package     # Deterministic offline deployment ZIP + separate receipt (never uploads)
+npm run release:smoke       # Local static-host smoke probe over a candidate directory
+npm run test:candidate      # Browser probes over the projected candidate (desktop + mobile)
 npm test                    # Full Playwright test suite
 ```
 
@@ -193,7 +202,7 @@ saiwebsite/
 ## 9. Current Publication Status & Known Limitations
 
 - **Source Code:** Public repository on GitHub (`vacterro/saiwebsite`).
-- **Version:** `v1.4.0` (Self-maintaining content engine and the internationalization foundation).
+- **Version:** `v1.5.0` (Release candidate: maintainable sections, source provenance and reviewed-publication gates; not deployed).
 - **Public Deployment:** Planned (hosting and domain attachment deferred behind future gates).
 
 ### Known Technical Limitations
@@ -222,3 +231,5 @@ saiwebsite/
 ---
 <sub>If SAIPEN and its documentation are useful to you, optional support: [Buy Me a Coffee](https://buymeacoffee.com/vacuum34) · [Boosty](https://boosty.to/vacuum34/donate) · [PayPal](https://paypal.me/AlexNelin) · [other ways](https://github.com/vacterro/vacterro/blob/main/SUPPORT.md)</sub>
 <!-- VACTERRO_SUPPORT:END -->
+
+Maintenance: see [OPERATOR.md](OPERATOR.md) for implemented content, source, translation, drift and release-preparation workflows. Current execution evidence is in [reports/convergence](reports/convergence); external publication and production locale approval remain gated.

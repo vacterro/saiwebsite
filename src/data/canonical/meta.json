@@ -4,8 +4,8 @@
   "origin": "github:main",
   "published": true,
   "version": "8.1.0",
-  "commit": "55bde0f71f0ba1c886092e30212b4212af780759",
-  "commitDate": "2026-10-07T00:47:43Z",
+  "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+  "commitDate": "2026-10-07T08:07:00Z",
   "files": {
     "registry": {
       "source": "saipen/REGISTRY.json",
@@ -19,5 +19,9 @@
       "source": "extensions/adapters/registry.json",
       "sha256": "28a6e18bce0bb99b41305843d10dc59bca1a88828eb5968619df6a8e08d8c32d"
     }
+  },
+  "documentation": {
+    "file": "documentation.json",
+    "sha256": "a344fe296f47c267b13656d82f0f8ea6636ff59b0bc02b10e5a75e8bd364602a"
   }
 }

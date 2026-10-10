@@ -20,7 +20,8 @@ split into stable units:
 A documentation page is **not** one unit. Its title, its description and every
 section are separate, stable segments, each with its own hash and its own
 entry, so editing one paragraph marks one segment stale — not the whole page,
-and not the same paragraph in thirty-three languages at once. The segment ID
+and not unrelated paragraphs in any language. The changed paragraph's own unit
+becomes stale in every configured translation locale. The segment ID
 (`docs.getting-started.introduction.what-persists`) is permanent: it does not
 change when the heading is reworded, when a section is reordered, or when the
 text is edited. You never invent an ID; `i18n:export` hands you the ones that
@@ -48,7 +49,7 @@ exists to prevent.
 ## The workflow
 
 ```bash
-npm install                                   # once
+npm ci                                        # once, from the lockfile
 npm run build                                 # the gates read the built site
 
 npm run i18n:status                           # where every locale stands
@@ -59,10 +60,14 @@ npm run i18n:validate                         # every rule, with red controls
 npm run i18n:status -- --locale et            # what is left
 ```
 
-Repeat export → fill → import until `i18n:status` shows 100 %. Then:
+Repeat bounded export → fill → import until renderable coverage is 100 %.
+Agent-only output is MACHINE_DRAFT. Public enablement also requires CURRENT
+units with genuine independent review and distinct author/reviewer metadata;
+`npm run i18n:review -- --locale et` explains the remaining gate. Then:
 
 ```bash
-npm run i18n:enable -- et                     # refused unless complete and drawable
+npm run i18n:enable -- et --dry-run           # reviewed, current and drawable
+npm run i18n:enable -- et                     # only after actual review/approval
 npm run build
 npm run site:refresh                          # regenerate inventory and locks
 npm run site:doctor                           # must end HEALTHY
@@ -73,6 +78,25 @@ npm run test:i18n && npm run test:pixel       # layout, overflow, pixel closure
 `i18n-work/` is scratch space and is not committed. Commit `src/locales/`,
 `src/content-engine/i18n/locales.json` (after `i18n:enable`) and the
 regenerated manifests.
+
+The ET/RU pilot is independently reviewed (2026-10-08 session): 296 of 299 units
+per locale are REVIEWED with distinct author/reviewer metadata; both locales
+remain disabled and nothing is CURRENT. Six units (about.dogfooding.body,
+about.dogfooding.closed, about.principles.independence.line in each locale) carry
+fresh MACHINE_DRAFT authorship after their earlier unattributed text proved
+unrecoverable; they await a genuinely different reviewer — see
+reports/convergence/review/six-unit-handoff.json. Provenance is enforced at
+import: REVIEWED/CURRENT promotion of a no-author draft is refused, stored-author
+replacement is refused, and identical text cannot acquire newly asserted
+authorship (fresh text may record a new author as MACHINE_DRAFT). Review packages
+with `i18n:export -- --locale et --status machine_draft --limit 40 --offset 0`;
+use `--domain`, `--document` or `--id` for narrower work. Reviewers must actually
+check language and protocol meaning; fields alone are not proof. Import with
+`--author <translator>` and `--reviewer <independent reviewer>` only when that
+work happened. Internal `i18n:enable -- et --preview` deliberately renders drafts
+with noindex and excludes them from public hreflang and the sitemap. Use the
+disposable `i18n:scale -- --pilot` preview described in root OPERATOR.md to avoid
+changing the production registry. Translation-memory suggestions stay drafts.
 
 ## The work package
 

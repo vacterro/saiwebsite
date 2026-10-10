@@ -1,0 +1,7 @@
+npm notice run sai-website@1.5.0 release:candidate
+npm notice run node scripts/release-candidate.mjs
+release-candidate: FAIL (failed at static-gates)
+origin: https://saipenprotocol.com
+detail: FAIL at static-gates: test:engine exit 1:     operator: 'strictEqual',     diff: 'simple'   } 
+evidence: reports/release/candidates/saipenprotocol-com.json
+publicationAuthorized: false (operator decision; no remote action performed)

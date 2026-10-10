@@ -7,12 +7,12 @@
   "blocks": {
     "home.description": {
       "type": "text",
-      "text": "{site} — {tagline} {motto} Plain-file project state that any compatible agent can resume.",
+      "text": "{site} — {tagline} {motto} Plain-file project state that a compatible agent can pick up and continue.",
       "note": "Meta description of the homepage."
     },
     "home.hero.lead": {
       "type": "text",
-      "text": "SAIPEN keeps a project's working memory in plain files inside the project, so any compatible agent — no chat history, no session memory — can run one command and continue exactly where the last one stopped."
+      "text": "SAIPEN keeps a project's working memory in plain files inside the project, so a compatible agent — no chat history, no session memory — can run one command and continue from the recorded state. The protocol specifies the handoff; how reliably a given agent follows it depends on the agent, host, and environment."
     },
     "home.hero.cmd-or": {
       "type": "text",

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+  "version": "8.1.0",
+  "files": {
+    "BROCHURE_EN.md": {
+      "sha256": "7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35"
+    },
+    "CHANGELOG.md": {
+      "sha256": "f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c"
+    },
+    "GUIDE.md": {
+      "sha256": "b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784"
+    },
+    "LICENSE": {
+      "sha256": "f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94"
+    },
+    "README.md": {
+      "sha256": "c356c84376835666fb16f6c94f27cee650972515d3ea7cd2ff6ca6988e789a28"
+    },
+    "saipen/COMMANDS.md": {
+      "sha256": "ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8"
+    },
+    "saipen/CORE.md": {
+      "sha256": "6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761"
+    },
+    "saipen/MAINTENANCE.md": {
+      "sha256": "1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5"
+    },
+    "saipen/phases/verify.md": {
+      "sha256": "46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd"
+    },
+    "SECURITY.md": {
+      "sha256": "a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265"
+    },
+    "SPEC.md": {
+      "sha256": "2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873"
+    }
+  }
+}

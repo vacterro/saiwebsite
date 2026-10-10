@@ -180,6 +180,15 @@
 }
 
 /* ── Buttons (§15) ──────────────────────────────────────────────────────── */
+/* Reading direction follows locale data. Commands and URLs keep their own order. */
+html[dir="rtl"] code,
+html[dir="rtl"] pre,
+html[dir="rtl"] .digest {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: left;
+}
+
 .w-button {
   /* UI.md base CSS: 2px 6px padding, 20px minimum, verb labels. Wintage draws
      button labels in the bold face. */
@@ -196,7 +205,7 @@
   font-family: var(--face-body);
   line-height: var(--lh-body);
   font-weight: var(--weight-bold);
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   border-bottom: 0;
   white-space: nowrap;
@@ -504,7 +513,7 @@
 .w-table th,
 .w-table td {
   padding: 2px 6px;
-  text-align: left;
+  text-align: start;
   vertical-align: top;
   border-right: 1px solid var(--ui-edge-muted);
   border-bottom: 1px solid var(--ui-edge-muted);
@@ -525,12 +534,12 @@
 
 .skip-link {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
   top: 0;
 }
 
 .skip-link:focus {
-  left: var(--gap-6);
+  inset-inline-start: var(--gap-6);
   top: var(--gap-6);
   z-index: 10;
   padding: 3px 8px;
@@ -1679,6 +1688,10 @@ main blockquote > :last-child,
    Hierarchy from framing and the type ladder, never from a giant headline:
    the largest text on the page is the 16px title (WINTAGE_WEB_CONTRACT §10). */
 .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: var(--gap-6);
+  align-items: center;
   margin: 0 0 var(--gap-7);
   padding: var(--gap-6);
   background-color: var(--ui-surface);
@@ -1688,6 +1701,40 @@ main blockquote > :last-child,
   background-size: var(--bevel-size);
   background-repeat: no-repeat;
   background-origin: border-box;
+}
+
+.hero__body {
+  min-width: 0;
+}
+
+/* Cosmos artwork: sunken Wintage frame inside the raised hero. Square
+   corners, palette tokens only; the 16:9 box plus object-fit: contain
+   means the artwork is never stretched or cropped. */
+.hero__art {
+  min-width: 0;
+  margin: 0;
+  padding: var(--gap-4);
+  background-color: var(--ui-surface);
+  border: var(--bevel) solid transparent;
+  background-image: var(--bevel-sunken);
+  background-position: var(--bevel-position);
+  background-size: var(--bevel-size);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+}
+
+.hero__cosmos {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .hero h1 {
@@ -1849,6 +1896,9 @@ main blockquote > :last-child,
 
 .search__status {
   color: var(--ui-text-dim);
+  /* The status echoes the raw query: a long unbroken string must wrap
+     instead of overflowing the page at narrow widths. */
+  overflow-wrap: anywhere;
 }
 
 .search__hit {

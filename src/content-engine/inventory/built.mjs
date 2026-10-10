@@ -10,6 +10,8 @@ import { join, relative, sep } from 'node:path';
 
 /** Static asset trees: files there are resources of pages, not addressable documents. */
 export const ASSET_DIRS = new Set(['_astro', 'fonts', 'media', 'social']);
+/** Release metadata at the dist root: generated build output, not an addressable registry route. */
+export const NON_ROUTE_TOP = new Set(['release.json']);
 const DOCUMENT_EXT = /\.(html|txt|xml|json|md)$/;
 
 /** Every addressable document in dist/, as the route a visitor would request. */
@@ -24,7 +26,7 @@ export function builtRoutes(dist = 'dist') {
       } else if (e.name === 'index.html') {
         out.push('/' + rel.replace(/index\.html$/, ''));
       } else if (DOCUMENT_EXT.test(e.name)) {
-        out.push('/' + rel);
+        if (!(dir === dist && NON_ROUTE_TOP.has(e.name))) out.push('/' + rel);
       }
     }
   })(dist);

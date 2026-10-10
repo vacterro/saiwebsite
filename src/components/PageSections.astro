@@ -1,0 +1,21 @@
+---
+/** Order existing code-owned sections and ordinary blocks through one manifest. */
+import ComposedSections from './ComposedSections.astro';
+import registry from '../content-engine/registry/pages.json';
+import sources from '../content-engine/registry/sources.json';
+import { BLOCKS } from '../content-engine/i18n/catalog';
+import { validateComposition, visibleSections } from '../content-engine/compositions/compositions.mjs';
+interface Props { page: string; locale?: string; requiredSlot: string }
+type Doc=Record<string,any>;
+const files=import.meta.glob<Doc>('../content-engine/compositions/*.json',{eager:true,import:'default'});
+const doc=Object.values(files).find((d)=>d.page===Astro.props.page && d.mode==='slots');
+if (!doc) throw new Error(`missing section manifest for ${Astro.props.page}`);
+if (!visibleSections(doc).some((s:Doc)=>s.type==='slot'&&s.slot===Astro.props.requiredSlot&&s.validation?.required)) throw new Error(`required native slot ${Astro.props.requiredSlot} is missing on ${doc.page}`);
+const problems=validateComposition(doc,'page sections',BLOCKS,registry.pages.map((p)=>p.id),sources.sources.map((s)=>s.id));
+if (problems.length) throw new Error(problems.join('\n'));
+const sections=await Promise.all(visibleSections(doc).map(async(s:Doc)=>{
+  if (s.type==='slot' && !Astro.slots.has(s.slot)) throw new Error(`missing native slot ${s.slot} on ${doc.page}`);
+  return {...s,html:s.type==='slot'?await Astro.slots.render(s.slot):null};
+}));
+---
+{sections.map((s:Doc)=>s.type==='slot'?<Fragment set:html={s.html} />:<ComposedSections page={doc.page} locale={Astro.props.locale} mode="slots" section={s.id} />)}

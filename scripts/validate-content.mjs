@@ -14,6 +14,7 @@
  */
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { verificationVersionProblems } from '../src/content-engine/verification.mjs';
 
 const DIST = 'dist';
 if (!existsSync(DIST)) {
@@ -91,16 +92,17 @@ for (const [url, page] of pages) {
     if (!/\salt=/.test(m[0])) problems.push(`[alt] ${url}: <img> without alt`);
   }
   if (!/<meta name="description" content="[^"]{20,}"/.test(page.html)) problems.push(`[meta] ${url}: missing or too-short meta description`);
-  if (!/<link rel="canonical" href="https:\/\/[^"]+"/.test(page.html)) problems.push(`[meta] ${url}: no canonical link`);
+  // The not-found page answers for no route of its own, so the shell declares
+  // no canonical link for it (SiteLayout, release-verify seo.canonical). It is
+  // exempt here rather than weakened everywhere else.
+  if (!/(^|\/)404(\.html|\/)$/.test(url) && !/<link rel="canonical" href="https:\/\/[^"]+"/.test(page.html)) problems.push(`[meta] ${url}: no canonical link`);
 }
 
-// ── Version consistency gate (package.json == verification.ts == changelog == dist) ──
+// ── Current build version + explicitly labelled historical verification records ──
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
 const verificationTs = readFileSync('src/data/verification.ts', 'utf8');
 const verMatch = verificationTs.match(/siteVersion:\s*'([^']+)'/);
-if (!verMatch || verMatch[1] !== pkg.version) {
-  problems.push(`[version-drift] src/data/verification.ts siteVersion "${verMatch?.[1]}" does not match package.json "${pkg.version}"`);
-}
+problems.push(...verificationVersionProblems({version:pkg.version,kind:verificationTs.match(/recordKind:\s*'([^']+)'/)?.[1],siteVersion:verMatch?.[1],hasChangelog:(v)=>/^\d+\.\d+\.\d+$/.test(v)&&existsSync(`src/content/changelog/${v}.md`)}));
 const changelogPath = `src/content/changelog/${pkg.version}.md`;
 if (!existsSync(changelogPath)) {
   problems.push(`[version-drift] missing changelog entry for current version: ${changelogPath}`);

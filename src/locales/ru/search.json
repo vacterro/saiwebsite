@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "search",
+  "units": {
+    "search.badge-note": {
+      "text": "работает в браузере со статическим индексом — запрос остаётся на этой странице",
+      "sourceHash": "aa94d19ebbebf07a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.description": {
+      "text": "Поиск по документации SAIPEN, спецификации, экосистеме и блогу.",
+      "sourceHash": "1865a8b1d7f5978f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.field.help": {
+      "text": "Совет: Ctrl+K или Cmd+K открывает эту страницу из любого раздела. Технические страницы стоят выше записей блога.",
+      "sourceHash": "e93a534d84239089",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.field.label": {
+      "text": "Поиск: документация, спецификация, экосистема",
+      "sourceHash": "e0c69dd585205f9c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.field.submit": {
+      "text": "Найти",
+      "sourceHash": "0513f386ac196ef0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.error": {
+      "text": "Не удалось загрузить поисковый индекс. Воспользуйтесь обзором документации.",
+      "sourceHash": "00c8cb02e27b194a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.many": {
+      "text": "Результаты по запросу «{query}»: {count}.",
+      "sourceHash": "8380005a6c9ad041",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.nojs": {
+      "text": "Поиск работает в браузере. Если JavaScript отключён, воспользуйтесь [обзором документации](/docs/) или [спецификацией](/spec/).",
+      "sourceHash": "37e7eadb9ecc9112",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.none": {
+      "text": "По запросу «{query}» ничего не найдено. Попробуйте более короткое слово или обзор документации.",
+      "sourceHash": "5f99fe8afae652f1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.one": {
+      "text": "1 результат по запросу «{query}».",
+      "sourceHash": "4f906c226181b822",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.prompt": {
+      "text": "Введите слово и нажмите «Найти».",
+      "sourceHash": "77ed1211311349b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.status.searching": {
+      "text": "Поиск…",
+      "sourceHash": "9f4a4b2618bb9d58",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "search.title": {
+      "text": "Поиск",
+      "sourceHash": "0513f386ac196ef0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    }
+  }
+}

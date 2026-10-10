@@ -49,11 +49,96 @@ jobs:
       - name: Validate translations (placeholders, markup, glossary, glyph coverage)
         run: npm run i18n:validate
 
+      - name: Transaction, impact and rejection controls
+        run: npm run test:engine
+
+      - name: Locale capacity and script matrix
+        run: npm run i18n:scale
+
       - name: Validate visual baselines manifest
         run: npm run validate:baselines
 
       - name: Validate font and card licenses
         run: npm run validate:licenses
 
+      - name: Setup Python for media validation
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements-media.txt'
+
+      - name: Install pinned media toolchain
+        run: |
+          python -m pip install -r requirements-media.txt
+          python -c "import PIL, zlib; print('Pillow', PIL.__version__, '| zlib', zlib.ZLIB_VERSION)"
+
+      - name: Validate Cosmos artwork integrity (hashes, dims, first-frame still, GIF-to-WebP derivation)
+        run: npm run validate:media
+
+      - name: Semantic media negative controls (disposable fixtures)
+        run: npm run media:test
+
       - name: Audit build output
         run: npm run audit:build
+
+      - name: Release preflight (artifact origin, SEO metadata, indexing contract)
+        run: npm run release:verify -- --out reports/release/ci-contract.json
+
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Browser, pixel and visual gates
+        run: npm test
+
+      - name: Dual-origin release validation (two real release builds, one verifier, stale-mutation control)
+        run: npm run release:dual-origin
+
+      - name: Acknowledged release-mode verification (planned origin)
+        run: |
+          SAI_SITE_ORIGIN=https://saipenprotocol.com SAI_RELEASE_BUILD=1 SAI_RELEASE_ORIGIN_ACK=https://saipenprotocol.com npm run build
+          SAI_SITE_ORIGIN=https://saipenprotocol.com SAI_RELEASE_ORIGIN_ACK=https://saipenprotocol.com npm run release:verify -- --release --out reports/release/ci-release.json
+
+      - name: Release-integrity negative controls (fixture-local, no browsers)
+        run: node --test scripts/tests/release-transaction.test.mjs scripts/tests/release-skip-accounting.test.mjs scripts/tests/release-browser-accounting.test.mjs scripts/tests/release-doctor-views.test.mjs scripts/tests/release-package-attestation.test.mjs scripts/tests/release-provenance.test.mjs scripts/tests/release-checklist.test.mjs scripts/tests/release-checklist-cli.test.mjs
+
+      - name: FULL release-candidate factory (all mandatory gates, digest-bound promotion)
+        run: |
+          SAI_SITE_ORIGIN=https://saipenprotocol.com SAI_RELEASE_BUILD=1 SAI_RELEASE_ORIGIN_ACK=https://saipenprotocol.com npm run release:candidate -- --profile=full
+
+      - name: Assert FULL readiness evidence (digest-identified candidate, committed pointer, no silent upgrade)
+        run: |
+          node -e "const r=require('./reports/release/candidates/saipenprotocol-com-6dc40565e4.json');const ok=r.verdict==='PASS'&&r.readiness==='FULL_RELEASE_READY'&&r.profile==='full'&&r.commitState==='COMMITTED'&&r.publicationAuthorized===false&&r.candidate?.sha256?.length===64;if(!ok){console.error(JSON.stringify({verdict:r.verdict,readiness:r.readiness,commitState:r.commitState}));process.exit(1);}console.log('FULL evidence ok: '+r.candidate.generation);"
+
+      - name: Candidate store health incl. compatibility-view digests (read-only)
+        run: npm run release:doctor
+
+      - name: Offline deployment package (deterministic ZIP, extracted re-verification)
+        run: |
+          SAI_SITE_ORIGIN=https://saipenprotocol.com npm run release:package
+
+      - name: Assert package preserves FULL attestation (no candidate-only silent upgrade)
+        run: |
+          node -e "const r=require('./reports/release/packages/saipenprotocol-com.json');if(r.verdict!=='PASS'||r.readiness!=='FULL_RELEASE_READY'||r.publicationAuthorized!==false){console.error(JSON.stringify({verdict:r.verdict,readiness:r.readiness}));process.exit(1);}console.log('package attestation ok: '+r.readiness);"
+
+      - name: Assert exact cross-artifact handoff identity and generate origin-specific checklist (factory == package == checklist target)
+        run: |
+          node scripts/release-checklist.mjs --receipt reports/release/packages/saipenprotocol-com.json --factory reports/release/candidates/saipenprotocol-com-6dc40565e4.json --origin https://saipenprotocol.com --out reports/release/GO-LIVE-CHECKLIST.md
+
+      - name: Handoff failure controls (FAIL factory and pointer mismatch must refuse)
+        run: |
+          node --test --test-name-pattern="factory FAIL|NOT_COMMITTED|authoritative current pointer|pointer selects" scripts/tests/release-checklist.test.mjs
+
+      - name: Handoff admission boundary (omitting --factory cannot approve; inspection never approves)
+        run: |
+          if node scripts/release-checklist.mjs --receipt reports/release/packages/saipenprotocol-com.json --origin https://saipenprotocol.com --out reports/release/UNAPPROVED-PROBE.md; then echo "PROBE FAIL: package-only invocation approved a handoff"; exit 1; fi
+          test ! -f reports/release/UNAPPROVED-PROBE.md
+          node scripts/release-checklist.mjs --receipt reports/release/packages/saipenprotocol-com.json --origin https://saipenprotocol.com --inspect-package --out reports/release/INSPECTION-PROBE.md
+          grep -q PACKAGE_INTEGRITY_VERIFIED reports/release/INSPECTION-PROBE.md
+          if grep -q "\[x\] Package holds the verified public tree" reports/release/INSPECTION-PROBE.md; then echo "PROBE FAIL: inspection carries approval claims"; exit 1; fi
+          rm -f reports/release/UNAPPROVED-PROBE.md reports/release/INSPECTION-PROBE.md
+
+      - name: Restore canonical dist after release builds
+        run: |
+          npm run build
+          npm run release:verify -- --out reports/release/ci-contract.json

@@ -1,5 +1,6 @@
 /** /llms-full.txt: every documentation page as Markdown, in reading order. */
 import type { APIRoute } from 'astro';
+import { compositionEntries } from '../content-engine/compositions/catalog';
 import { allDocs } from '../lib/docs';
 import { SHORT_COMMIT, meta } from '../content-engine/models/protocol';
 import { SITE } from '../data/site';
@@ -23,6 +24,7 @@ export const GET: APIRoute = async () => {
       (d.body ?? '').trim(),
       '',
     ]),
+    ...compositionEntries().filter((p)=>p.llmVisible).flatMap((p)=>['---','',`# ${p.title}`,'',`Source page: ${SITE.origin}${p.url}`,'',`> ${p.description}`,'',p.body,'']),
   ];
   return new Response(parts.join('\n'), { headers: { 'content-type': 'text/plain; charset=utf-8' } });
 };

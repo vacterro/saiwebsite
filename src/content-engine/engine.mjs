@@ -16,6 +16,8 @@ import { computeLock, diffLock, LOCK_FILE, serialize } from './sources/lock.mjs'
 import { checkIntegrity, validateGenerated } from './generated/integrity.mjs';
 import { buildGraph, findCycles } from './graph/graph.mjs';
 import { discoveryTargets, inventoryVariants, loadStore } from './i18n/store.mjs';
+import { validateCanonicalSnapshot } from './sources/canonical.mjs';
+import { referenceSources } from './sources/references.mjs';
 
 export const FILES = {
   pages: 'src/content-engine/registry/pages.json',
@@ -43,7 +45,8 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
   const generatedDoc = overrides.generatedDoc ?? readJson(at(FILES.generated));
   const declared = sourceIdsOf(sourcesDoc);
 
-  const contracts = [...validateSources(sourcesDoc), ...validateRegistry(registry, declared), ...validateGenerated(generatedDoc, declared)];
+  const contracts = [...validateSources(sourcesDoc), ...validateRegistry(registry, declared,{derivedSourceIds:referenceSources(root).filter((r)=>r.pages.length).map((r)=>r.id)}), ...validateGenerated(generatedDoc, declared)];
+  if (sourcesDoc.sources.some((s)=>s.adapter==='canonical')) contracts.push(...validateCanonicalSnapshot(at('src/data/canonical')));
 
   // Built site: inventory + discovery flags. Without dist/ these are UNKNOWN, not failures.
   const hasDist = existsSync(at(dist));
@@ -89,6 +92,9 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
     manifests: [],
     extraGraph: { nodes: [], edges: [] },
     translations: [],
+    translationSummary: null,
+    blockSummary: null,
+    unitReport: [],
   };
 
   // Generated manifests the engine owns: compare the committed text with a fresh rendering.
@@ -111,6 +117,7 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
 
   engine.integrity = generatedDoc.artifacts.flatMap((a) => checkIntegrity(a, root));
   engine.graph = buildGraph({ sourcesDoc, registry, records, testsDoc, extra: engine.extraGraph });
+  engine.contracts.push(...engine.graph.problems);
   engine.cycles = findCycles(engine.graph);
   return engine;
 }

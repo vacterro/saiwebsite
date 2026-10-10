@@ -17,6 +17,8 @@ import generatedDoc from '../../content-engine/registry/generated.json';
 import { computeLock, diffLock } from '../../content-engine/sources/lock.mjs';
 import { loadStore, unitReport } from '../../content-engine/i18n/store.mjs';
 import { PLAN } from '../../content-engine/i18n/catalog';
+import { localeReadiness } from '../../content-engine/i18n/readiness.mjs';
+import { loadCoverage } from '../../content-engine/i18n/engine-ext.mjs';
 
 const root = process.cwd();
 const read = (p: string) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -40,6 +42,7 @@ const locales = store.localesDoc.locales
     const routes = PLAN.find((p) => p.locale === l.id);
     return {
       ...l,
+      readiness:localeReadiness(store,loadCoverage(root),l.id,report),
       counts: count(rows.map((r: { status: string }) => r.status)),
       completion: l.stage === 'pseudo' ? 'generated' : `${required.length ? ((done / required.length) * 100).toFixed(1) : '100.0'} %`,
       routes: routes ? routes.pages.length + routes.docs.length : 0,
@@ -116,7 +119,7 @@ const t = inventory.totals;
   <div class="wide-scroll">
     <table class="w-table">
       <thead>
-        <tr><th scope="col">Locale</th><th scope="col">Stage</th><th scope="col">Routes</th><th scope="col">Required units</th><th scope="col">Units by status</th></tr>
+        <tr><th scope="col">Locale</th><th scope="col">Stage</th><th scope="col">Routes</th><th scope="col">Rendered / approved</th><th scope="col">Units by status / blockers</th></tr>
       </thead>
       <tbody>
         {
@@ -125,8 +128,8 @@ const t = inventory.totals;
               <th scope="row"><code>{l.id}</code> {l.displayName}</th>
               <td>{l.stage}{l.enabled ? ', enabled' : ', disabled'}</td>
               <td>{l.routes}</td>
-              <td>{l.completion}</td>
-              <td>{Object.entries(l.counts).map(([k, n]) => `${k} ${n}`).join(', ') || '—'}</td>
+              <td>{l.completion} / {l.readiness.publicationCompletion} %</td>
+              <td>{Object.entries(l.counts).map(([k, n]) => `${k} ${n}`).join(', ') || '—'}{l.readiness.blockers.length ? `; ${l.readiness.blockers.join(', ')}` : ''}</td>
             </tr>
           ))
         }

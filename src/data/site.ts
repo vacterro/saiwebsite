@@ -12,10 +12,12 @@
  *   integration/project MASTER_ROADMAP §5 — supported | experimental | planned
  *                       | unavailable | unknown
  */
+import { PLANNED_DOMAIN } from '../lib/deployment.mjs';
 import registry from '../content-engine/registry/pages.json';
 import sources from '../content-engine/registry/sources.json';
 import { assertValidRegistry } from '../content-engine/registry/schema.mjs';
 import { sourceIdsOf, validateSources } from '../content-engine/registry/sources.mjs';
+import { referenceSources } from '../content-engine/sources/references.mjs';
 
 export type PageMaturity =
   | 'placeholder'
@@ -35,6 +37,9 @@ export type ProjectMaturity =
 export type Maturity = PageMaturity | ProjectMaturity;
 
 export type SiteNav = 'primary' | 'secondary' | 'debug';
+
+/** Defined at build time by astro.config.mjs (vite.define); never a runtime value. */
+declare const __SAI_SITE_ORIGIN__: string;
 
 /** One page entry of src/content-engine/registry/pages.json, as validated by schema.mjs. */
 interface RegistryPage {
@@ -65,9 +70,15 @@ export const SITE = {
   tagline: 'Continuation protocol for AI coding agents.',
   /** Canonical brochure line. */
   motto: 'The agent forgets. The project remembers.',
-  /** Canonical public target. Not yet serving anything (FUTURE_GATES FG-001). */
-  domain: 'saipenprotocol.com',
-  origin: 'https://saipenprotocol.com',
+  /** Planned permanent domain: editorial information only, never used to emit URLs. */
+  domain: PLANNED_DOMAIN,
+  /**
+   * Effective public origin of this build, injected by astro.config.mjs from
+   * src/lib/deployment.mjs (SAI_SITE_ORIGIN). Every absolute URL the site emits
+   * (canonical, hreflang, Open Graph, sitemap, robots.txt, llms.txt, Markdown
+   * twins) is built from this value.
+   */
+  origin: __SAI_SITE_ORIGIN__,
   /** Confirmed by the SAIPEN HQ branding contract (docs/BRANDING.md). */
   repository: 'https://github.com/vacterro/saipen' as string | null,
   issues: 'https://github.com/vacterro/saipen/issues',
@@ -85,7 +96,7 @@ export const SITE = {
  */
 const sourceProblems = validateSources(sources);
 if (sourceProblems.length) throw new Error(`src/content-engine/registry/sources.json is invalid:\n  ${sourceProblems.join('\n  ')}`);
-assertValidRegistry(registry, sourceIdsOf(sources));
+assertValidRegistry(registry, sourceIdsOf(sources),undefined,{derivedSourceIds:referenceSources().filter((r)=>r.pages.length).map((r)=>r.id)});
 
 export const ROUTES: SiteRoute[] = (registry.pages as RegistryPage[])
   .filter((page): page is RegistryPage & { nav: SiteNav } => page.nav !== 'none')
@@ -106,6 +117,16 @@ export function routeByHref(href: string): SiteRoute | undefined {
 /** Debug benches are not public shell routes: no breadcrumb, no nav, no discoverability claim. */
 export function isPublicRoute(route: SiteRoute): boolean {
   return route.nav !== 'debug';
+}
+
+/**
+ * Diagnostic routes are never indexable. This is decided by the shell from the
+ * route itself (the /debug/ tree, or the registry's debug navigation surface),
+ * so a new bench page cannot become indexable by forgetting a flag. A noindex
+ * rule is not authentication: these pages are reachable, just not indexed.
+ */
+export function isDiagnosticRoute(href: string): boolean {
+  return href.startsWith('/debug/') || routeByHref(href)?.nav === 'debug';
 }
 
 /** Primary desktop menu: only the routes flagged `inMenu`. */

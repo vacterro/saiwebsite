@@ -14,7 +14,12 @@ import { defineConfig } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  outputDir: './test-results',
+  outputDir: process.env.SAI_TEST_OUTPUT ?? './test-results',
+  // Baseline immutability: every run snapshots tests/baselines/ first;
+  // the setup's returned teardown fails the run when normal verification
+  // mutates it. Explicit refresh (test:visual:update, i.e.
+  // --update-snapshots) is exempt by design.
+  globalSetup: './tests/baseline-immutability.setup.mjs',
   fullyParallel: false,
   workers: 1,
   retries: 0,
@@ -24,7 +29,7 @@ export default defineConfig({
   reporter: [['list']],
   snapshotPathTemplate: '{testDir}/baselines/{arg}{ext}',
   use: {
-    baseURL: 'http://127.0.0.1:4321',
+    baseURL: process.env.SAI_TEST_BASE_URL ?? 'http://127.0.0.1:4321',
     browserName: 'chromium',
     viewport: { width: 1280, height: 720 },
     deviceScaleFactor: 1,
@@ -39,15 +44,25 @@ export default defineConfig({
   // Chromium runs every suite. WebKit also runs the pixel-perfect gate: a
   // second rendering engine with its own compositing and text pipeline, and
   // the one that visibly smooths sub-pixel-transformed text (the gate's
-  // control).
+  // control) -- plus the media-delivery contract, so Cosmos bytes are
+  // proven served and decoded on both engines, never inferred from one.
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
-    { name: 'webkit', use: { browserName: 'webkit' }, testMatch: /pixel-perfect\.spec\.mjs/ },
+    { name: 'webkit', use: { browserName: 'webkit' }, testMatch: /(pixel-perfect|media-delivery)\.spec\.mjs/ },
   ],
-  webServer: {
+  // Standalone isolation: the server is always owned by this run
+  // (reuseExistingServer: false), so a foreign or stale preview that
+  // happens to occupy port 4321 can never silently stand in for the
+  // freshly built site under test — the run fails to start instead of
+  // validating unrelated bytes. An unowned listener is never killed;
+  // concurrent runs collide on the fixed port and fail loudly. Point
+  // SAI_TEST_BASE_URL at an explicit host to take ownership yourself
+  // (the FULL release factory does exactly this with a dynamic port
+  // plus a digest attestation in tests/candidate-host.spec.mjs).
+  webServer: process.env.SAI_TEST_BASE_URL ? undefined : {
     command: 'npm run preview -- --port 4321 --host 127.0.0.1',
     url: 'http://127.0.0.1:4321/',
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 60_000,
   },
 });

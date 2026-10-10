@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "pricing",
+  "units": {
+    "pricing.badge-note": {
+      "text": "изложение фактов, а не прайс-лист",
+      "sourceHash": "779babee65974069",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.col.offering": {
+      "text": "Предложение",
+      "sourceHash": "1f3e1cd1a9c48339",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.col.state": {
+      "text": "Состояние",
+      "sourceHash": "59e0b648149a1938",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.col.today": {
+      "text": "Что это означает сейчас",
+      "sourceHash": "0785ebd2d92235d2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.description": {
+      "text": "SAIPEN бесплатен и открыт. Сейчас нет службы на хостинге и платного тарифа; эта страница прямо сообщает об этом.",
+      "sourceHash": "9da09c441c7cd022",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.future.body": {
+      "text": "Она взимала бы плату за необязательную управляемую инфраструктуру: выполнение на хостинге, постоянное общее состояние, ретрансляцию, хранение доказательств, наблюдаемость, управление организацией и поддержку. Доступ к протоколу и спецификации оставался бы бесплатным. Локальный открытый вариант не ухудшали бы ради продвижения службы. Пока такой службы нет, здесь не будет месячной цены, числа оплачиваемых мест или кнопки связи с отделом продаж.",
+      "sourceHash": "335f1f52ed698405",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.future.title": {
+      "text": "Если служба на хостинге когда-нибудь появится",
+      "sourceHash": "69e078e35d2b1c7a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.hosted.name": {
+      "text": "Служба SAIPEN на хостинге",
+      "sourceHash": "99a32a99c3a49215",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.hosted.today": {
+      "text": "Не существует. Нет точки доступа, учётной записи или платёжного интерфейса.",
+      "sourceHash": "ed87b34410aa60dd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.local.name": {
+      "text": "Локальное использование и собственный хостинг",
+      "sourceHash": "581c2b17104bb519",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.local.today": {
+      "text": "Всё работает на вашей машине. Проверки права доступа нет и не планируется.",
+      "sourceHash": "8f9418ddbd685e2a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.protocol.name": {
+      "text": "Протокол, документация и спецификация",
+      "sourceHash": "5c0c4424ed0f7d37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.protocol.today": {
+      "text": "Лицензия MIT, [открыт на GitHub]({repository}). Доступ не закрывается оплатой или учётной записью.",
+      "sourceHash": "87bff1ff1f5204f0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.state.free": {
+      "text": "бесплатно",
+      "sourceHash": "ba15a6191ed9ee2b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.state.none": {
+      "text": "нет",
+      "sourceHash": "9dcf59c454e4e80a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.bank": {
+      "text": "Банк",
+      "sourceHash": "ffeebbee69570532",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.bank-title": {
+      "text": "Банковский перевод — EUR",
+      "sourceHash": "5e55910f22ca5e2f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.body": {
+      "text": "Поддержка полностью добровольна. Пожертвование не покупает права доступа, не открывает функции, не является подпиской или оплатой протокола и не влияет на доступ к SAIPEN. Протокол, документация и локальное использование остаются бесплатными.",
+      "sourceHash": "62c9bff4d42d1675",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.copied": {
+      "text": "Скопировано",
+      "sourceHash": "af00cf9025b78489",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.copy": {
+      "text": "Копировать",
+      "sourceHash": "7ade130deccc5a1b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-07.json"
+    },
+    "pricing.support.crypto-title": {
+      "text": "Криптовалюта",
+      "sourceHash": "cd1f778f9be5d2cf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.support.direct": {
+      "text": "Прямые платформы",
+      "sourceHash": "f7b143ffdb9fe82c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.support.network-label": {
+      "text": "Сеть / активы:",
+      "sourceHash": "219a086998b3539c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.support.recipient": {
+      "text": "Получатель",
+      "sourceHash": "5daeb74d87b783f2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.support.source": {
+      "text": "Канонический источник: [SUPPORT.md на GitHub]({source}).",
+      "sourceHash": "836d9d0c57a7680a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.support.title": {
+      "text": "Поддержать работу",
+      "sourceHash": "5c294f3a24d2a087",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.title": {
+      "text": "Стоимость",
+      "sourceHash": "f5a6d63235da45c7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.tools.name": {
+      "text": "Инструменты экосистемы",
+      "sourceHash": "54e01ba98325d8a4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    },
+    "pricing.tools.today": {
+      "text": "Проекты [экосистемы](/ecosystem/) — открытые репозитории; смотрите лицензию каждого.",
+      "sourceHash": "2a0a8af81316951c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-08.json"
+    }
+  }
+}

@@ -1,0 +1,825 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "about",
+  "units": {
+    "about.a11y.colour": {
+      "text": "Ни одно состояние не передаётся только цветом: у каждого значка и блока уведомления есть текст.",
+      "sourceHash": "3cd52836bf05db17",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.focus": {
+      "text": "У каждого элемента управления виден чёткий контур фокуса; меню тем — подписанный нативный список выбора.",
+      "sourceHash": "7ec260676abc0104",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.landmarks": {
+      "text": "Ссылка к содержимому, один `main`, подписанные области навигации и один `h1` на страницу; уровни заголовков не пропускаются.",
+      "sourceHash": "d39ab8329f3e7d35",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.motion": {
+      "text": "Движения нет, кроме сдвига кнопки на один пиксель при нажатии; предпочтение уменьшенного движения учитывается.",
+      "sourceHash": "2477d43558a4d291",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.nojs": {
+      "text": "Навигация и раскрывающиеся панели используют нативные элементы и работают без JavaScript.",
+      "sourceHash": "067659f4e874c3f6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.text": {
+      "text": "Текст — настоящий текст DOM: его можно выделять, искать, переводить и читать программой экранного доступа.",
+      "sourceHash": "59b63e300e161b37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.a11y.title": {
+      "text": "Доступность",
+      "sourceHash": "6ba39de13c0f1c97",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.author.body1": {
+      "text": "SAIPEN создаёт и поддерживает [vacterro]({author}). Разработка ведётся с несколькими агентами: ИИ-агенты для программирования от разных поставщиков выполняют большую часть реализации, а человек задаёт направление, принимает решения, проводит аудит и сохраняет непрерывность работы между ними. Протокол — письменная форма такого уклада.",
+      "sourceHash": "3337deb69b92f7af",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.author.body2": {
+      "text": "[SAIPEN HQ]({organization}) — название организации, а [SAIPEN Community]({community}) в Discord — общее пространство для обсуждений.",
+      "sourceHash": "116f824bbf7e778b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.author.title": {
+      "text": "Кто создаёт SAIPEN",
+      "sourceHash": "98afcb3d37f47b85",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.beyond.body": {
+      "text": "Протокол не существует в вакууме. Автор создаёт локальные инструменты для ИИ-агентов, автоматизации и Windows: инфраструктуру агентов, рабочие среды оператора и мониторы квот, настольные утилиты, творческое и техническое ПО. На [странице экосистемы](/ecosystem/) перечислены только проекты, связанные с SAIPEN; остальные — на [github.com/vacterro]({author}).",
+      "sourceHash": "0e4df3ff30753984",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.beyond.title": {
+      "text": "Помимо SAIPEN",
+      "sourceHash": "21c6168079b9b01c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.aliases": {
+      "text": "Псевдонимы вроде `/spec/latest/` — статические перенаправления, для которых не нужны серверные правила.",
+      "sourceHash": "1858297263ffb345",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.generated": {
+      "text": "Сборка создаёт [страницу 404](/404.html), [sitemap.xml](/sitemap.xml), [robots.txt](/robots.txt) и [llms.txt](/llms.txt).",
+      "sourceHash": "d575e1fa1e7f87ad",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.links": {
+      "text": "Все внутренние ссылки относительны корню; канонический адрес ({domain}) задаётся в одном месте.",
+      "sourceHash": "0c1b16796ac18d84",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.static": {
+      "text": "Полностью статический результат с адресами каталогов и завершающим слешем у каждой страницы.",
+      "sourceHash": "bb8510d0fbe77455",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.status": {
+      "text": "Сайт не опубликован: подключение домена и хостинга остаётся будущим условием FG-001. Все поставляемые материалы допускают распространение: пиксельные шрифты созданы из DejaVu Sans и Spleen с уведомлениями о лицензиях, проверяются командой `npm run validate:licenses` и перечислены вместе с другими материалами в THIRD_PARTY_NOTICES.md.",
+      "sourceHash": "6c2b1e44c534c1bf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.deploy.title": {
+      "text": "Готовность к публикации",
+      "sourceHash": "16868bbefe956b6d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.description": {
+      "text": "Кто и зачем создаёт SAIPEN, как организована работа нескольких агентов, принципы автора и технические требования к этому сайту.",
+      "sourceHash": "8628ae2d5023766e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.design.body": {
+      "text": "Сайт использует родной интерфейс [Wintage](/ecosystem/#wintage): палитру Golden Default, фаски 2px, нулевой радиус, отсутствие теней и мгновенные реакции. Это тот же язык оформления, который UI.md SAIPEN требует от всех инструментов SAIPEN. Текст рисуют пиксельные шрифты, собранные из шрифтов с открытыми лицензиями, без сглаживания. [Заметка об оформлении](/blog/no-antialiasing-on-the-web/) объясняет реализацию и проверки.",
+      "sourceHash": "ad9fdbc94520eb59",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.design.title": {
+      "text": "Почему сайт выглядит так",
+      "sourceHash": "a711f450b5b13b08",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.body": {
+      "text": "Сайт, который вы сейчас читаете, сам является проектом SAIPEN. Список ниже считывается при сборке из файла `.saipen/BOARD.md` этого репозитория. Исторические записи жизненного цикла, внесённые вручную, сохранены как свидетельства и остаются непроверенными; отметка о закрытии задачи на доске — записанное утверждение, а не независимое доказательство. Новые операции, выполняемые по протоколу, используют настоящую среду исполнения SAIPEN.",
+      "sourceHash": "154319b0425fb09c",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.dogfooding.closed": {
+      "text": "Зафиксированные закрытия задач.",
+      "sourceHash": "9004b6e0d8433bb4",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.dogfooding.closed-value": {
+      "text": "{done} из {total}",
+      "sourceHash": "b9514fb8b010bbb7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.col.state": {
+      "text": "Состояние",
+      "sourceHash": "59e0b648149a1938",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.col.ticket": {
+      "text": "Задача",
+      "sourceHash": "dabddd1115e5d41c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.col.work": {
+      "text": "Работа",
+      "sourceHash": "fa9860b8a873fddd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.events": {
+      "text": "Записанные события",
+      "sourceHash": "a8a2dde637ebfae6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.events-value": {
+      "text": "{count} в .saipen/LOG.md",
+      "sourceHash": "8414e74a2d14a107",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.last": {
+      "text": "Историческая запись о проверке",
+      "sourceHash": "cdbde5b4d95e74b7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.last-value": {
+      "text": "сайт v{version}, {date}: страниц — {pages}, браузерных проверок — {checks}, статических проверок — {gates}",
+      "sourceHash": "19b67be9e55914f9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.none": {
+      "text": "Эта сборка сделана из рабочей копии без памяти проекта, поэтому показывать нечего.",
+      "sourceHash": "731b288a0654656e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.red": {
+      "text": "Для каждой проверки ниже сначала показали, что она может провалиться, и лишь затем доверились успешному результату:",
+      "sourceHash": "4f94f14fbeee4bba",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.dogfooding.title": {
+      "text": "Этот сайт создаётся под управлением SAIPEN",
+      "sourceHash": "fb3ea501578cdce5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.audit-build": {
+      "text": "Структура, требования темы, реестр маршрутов, бюджет производительности и данные протокола в собранном результате.",
+      "sourceHash": "7bc9553778b49818",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.build": {
+      "text": "Статическая сборка для публикации; здесь метаданные контента проверяются по схеме.",
+      "sourceHash": "7a51e77fe85ed45b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.check": {
+      "text": "Проверка типов Astro и TypeScript.",
+      "sourceHash": "a526100ead2e27e1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.col.command": {
+      "text": "Команда",
+      "sourceHash": "a071f43eadc8806f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.col.fails": {
+      "text": "Условие ошибки",
+      "sourceHash": "3466abad418badea",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.lint": {
+      "text": "Правила стиля: запрещены радиус, тень, размытие, прозрачность, движение, hex-цвет, единицы em и размер без соответствующего пиксельного шрифта.",
+      "sourceHash": "33a706091a8bc15f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-01.json"
+    },
+    "about.gates.test-content": {
+      "text": "Интерфейс документации, визуализатор спецификации и псевдонимы, практикум, поиск и файлы для агентов.",
+      "sourceHash": "42e59996563ce9fb",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.test-pixel": {
+      "text": "Каждый пиксель каждой страницы соответствует одному из цветов палитры в Chromium и WebKit.",
+      "sourceHash": "3a1b5710d014cd70",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.test-runtime": {
+      "text": "Сохранение темы, восстановление до первой отрисовки, запасная тема и изоляция вложенных палитр.",
+      "sourceHash": "6292c1f69b013b6e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.test-shell": {
+      "text": "Маршруты, значки зрелости, навигация, путь к странице, области страницы и переполнение при ширине 320 / 390 / 640 / 1280 px.",
+      "sourceHash": "049299c1cb26695b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.test-visual": {
+      "text": "Сравнение с эталонными снимками экрана при нулевом допуске.",
+      "sourceHash": "e12a20daa5e409db",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.title": {
+      "text": "Проверки качества",
+      "sourceHash": "8cfcd5f8c6979858",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.validate-baselines": {
+      "text": "Каждый версионируемый эталон снимка экрана присутствует и соответствует манифесту; архив не может незаметно потерять визуальные доказательства.",
+      "sourceHash": "f730f65930c0f99d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.validate-canonical": {
+      "text": "Снимок протокола совпадает с записанными хешами SHA-256.",
+      "sourceHash": "9ef89c8820e7aea1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.validate-content": {
+      "text": "Все внутренние ссылки и якоря собранного сайта разрешаются; повторных ID нет, обязательные метаданные присутствуют.",
+      "sourceHash": "4f461eea1ad43a73",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.gates.validate-themes": {
+      "text": "Все 16 палитр содержат ровно 21 токен.",
+      "sourceHash": "2da70a8982fe4af1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.motto.body": {
+      "text": "Создан одним человеком вместе со сменяемыми ИИ-агентами. Агенты меняются. Состояние проекта сохраняется.",
+      "sourceHash": "6dadb3ebb76788a2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.motto.label": {
+      "text": "В одной строке",
+      "sourceHash": "a38b6d35b3d8770d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.perf.body": {
+      "text": "В основном статический HTML с небольшими скриптами. `npm run audit:build` отклоняет сборку, если страница превышает бюджет HTML, суммарный объём JavaScript или шрифтов выходит за предел либо страница загружает ненужный скрипт. Клиентского фреймворка и гидратации нет; каждый из двенадцати пиксельных шрифтов занимает 6–17 KB. Проверка завершается ошибкой, если один превышает 20 KB или все вместе — 200 KB.",
+      "sourceHash": "2b2b12b18f002f16",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.perf.title": {
+      "text": "Бюджет производительности",
+      "sourceHash": "cf16db3e22bb960a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.automate.line": {
+      "text": "Если человеку приходится дважды в день повторять инструктаж или нажимать одну кнопку, для этого пора написать инструмент.",
+      "sourceHash": "8b44f9255745bf19",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.automate.name": {
+      "text": "Автоматизировать повторения",
+      "sourceHash": "aac75c067de3c6fd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.control.line": {
+      "text": "Направление, разрушительные действия и публикация — решения человека; при этом следить за каждым продолжением не должно быть нужно.",
+      "sourceHash": "6cb2e5149f5d80aa",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.control.name": {
+      "text": "Управление остаётся у человека",
+      "sourceHash": "bd735ac87e8e537f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.degrade.line": {
+      "text": "Отсутствующие возможности явно снижают режим работы; они не скрывают сбой и не изображают успех.",
+      "sourceHash": "1b7954d6b7088c0e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.degrade.name": {
+      "text": "Безопасное снижение возможностей",
+      "sourceHash": "4422b13767652b42",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.evidence.line": {
+      "text": "Прежде чем доверять проверке, нужно показать, что она может провалиться; для «готово» нужен записанный результат.",
+      "sourceHash": "705f8027517eba8b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.evidence.name": {
+      "text": "Доказательства выше заявлений",
+      "sourceHash": "38a6ee7ea72b8423",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.independence.line": {
+      "text": "Память проекта хранится в читаемых файлах. Подходящий агент с настоящей средой исполнения SAIPEN может продолжить работу в рамках протокола; память не принадлежит ни одному поставщику.",
+      "sourceHash": "96af36a14366d86a",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.principles.independence.name": {
+      "text": "Независимость от модели и поставщика",
+      "sourceHash": "1eab6978f2b30e25",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.local-first.line": {
+      "text": "Состояние и инструменты находятся на вашей машине. Служба на хостинге — вариант, а не требование.",
+      "sourceHash": "7888c6cc4829592b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.local-first.name": {
+      "text": "Локальное прежде всего",
+      "sourceHash": "bdba41541e3e18fe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.no-account.line": {
+      "text": "Здесь ничто не спрашивает, кто вы, потому что ничему это не нужно.",
+      "sourceHash": "b5adc4f88151ff03",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.no-account.name": {
+      "text": "Без учётной записи, если она технически не нужна",
+      "sourceHash": "133e7a420a83d6a8",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.note": {
+      "text": "Это подход автора к продуктам SAIPEN и окружающим инструментам — его почерк, а не закон протокола. Нормативные правила находятся в [спецификации](/spec/).",
+      "sourceHash": "10420fdd1aa5df36",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.open-core.line": {
+      "text": "Протокол, его спецификация и валидатор открыты и распространяются по лицензии MIT.",
+      "sourceHash": "577858b6cf3528bf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.open-core.name": {
+      "text": "Открытое ядро",
+      "sourceHash": "bf5e208f21b6f695",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.title": {
+      "text": "Принципы автора",
+      "sourceHash": "a4ba8f855d913730",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.visible-state.line": {
+      "text": "Markdown, JSON и журналы, которые человек может открыть в текстовом редакторе, сравнить и закоммитить.",
+      "sourceHash": "c2c143039c36cff6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.principles.visible-state.name": {
+      "text": "Видимое состояние",
+      "sourceHash": "45129f0f49918b7e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.scope.authority": {
+      "text": "**Приоритет источников направлен в одну сторону.** Канонический источник протокола выше генерируемого справочника, справочник выше поясняющей документации, а та выше кратких описаний. Краткое описание не переопределяет поведение.",
+      "sourceHash": "97c28696dbbe47ff",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.scope.body": {
+      "text": "Публичный сайт протокола SAIPEN: документация, генерируемый справочник спецификации, каталог экосистемы и детерминированный практикум. Он объясняет и индексирует, но не определяет протокол.",
+      "sourceHash": "a2e97173dce3a767",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.scope.not-engine": {
+      "text": "**Не движок выполнения.** Сайт не запускает агента и не имеет для этого серверной части.",
+      "sourceHash": "b48402053ce0b691",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.scope.not-protocol": {
+      "text": "**Не протокол.** Протокол находится в [репозитории SAIPEN]({repository}).",
+      "sourceHash": "98328dc41ead9d84",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-02.json"
+    },
+    "about.scope.title": {
+      "text": "Что представляет собой этот сайт",
+      "sourceHash": "fc461e9089e32c89",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.design": {
+      "text": "Язык оформления",
+      "sourceHash": "eab6f691ae7af44a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.design-value": {
+      "text": "Wintage Golden Default и SAIPEN UI.md",
+      "sourceHash": "f1e89d8c64fc48b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.ecosystem": {
+      "text": "Факты об экосистеме",
+      "sourceHash": "21a036366f55ab05",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.ecosystem-value": {
+      "text": "Карта проектов SAIPEN HQ и GitHub, {date}",
+      "sourceHash": "0dee394b7ffa5556",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.protocol": {
+      "text": "Факты о протоколе",
+      "sourceHash": "e479862f85779d9f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.protocol-value": {
+      "text": "SAIPEN {version} @ {commit}",
+      "sourceHash": "e579e36f6265926f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.sources.title": {
+      "text": "Источники этой сборки",
+      "sourceHash": "5485060bcedfd60b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.title": {
+      "text": "О проекте",
+      "sourceHash": "fe37bcec10be1fb6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.why.body1": {
+      "text": "Человек, ведущий много проектов с множеством агентов, каждый день упирается в одну и ту же стену. Сеанс заканчивается, достигается предел контекста, у поставщика случается сбой, на вторую половину дня приходит более дешёвая модель. Каждый новый агент — талантливый незнакомец, которому нужно с нуля объяснить: что строим, что уже пробовали, что нельзя трогать и действительно ли работа завершена.",
+      "sourceHash": "84d47dcab551d4f6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.why.body2": {
+      "text": "В итоге человек переносит проект между сеансами в собственной голове и пересказывает его снова и снова. SAIPEN устраняет именно этот сбой:",
+      "sourceHash": "4441c45a0d05d473",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.why.body3": {
+      "text": "Поэтому память перенесли из чата в обычные файлы проекта, добавили один точный следующий шаг и правила, по которым холодный агент продолжает вместо вопросов. Всё остальное в протоколе — контрольные точки, VERIFY, доказательства и честные остановки WAIT — делает эту передачу безопасной.",
+      "sourceHash": "e0f3b6508fef3273",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.why.quote": {
+      "text": "Человек не должен быть шиной памяти проекта.",
+      "sourceHash": "368af776ff90d81b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.why.title": {
+      "text": "Зачем он нужен",
+      "sourceHash": "6f0ca8c1e8cd55b7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.agent": {
+      "text": "**Агент** — доступная и подходящая модель и среда.",
+      "sourceHash": "ca29bf2d0b784258",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.and": {
+      "text": " и ",
+      "sourceHash": "43fff63a76206f1d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.audit": {
+      "text": "**Аудит** — независимая проверка, часто другой моделью, оформленная как доказательство.",
+      "sourceHash": "16908564ba9f7c67",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.comma": {
+      "text": ", ",
+      "sourceHash": "005706b90da91aff",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.handoff": {
+      "text": "**Передача** — сеанс заканчивается; состояние уже записано на диск.",
+      "sourceHash": "2c7ffc5e53ea7f17",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.idea": {
+      "text": "**Идея** — реальная проблема из работы над проектами, а не гипотетический набор агентов.",
+      "sourceHash": "4cd6a48ea220c242",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.next": {
+      "text": "**Другой агент** — запускает `saipen continue` и берётся за следующий шаг.",
+      "sourceHash": "445a621ec9402fe6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.target": {
+      "text": "**Узкая цель** — одна задача с условиями проверки, достаточно малая для доказательства результата.",
+      "sourceHash": "796a36123010ba37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.title": {
+      "text": "Как ведётся работа",
+      "sourceHash": "c2428a5c884c520d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.tools": {
+      "text": "Инструменты оператора в экосистеме выросли из того же цикла: {tools}. Подробнее — в заметке [Как создаётся SAIPEN: один оператор, много агентов](/blog/how-saipen-is-built/).",
+      "sourceHash": "d99c992bd78a1b5f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    },
+    "about.workflow.verify": {
+      "text": "**VERIFY** — самая сильная доступная проверка, сначала с отрицательным контролем.",
+      "sourceHash": "267a77b3a0b3c6a3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-03.json"
+    }
+  }
+}

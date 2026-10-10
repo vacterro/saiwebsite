@@ -16,6 +16,7 @@ import rehypeWintage from '../../lib/rehype-wintage.mjs';
 import remarkI18n from '../../lib/remark-i18n.mjs';
 import { validateCatalog } from '../blocks/blocks.mjs';
 import { sourceIdsOf } from '../registry/sources.mjs';
+import { pageIsApproved } from './readiness.mjs';
 import { localePrefix, pseudoLocalize, publicLocales, validateLocales, variantPlan, variantRoute } from './i18n.mjs';
 import { markFallback, resolveSegment } from './assemble.mjs';
 import { documentSegmentPrefix, parseDocument } from './segments.mjs';
@@ -109,7 +110,7 @@ export function translator(locale: string = CANONICAL_LOCALE): Translator {
 export function alternatesOf(route: string): { locale: string; path: string; public: boolean }[] {
   const out = [{ locale: CANONICAL_LOCALE, path: route, public: true }];
   for (const p of PLAN) {
-    if (variantSet(p.locale).has(route)) out.push({ locale: p.locale, path: variantRoute(route, p.locale, CANONICAL_LOCALE), public: p.stage !== 'pseudo' });
+    if (variantSet(p.locale).has(route)) out.push({ locale: p.locale, path: variantRoute(route, p.locale, CANONICAL_LOCALE), public: pagePublicationReady(route,p.locale) });
   }
   return out;
 }
@@ -127,6 +128,11 @@ export function splitPath(pathname: string): { locale: string; route: string } {
 }
 
 let processor: Awaited<ReturnType<typeof createMarkdownProcessor>> | null = null;
+const compositionRaw=import.meta.glob<Doc>('../compositions/*.json',{eager:true,import:'default'});
+/** Partial/stale/draft pages stay available with truthful fallback, outside public indexing. */
+export function pagePublicationReady(route: string,locale: string): boolean {
+  return pageIsApproved({localesDoc,blocks:BLOCKS,units:UNITS,docs:DOCS,docUnits:DOC_UNITS,compositions:Object.values(compositionRaw)},registry,route,locale);
+}
 async function markdown() {
   processor ??= await createMarkdownProcessor({ ...markdownConfigDefaults, syntaxHighlight: false, smartypants: false, remarkPlugins: [remarkI18n], rehypePlugins: [rehypeWintage] });
   return processor;
@@ -184,6 +190,7 @@ export async function renderLocalizedDoc(slug: string, locale: string) {
   const md = await markdown();
   const html: string[] = [];
   const body: string[] = [];
+  const translatedBody: string[] = [];
   const headings: any[] = [];
   const fallbacks: string[] = [];
   // Heading anchors are made unique per SEGMENT by the rehype plugin, so two
@@ -193,6 +200,7 @@ export async function renderLocalizedDoc(slug: string, locale: string) {
   for (const segment of doc.segments.filter((s) => s.kind === 'markdown')) {
     const r = segmentOf(segment, l, units, locale);
     body.push(r.text);
+    if (r.lang===locale) translatedBody.push(r.text);
     if (r.lang !== locale) fallbacks.push(segment.id);
     const result = await md.render(r.text);
     let code = result.code;
@@ -211,5 +219,6 @@ export async function renderLocalizedDoc(slug: string, locale: string) {
     }
     html.push(r.lang === locale ? code : markFallback(code, r.lang));
   }
-  return { html: html.join('\n'), headings, body: body.join('\n\n'), ...docMeta(slug, locale), fallbacks };
+  const metadata=docMeta(slug,locale);
+  return { html: html.join('\n'), headings, body: body.join('\n\n'), translatedBody:translatedBody.join('\n\n'), ...metadata, fallbacks:[...metadata.fallbacks,...fallbacks] };
 }

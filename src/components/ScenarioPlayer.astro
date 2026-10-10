@@ -123,7 +123,11 @@ const KIND_TONE = { stop: 'w-badge--warn', fail: 'w-badge--err', recover: 'w-bad
       prev.disabled = n === 1;
       next.disabled = n === steps.length;
       history.replaceState(null, '', `#step-${n}`);
-      if (focus) steps[n - 1].querySelector<HTMLElement>('h2')?.focus();
+      if (focus) {
+        const target = steps[n - 1].querySelector<HTMLElement>('h2');
+        target?.setAttribute('tabindex', '-1');
+        target?.focus({ preventScroll: true });
+      }
     };
 
     steps.forEach((step) => step.querySelector('h2')?.setAttribute('tabindex', '-1'));

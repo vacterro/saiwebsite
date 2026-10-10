@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "search",
+  "units": {
+    "search.badge-note": {
+      "text": "töötab brauseris staatilise indeksiga — päring jääb sellele lehele",
+      "sourceHash": "aa94d19ebbebf07a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.description": {
+      "text": "Otsi SAIPEN dokumentatsioonist, spetsifikatsioonist, ökosüsteemist ja blogist.",
+      "sourceHash": "1865a8b1d7f5978f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.field.help": {
+      "text": "Vihje: Ctrl+K või Cmd+K avab selle lehe kõikjalt. Tehnilised lehed on tulemustes blogipostitustest eespool.",
+      "sourceHash": "e93a534d84239089",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.field.label": {
+      "text": "Otsi dokumentidest, spetsifikatsioonist ja ökosüsteemist",
+      "sourceHash": "e0c69dd585205f9c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.field.submit": {
+      "text": "Otsi",
+      "sourceHash": "0513f386ac196ef0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.error": {
+      "text": "Otsinguindeksit ei saanud laadida. Kasuta dokumentatsiooni sisukorda.",
+      "sourceHash": "00c8cb02e27b194a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.many": {
+      "text": "{count} tulemust päringule „{query}\".",
+      "sourceHash": "8380005a6c9ad041",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.nojs": {
+      "text": "Otsing töötab brauseris. Kui JavaScript on väljas, kasuta [dokumentatsiooni sisukorda](/docs/) või [spetsifikatsiooni](/spec/).",
+      "sourceHash": "37e7eadb9ecc9112",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.none": {
+      "text": "Päringule „{query}“ pole tulemusi. Proovi lühemat sõna või sirvi dokumentatsiooni sisukorda.",
+      "sourceHash": "5f99fe8afae652f1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.one": {
+      "text": "1 tulemus päringule „{query}\".",
+      "sourceHash": "4f906c226181b822",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.prompt": {
+      "text": "Sisesta sõna ja vajuta Otsi.",
+      "sourceHash": "77ed1211311349b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.status.searching": {
+      "text": "Otsin…",
+      "sourceHash": "9f4a4b2618bb9d58",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "search.title": {
+      "text": "Otsing",
+      "sourceHash": "0513f386ac196ef0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    }
+  }
+}

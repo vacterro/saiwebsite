@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "document": "getting-started/why-saipen",
+  "units": {
+    "docs.getting-started.why-saipen.description": {
+      "text": "Vestlusajalugu, juhisefailid ja ülesandehaldurid kannavad igaüks osa projekti olekust. SAIPEN kannab osa, mida külm agent jätkamiseks vajab.",
+      "sourceHash": "574123d3c919dbfe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.intro": {
+      "text": "SAIPEN lahendab ühe kindla tõrke: AI-koodiagent ei mäleta pärast seansi lõppu midagi. Muud tööriistad ja harjumused katavad osa sellest probleemist.\n\n| Lähenemine | Sobib milleks | Mida ei kanna |\n|---|---|---|\n| Vestlusajalugu / mudeli mälu | Mugav, seadistuseta | Sõltub seansist ja pakkujast ning ei asu projektis, mistõttu külm agent seda ei näe. |\n| Staatiline `AGENTS.md` / juhisefail | Püsivad reeglid ja kokkulepped | Elav ülesandeolek, `next_action` või taastamisajalugu. |\n| Ülesannete / TODO haldur | Ülesannete ja tööjärje haldus | Jätkamise tähendus: mida külm agent peab jätkamisel lugema ja tegema. |\n| **SAIPEN** | Elav käitusolek, tööjärg, sündmusajalugu, püsivad teadmised ja masinkontrollitavad jätkamisreeglid lihtfailides koodi kõrval | Mitte midagi sellest loendist; see kombinatsioon ongi lepe. |\n\nErinevus ei ole üksikus failis. Jätkamissamm muutub **masinkontrollitavaks**: külma agendi esimese tegevuse pärast `saipen continue` määrab salvestatud `next_action` ning kontrollib validaator, selle asemel et seda mälust või pikast juhisefailist taastada.",
+      "sourceHash": "d7a6c356713e92c0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.project-state-over-model-memory": {
+      "text": "## Projekti olek enne mudeli mälu\n\nSpetsifikatsioon ütleb kavandamise eesmärgi otse: külm agent ilma vestlusajaloota peab saama käivitada `/saipen continue` ja jätkata sisulist tööd ühe minuti jooksul, ilma et paluks kasutajal konteksti korrata.\n\nSee muudab korralduse `Project → Memory → LLM` kujult kujule `Project → SAIPEN State → LLM`. Mälu kuulub projektile. Täna üks mudel, homme teine, ülehomme kolmas — kõik töötavad sama olekuga.",
+      "sourceHash": "74abeaff6532f594",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.the-litmus-test": {
+      "text": "## Otsustav kontroll\n\nIga kavandatav protokollimuudatus peab vastama kolmele küsimusele:\n\n1. Kas see muudab agentide vahetuse töökindlamaks?\n2. Kas see muudab eri mudelite käitumise ühtlasemaks?\n3. Kas see vähendab konteksti kadumise tõenäosust?\n\nKui vähemalt kahele vastus on „ei”, lükatakse idee tagasi. SAIPEN eelistab uudsusele distsipliini, korratavust ja töökindlust — seetõttu kirjeldab ka see veebisait ainult protokollis päriselt olemasolevat käitumist.",
+      "sourceHash": "44d50a57eb0fc014",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.title": {
+      "text": "Miks SAIPEN",
+      "sourceHash": "d1fe2df2869da71d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.who-it-is-for": {
+      "text": "## Kellele see sobib\n\nSAIPEN on kasulik, kui töötad mitme koodiagendiga, jõuad pidevalt seansipiirini, vahetad mudeleid hinna või saadavuse järgi, arendad projekte kauem kui ühe vestluse või tahad eristada „valmis” ja „tõendatud”. See toetub lihtfailidele ja tavalisele Gitile, nii et sobib ka siis, kui sa lihtsalt ei usalda vestluse mälu.",
+      "sourceHash": "6aba37a3174c5957",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "tool": "release-package",
+  "verdict": "BLOCKED",
+  "origin": "",
+  "candidate": null,
+  "package": null,
+  "extractionVerify": null,
+  "extractionSmoke": null,
+  "git": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "publicationAuthorized": false,
+  "external": "no upload or deployment performed or claimed"
+}

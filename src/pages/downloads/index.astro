@@ -21,7 +21,7 @@ const size = (bytes: number) =>
 <SiteLayout
   title="Downloads"
   tag="/downloads/"
-  description="Verified release catalogue for SAIPEN and its ecosystem: version, date, platform and SHA-256 digest, linking to the GitHub release pages."
+  description="Release snapshot for SAIPEN and its ecosystem: version, date, platform and GitHub-reported SHA-256 digest, linking to the release pages."
 >
   <h1>Downloads</h1>
   <p><MaturityBadge level="preview" note={`release facts as of ${ECOSYSTEM_SNAPSHOT.date}`} /></p>
@@ -84,9 +84,9 @@ const size = (bytes: number) =>
                     </td>
                     <td>{asset.platform}</td>
                     <td>
-                      <code class="digest">{asset.sha256}</code>
+                      <code class="digest">{asset.sha256 ?? 'not recorded'}</code>
                     </td>
-                    <td>none published</td>
+                    <td>not recorded</td>
                   </>
                 ) : (
                   <>
@@ -105,13 +105,15 @@ const size = (bytes: number) =>
   </div>
 
   <h2>Verify a download</h2>
-  <p>Compare the digest of the file you downloaded with the table and the release page:</p>
-  <pre class="w-code"><code>certutil -hashfile FastPrompter.exe SHA256          (Windows)
-sha256sum FastPrompter.exe                            (Linux)
-shasum -a 256 FastPrompter.exe                        (macOS)</code></pre>
+  <p>Compare the digest of the file you downloaded with the table and the release page. Run the command for your platform:</p>
+  <p class="w-panel__note">Windows</p>
+  <pre class="w-code"><code>certutil -hashfile FastPrompter.exe SHA256</code></pre>
+  <p class="w-panel__note">Linux</p>
+  <pre class="w-code"><code>sha256sum FastPrompter.exe</code></pre>
+  <p class="w-panel__note">macOS</p>
+  <pre class="w-code"><code>shasum -a 256 FastPrompter.exe</code></pre>
   <p class="w-panel__note">
-    No project in this catalogue publishes a code signature yet, and the table says so instead of leaving the column
-    out.
+    This snapshot records asset digests, not code signatures. Check the project's release page for current signature information.
   </p>
 
   <h2>Source only</h2>

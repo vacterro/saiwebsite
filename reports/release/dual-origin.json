@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "verdict": "PASS",
+  "planned": "https://saipenprotocol.com",
+  "temp": "https://sai-temp.example.org",
+  "checks": [
+    {
+      "id": "build.planned",
+      "status": "PASS",
+      "detail": "real Astro release build completed for https://saipenprotocol.com"
+    },
+    {
+      "id": "build.temp",
+      "status": "PASS",
+      "detail": "real Astro release build completed for https://sai-temp.example.org"
+    },
+    {
+      "id": "verify.planned",
+      "status": "PASS",
+      "detail": "planned-origin release verification: PASS"
+    },
+    {
+      "id": "verify.temp",
+      "status": "PASS",
+      "detail": "temporary-origin release verification: PASS"
+    },
+    {
+      "id": "compare.file-set",
+      "status": "PASS",
+      "detail": "157 files in both artifacts"
+    },
+    {
+      "id": "compare.no-stale-in-planned",
+      "status": "PASS",
+      "detail": "planned artifact never references the fixture origin"
+    },
+    {
+      "id": "compare.no-stale-in-temp",
+      "status": "PASS",
+      "detail": "temp machine surfaces use only the fixture origin"
+    },
+    {
+      "id": "compare.semantic-consistency",
+      "status": "PASS",
+      "detail": "134 text files compared; differences restricted to deployment-specific output"
+    },
+    {
+      "id": "compare.package-identity",
+      "status": "PASS",
+      "detail": "package 1.5.0 in both builds"
+    },
+    {
+      "id": "compare.protocol-identity",
+      "status": "PASS",
+      "detail": "SAIPEN 8.1.0 identical in both builds"
+    },
+    {
+      "id": "compare.i18n-disabled",
+      "status": "PASS",
+      "detail": "ET/RU remain disabled in both builds"
+    },
+    {
+      "id": "compare.i18n-unpublished",
+      "status": "PASS",
+      "detail": "no ET/RU output in either artifact"
+    },
+    {
+      "id": "compare.theme-fonts",
+      "status": "PASS",
+      "detail": "27 theme/font assets byte-identical"
+    },
+    {
+      "id": "mutation.stale-origin-rejected",
+      "status": "PASS",
+      "detail": "stale planned-origin URL in temp llms.txt rejected by the verifier"
+    },
+    {
+      "id": "candidate.public-planned",
+      "status": "PASS",
+      "detail": "public candidate for planned origin verified (137 files, 20 internal removed)"
+    },
+    {
+      "id": "candidate.public-temp",
+      "status": "PASS",
+      "detail": "public candidate for temp origin verified (137 files, 20 internal removed)"
+    }
+  ],
+  "external": "not-checked-offline"
+}

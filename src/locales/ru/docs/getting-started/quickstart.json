@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "document": "getting-started/quickstart",
+  "units": {
+    "docs.getting-started.quickstart.adopt-a-project": {
+      "text": "## 3. Подключите проект\n\nОткройте свой проект в агенте и введите в чате команды:\n\n```text\nsaipen set\nsaipen continue\nsaipen validate\n```\n\n`set` создаёт память проекта `.saipen/`. В новом пустом проекте `continue` запрашивает первую цель или список задач; передайте агенту задачу. В следующих сеансах — завтра, с другой моделью или после сбоя — та же команда `saipen continue` продолжает работу. `validate` должен сообщить PASS.",
+      "sourceHash": "f269d4e0da4b4ca5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.quickstart.clone-once": {
+      "text": "## 1. Клонируйте один раз\n\n```bash\ngit clone https://github.com/vacterro/saipen\ncd saipen\n```",
+      "sourceHash": "7d7c525d8e3ce5ec",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.quickstart.commit-the-memory-once": {
+      "text": "## 4. Один раз закоммитьте память\n\n```bash\ngit add .saipen && git commit -m \"saipen: init project memory\"\n```\n\nДо этого `validate` отказывает с сообщением `.saipen/IDENTITY.md exists but is not\ntracked by git`: файл идентичности позволяет свежему клону восстановить ту же идентичность проекта. После этого обычные коммиты сохраняют память.\n\n> [!NOTE]\n> Те же проверки работают из терминала без агента. Лаунчер устанавливается вместе с навыком, например `\"$HOME/.agents/skills/saipen/bin/saipen\" continue` на macOS и Linux или `& \"$env:USERPROFILE\\.agents\\skills\\saipen\\bin\\saipen.cmd\" continue` в PowerShell. Менять PATH не требуется.",
+      "sourceHash": "9b522158534e4f24",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.quickstart.description": {
+      "text": "Установите SAIPEN один раз на машину, подключите проект, продолжите холодным агентом, проверьте и удалите без лишних следов.",
+      "sourceHash": "617c05f66332e6b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.quickstart.install-once-per-machine": {
+      "text": "## 2. Установите один раз на машину\n\nWindows (PowerShell):\n\n```text\npowershell -NoProfile -ExecutionPolicy Bypass -File .\\bootstrap\\inject.ps1\n```\n\nmacOS, Linux или Git Bash:\n\n```bash\nbash bootstrap/inject.sh\n```\n\nУстановщик добавляет отмеченный блок SAIPEN в файлы инструкций поддерживаемых агентов, предварительно сохраняя оригиналы. Он копирует среду выполнения в папки навыков и устанавливает соответствующие защитные хуки, сохраняя остальные настройки. Перезапустите уже работавший агент. Поддерживаемые среды и сила принудительного соблюдения протокола описаны на [странице совместимости](/compatibility/).",
+      "sourceHash": "58d92329238b7e5d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.quickstart.intro": {
+      "text": "Требования: **Git, Python 3.11 или новее** и агент программирования. Не нужны установка через `pip`, учётная запись, сервер или демон. Сохраните клон до удаления: установленные инструкции агента и проверки обновлений ссылаются на его расположение.",
+      "sourceHash": "0653e8f00be15606",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.quickstart.title": {
+      "text": "Быстрый старт",
+      "sourceHash": "893546674ad7a85c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.quickstart.try-it-without-installing": {
+      "text": "## Попробуйте без установки\n\nПопросите агента прочитать `<clone>/saipen/BOOT.md` и следовать маршрутизатору холодного запуска.",
+      "sourceHash": "422dc4a3ef3ab505",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.quickstart.uninstall": {
+      "text": "## Удаление\n\nИз каталога клона в Windows:\n\n```text\npowershell -NoProfile -ExecutionPolicy Bypass -File .\\bootstrap\\uninstall.ps1\n```\n\nmacOS, Linux или Git Bash:\n\n```bash\nbash bootstrap/uninstall.sh\n```\n\nУдаление убирает отмеченный блок инструкций, записи защитных хуков SAIPEN и неизменённые установленные файлы. Оно сохраняет остальные настройки, хуки и навыки, ваши последующие правки, резервные копии и память `.saipen/` каждого проекта.",
+      "sourceHash": "b20c33a0ec240d98",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    }
+  }
+}

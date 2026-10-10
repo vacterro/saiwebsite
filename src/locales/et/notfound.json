@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "notfound",
+  "units": {
+    "notfound.action.docs": {
+      "text": "Ava dokumentatsioon",
+      "sourceHash": "376aa1a3b06ce364",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.action.home": {
+      "text": "Avalehele",
+      "sourceHash": "ce47c7207ad4697d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.action.search": {
+      "text": "Otsi saidilt",
+      "sourceHash": "cbbca2d5e9c67b01",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.crumb": {
+      "text": "Ei leitud",
+      "sourceHash": "a02f1823d775d205",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.description": {
+      "text": "Seda aadressi SAIPEN veebisaidil ei ole.",
+      "sourceHash": "224d9a17a4dc2a08",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.panel.body": {
+      "text": "Aadressis oli viga või viitas see mujale viidud lehele. Spetsifikatsiooni lehtede versioonipõhised aadressid (`/spec/v8/...`) säilivad püsivalt; vana lingi korral leiad kõik versioonid spetsifikatsiooni sisukorrast.",
+      "sourceHash": "a12b740dc070870e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.panel.title": {
+      "text": "Sellel aadressil pole lehte",
+      "sourceHash": "9c89b6a398b94e18",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "notfound.title": {
+      "text": "Lehte ei leitud",
+      "sourceHash": "b047773ab3855f3c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    }
+  }
+}

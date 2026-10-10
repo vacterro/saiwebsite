@@ -1,0 +1,825 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "about",
+  "units": {
+    "about.a11y.colour": {
+      "text": "Ükski olek ei sõltu ainult värvist: igal märgil ja teatekastil on tekst.",
+      "sourceHash": "3cd52836bf05db17",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.focus": {
+      "text": "Igal juhtseadisel on nähtav teravaservaline fookus; teemamenüü on sildiga natiivne valikuväli.",
+      "sourceHash": "7ec260676abc0104",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.landmarks": {
+      "text": "Link sisu juurde, üks `main`, nimetatud navigeerimisalad ja üks `h1` lehe kohta; pealkirjatasemeid ei jäeta vahele.",
+      "sourceHash": "d39ab8329f3e7d35",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.motion": {
+      "text": "Liikumist pole peale nupu ühepikslist vajutust; vähendatud liikumise eelistust arvestatakse.",
+      "sourceHash": "2477d43558a4d291",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.nojs": {
+      "text": "Navigeerimine ja avanevad paneelid kasutavad natiivseid elemente ning töötavad väljalülitatud JavaScriptiga.",
+      "sourceHash": "067659f4e874c3f6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.text": {
+      "text": "Tekst on päris DOM-tekst: valitav, otsitav, tõlgitav ja ekraanilugejale loetav.",
+      "sourceHash": "59b63e300e161b37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.a11y.title": {
+      "text": "Ligipääsetavus",
+      "sourceHash": "6ba39de13c0f1c97",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.author.body1": {
+      "text": "SAIPEN-i loob ja hooldab [vacterro]({author}). Arendus toimub praktilises mitme agendi töökorralduses: eri pakkujate AI-koodiagendid teevad suure osa teostusest, inimene määrab suuna, otsustab, auditeerib ja hoiab töö nende vahel järjepidevana. Protokoll on selle korralduse kirjalik kuju.",
+      "sourceHash": "3337deb69b92f7af",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.author.body2": {
+      "text": "[SAIPEN HQ]({organization}) on organisatsiooni identiteet ning [SAIPEN Community]({community}) Discordis on ühine aruteluruum.",
+      "sourceHash": "116f824bbf7e778b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.author.title": {
+      "text": "Kes SAIPEN-i loob",
+      "sourceHash": "98afcb3d37f47b85",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.beyond.body": {
+      "text": "Protokoll ei eksisteeri vaakumis. Autor loob kohalikke tööriistu AI-agentidele, automatiseerimisele ja Windowsile — agenditaristut, operaatori töökeskkondi ja kvoodimonitore, töölauarakendusi ning loov- ja tehnilist tarkvara. [Ökosüsteemi leht](/ecosystem/) loetleb ainult SAIPEN-iga seotud projektid; ülejäänud on lehel [github.com/vacterro]({author}).",
+      "sourceHash": "0e4df3ff30753984",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.beyond.title": {
+      "text": "Lisaks SAIPEN-ile",
+      "sourceHash": "21c6168079b9b01c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.aliases": {
+      "text": "Staatilised ümbersuunamised nagu `/spec/latest/` ei vaja serverireegleid.",
+      "sourceHash": "1858297263ffb345",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.generated": {
+      "text": "Ehitus genereerib [404-lehe](/404.html), [sitemap.xml](/sitemap.xml), [robots.txt](/robots.txt) ja [llms.txt](/llms.txt).",
+      "sourceHash": "d575e1fa1e7f87ad",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.links": {
+      "text": "Kõik siselingid on juursuhtelised; kanooniline lähteaadress ({domain}) on seadistatud ühes kohas.",
+      "sourceHash": "0c1b16796ac18d84",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.static": {
+      "text": "Täielikult staatiline väljund kataloogiaadressidega ja lõpus oleva kaldkriipsuga igal lehel.",
+      "sourceHash": "bb8510d0fbe77455",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.status": {
+      "text": "Saiti pole avaldatud: domeeni ja majutuse sidumine on tulevikuvärav FG-001. Kõik levitatavad varad on edasilevitatavad — pikslifondid pärinevad DejaVu Sansist ja Spleenist koos litsentsiteadetega, neid kontrollib `npm run validate:licenses` ning need on muude varadega kirjas failis THIRD_PARTY_NOTICES.md.",
+      "sourceHash": "6c2b1e44c534c1bf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.deploy.title": {
+      "text": "Avaldamisvalmidus",
+      "sourceHash": "16868bbefe956b6d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.description": {
+      "text": "Kes SAIPEN-i loob ja miks, selle taga olev mitme agendi töökorraldus, looja põhimõtted ning selle veebisaidi tehniline kvaliteedilepe.",
+      "sourceHash": "8628ae2d5023766e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.design.body": {
+      "text": "Sait on natiivne [Wintage](/ecosystem/#wintage) liides: Golden Default palett, 2px kaldservad, nullraadius, varjude puudumine ja kohene reageerimine — sama kujunduskeel, mida SAIPEN-i UI.md nõuab igalt SAIPEN tööriistalt. Teksti joonistavad avatud litsentsiga fontidest ehitatud pikslivõre fondid, ilma antialiasing'uta. [Kujundusmärkus](/blog/no-antialiasing-on-the-web/) selgitab teostust ja selle kontrollimist.",
+      "sourceHash": "ad9fdbc94520eb59",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.design.title": {
+      "text": "Miks sait nii välja näeb",
+      "sourceHash": "a711f450b5b13b08",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.body": {
+      "text": "Käesolev veebisait on ise SAIPEN-i projekt. Allolev nimekiri loetakse ehitamise ajal selle repositooriumi enda `.saipen/BOARD.md` failist. Ajaloolised käsitsi talletatud elutsükli kirjed on säilitatud tõenditena ega ole kontrollitud; tahvli märge ülesande lõpetamise kohta on talletatud väide, mitte sõltumatu tõend. Uued protokolli järgivad toimingud kasutavad ehtsat SAIPEN-i käituskeskkonda.",
+      "sourceHash": "154319b0425fb09c",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.dogfooding.closed": {
+      "text": "Registreeritud ülesannete lõpetamised.",
+      "sourceHash": "9004b6e0d8433bb4",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.dogfooding.closed-value": {
+      "text": "{done} / {total}",
+      "sourceHash": "b9514fb8b010bbb7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.col.state": {
+      "text": "Olek",
+      "sourceHash": "59e0b648149a1938",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.col.ticket": {
+      "text": "Ülesanne",
+      "sourceHash": "dabddd1115e5d41c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.col.work": {
+      "text": "Töö",
+      "sourceHash": "fa9860b8a873fddd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.events": {
+      "text": "Salvestatud sündmused",
+      "sourceHash": "a8a2dde637ebfae6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.events-value": {
+      "text": "{count} failis .saipen/LOG.md",
+      "sourceHash": "8414e74a2d14a107",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.last": {
+      "text": "Ajalooline kontrolliväide",
+      "sourceHash": "cdbde5b4d95e74b7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.last-value": {
+      "text": "sait v{version}, {date}: {pages} lehte, {checks} brauserikontrolli, {gates} staatilist kontrolli",
+      "sourceHash": "19b67be9e55914f9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.none": {
+      "text": "See ehitus tehti projektimäluta tööpuust, seega pole midagi näidata.",
+      "sourceHash": "731b288a0654656e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.red": {
+      "text": "Iga allolev kontroll tõendas enne rohelise tulemuse usaldamist, et suudab läbi kukkuda:",
+      "sourceHash": "4f94f14fbeee4bba",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.dogfooding.title": {
+      "text": "See veebisait valmib SAIPEN-i all",
+      "sourceHash": "fb3ea501578cdce5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.audit-build": {
+      "text": "Ehitatud väljundi struktuur, teemalepe, marsruudiregister, jõudluse eelarve ja protokolliandmed.",
+      "sourceHash": "7bc9553778b49818",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.build": {
+      "text": "Staatiline tootmisehitus; siin kontrollitakse sisu frontmatter'i skeemi.",
+      "sourceHash": "7a51e77fe85ed45b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.check": {
+      "text": "Astro ja TypeScripti tüübikontroll.",
+      "sourceHash": "a526100ead2e27e1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.col.command": {
+      "text": "Käsk",
+      "sourceHash": "a071f43eadc8806f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.col.fails": {
+      "text": "Ebaõnnestumise põhjus",
+      "sourceHash": "3466abad418badea",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.lint": {
+      "text": "Stiilireeglid: keelatud on raadius, vari, hägu, läbipaistvus, liikumine, hex-värv, em-ühik või suurus ilma vastava pikslifondita.",
+      "sourceHash": "33a706091a8bc15f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-01.json"
+    },
+    "about.gates.test-content": {
+      "text": "Dokumentatsiooni liides, spetsifikatsiooni visualiseerija ja aliased, katsetuskeskkond, otsing ning agentidele loetavad failid.",
+      "sourceHash": "42e59996563ce9fb",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.test-pixel": {
+      "text": "Iga lehe iga piksel on üks paleti värvidest, nii Chromiumis kui ka WebKitis.",
+      "sourceHash": "3a1b5710d014cd70",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.test-runtime": {
+      "text": "Teema püsimine, taastamine enne esimest joonistust, varuteema ja pesastatud palettide eraldatus.",
+      "sourceHash": "6292c1f69b013b6e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.test-shell": {
+      "text": "Marsruudid, valmidusmärgid, navigeerimine, asukohariba, lehealad ja ülevool laiustel 320 / 390 / 640 / 1280 px.",
+      "sourceHash": "049299c1cb26695b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.test-visual": {
+      "text": "Ekraanipildi võrdlusfailid, nulltolerantsiga võrdlus.",
+      "sourceHash": "e12a20daa5e409db",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.title": {
+      "text": "Kvaliteedikontrollid",
+      "sourceHash": "8cfcd5f8c6979858",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.validate-baselines": {
+      "text": "Iga versioonitud ekraanipildi võrdlusfail on olemas ja vastab manifestile, et arhiiv ei kaotaks märkamatult visuaalseid tõendeid.",
+      "sourceHash": "f730f65930c0f99d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.validate-canonical": {
+      "text": "Protokolli hetktõmmis vastab endiselt salvestatud SHA-256 räsidele.",
+      "sourceHash": "9ef89c8820e7aea1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.validate-content": {
+      "text": "Kõik ehitatud saidi siselingid ja ankrud lahenevad; korduvaid ID-sid pole ja nõutud metaandmed on olemas.",
+      "sourceHash": "4f461eea1ad43a73",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.gates.validate-themes": {
+      "text": "Kõigil 16 paletil on täpselt 21 tokenit.",
+      "sourceHash": "2da70a8982fe4af1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.motto.body": {
+      "text": "Loodud ühe inimese ja vahetatavate AI-agentide koostöös. Agendid vahetuvad. Projekti olek säilib.",
+      "sourceHash": "6dadb3ebb76788a2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.motto.label": {
+      "text": "Ühe lausega",
+      "sourceHash": "a38b6d35b3d8770d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.perf.body": {
+      "text": "Peamiselt staatiline HTML väikeste skriptidega. `npm run audit:build` lükkab ehituse tagasi, kui leht ületab HTML-i eelarve, JavaScripti või fontide kogumaht ületab piiri või leht laadib tarbetu skripti. Kliendiraamistikku ega hüdratsiooni pole; kaksteist pikslifonti on igaüks 6–17 KB ning kontroll ebaõnnestub, kui mõni ületab 20 KB või kõik kokku 200 KB.",
+      "sourceHash": "2b2b12b18f002f16",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.perf.title": {
+      "text": "Jõudluse eelarve",
+      "sourceHash": "cf16db3e22bb960a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.automate.line": {
+      "text": "Kui inimene peab kaks korda päevas sama sissejuhatust kordama või sama nuppu vajutama, ootab see tegevus tööriista.",
+      "sourceHash": "8b44f9255745bf19",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.automate.name": {
+      "text": "Automatiseeri kordused",
+      "sourceHash": "aac75c067de3c6fd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.control.line": {
+      "text": "Suund, hävitavad sammud ja avaldamine on inimese otsused — kuid iga jätkamist ei pea valvama.",
+      "sourceHash": "6cb2e5149f5d80aa",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.control.name": {
+      "text": "Juhtimine jääb inimesele",
+      "sourceHash": "bd735ac87e8e537f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.degrade.line": {
+      "text": "Puuduvad võimekused vähendavad režiimi selgesõnaliselt; need ei kao vaikides ega teeskle toimimist.",
+      "sourceHash": "1b7954d6b7088c0e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.degrade.name": {
+      "text": "Ohutu võimekuse vähendamine",
+      "sourceHash": "4422b13767652b42",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.evidence.line": {
+      "text": "Enne usaldamist peab kontroll tõendama, et suudab läbi kukkuda; „valmis” nõuab salvestatud tulemust.",
+      "sourceHash": "705f8027517eba8b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.evidence.name": {
+      "text": "Tõendid väidete asemel",
+      "sourceHash": "38a6ee7ea72b8423",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.independence.line": {
+      "text": "Projekti mälu püsib loetavates failides. Sobiv agent ehtsa SAIPEN-i käituskeskkonnaga saab jätkata protokolli järgivat tööd; mälu ei kuulu ühelegi teenusepakkujale.",
+      "sourceHash": "96af36a14366d86a",
+      "status": "MACHINE_DRAFT",
+      "author": "buffy:provenance-reauthor"
+    },
+    "about.principles.independence.name": {
+      "text": "Sõltumatus mudelist ja pakkujast",
+      "sourceHash": "1eab6978f2b30e25",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.local-first.line": {
+      "text": "Olek ja tööriistad asuvad sinu masinas. Majutatud teenus on valik, mitte nõue.",
+      "sourceHash": "7888c6cc4829592b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.local-first.name": {
+      "text": "Esmalt kohalik",
+      "sourceHash": "bdba41541e3e18fe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.no-account.line": {
+      "text": "Miski siin ei küsi, kes sa oled, sest miski ei pea seda teadma.",
+      "sourceHash": "b5adc4f88151ff03",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.no-account.name": {
+      "text": "Kontot pole vaja ilma tehnilise põhjuseta",
+      "sourceHash": "133e7a420a83d6a8",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.note": {
+      "text": "Need on autori tootepõhimõtted SAIPEN-is ja selle tööriistades — käekiri, mitte protokolli reeglid. Normatiivsed reeglid on [spetsifikatsioonis](/spec/).",
+      "sourceHash": "10420fdd1aa5df36",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.open-core.line": {
+      "text": "Protokoll, selle spetsifikatsioon ja validaator on avalikud ning MIT-litsentsiga.",
+      "sourceHash": "577858b6cf3528bf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.open-core.name": {
+      "text": "Avatud tuum",
+      "sourceHash": "bf5e208f21b6f695",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.title": {
+      "text": "Looja põhimõtted",
+      "sourceHash": "a4ba8f855d913730",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.visible-state.line": {
+      "text": "Markdown, JSON ja logid, mida inimene saab tekstiredaktoris avada, võrrelda ja commit'ida.",
+      "sourceHash": "c2c143039c36cff6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.principles.visible-state.name": {
+      "text": "Nähtav olek",
+      "sourceHash": "45129f0f49918b7e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.scope.authority": {
+      "text": "**Allika ülimuslikkus on ühesuunaline.** Kanooniline protokolliallikas on genereeritud teatmikust kõrgemal; teatmik on selgitavatest dokumentidest kõrgemal ning need kokkuvõttest kõrgemal. Kokkuvõte ei muuda käitumise määratlust.",
+      "sourceHash": "97c28696dbbe47ff",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.scope.body": {
+      "text": "SAIPEN protokolli avalik pind: dokumentatsioon, genereeritud spetsifikatsiooni teatmik, ökosüsteemi kataloog ja deterministlik katsetuskeskkond. See selgitab ja loetleb; see ei defineeri protokolli.",
+      "sourceHash": "a2e97173dce3a767",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.scope.not-engine": {
+      "text": "**Mitte käitusmootor.** Sait ei käivita agenti ning sellel pole selleks tagateenust.",
+      "sourceHash": "b48402053ce0b691",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.scope.not-protocol": {
+      "text": "**Mitte protokoll.** Protokoll on [SAIPEN hoidla]({repository}).",
+      "sourceHash": "98328dc41ead9d84",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-02.json"
+    },
+    "about.scope.title": {
+      "text": "Mis see veebisait on",
+      "sourceHash": "fc461e9089e32c89",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.design": {
+      "text": "Kujunduskeel",
+      "sourceHash": "eab6f691ae7af44a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.design-value": {
+      "text": "Wintage Golden Default ja SAIPEN UI.md",
+      "sourceHash": "f1e89d8c64fc48b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.ecosystem": {
+      "text": "Ökosüsteemi faktid",
+      "sourceHash": "21a036366f55ab05",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.ecosystem-value": {
+      "text": "SAIPEN HQ projektikaart ja GitHub, {date}",
+      "sourceHash": "0dee394b7ffa5556",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.protocol": {
+      "text": "Protokolli faktid",
+      "sourceHash": "e479862f85779d9f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.protocol-value": {
+      "text": "SAIPEN {version} @ {commit}",
+      "sourceHash": "e579e36f6265926f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.sources.title": {
+      "text": "Selle ehituse allikad",
+      "sourceHash": "5485060bcedfd60b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.title": {
+      "text": "Projektist",
+      "sourceHash": "fe37bcec10be1fb6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.why.body1": {
+      "text": "Üks inimene, palju projekte ja palju agente põrkuvad iga päev sama takistusega. Seanss lõpeb, kontekstipiir saab täis, pakkujal on kehv tund või odavam mudel võtab pärastlõunaks üle. Iga uus agent saabub andeka võõrana, kellele tuleb nullist seletada: mida ehitame, mida juba proovisime, mida ei tohi puutuda ja kas töö on päriselt valmis.",
+      "sourceHash": "84d47dcab551d4f6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.why.body2": {
+      "text": "Inimene kannab lõpuks projekti seansside vahel oma peas ja jutustab seda aina uuesti. Selle tõrke SAIPEN kõrvaldab:",
+      "sourceHash": "4441c45a0d05d473",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.why.body3": {
+      "text": "Seepärast kolis mälu vestlusest projekti lihtfailidesse, koos ühe täpse järgmise sammu ja reeglitega, mis panevad külma agendi küsimise asemel jätkama. Kõik muu protokollis — kontrollpunktid, VERIFY, tõendid ja ausad WAIT-peatused — muudab selle üleandmise turvaliseks.",
+      "sourceHash": "e0f3b6508fef3273",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.why.quote": {
+      "text": "Inimene ei peaks olema projekti mälusiin.",
+      "sourceHash": "368af776ff90d81b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.why.title": {
+      "text": "Miks see olemas on",
+      "sourceHash": "6f0ca8c1e8cd55b7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.agent": {
+      "text": "**Agent** — parasjagu kättesaadav ja sobiv mudel ning keskkond.",
+      "sourceHash": "ca29bf2d0b784258",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.and": {
+      "text": " ja ",
+      "sourceHash": "43fff63a76206f1d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.audit": {
+      "text": "**Audit** — sõltumatu ülevaatus, sageli teise mudeliga, salvestatud tõendina.",
+      "sourceHash": "16908564ba9f7c67",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.comma": {
+      "text": ", ",
+      "sourceHash": "005706b90da91aff",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.handoff": {
+      "text": "**Üleandmine** — seanss lõpeb; olek on juba kettal.",
+      "sourceHash": "2c7ffc5e53ea7f17",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.idea": {
+      "text": "**Idee** — päris probleem projektide arendamisest, mitte hüpoteetiline agendisüsteem.",
+      "sourceHash": "4cd6a48ea220c242",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.next": {
+      "text": "**Teine agent** — käivitab `saipen continue` ja teeb järgmise sammu.",
+      "sourceHash": "445a621ec9402fe6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.target": {
+      "text": "**Piiritletud siht** — üks ülesanne kontrollileppega, piisavalt väike, et seda tõendada.",
+      "sourceHash": "796a36123010ba37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.title": {
+      "text": "Kuidas töö käib",
+      "sourceHash": "c2428a5c884c520d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.tools": {
+      "text": "Ökosüsteemi operaatoritööriistad kasvasid välja samast tsüklist: {tools}. Pikem selgitus on kirjutises [Kuidas SAIPEN valmib: üks operaator, palju agente](/blog/how-saipen-is-built/).",
+      "sourceHash": "d99c992bd78a1b5f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    },
+    "about.workflow.verify": {
+      "text": "**VERIFY** — tugevaim kättesaadav kontroll, enne seda negatiivne kontroll.",
+      "sourceHash": "267a77b3a0b3c6a3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-03.json"
+    }
+  }
+}

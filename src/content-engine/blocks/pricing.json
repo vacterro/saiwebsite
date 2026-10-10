@@ -113,6 +113,11 @@
       "text": "Copied",
       "note": "Button text for 1.5 s after copying."
     },
+    "pricing.support.copy-failed": {
+      "type": "text",
+      "text": "Copy failed — address not copied",
+      "note": "Accessible status announcement when the clipboard write fails. Never shown as success."
+    },
     "pricing.support.crypto-title": {
       "type": "text",
       "text": "Cryptocurrency"

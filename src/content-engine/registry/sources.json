@@ -6,7 +6,9 @@
       "kind": "snapshot",
       "authority": "upstream",
       "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/saipen/REGISTRY.json",
-      "paths": ["src/data/canonical/registry.json"],
+      "paths": [
+        "src/data/canonical/registry.json"
+      ],
       "adapter": "canonical",
       "refresh": "npm run canonical:sync",
       "validator": "npm run validate:canonical",
@@ -19,7 +21,9 @@
       "kind": "snapshot",
       "authority": "upstream",
       "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/extensions/schemas/state.schema.json",
-      "paths": ["src/data/canonical/stateSchema.json"],
+      "paths": [
+        "src/data/canonical/stateSchema.json"
+      ],
       "adapter": "canonical",
       "refresh": "npm run canonical:sync",
       "validator": "npm run validate:canonical",
@@ -32,7 +36,9 @@
       "kind": "snapshot",
       "authority": "upstream",
       "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/extensions/adapters/registry.json",
-      "paths": ["src/data/canonical/adapters.json"],
+      "paths": [
+        "src/data/canonical/adapters.json"
+      ],
       "adapter": "canonical",
       "refresh": "npm run canonical:sync",
       "validator": "npm run validate:canonical",
@@ -45,7 +51,9 @@
       "kind": "snapshot",
       "authority": "upstream",
       "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/VERSION",
-      "paths": ["src/data/canonical/meta.json"],
+      "paths": [
+        "src/data/canonical/meta.json"
+      ],
       "adapter": "canonical",
       "refresh": "npm run canonical:sync",
       "validator": "npm run validate:canonical",
@@ -58,7 +66,9 @@
       "kind": "curated",
       "authority": "site",
       "canonicalLocation": "https://github.com/saipenhq/.github/blob/main/docs/PROJECTS.md",
-      "paths": ["src/data/ecosystem.ts"],
+      "paths": [
+        "src/data/ecosystem.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -71,7 +81,9 @@
       "kind": "snapshot",
       "authority": "upstream",
       "canonicalLocation": "https://api.github.com/users/vacterro/repos",
-      "paths": ["src/data/ecosystem.snapshot.json"],
+      "paths": [
+        "src/data/ecosystem.snapshot.json"
+      ],
       "adapter": "ecosystem",
       "refresh": "npm run ecosystem:sync",
       "validator": null,
@@ -84,7 +96,9 @@
       "kind": "curated",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/support.ts"],
+      "paths": [
+        "src/data/support.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": "npm run test:support",
@@ -97,7 +111,9 @@
       "kind": "snapshot",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/themes/packs"],
+      "paths": [
+        "src/themes/packs"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": "npm run validate:themes",
@@ -110,7 +126,9 @@
       "kind": "config",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/site.ts"],
+      "paths": [
+        "src/data/site.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -123,7 +141,9 @@
       "kind": "config",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["package.json"],
+      "paths": [
+        "package.json"
+      ],
       "adapter": "package-version",
       "refresh": null,
       "validator": null,
@@ -136,7 +156,9 @@
       "kind": "config",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/verification.ts"],
+      "paths": [
+        "src/data/verification.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": "npm run validate:content",
@@ -149,7 +171,9 @@
       "kind": "curated",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/milestones.ts"],
+      "paths": [
+        "src/data/milestones.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -162,7 +186,9 @@
       "kind": "curated",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/scenarios.ts"],
+      "paths": [
+        "src/data/scenarios.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -175,7 +201,9 @@
       "kind": "curated",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/data/phases.ts"],
+      "paths": [
+        "src/data/phases.ts"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -188,7 +216,9 @@
       "kind": "asset",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["public/fonts/manifest.json"],
+      "paths": [
+        "public/fonts/manifest.json"
+      ],
       "adapter": "file",
       "refresh": "npm run fonts:build",
       "validator": "npm run validate:licenses",
@@ -201,7 +231,9 @@
       "kind": "project-memory",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": [".saipen"],
+      "paths": [
+        ".saipen"
+      ],
       "adapter": "volatile",
       "refresh": null,
       "validator": null,
@@ -214,7 +246,9 @@
       "kind": "content",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/content/docs"],
+      "paths": [
+        "src/content/docs"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -227,7 +261,9 @@
       "kind": "content",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/content/blog"],
+      "paths": [
+        "src/content/blog"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": null,
@@ -240,13 +276,180 @@
       "kind": "content",
       "authority": "site",
       "canonicalLocation": "local",
-      "paths": ["src/content/changelog"],
+      "paths": [
+        "src/content/changelog"
+      ],
       "adapter": "file",
       "refresh": null,
       "validator": "npm run validate:content",
       "network": "none",
       "failurePolicy": "fail-closed",
       "note": "Site changelog collection."
+    },
+    {
+      "id": "saipen.reference.brochure.en",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/BROCHURE_EN.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.guide",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/GUIDE.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.license",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/LICENSE",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.readme",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/README.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.saipen.commands",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/saipen/COMMANDS.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.saipen.core",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/saipen/CORE.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.saipen.maintenance",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/saipen/MAINTENANCE.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.saipen.phases.verify",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/saipen/phases/verify.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.security",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/SECURITY.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.spec",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/SPEC.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
+    },
+    {
+      "id": "saipen.reference.changelog",
+      "kind": "snapshot",
+      "authority": "upstream",
+      "canonicalLocation": "https://github.com/vacterro/saipen/blob/main/CHANGELOG.md",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "adapter": "canonical-reference",
+      "refresh": "npm run canonical:sync",
+      "validator": "npm run validate:canonical",
+      "network": "sync-only",
+      "failurePolicy": "keep-last-valid",
+      "note": "Upstream document hash, pinned to the canonical commit. Its consumers are derived from documentation frontmatter; a source delta requires editorial review, not automatic prose rewriting."
     }
   ]
 }

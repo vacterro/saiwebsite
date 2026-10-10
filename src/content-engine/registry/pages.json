@@ -14,7 +14,13 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "saipen.hq.project-map", "site.scenarios"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios",
+        "saipen.reference.readme"
+      ]
     },
     {
       "id": "docs.index",
@@ -29,7 +35,9 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.docs"]
+      "sourceIds": [
+        "site.content.docs"
+      ]
     },
     {
       "id": "spec.index",
@@ -44,7 +52,9 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "ecosystem",
@@ -59,7 +69,10 @@
       "localizable": true,
       "searchable": true,
       "llmVisible": true,
-      "sourceIds": ["saipen.hq.project-map", "github.vacterro.releases"]
+      "sourceIds": [
+        "saipen.hq.project-map",
+        "github.vacterro.releases"
+      ]
     },
     {
       "id": "playground.index",
@@ -74,7 +87,9 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.scenarios"]
+      "sourceIds": [
+        "site.scenarios"
+      ]
     },
     {
       "id": "search",
@@ -104,7 +119,14 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "saipen.hq.project-map", "site.verification", "site.project-memory"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.verification",
+        "site.project-memory",
+        "saipen.reference.readme"
+      ]
     },
     {
       "id": "compatibility",
@@ -119,7 +141,11 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["saipen.protocol.adapters", "saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.adapters",
+        "saipen.protocol.meta",
+        "saipen.reference.readme"
+      ]
     },
     {
       "id": "downloads",
@@ -134,7 +160,10 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.hq.project-map", "github.vacterro.releases"]
+      "sourceIds": [
+        "saipen.hq.project-map",
+        "github.vacterro.releases"
+      ]
     },
     {
       "id": "security",
@@ -149,7 +178,11 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["site.identity", "saipen.protocol.meta"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.reference.security"
+      ]
     },
     {
       "id": "community",
@@ -164,7 +197,10 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "saipen.protocol.meta"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "status",
@@ -179,7 +215,12 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.package", "saipen.protocol.meta", "site.milestones", "saipen.hq.project-map"]
+      "sourceIds": [
+        "site.package",
+        "saipen.protocol.meta",
+        "site.milestones",
+        "saipen.hq.project-map"
+      ]
     },
     {
       "id": "benchmarks",
@@ -194,7 +235,10 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.meta",
+        "saipen.reference.changelog"
+      ]
     },
     {
       "id": "pricing",
@@ -209,7 +253,10 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "vacterro.support.public"]
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ]
     },
     {
       "id": "blog.index",
@@ -224,7 +271,9 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.blog"]
+      "sourceIds": [
+        "site.content.blog"
+      ]
     },
     {
       "id": "changelog",
@@ -239,7 +288,10 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.changelog", "saipen.protocol.meta"]
+      "sourceIds": [
+        "site.content.changelog",
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "debug.components",
@@ -254,7 +306,10 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["wintage.theme-packs", "site.identity"]
+      "sourceIds": [
+        "wintage.theme-packs",
+        "site.identity"
+      ]
     },
     {
       "id": "debug.themes",
@@ -269,7 +324,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["wintage.theme-packs"]
+      "sourceIds": [
+        "wintage.theme-packs"
+      ]
     },
     {
       "id": "debug.fonts",
@@ -284,7 +341,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.fonts"]
+      "sourceIds": [
+        "site.fonts"
+      ]
     },
     {
       "id": "debug.rendering",
@@ -299,7 +358,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["wintage.theme-packs"]
+      "sourceIds": [
+        "wintage.theme-packs"
+      ]
     },
     {
       "id": "debug.content",
@@ -314,7 +375,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.docs"]
+      "sourceIds": [
+        "site.content.docs"
+      ]
     },
     {
       "id": "system.not-found",
@@ -344,7 +407,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "machine.llms",
@@ -359,8 +424,14 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"],
-      "consumes": ["flag:llmVisible"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "site.content.docs"
+      ],
+      "consumes": [
+        "flag:llmVisible"
+      ]
     },
     {
       "id": "machine.llms-full",
@@ -375,8 +446,14 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["site.identity", "saipen.protocol.meta", "site.content.docs"],
-      "consumes": ["family:docs.page"]
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "site.content.docs"
+      ],
+      "consumes": [
+        "family:docs.page"
+      ]
     },
     {
       "id": "machine.sitemap",
@@ -391,7 +468,13 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.identity", "site.content.docs", "site.content.blog", "site.scenarios", "saipen.protocol.meta"]
+      "sourceIds": [
+        "site.identity",
+        "site.content.docs",
+        "site.content.blog",
+        "site.scenarios",
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "machine.search-index",
@@ -406,8 +489,16 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.content.docs", "site.content.blog", "saipen.protocol.registry", "site.phases", "saipen.hq.project-map"],
-      "consumes": ["flag:searchable"]
+      "sourceIds": [
+        "site.content.docs",
+        "site.content.blog",
+        "saipen.protocol.registry",
+        "site.phases",
+        "saipen.hq.project-map"
+      ],
+      "consumes": [
+        "flag:searchable"
+      ]
     },
     {
       "id": "machine.robots",
@@ -443,7 +534,9 @@
       "localizable": true,
       "searchable": true,
       "llmVisible": true,
-      "sourceIds": ["site.content.docs"]
+      "sourceIds": [
+        "site.content.docs"
+      ]
     },
     {
       "id": "docs.markdown",
@@ -463,7 +556,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["site.content.docs"]
+      "sourceIds": [
+        "site.content.docs"
+      ]
     },
     {
       "id": "blog.post",
@@ -482,7 +577,9 @@
       "localizable": true,
       "searchable": true,
       "llmVisible": false,
-      "sourceIds": ["site.content.blog"]
+      "sourceIds": [
+        "site.content.blog"
+      ]
     },
     {
       "id": "playground.scenario",
@@ -501,7 +598,10 @@
       "localizable": true,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["site.scenarios", "saipen.protocol.registry"]
+      "sourceIds": [
+        "site.scenarios",
+        "saipen.protocol.registry"
+      ]
     },
     {
       "id": "spec.version",
@@ -520,7 +620,10 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.protocol.registry", "saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta"
+      ]
     },
     {
       "id": "spec.topic",
@@ -540,7 +643,11 @@
       "localizable": false,
       "searchable": true,
       "llmVisible": true,
-      "sourceIds": ["saipen.protocol.registry", "saipen.protocol.meta", "site.phases"]
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.meta",
+        "site.phases"
+      ]
     },
     {
       "id": "spec.file",
@@ -560,7 +667,11 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": true,
-      "sourceIds": ["saipen.protocol.registry", "saipen.protocol.state-schema", "saipen.protocol.adapters"]
+      "sourceIds": [
+        "saipen.protocol.registry",
+        "saipen.protocol.state-schema",
+        "saipen.protocol.adapters"
+      ]
     },
     {
       "id": "spec.latest-topic",
@@ -579,7 +690,9 @@
       "localizable": false,
       "searchable": false,
       "llmVisible": false,
-      "sourceIds": ["saipen.protocol.meta"]
+      "sourceIds": [
+        "saipen.protocol.meta"
+      ]
     }
   ]
 }

@@ -1,0 +1,132 @@
+{
+  "tool": "release-candidate",
+  "verdict": "FAIL",
+  "failedStage": "static-gates",
+  "origin": "https://candidate.example.org",
+  "slug": "candidate-example-org",
+  "storeId": "candidate-example-org-0a30fb78ad",
+  "storeKind": "fresh",
+  "migratedFrom": null,
+  "profile": "candidate",
+  "readinessClaim": "candidate-only",
+  "gateContract": "6",
+  "engineSkips": [],
+  "git": {
+    "rev": "9f5c020adf816610dd58b10b75099a17552a14e6",
+    "dirty": true,
+    "dirtyFiles": 574,
+    "dirtyIdentity": "6773d8988b8146b8a2c0691ae976c36829057b487a0b3f57130fc49709153e8a",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "gates": [
+    {
+      "id": "site:doctor",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "lint-styles",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-themes",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-canonical",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-content",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-registry",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-baselines",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate:media",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "audit-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "i18n",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine",
+      "ok": false,
+      "exit": 1,
+      "tail": "suite scripts/tests/baseline-registry.test.mjs: incomplete or truncated report (missing: tests, pass, fail, cancelled, skipped, todo); refusing silent PASS"
+    }
+  ],
+  "releaseVerify": null,
+  "candidateVerify": null,
+  "smoke": null,
+  "projection": null,
+  "candidate": null,
+  "previousPreserved": false,
+  "publicationAuthorized": false,
+  "external": [
+    "hosting",
+    "dns",
+    "https",
+    "redirects",
+    "search-indexing",
+    "publication-authorization",
+    "translation-approvals"
+  ],
+  "engineAccounting": {
+    "files": [
+      {
+        "file": "scripts/tests/baseline-registry.test.mjs",
+        "total": null,
+        "pass": null,
+        "fail": null,
+        "cancelled": null,
+        "skipped": 0,
+        "todo": null,
+        "complete": false,
+        "consistent": false,
+        "unknownSkips": []
+      }
+    ],
+    "totals": {
+      "tests": 0,
+      "pass": 0,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "skips": []
+  },
+  "readiness": "NOT_READY"
+}

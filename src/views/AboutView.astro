@@ -13,6 +13,7 @@
 import MaturityBadge from '../components/MaturityBadge.astro';
 import PixelMark from '../components/PixelMark.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import PageSections from '../components/PageSections.astro';
 import { SITE } from '../data/site';
 import { ECOSYSTEM_SNAPSHOT, PROJECTS } from '../content-engine/models/ecosystem';
 import { LAST_VERIFICATION } from '../data/verification';
@@ -63,6 +64,9 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
   tag="/about/"
   description={tx.text('about.description')}
 >
+  <PageSections page="about" locale={tx.locale} requiredSlot="overview">
+    <Fragment slot="overview">
+
   <h1 set:html={tx.html('about.title')}></h1>
   <p><MaturityBadge level="stable" /></p>
   <PixelMark name="saipen-banner-332" width={332} height={120} label="SAIPEN" class="about__banner" />
@@ -71,23 +75,27 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     <p class="callout__label" set:html={tx.html('about.motto.label')}></p>
     <p set:html={tx.html('about.motto.body')}></p>
   </aside>
-
+    </Fragment>
+    <Fragment slot="author">
   <h2 id="author" set:html={tx.html('about.author.title')}></h2>
   <p set:html={tx.html('about.author.body1', { author: SITE.author })} />
   <p set:html={tx.html('about.author.body2', { organization: SITE.organization, community: SITE.community })} />
-
+    </Fragment>
+    <Fragment slot="why">
   <h2 id="why" set:html={tx.html('about.why.title')}></h2>
   <p set:html={tx.html('about.why.body1')}></p>
   <p set:html={tx.html('about.why.body2')}></p>
   <blockquote><p set:html={tx.html('about.why.quote')}></p></blockquote>
   <p set:html={tx.html('about.why.body3')}></p>
-
+    </Fragment>
+    <Fragment slot="workflow">
   <h2 id="workflow" set:html={tx.html('about.workflow.title')}></h2>
   <ol class="plain flow">
     {WORKFLOW.map((key) => <li set:html={tx.html(`about.workflow.${key}`)} />)}
   </ol>
   <p set:html={tx.html('about.workflow.tools', {}, { tools: toolList })} />
-
+    </Fragment>
+    <Fragment slot="principles">
   <h2 id="principles" set:html={tx.html('about.principles.title')}></h2>
   <p class="w-panel__note" set:html={tx.html('about.principles.note')} />
   <dl class="doclist">
@@ -100,7 +108,8 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
       ))
     }
   </dl>
-
+    </Fragment>
+    <Fragment slot="dogfooding">
   <h2 id="dogfooding" set:html={tx.html('about.dogfooding.title')}></h2>
   <p set:html={tx.html('about.dogfooding.body')} />
   {
@@ -150,7 +159,8 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
       <p class="w-panel__note" set:html={tx.html('about.dogfooding.none')}></p>
     )
   }
-
+    </Fragment>
+    <Fragment slot="scope">
   <h2 id="scope" set:html={tx.html('about.scope.title')}></h2>
   <p set:html={tx.html('about.scope.body')}></p>
   <ul>
@@ -158,13 +168,16 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     <li set:html={tx.html('about.scope.not-engine')} />
     <li set:html={tx.html('about.scope.authority')} />
   </ul>
-
+    </Fragment>
+    <Fragment slot="beyond">
   <h2 id="beyond" set:html={tx.html('about.beyond.title')}></h2>
   <p set:html={tx.html('about.beyond.body', { author: ECOSYSTEM_SNAPSHOT.author })} />
-
+    </Fragment>
+    <Fragment slot="design">
   <h2 id="design" set:html={tx.html('about.design.title')}></h2>
   <p set:html={tx.html('about.design.body')} />
-
+    </Fragment>
+    <Fragment slot="accessibility">
   <h2 id="accessibility" set:html={tx.html('about.a11y.title')}></h2>
   <ul>
     <li set:html={tx.html('about.a11y.landmarks')} />
@@ -174,10 +187,12 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     <li set:html={tx.html('about.a11y.text')}></li>
     <li set:html={tx.html('about.a11y.motion')}></li>
   </ul>
-
+    </Fragment>
+    <Fragment slot="performance">
   <h2 id="performance" set:html={tx.html('about.perf.title')}></h2>
   <p set:html={tx.html('about.perf.body')} />
-
+    </Fragment>
+    <Fragment slot="quality-gates">
   <h2 id="quality-gates" set:html={tx.html('about.gates.title')}></h2>
   <div class="wide-scroll">
     <table class="w-table">
@@ -196,7 +211,8 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
       </tbody>
     </table>
   </div>
-
+    </Fragment>
+    <Fragment slot="deployment">
   <h2 id="deployment" set:html={tx.html('about.deploy.title')}></h2>
   <ul>
     <li set:html={tx.html('about.deploy.static')}></li>
@@ -205,7 +221,8 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     <li set:html={tx.html('about.deploy.aliases')} />
   </ul>
   <p set:html={tx.html('about.deploy.status')} />
-
+    </Fragment>
+    <Fragment slot="sources">
   <h2 id="sources" set:html={tx.html('about.sources.title')}></h2>
   <dl class="diag">
     <dt set:html={tx.html('about.sources.protocol')}></dt>
@@ -215,4 +232,6 @@ const WORKFLOW = ['idea', 'target', 'agent', 'verify', 'audit', 'handoff', 'next
     <dt set:html={tx.html('about.sources.design')}></dt>
     <dd set:html={tx.html('about.sources.design-value')}></dd>
   </dl>
+    </Fragment>
+  </PageSections>
 </SiteLayout>

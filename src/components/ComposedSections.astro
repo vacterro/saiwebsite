@@ -1,0 +1,64 @@
+---
+import { SITE } from '../data/site';
+import { sourceUrl } from '../content-engine/models/protocol';
+import registry from '../content-engine/registry/pages.json';
+import sources from '../content-engine/registry/sources.json';
+import { BLOCKS, translator } from '../content-engine/i18n/catalog';
+import { safeActionHref, validateComposition, visibleSections } from '../content-engine/compositions/compositions.mjs';
+
+interface Props { page: string; locale?: string; mode?: 'page' | 'append' | 'slots'; section?: string }
+type Doc = Record<string, any>;
+const { page, locale, mode = 'page' } = Astro.props;
+const files = import.meta.glob<Doc>('../content-engine/compositions/*.json', { eager: true, import: 'default' });
+const entry = Object.entries(files).find(([, doc]) => doc.page === page && (doc.mode ?? 'page') === mode);
+const doc = entry?.[1];
+if (entry) {
+  const problems = validateComposition(doc, entry[0], BLOCKS, registry.pages.map((p) => p.id), sources.sources.map((s) => s.id));
+  if (problems.length) throw new Error(problems.join('\n'));
+}
+const tx = translator(locale);
+const canonical = translator('en');
+const site = SITE as unknown as Record<string, string>;
+const vars = Object.fromEntries(Object.entries(doc?.bindings ?? {}).map(([name, value]) => {
+  const [kind, ref] = String(value).split(/:(.*)/s);
+  const resolved = kind === 'site' ? site[ref] : sourceUrl(ref);
+  if (!resolved) throw new Error(`unknown composition binding ${value}`);
+  return [name, resolved];
+}));
+const fill = (href: string) => {
+  const value = href.replace(/\{([a-zA-Z]+)\}/g, (_m: string, name: string) => vars[name]);
+  if (!safeActionHref(value)) throw new Error(`unsafe composition URL: ${value}`);
+  return value;
+};
+---
+{doc && visibleSections(doc).filter((s:Doc)=>s.type!=='slot' && (!Astro.props.section || s.id===Astro.props.section)).map((s: Doc) => {
+  const words = s.localizable === false ? canonical : tx;
+  const lang = s.localizable === false ? 'en' : undefined;
+  return s.type === 'heading' ? (
+    <h2 data-section={s.id} lang={lang} set:html={words.html(s.text, vars)}></h2>
+  ) : s.type === 'paragraph' ? (
+    <p data-section={s.id} lang={lang} set:html={words.html(s.text, vars)} />
+  ) : s.type === 'list' && s.ordered ? (
+    <ol data-section={s.id} lang={lang}>{s.items.map((id: string) => <li set:html={words.html(id, vars)} />)}</ol>
+  ) : s.type === 'list' ? (
+    <ul data-section={s.id} lang={lang}>{s.items.map((id: string) => <li set:html={words.html(id, vars)} />)}</ul>
+  ) : (
+    <div class="cards" data-section={s.id} lang={lang}>
+      {s.cards.map((c: Doc) => (
+        <article class="card">
+          <header class="card__head"><h2 class="card__title" set:html={words.html(c.title, vars)}></h2></header>
+          <div class="card__body">
+            {c.body.map((id: string) => <p set:html={words.html(id, vars)} />)}
+            {c.action && <p class="card__links">
+              {/^https?:/.test(fill(c.action.href)) ? (
+                <a class="w-button w-button--small" href={fill(c.action.href)} rel="noopener" data-external set:html={words.html(c.action.label)}></a>
+              ) : (
+                <a class="w-button w-button--small" href={words.href(fill(c.action.href))} set:html={words.html(c.action.label)}></a>
+              )}
+            </p>}
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+})}

@@ -24,10 +24,14 @@
  */
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { withMutationLock, writeTransaction } from '../src/content-engine/operations/files.mjs';
+import { referenceSources } from '../src/content-engine/sources/references.mjs';
+import { validateCanonicalSnapshot } from '../src/content-engine/sources/canonical.mjs';
 
-export const SNAPSHOT_DIR = 'src/data/canonical';
+export const SNAPSHOT_DIR = process.env.SAI_CANONICAL_OUT ?? 'src/data/canonical';
 export const FILES = {
   registry: 'saipen/REGISTRY.json',
   stateSchema: 'extensions/schemas/state.schema.json',
@@ -48,13 +52,13 @@ const REPO = 'vacterro/saipen';
 
 async function fromGitHub(ref) {
   const api = await fetch(`https://api.github.com/repos/${REPO}/commits/${ref}`, {
-    headers: { accept: 'application/vnd.github+json', 'user-agent': 'sai-website-sync' },
+    headers: { accept: 'application/vnd.github+json', 'user-agent': 'sai-website-sync' }, signal: AbortSignal.timeout(30_000),
   });
   if (!api.ok) throw new Error(`GitHub: cannot resolve ${REPO}@${ref}: HTTP ${api.status}`);
   const commit = await api.json();
   const sha = commit.sha;
   const raw = async (path) => {
-    const res = await fetch(`https://raw.githubusercontent.com/${REPO}/${sha}/${path}`);
+    const res = await fetch(`https://raw.githubusercontent.com/${REPO}/${sha}/${path}`, { signal: AbortSignal.timeout(30_000) });
     if (!res.ok) throw new Error(`GitHub raw ${path}@${sha}: HTTP ${res.status}`);
     return Buffer.from(await res.arrayBuffer());
   };
@@ -76,19 +80,20 @@ function fromCheckout(src) {
 }
 
 if (process.argv[1]?.endsWith('sync-canonical.mjs')) {
-  const ref = process.env.SAIPEN_REF;
   const src = process.env.SAIPEN_SRC;
+  const ref = process.env.SAIPEN_REF ?? (!src ? 'main' : undefined);
   if (!ref && !src) {
     console.error('Set SAIPEN_REF=<branch|tag|sha> (GitHub) or SAIPEN_SRC=<local checkout>.');
     process.exit(2);
   }
   const origin = ref ? await fromGitHub(ref) : fromCheckout(src);
-  mkdirSync(SNAPSHOT_DIR, { recursive: true });
   const files = {};
+  const changes = {};
   for (const [key, rel] of Object.entries(FILES)) {
-    const target = join(SNAPSHOT_DIR, `${key}.json`);
-    writeFileSync(target, await origin.read(rel));
-    files[key] = { source: rel, sha256: sha256(target) };
+    const bytes = await origin.read(rel);
+    JSON.parse(bytes.toString('utf8'));
+    changes[`${key}.json`] = bytes;
+    files[key] = { source: rel, sha256: createHash('sha256').update(bytes).digest('hex') };
   }
   const meta = {
     note: 'Byte-exact snapshot of canonical SAIPEN machine sources. Do not edit by hand; run npm run canonical:sync.',
@@ -100,7 +105,24 @@ if (process.argv[1]?.endsWith('sync-canonical.mjs')) {
     commitDate: origin.commitDate,
     files,
   };
-  writeFileSync(join(SNAPSHOT_DIR, 'meta.json'), `${JSON.stringify(meta, null, 2)}
-`);
+  const documentation={schemaVersion:1,commit:origin.commit,version:origin.version,files:{}};
+  for (const ref of referenceSources().filter((r)=>!r.machine)) {
+    const bytes=await origin.read(ref.path);
+    documentation.files[ref.path]={sha256:createHash('sha256').update(bytes).digest('hex')};
+  }
+  const documentationBytes=JSON.stringify(documentation,null,2)+'\n';
+  changes['documentation.json']=documentationBytes;
+  meta.documentation={file:'documentation.json',sha256:createHash('sha256').update(documentationBytes).digest('hex')};
+  changes['meta.json'] = JSON.stringify(meta, null, 2) + '\n';
+  const validationDir=mkdtempSync(join(tmpdir(),'sai-canonical-validate-'));
+  try {
+    for(const [name,bytes] of Object.entries(changes))writeFileSync(join(validationDir,name),bytes);
+    const problems=validateCanonicalSnapshot(validationDir);
+    if(problems.length)throw new Error(`[canonical-sync-refused] ${problems.join('; ')}; previous snapshot retained`);
+  } finally {rmSync(validationDir,{recursive:true});}
+  const root = process.env.SAI_SYNC_STAGING_ROOT ?? '.';
+  const { relative } = await import('node:path');
+  const scoped = Object.fromEntries(Object.entries(changes).map(([name, bytes]) => [relative(root, join(SNAPSHOT_DIR, name)), bytes]));
+  withMutationLock(root, () => writeTransaction(root, scoped));
   console.log(`snapshot: SAIPEN ${meta.version} @ ${meta.commit?.slice(0, 8)} from ${meta.origin} (${Object.keys(files).length} files)`);
 }

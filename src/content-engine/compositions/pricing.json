@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 2,
+  "page": "pricing",
+  "mode": "slots",
+  "note": "Native views own interactive/generated markup. This manifest owns section identity, visibility and order; ordinary paragraph/list/card sections use the shared renderer. Native slots supply their own model variables.",
+  "bindings": {},
+  "availableSlots": [
+    "overview",
+    "future",
+    "support"
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "owner": "pricing",
+      "order": 10,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ],
+        "required": true
+      },
+      "type": "slot",
+      "slot": "overview",
+      "blocks": [
+        "pricing.title",
+        "pricing.badge-note",
+        "pricing.col.offering",
+        "pricing.col.state",
+        "pricing.col.today",
+        "pricing.state.free",
+        "pricing.state.none",
+        "pricing.protocol.name",
+        "pricing.protocol.today",
+        "pricing.local.name",
+        "pricing.local.today",
+        "pricing.tools.name",
+        "pricing.tools.today",
+        "pricing.hosted.name",
+        "pricing.hosted.today"
+      ]
+    },
+    {
+      "id": "future",
+      "owner": "pricing",
+      "order": 20,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "future",
+      "blocks": [
+        "pricing.future.title",
+        "pricing.future.body"
+      ]
+    },
+    {
+      "id": "support",
+      "owner": "pricing",
+      "order": 30,
+      "visibility": "public",
+      "maturity": "stable",
+      "sourceIds": [
+        "site.identity",
+        "vacterro.support.public"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "support",
+      "blocks": [
+        "pricing.support.title",
+        "pricing.support.body",
+        "pricing.support.direct",
+        "pricing.support.bank-title",
+        "pricing.support.bank",
+        "pricing.support.recipient",
+        "pricing.support.copy",
+        "pricing.support.copied",
+        "pricing.support.copy-failed",
+        "pricing.support.crypto-title",
+        "pricing.support.network-label",
+        "pricing.support.source"
+      ]
+    }
+  ],
+  "metadataBlocks": [
+    "pricing.description"
+  ]
+}

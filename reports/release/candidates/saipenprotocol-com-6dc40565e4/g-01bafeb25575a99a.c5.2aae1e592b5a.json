@@ -1,0 +1,78 @@
+{
+  "tool": "release-candidate",
+  "receiptKind": "generation-readiness",
+  "gateContract": "5",
+  "origin": "https://saipenprotocol.com",
+  "storeId": "saipenprotocol-com-6dc40565e4",
+  "generation": "g-01bafeb25575a99a",
+  "sha256": "01bafeb25575a99a211e5129318db541f1a4601e707efcd012e8738841931a1a",
+  "files": 137,
+  "source": {
+    "rev": "9f5c020adf816610dd58b10b75099a17552a14e6",
+    "dirty": true,
+    "dirtyFiles": 566,
+    "dirtyIdentity": "e8f19148caffb26db8611f4c7bcc83abad713618fba62348d64cb9c5f24d24bf",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "profile": "full",
+  "verdict": "PASS",
+  "readiness": "FULL_RELEASE_READY",
+  "commitState": "COMMITTED",
+  "gates": {
+    "site:doctor": true,
+    "lint-styles": true,
+    "validate-themes": true,
+    "validate-canonical": true,
+    "validate-content": true,
+    "validate-registry": true,
+    "validate-baselines": true,
+    "validate-licenses": true,
+    "validate:media": true,
+    "audit-build": true,
+    "i18n": true,
+    "test:engine": true,
+    "check": true,
+    "astro-build": true,
+    "test:engine-build": true,
+    "test:browser-matrix": true,
+    "release:dual-origin": true
+  },
+  "releaseVerify": "PASS",
+  "candidateVerify": "PASS",
+  "smoke": "LOCAL_STATIC_HOST_PASS",
+  "engine": {
+    "tests": 387,
+    "pass": 387,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "unknownSkips": 0
+  },
+  "engineBuild": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "unknownSkips": 0
+  },
+  "browser": {
+    "tests": 791,
+    "passed": 711,
+    "failed": 0,
+    "skipped": 80,
+    "flaky": 0,
+    "unknownSkips": 0,
+    "missingSuites": 0
+  },
+  "stagedDigest": "01bafeb25575a99a211e5129318db541f1a4601e707efcd012e8738841931a1a",
+  "createdAt": "2026-10-10T01:06:23.958Z"
+}

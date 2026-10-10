@@ -103,9 +103,10 @@ export function markupSignature(src) {
 
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 export const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ESCAPES[c]);
+export const safeHref = (href) => /^(?:https?:\/\/|mailto:|\/(?!\/)|#)/.test(href) && !/[\u0000-\u001f<>"']/.test(href);
 
 function fill(text, vars, html = {}) {
-  return text.replace(PLACEHOLDER, (whole, name) => {
+  return text.replace(PLACEHOLDER, (_whole, name) => {
     if (name in html) return html[name];
     if (!(name in vars)) throw new Error(`placeholder {${name}} has no value`);
     return escapeHtml(vars[name]);
@@ -132,6 +133,7 @@ export function renderInline(src, vars = {}, htmlVars = {}) {
         if (t.t === 'code') return `<code>${textHtml(t.v, vars, htmlVars)}</code>`;
         if (t.t === 'strong') return `<strong>${walk(t.v)}</strong>`;
         const href = fill(t.href, vars);
+        if (!safeHref(href)) throw new Error(`unsafe inline link: ${href}`);
         const external = /^https?:\/\//.test(href) ? ' rel="noopener" data-external' : '';
         return `<a href="${href}"${external}>${walk(t.v)}</a>`;
       })
@@ -141,7 +143,7 @@ export function renderInline(src, vars = {}, htmlVars = {}) {
 
 /** Render a plain text block: placeholders substituted, no markup, not escaped (Astro escapes on output). */
 export function renderText(src, vars = {}) {
-  return String(src).replace(PLACEHOLDER, (whole, name) => {
+  return String(src).replace(PLACEHOLDER, (_whole, name) => {
     if (!(name in vars)) throw new Error(`placeholder {${name}} has no value`);
     return String(vars[name]);
   });
@@ -162,7 +164,8 @@ export function validateCatalog(doc, file, sourceIds = []) {
     if (typeof block.text !== 'string' || !normalizeText(block.text)) problems.push(`[malformed] ${where}: text must be a non-empty string`);
     else if (block.type === 'inline') {
       try {
-        tokenize(block.text);
+        const links = (tokens) => tokens.flatMap((t) => t.t === 'link' ? [t.href, ...links(t.v)] : t.t === 'strong' ? links(t.v) : []);
+        for (const href of links(tokenize(block.text))) if (!safeHref(href) && !/^\{[a-zA-Z][a-zA-Z0-9]*\}/.test(href)) problems.push(`[unsafe-link] ${where}: ${href}`);
       } catch (error) {
         problems.push(`[bad-markup] ${where}: ${error.message}`);
       }
@@ -175,8 +178,8 @@ export function validateCatalog(doc, file, sourceIds = []) {
 }
 
 /**
- * Canonical hash of a whole Markdown document (front matter included), for
- * document-level translation units. Whitespace-only edits do not change it.
+ * Aggregate document fingerprint for legacy consumers. Translation freshness
+ * is owned by the independent hashes in i18n/segments.mjs.
  */
 export function documentHash(raw) {
   return createHash('sha256').update(`markdown\0${normalizeText(String(raw).replace(/\r\n/g, '\n'))}`).digest('hex').slice(0, 16);

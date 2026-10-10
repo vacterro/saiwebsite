@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "document": "getting-started/quickstart",
+  "units": {
+    "docs.getting-started.quickstart.adopt-a-project": {
+      "text": "## 3. Seo projekt\n\nAva agendis oma projekt ja sisesta vestluskäskudena:\n\n```text\nsaipen set\nsaipen continue\nsaipen validate\n```\n\n`set` loob projekti `.saipen/` mälu. Uues tühjas projektis küsib `continue` esimest eesmärki või tööjärge; anna agendile ülesanne. Hilisemates seanssides — homme, teise mudeliga või pärast tõrget — jätkab sama `saipen continue`. `validate` peab teatama PASS.",
+      "sourceHash": "f269d4e0da4b4ca5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.quickstart.clone-once": {
+      "text": "## 1. Klooni üks kord\n\n```bash\ngit clone https://github.com/vacterro/saipen\ncd saipen\n```",
+      "sourceHash": "7d7c525d8e3ce5ec",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.quickstart.commit-the-memory-once": {
+      "text": "## 4. Commit'i mälu üks kord\n\n```bash\ngit add .saipen && git commit -m \"saipen: init project memory\"\n```\n\nSeni keeldub `validate` teatega `.saipen/IDENTITY.md exists but is not\ntracked by git`: identiteedifail laseb uuel kloonil sama projekti identiteedi taastada. Pärast seda säilitavad tavalised commit'id mälu.\n\n> [!NOTE]\n> Samad kontrollid töötavad terminalis ilma agendita. Launcher paigaldatakse koos oskusega, näiteks `\"$HOME/.agents/skills/saipen/bin/saipen\" continue` macOSis ja Linuxis või `& \"$env:USERPROFILE\\.agents\\skills\\saipen\\bin\\saipen.cmd\" continue` PowerShellis. PATH-i muutmist pole vaja.",
+      "sourceHash": "9b522158534e4f24",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.quickstart.description": {
+      "text": "Paigalda SAIPEN kord masinasse, seo projekt, jätka külma agendiga, kontrolli ja eemalda puhtalt.",
+      "sourceHash": "617c05f66332e6b2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.quickstart.install-once-per-machine": {
+      "text": "## 2. Paigalda kord masinasse\n\nWindows (PowerShell):\n\n```text\npowershell -NoProfile -ExecutionPolicy Bypass -File .\\bootstrap\\inject.ps1\n```\n\nmacOS, Linux või Git Bash:\n\n```bash\nbash bootstrap/inject.sh\n```\n\nPaigaldaja lisab toetatud agentide juhisefailidesse märgistatud SAIPEN ploki, tehes enne originaalidest varukoopia. See kopeerib käituskeskkonna oskuste kaustadesse ja paigaldab vastavad kontrollikonksud, säilitades sinu muud seaded. Taaskäivita juba töötanud agent. Toetatud keskkonnad ja nende suutlikkus protokolli jõustada on [ühilduvuse lehel](/compatibility/).",
+      "sourceHash": "58d92329238b7e5d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.quickstart.intro": {
+      "text": "Nõuded: **Git, Python 3.11 või uuem** ja koodiagent. `pip`-paigaldust, kontot, serverit ega deemonit pole vaja. Hoia kloon alles kuni eemaldamiseni: paigaldatud agendijuhised ja uuenduskontrollid viitavad selle asukohale.",
+      "sourceHash": "0653e8f00be15606",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.quickstart.title": {
+      "text": "Kiiralustus",
+      "sourceHash": "893546674ad7a85c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.quickstart.try-it-without-installing": {
+      "text": "## Proovi ilma paigaldamata\n\nPalu agendil lugeda `<clone>/saipen/BOOT.md` ja järgida selle külmkäivituse suunamist.",
+      "sourceHash": "422dc4a3ef3ab505",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "docs.getting-started.quickstart.uninstall": {
+      "text": "## Eemaldamine\n\nKlooni kaustast Windowsis:\n\n```text\npowershell -NoProfile -ExecutionPolicy Bypass -File .\\bootstrap\\uninstall.ps1\n```\n\nmacOS, Linux või Git Bash:\n\n```bash\nbash bootstrap/uninstall.sh\n```\n\nEemaldamine kustutab märgistatud juhiseploki, SAIPEN kontrollikonksude kirjed ja muutmata paigaldatud failid. See säilitab muud seaded, konksud ja oskused, sinu hilisemad muudatused, varukoopiad ning iga projekti `.saipen/` mälu.",
+      "sourceHash": "b20c33a0ec240d98",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    }
+  }
+}

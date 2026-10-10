@@ -5,10 +5,10 @@
  * words; this view owns only the markup of each section type.
  */
 import MaturityBadge from '../components/MaturityBadge.astro';
+import ComposedSections from '../components/ComposedSections.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import { SITE } from '../data/site';
-import { ROUTES } from '../data/site';
-import { sourceUrl } from '../content-engine/models/protocol';
+import type { PageMaturity } from '../data/site';
+import { compositionVars } from '../content-engine/compositions/catalog';
 import registry from '../content-engine/registry/pages.json';
 import { BLOCKS, translator } from '../content-engine/i18n/catalog';
 import { validateComposition } from '../content-engine/compositions/compositions.mjs';
@@ -20,58 +20,19 @@ interface Props {
 
 type Doc = Record<string, any>;
 const files = import.meta.glob<Doc>('../content-engine/compositions/*.json', { eager: true, import: 'default' });
-const entry = Object.entries(files).find(([, doc]) => doc.page === Astro.props.page);
+const entry = Object.entries(files).find(([, doc]) => doc.page === Astro.props.page && (doc.mode ?? 'page') === 'page');
 if (!entry) throw new Error(`no composition manifest for page ${Astro.props.page}`);
 const [file, doc] = entry;
 const problems = validateComposition(doc, file, BLOCKS, registry.pages.map((p) => p.id));
 if (problems.length) throw new Error(`${file} is invalid:\n  ${problems.join('\n  ')}`);
 
 const tx = translator(Astro.props.locale);
-const route = ROUTES.find((r) => r.id === doc.page)!;
-const site = SITE as unknown as Record<string, string>;
-const vars: Record<string, string> = Object.fromEntries(
-  Object.entries(doc.bindings ?? {}).map(([name, value]) => {
-    const [kind, ref] = String(value).split(/:(.*)/s);
-    return [name, kind === 'site' ? site[ref] : sourceUrl(ref)];
-  }),
-);
-const fill = (href: string) => href.replace(/\{([a-zA-Z]+)\}/g, (_m: string, name: string) => vars[name]);
+const route = registry.pages.find((r) => r.id === doc.page)!;
+const vars=compositionVars(doc);
 ---
 
-<SiteLayout locale={tx.locale} title={tx.text(doc.title)} tag={route.href} description={tx.text(doc.description)}>
+<SiteLayout locale={tx.locale} title={tx.text(doc.title,vars)} tag={route.route} description={tx.text(doc.description,vars)}>
   <h1 set:html={tx.html(doc.title)}></h1>
-  <p><MaturityBadge level={route.maturity} /></p>
-  {
-    doc.sections.map((s: Doc) =>
-      s.type === 'heading' ? (
-        <h2 set:html={tx.html(s.text)}></h2>
-      ) : s.type === 'paragraph' ? (
-        <p set:html={tx.html(s.text, vars)} />
-      ) : s.type === 'list' && s.ordered ? (
-        <ol>{s.items.map((id: string) => <li set:html={tx.html(id, vars)} />)}</ol>
-      ) : s.type === 'list' ? (
-        <ul>{s.items.map((id: string) => <li set:html={tx.html(id, vars)} />)}</ul>
-      ) : (
-        <div class="cards">
-          {s.cards.map((c: Doc) => (
-            <article class="card">
-              <header class="card__head"><h2 class="card__title" set:html={tx.html(c.title)}></h2></header>
-              <div class="card__body">
-                {c.body.map((id: string) => <p set:html={tx.html(id, vars)} />)}
-                {c.action && (
-                  <p class="card__links">
-                    {/^https?:/.test(fill(c.action.href)) ? (
-                      <a class="w-button w-button--small" href={fill(c.action.href)} rel="noopener" data-external set:html={tx.html(c.action.label)}></a>
-                    ) : (
-                      <a class="w-button w-button--small" href={tx.href(fill(c.action.href))} set:html={tx.html(c.action.label)}></a>
-                    )}
-                  </p>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      ),
-    )
-  }
+  <p><MaturityBadge level={route.maturity as PageMaturity} /></p>
+  <ComposedSections page={doc.page} locale={tx.locale} />
 </SiteLayout>

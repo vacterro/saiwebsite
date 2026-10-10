@@ -34,14 +34,13 @@ export function selectorMatches(pattern, id) {
 export function buildGraph({ sourcesDoc, registry, records, testsDoc, extra = {} }) {
   const nodes = new Map();
   const out = new Map();
+  const edges = [];
   const addNode = (id, data = {}) => {
-    if (!nodes.has(id)) nodes.set(id, { id, type: id.split(':')[0], ...data });
+    nodes.set(id, { ...(nodes.get(id) ?? {id,type:id.split(':')[0]}), ...data });
     if (!out.has(id)) out.set(id, new Set());
   };
   const addEdge = (from, to) => {
-    addNode(from);
-    addNode(to);
-    out.get(from).add(to);
+    edges.push([from,to]);
   };
 
   for (const source of sourcesDoc.sources) addNode(`source:${source.id}`, { kind: source.kind, authority: source.authority });
@@ -49,6 +48,7 @@ export function buildGraph({ sourcesDoc, registry, records, testsDoc, extra = {}
     addNode(`family:${family.id}`, { kind: family.kind });
     for (const s of family.sourceIds) addEdge(`source:${s}`, `family:${family.id}`);
   }
+  for (const page of registry.pages) addNode(`page:${page.id}`, { kind: page.kind, route: page.route });
   const byEntry = new Map();
   for (const r of records) {
     addNode(`page:${r.id}`, { kind: r.kind, route: r.route, audience: r.audience, nav: r.nav, record: r });
@@ -100,7 +100,12 @@ export function buildGraph({ sourcesDoc, registry, records, testsDoc, extra = {}
       }
     }
   }
-  return { nodes, out };
+  const problems=[];
+  for (const [from,to] of edges) {
+    if (!nodes.has(from) || !nodes.has(to)) problems.push(`[unknown-dependency] ${from} -> ${to}`);
+    else out.get(from).add(to);
+  }
+  return { nodes, out, problems };
 }
 
 /** Every cycle-closing edge, as `a -> b` strings. A valid graph has none. */
@@ -123,7 +128,7 @@ export function findCycles(graph) {
 /** Resolve a bare ID (`pricing`, `vacterro.support.public`, `docs.page`) to a node ID. */
 export function resolveNode(graph, id) {
   if (graph.nodes.has(id)) return id;
-  const hits = ['source', 'page', 'family', 'block', 'segment', 'gate'].map((t) => `${t}:${id}`).filter((n) => graph.nodes.has(n));
+  const hits = ['source', 'page', 'family', 'block', 'segment', 'section', 'model', 'artifact', 'gate'].map((t) => `${t}:${id}`).filter((n) => graph.nodes.has(n));
   return hits.length === 1 ? hits[0] : hits.length ? { ambiguous: hits } : null;
 }
 
@@ -154,6 +159,9 @@ export function impact(graph, start) {
     families: of('family'),
     blocks: of('block'),
     segments: of('segment'),
+    sections: of('section'),
+    models: of('model'),
+    artifacts: of('artifact'),
     units,
     locales: sortUnique(units.map((u) => u.split(':')[0])),
     gates: of('gate'),

@@ -1,0 +1,11 @@
+---
+import registry from '../../content-engine/registry/pages.json';
+import { PLAN } from '../../content-engine/i18n/catalog';
+import ComposedView from '../../views/ComposedView.astro';
+export function getStaticPaths() {
+  return PLAN.flatMap((plan) => plan.pages.filter((p) => registry.pages.some((r) => r.id === p.pageId && 'composition' in r)).map((p) => ({
+    params: { locale: plan.prefix, content: p.route.slice(1, -1) || undefined }, props: { page: p.pageId, locale: plan.locale },
+  })));
+}
+---
+<ComposedView page={Astro.props.page} locale={Astro.props.locale} />

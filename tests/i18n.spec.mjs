@@ -18,10 +18,10 @@ import { test, expect } from '@playwright/test';
  * which walks every built page.
  */
 
-const inventory = JSON.parse(readFileSync('src/content-engine/inventory/pages.inventory.json', 'utf8'));
+const inventory = JSON.parse(readFileSync(process.env.SAI_TEST_INVENTORY ?? 'src/content-engine/inventory/pages.inventory.json', 'utf8'));
 const VARIANTS = [...inventory.public, ...inventory.internal].filter((r) => r.locale !== 'en' && r.kind !== 'machine');
 const RAW_KEY = /\b(?:ui|pages|home|about|pricing|search|notfound|docs-ui)\.[a-z0-9-]+\.[a-z0-9.-]+\b/;
-const WIDTHS = [320, 390, 1280];
+const WIDTHS = [320, 390, 640, 1280, 1920];
 
 test('the inventory registers locale variants to check', () => {
   expect(VARIANTS.length).toBeGreaterThan(0);
@@ -132,7 +132,7 @@ test.describe('segmented documentation renders', () => {
   test('the locale llms.txt lists the document with its translation status', async ({ page }) => {
     test.skip(!llms, 'no localized llms.txt is built');
     const body = await (await page.request.get(llms.route)).text();
-    expect(body).toContain('status CURRENT');
+    expect(body).toContain(doc.locale==='qps-ploc'?'status CURRENT':'status MACHINE_DRAFT');
     expect(body).toContain('/docs/getting-started/introduction/');
   });
 });
@@ -147,4 +147,16 @@ test('localized search reads the locale index', async ({ page }) => {
   await page.goto(`${search.route}?q=${encodeURIComponent(word)}`);
   const first = page.locator('[data-results] a').first();
   await expect(first).toHaveAttribute('href', new RegExp(`^/${search.locale.toLowerCase()}/`));
+});
+
+test('direction control aligns reading order and isolates commands without mirroring artwork',async({page})=>{
+  await page.goto('/docs/getting-started/quickstart/');
+  // Latin control only. Uncovered Arabic/Hebrew remain font-blocked.
+  await page.evaluate(()=>document.documentElement.setAttribute('dir','rtl'));
+  expect(await page.locator('main').evaluate((el)=>getComputedStyle(el).direction)).toBe('rtl');
+  expect(await page.locator('pre code').first().evaluate((el)=>getComputedStyle(el).direction)).toBe('ltr');
+  expect(await page.locator('pre code').first().evaluate((el)=>getComputedStyle(el).unicodeBidi)).toBe('isolate');
+  const before=await page.locator('pre code').first().innerText();expect(before).toContain('git clone https://github.com/vacterro/saipen');
+  await page.setViewportSize({width:320,height:800});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
 });

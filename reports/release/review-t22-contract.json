@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "verdict": "PASS",
+  "mode": "contract",
+  "origin": {
+    "effective": "https://saipenprotocol.com",
+    "expected": "https://saipenprotocol.com",
+    "source": "default",
+    "planned": "https://saipenprotocol.com",
+    "plannedDomain": "saipenprotocol.com",
+    "release": false,
+    "acknowledged": null
+  },
+  "package": {
+    "name": "sai-website",
+    "version": "1.5.0"
+  },
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+    "metaSha256": "9050142024231f01792dcdbde625e91ee9da1a4e6460345624ae7d6978d12c9a"
+  },
+  "artifact": {
+    "directory": "dist",
+    "files": 154,
+    "sha256": "63242e9adde069d0425b0fe82e5519fe75bd0725a0223fb3c7869dd0ebe5e97d"
+  },
+  "checks": [
+    {
+      "id": "origin.valid",
+      "status": "PASS",
+      "detail": "https://saipenprotocol.com is a valid bare origin"
+    },
+    {
+      "id": "origin.expected-match",
+      "status": "PASS",
+      "detail": "artifact origin https://saipenprotocol.com equals the expected origin (default)"
+    },
+    {
+      "id": "origin.release-acknowledged",
+      "status": "PASS",
+      "detail": "not requested (contract mode); pass --release for a release verdict"
+    },
+    {
+      "id": "config.astro-site",
+      "status": "PASS",
+      "detail": "astro.config.mjs site resolves to https://saipenprotocol.com"
+    },
+    {
+      "id": "artifact.production",
+      "status": "PASS",
+      "detail": "built by astro build (build: production)"
+    },
+    {
+      "id": "artifact.package-version",
+      "status": "PASS",
+      "detail": "package 1.5.0"
+    },
+    {
+      "id": "artifact.protocol-identity",
+      "status": "PASS",
+      "detail": "SAIPEN 8.1.0 @ 55f278cd matches the artifact"
+    },
+    {
+      "id": "artifact.clean",
+      "status": "PASS",
+      "detail": "154 files in publishable categories only; no links, secrets or source"
+    },
+    {
+      "id": "artifact.readable",
+      "status": "PASS",
+      "detail": "154 files inventoried and hashed deterministically"
+    },
+    {
+      "id": "artifact.public",
+      "status": "PASS",
+      "detail": "not requested (development contract keeps diagnostics); pass --public for a public-candidate verdict"
+    },
+    {
+      "id": "seo.metadata-present",
+      "status": "PASS",
+      "detail": "85 pages carry readable HTML metadata"
+    },
+    {
+      "id": "sitemap.origin",
+      "status": "PASS",
+      "detail": "61 entries, all on https://saipenprotocol.com"
+    },
+    {
+      "id": "sitemap.routes-exist",
+      "status": "PASS",
+      "detail": "every sitemap entry is a generated public route"
+    },
+    {
+      "id": "sitemap.exclusions",
+      "status": "PASS",
+      "detail": "no debug, pseudo-locale or unapproved locale route is listed"
+    },
+    {
+      "id": "sitemap.indexable-equality",
+      "status": "PASS",
+      "detail": "sitemap lists exactly the 61 indexable pages"
+    },
+    {
+      "id": "sitemap.wellformed",
+      "status": "PASS",
+      "detail": "dist/sitemap.xml is well-formed"
+    },
+    {
+      "id": "robots.sitemap",
+      "status": "PASS",
+      "detail": "Sitemap: https://saipenprotocol.com/sitemap.xml"
+    },
+    {
+      "id": "robots.debug-disallow",
+      "status": "PASS",
+      "detail": "Disallow: /debug/ present (crawl hint only; noindex carries the indexing rule, exclusion never guaranteed)"
+    },
+    {
+      "id": "seo.canonical",
+      "status": "PASS",
+      "detail": "85 pages: canonical, Open Graph and route targets consistent on https://saipenprotocol.com"
+    },
+    {
+      "id": "seo.hreflang",
+      "status": "PASS",
+      "detail": "hreflang and x-default use the effective origin and public locales only"
+    },
+    {
+      "id": "navigation.root-relative",
+      "status": "PASS",
+      "detail": "internal navigation stays root-relative"
+    },
+    {
+      "id": "seo.surfaces-readable",
+      "status": "PASS",
+      "detail": "122 machine-facing surfaces readable"
+    },
+    {
+      "id": "seo.foreign-origin",
+      "status": "PASS",
+      "detail": "machine-facing surfaces reference only https://saipenprotocol.com and upstream projects"
+    },
+    {
+      "id": "noindex.debug",
+      "status": "PASS",
+      "detail": "5 debug pages carry noindex"
+    },
+    {
+      "id": "noindex.internal-locales",
+      "status": "PASS",
+      "detail": "9 pages of non-public locales carry noindex"
+    },
+    {
+      "id": "locales.restricted",
+      "status": "PASS",
+      "detail": "non-public locales (qps-ploc, et, ru) are not advertised"
+    }
+  ],
+  "external": [
+    {
+      "id": "dns",
+      "status": "BLOCKED",
+      "reason": "the origin hostname resolves to the deployment host; not checked offline"
+    },
+    {
+      "id": "https",
+      "status": "BLOCKED",
+      "reason": "TLS certificate and HTTPS reachability of the origin; not checked offline"
+    },
+    {
+      "id": "hosting",
+      "status": "BLOCKED",
+      "reason": "the static host serves dist/ with clean URLs, trailing slashes, 404 and content types; operator verification"
+    },
+    {
+      "id": "redirects",
+      "status": "BLOCKED",
+      "reason": "temporary-to-permanent redirect strategy, where the host supports it; operator verification"
+    },
+    {
+      "id": "search-indexing",
+      "status": "BLOCKED",
+      "reason": "actual search engine discovery and indexing; not claimed by any offline check. robots.txt Disallow is not access control and may hide the noindex directive from crawlers, so diagnostic exclusion is never guaranteed"
+    }
+  ]
+}

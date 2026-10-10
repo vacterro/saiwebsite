@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "page": "community",
   "note": "Page composition manifest (content-system M38). Sections render in this order through src/views/ComposedView.astro; reorder or remove a section here, and every locale follows without a page copy.",
   "title": "community.title",
@@ -44,15 +44,54 @@
             "href": "{contributing}"
           }
         }
-      ]
+      ],
+      "id": "channels",
+      "owner": "community",
+      "order": 10,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "heading",
-      "text": "community.proposal.title"
+      "text": "community.proposal.title",
+      "id": "proposal-title",
+      "owner": "community",
+      "order": 20,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "paragraph",
-      "text": "community.proposal.intro"
+      "text": "community.proposal.intro",
+      "id": "proposal-intro",
+      "owner": "community",
+      "order": 30,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "list",
@@ -61,19 +100,71 @@
         "community.proposal.q1",
         "community.proposal.q2",
         "community.proposal.q3"
-      ]
+      ],
+      "id": "proposal-checklist",
+      "owner": "community",
+      "order": 40,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "paragraph",
-      "text": "community.proposal.body"
+      "text": "community.proposal.body",
+      "id": "proposal-note",
+      "owner": "community",
+      "order": 50,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "heading",
-      "text": "community.decided.title"
+      "text": "community.decided.title",
+      "id": "decisions-title",
+      "owner": "community",
+      "order": 60,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "paragraph",
-      "text": "community.decided.intro"
+      "text": "community.decided.intro",
+      "id": "decisions-intro",
+      "owner": "community",
+      "order": 70,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "list",
@@ -82,15 +173,55 @@
         "community.decided.consensus",
         "community.decided.grammar",
         "community.decided.doctor"
-      ]
+      ],
+      "id": "decisions-list",
+      "owner": "community",
+      "order": 80,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "heading",
-      "text": "community.conduct.title"
+      "text": "community.conduct.title",
+      "id": "conduct-title",
+      "owner": "community",
+      "order": 90,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     },
     {
       "type": "paragraph",
-      "text": "community.conduct.body"
+      "text": "community.conduct.body",
+      "id": "conduct-note",
+      "owner": "community",
+      "order": 100,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "validate:content",
+          "test:shell"
+        ]
+      }
     }
-  ]
+  ],
+  "mode": "page"
 }

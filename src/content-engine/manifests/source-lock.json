@@ -7,9 +7,9 @@
       "adapter": "ecosystem",
       "version": null,
       "revision": null,
-      "revisionDate": "2026-10-07",
+      "revisionDate": null,
       "syncTool": "scripts/sync-ecosystem.mjs",
-      "sha256": "3d34bf65d148e086b3ef94e4f01a721cbd2bb89f9fe7352b096296bf9949ae1b",
+      "sha256": "910adcb20f7a9b343d62ca40f1053d27c6ae8d462614c8a3bf00cea945e4c7a2",
       "files": 1,
       "locked": true
     },
@@ -26,8 +26,8 @@
     "saipen.protocol.adapters": {
       "adapter": "canonical",
       "version": "8.1.0",
-      "revision": "55bde0f71f0ba1c886092e30212b4212af780759",
-      "revisionDate": "2026-10-07T00:47:43Z",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
       "syncTool": "scripts/sync-canonical.mjs",
       "sha256": "c3a421abed66f762f54dced1dac72931d81321a680b97b8d2b10296399989cc6",
       "files": 1,
@@ -36,18 +36,18 @@
     "saipen.protocol.meta": {
       "adapter": "canonical",
       "version": "8.1.0",
-      "revision": "55bde0f71f0ba1c886092e30212b4212af780759",
-      "revisionDate": "2026-10-07T00:47:43Z",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
       "syncTool": "scripts/sync-canonical.mjs",
-      "sha256": "2478d33ec3a8698511278bef534a5a0bdef26b258d30698958be1b4b5ca84e2f",
+      "sha256": "c29e24aed90e442f878ac020f79c1e65ba4aa927dcae406e34975d7f02741059",
       "files": 1,
       "locked": true
     },
     "saipen.protocol.registry": {
       "adapter": "canonical",
       "version": "8.1.0",
-      "revision": "55bde0f71f0ba1c886092e30212b4212af780759",
-      "revisionDate": "2026-10-07T00:47:43Z",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
       "syncTool": "scripts/sync-canonical.mjs",
       "sha256": "fb92c221e715fdf0e6c144b9e40f332da2e5b1b42ea0652b3784f25dada12485",
       "files": 1,
@@ -56,10 +56,120 @@
     "saipen.protocol.state-schema": {
       "adapter": "canonical",
       "version": "8.1.0",
-      "revision": "55bde0f71f0ba1c886092e30212b4212af780759",
-      "revisionDate": "2026-10-07T00:47:43Z",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
       "syncTool": "scripts/sync-canonical.mjs",
       "sha256": "ba45bfbdd972a31364d4037ec59247ad3afbbf246123a29f3b79b13b80f5afcb",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.brochure.en": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.changelog": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.guide": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.license": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.readme": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "c356c84376835666fb16f6c94f27cee650972515d3ea7cd2ff6ca6988e789a28",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.saipen.commands": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.saipen.core": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.saipen.maintenance": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.saipen.phases.verify": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.security": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265",
+      "files": 1,
+      "locked": true
+    },
+    "saipen.reference.spec": {
+      "adapter": "canonical-reference",
+      "version": "8.1.0",
+      "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+      "revisionDate": "2026-10-07T08:07:00Z",
+      "syncTool": "scripts/sync-canonical.mjs",
+      "sha256": "2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873",
       "files": 1,
       "locked": true
     },
@@ -79,8 +189,8 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "7fcbb3f8c2b3c332462faf513bd7efbfa5d2f91fa5d3074cb3289078edace3c3",
-      "files": 6,
+      "sha256": "8d2a7f74f15da987bbaf6b23fa654db501d2ac4f5a430405f2cbf717b5ef7d91",
+      "files": 7,
       "locked": true
     },
     "site.content.docs": {
@@ -89,7 +199,7 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "6dcac46c2765467b30d3d1e7092187ded2ef8568868a258cc157c19ad7af05aa",
+      "sha256": "820a7920bef3e1965ea4c8e003cd69e1721c40fd886d04251335422e9f8c42d5",
       "files": 28,
       "locked": true
     },
@@ -109,7 +219,7 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "625fa389761dcdcb1c7ff202117e2c527bd1bf86deea75b519b0dad17dfdf690",
+      "sha256": "5ec518ae3553c03947b5b1287b4fe4bd693c62780c3be211819071eefa2fa2d1",
       "files": 1,
       "locked": true
     },
@@ -119,17 +229,17 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "f4ad7cddb8d755e3f856e4ca9955fceec86b622e005ac572cd63e4236aff6b86",
+      "sha256": "f8efab10eed49cd8e2e9ac4f76396320226f962cd543e626cbbaf31d5048d8e3",
       "files": 1,
       "locked": true
     },
     "site.package": {
       "adapter": "package-version",
-      "version": "1.4.0",
+      "version": "1.5.0",
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "09580b360943713a40b2760121c8726790bd2000d71c2bdbbdb8eb4639379cc0",
+      "sha256": "dd9ed692c18208b79ec4baeacfc0cc942c3c65740c32e7979eba8bc05f3a367b",
       "files": 1,
       "locked": true
     },
@@ -169,7 +279,7 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "8e80f2e87aec8d40d16daa319c95e0abec2b2bc74ad0e97f02e50657ccd845e9",
+      "sha256": "9a624c5fe8d35bace101221ead1726ed47b9fac36f59128baeb4459ad0b23ffd",
       "files": 1,
       "locked": true
     },
@@ -189,7 +299,7 @@
       "revision": null,
       "revisionDate": null,
       "syncTool": null,
-      "sha256": "01b52957081ba12733538f949e83e1b3cfd684c69351cb0f62cd0df7b576f42d",
+      "sha256": "37e22fa22bae65b0143e46253a200d4f42ffd02cae411235796a0fd9e5f4775a",
       "files": 16,
       "locked": true
     }

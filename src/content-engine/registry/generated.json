@@ -165,6 +165,36 @@
         "base": "tests/baselines",
         "fileTemplate": "{key}"
       }
+    },
+    {
+      "id": "canonical.references",
+      "paths": [
+        "src/data/canonical/documentation.json"
+      ],
+      "generator": "npm run canonical:sync",
+      "inputs": [
+        "source:saipen.reference.brochure.en",
+        "source:saipen.reference.guide",
+        "source:saipen.reference.license",
+        "source:saipen.reference.readme",
+        "source:saipen.reference.saipen.commands",
+        "source:saipen.reference.saipen.core",
+        "source:saipen.reference.saipen.maintenance",
+        "source:saipen.reference.saipen.phases.verify",
+        "source:saipen.reference.security",
+        "source:saipen.reference.spec",
+        "source:saipen.reference.changelog"
+      ],
+      "integrity": {
+        "kind": "provenance",
+        "manifest": "src/data/canonical/documentation.json",
+        "require": [
+          "schemaVersion",
+          "commit",
+          "version",
+          "files"
+        ]
+      }
     }
   ]
 }

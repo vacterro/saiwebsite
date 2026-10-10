@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "document": "getting-started/mental-model",
+  "units": {
+    "docs.getting-started.mental-model.description": {
+      "text": "Neli faili, üks viide ja olekumasin. Kuidas SAIPEN projekti enne reeglite lugemist ette kujutada.",
+      "sourceHash": "bf6c947c7c290dc1",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.mental-model.how-a-session-looks": {
+      "text": "## Kuidas seanss välja näeb\n\n1. Külm agent käivitab `saipen continue`.\n2. SAIPEN seob projekti, taastab katkestatud toimingud, kooskõlastab tuletatud metaandmed, kontrollib ja suunab.\n3. Agent teeb tagastatud tegevuse: lõpetab poolelioleva ülesande, alustab kõrgeima prioriteediga teostatavat ülesannet või peatub päris inimotsuse piiril.\n4. Iga samm lõpeb kontrollpunktiga: `LOG`, siis `BOARD`, siis `STATE`.\n5. Seanss võib igal hetkel lõppeda. Järgmine agent alustab jälle sammust 1.",
+      "sourceHash": "c2a5dc60d0694314",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.mental-model.intro": {
+      "text": "Kujuta ette töökoda, kus töötajad vahetuvad igas vahetuses ja keegi ei tohi toetuda eelmise töötaja jutule. Töökoda toimib, sest töölaual olev tööleht ütleb täpselt, mis toimub ja mida järgmisena teha. SAIPEN on see tööleht, mida hoitakse projektis.\n\n```text\nProject\n  |\n  +-- .saipen/STATE.md ------ what is happening right now\n  +-- .saipen/BOARD.md ------ what work exists\n  +-- .saipen/LOG.md -------- why the project reached this state\n  +-- .saipen/KNOWLEDGE/ ---- what durable facts must survive sessions\n          |\n          v\n   saipen continue\n          |\n          v\n      cold agent\n          |\n          v\n     next_action -> work -> checkpoint -> next ticket\n```",
+      "sourceHash": "eadfb2556ba3974c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.mental-model.three-ideas-carry-everything": {
+      "text": "## Kõik toetub kolmele mõttele\n\n**1. Failid on mälust kõrgemal.** Kettal olev on autoriteetne. Kui `STATE.md` nimetab teist agenti või on tegutseva agendi viimasest kirjutusest uuem, on kogu agendi meeles olev projektiseis aegunud ja tuleb uuesti lugeda.\n\n**2. Üks täpne järgmine samm.** `next_action` on ette arvutatud vastus küsimusele „mida ma kohe praegu teen?”. Sellel on alati üks vähestest masintuvastatavatest kujudest — `PHASE BUILD T-12`, `RUN: <command>`, `saipen <command>`, `RESUME: T-12 VERIFY` või `WAIT:`, mis ütleb, miks on inimest vaja. Agent ei plaani projekti igas seansis uuesti; ta teeb järgmise sammu.\n\n**3. Edenemine on tõend, mitte jutustus.** Etapp liigub edasi ainult kontrollpunkti kaudu ning ülesanne sulgub ainult VERIFY, REVIEW ja SHIP kaudu, koos logisse salvestatud tõenditega. „Valmis” ilma tõenditeta ei kaalu midagi.",
+      "sourceHash": "1b1d362ccd357123",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.mental-model.three-layers": {
+      "text": "## Kolm kihti\n\n```text\nCORE            continuation / state / checkpoint / validation   required\n  └─ MAINTENANCE   autonomous HUNT / ADD / CLEAN evolution        optional\n       └─ GOAL MODE / SUBAGENTS   throughput                      opt-in\n```\n\nTuum ei sõltu kunagi ülemistest kihtidest: kui autonoomne areng on välja lülitatud, on SAIPEN endiselt täielik jätkamisprotokoll ja külm agent jätkab õigesti.",
+      "sourceHash": "20ce3138f9fb3a0a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    },
+    "docs.getting-started.mental-model.title": {
+      "text": "Mõttemudel",
+      "sourceHash": "be1f5dad42887883",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-04.json"
+    }
+  }
+}

@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "note": "Which gate covers which pages and sources. site:impact recommends a gate when an impacted page or source matches one of its selectors. Selectors: all-html, kind:<kind>, nav:<nav>, page:<id or prefix.*>, source:<id or prefix.*>.",
   "gates": [
+    { "id": "test:engine", "command": "npm run test:engine", "covers": ["all-html", "kind:machine", "source:saipen.protocol.*", "source:github.vacterro.releases"] },
+    { "id": "test:i18n", "command": "npm run test:i18n", "covers": ["all-html", "kind:machine"] },
     { "id": "audit:build", "command": "npm run audit:build", "covers": ["all-html"] },
     { "id": "validate:content", "command": "npm run validate:content", "covers": ["all-html"] },
     { "id": "validate:registry", "command": "npm run validate:registry", "covers": ["all-html", "kind:machine"] },

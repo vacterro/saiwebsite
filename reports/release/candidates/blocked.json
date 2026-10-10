@@ -1,0 +1,45 @@
+{
+  "tool": "release-candidate",
+  "verdict": "BLOCKED",
+  "failedStage": "env-contract",
+  "origin": null,
+  "slug": null,
+  "storeId": null,
+  "storeKind": null,
+  "migratedFrom": null,
+  "profile": "candidate",
+  "readinessClaim": "candidate-only",
+  "gateContract": "6",
+  "engineSkips": [],
+  "git": {
+    "rev": "9f5c020adf816610dd58b10b75099a17552a14e6",
+    "dirty": true,
+    "dirtyFiles": 575,
+    "dirtyIdentity": "0a6bd68b4ba6968db2957eab59b92f37848f2ec9fee026be6153c9055e32b642",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "gates": [],
+  "releaseVerify": null,
+  "candidateVerify": null,
+  "smoke": null,
+  "projection": null,
+  "candidate": null,
+  "previousPreserved": false,
+  "publicationAuthorized": false,
+  "external": [
+    "hosting",
+    "dns",
+    "https",
+    "redirects",
+    "search-indexing",
+    "publication-authorization",
+    "translation-approvals"
+  ],
+  "readiness": "NOT_READY"
+}

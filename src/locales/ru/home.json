@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "domain": "home",
+  "units": {
+    "home.action.github": {
+      "text": "Открыть на GitHub",
+      "sourceHash": "879425ce7334ed21",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.action.recovery": {
+      "text": "Пройти восстановление",
+      "sourceHash": "b24d3fee91f95200",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.action.spec": {
+      "text": "Читать спецификацию",
+      "sourceHash": "4f9cf6bf47a4aca0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.action.start": {
+      "text": "Начать",
+      "sourceHash": "12a37af454a94ea7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item1": {
+      "text": "сеанс заканчивается, и всё, что узнал агент, исчезает вместе с ним",
+      "sourceHash": "913ab9dbe5521242",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item2": {
+      "text": "лимит использования или контекста останавливает работу посреди задачи",
+      "sourceHash": "477d63b3e0b4901b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item3": {
+      "text": "вы меняете модель или поставщика, и новый агент начинает с нуля",
+      "sourceHash": "127f6988bd8a8964",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item4": {
+      "text": "служба поставщика становится недоступной во время правки",
+      "sourceHash": "877a16c4444b2340",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item5": {
+      "text": "незавершённая правка остаётся в рабочем дереве, и никто не знает, кому она принадлежит",
+      "sourceHash": "a6bac0d91617134d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.item6": {
+      "text": "«готово» в итоге означает «один раз запустилось»",
+      "sourceHash": "156d64aa1455d62e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.note": {
+      "text": "Это проблемы состояния, а не модели: у работы нет долговечной и проверяемой формы.",
+      "sourceHash": "20025ca7c160502e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.breaks.title": {
+      "text": "Что ломается без него",
+      "sourceHash": "d01e799f680cf6f4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.description": {
+      "text": "{site} — {tagline} {motto} Состояние проекта в обычных файлах, из которого может продолжить любой совместимый агент.",
+      "sourceHash": "de78a5f66b1a8760",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.body": {
+      "text": "SAIPEN управляет `.saipen/`. Вокруг него — инструменты запуска и наблюдения за проектами SAIPEN и инфраструктура агентов для наблюдения, сообщений, упаковки и восстановления; всего {count} проектов.",
+      "sourceHash": "129f06ecc9ffe12d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.col.maturity": {
+      "text": "Зрелость",
+      "sourceHash": "e19167becbdcbfd0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.col.project": {
+      "text": "Проект",
+      "sourceHash": "cef80e895a3f68b3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.col.role": {
+      "text": "Роль",
+      "sourceHash": "b417140452de0330",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.link": {
+      "text": "[Вся экосистема и связь каждого проекта с проектом SAIPEN](/ecosystem/)",
+      "sourceHash": "e21a080bf98bc77c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.eco.title": {
+      "text": "Экосистема",
+      "sourceHash": "8e024875b51a4c96",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.hero.cmd-or": {
+      "text": "или просто:",
+      "sourceHash": "2c3e3af3d9586519",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.hero.lead": {
+      "text": "SAIPEN хранит рабочую память проекта в обычных файлах внутри проекта. Любой совместимый агент может одной командой продолжить точно с места остановки предыдущего — без истории чата и памяти сеанса.",
+      "sourceHash": "eab3ccbfc85edf0d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.hero.licence": {
+      "text": "Лицензия MIT. Протокол {version}; сайт описывает коммит {commit}.",
+      "sourceHash": "4b98229d0de8dc55",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.lifecycle.body": {
+      "text": "У всех задач один автомат состояний. Задача не может пропустить VERIFY, REVIEW или SHIP, а любая фаза может честно остановиться в BLOCKED.",
+      "sourceHash": "a779c3fecc8e7825",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.lifecycle.note": {
+      "text": "Каждая контрольная точка записывает LOG, затем BOARD и STATE и перечитывает каждый файл. [Изучить полный автомат состояний]({lifecycle}).",
+      "sourceHash": "0d7efd9695857fc3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.lifecycle.title": {
+      "text": "Как движется работа",
+      "sourceHash": "f2aca5f91721d67a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.next.community": {
+      "text": "Сообщество",
+      "sourceHash": "fa37aee384e3435b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.next.faq": {
+      "text": "Частые вопросы",
+      "sourceHash": "361f7af3eee40d49",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "home.next.hosts": {
+      "text": "Поддерживаемые среды",
+      "sourceHash": "aaf1eeba4e414403",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.next.introduction": {
+      "text": "Введение",
+      "sourceHash": "3ffba5ed45c656e6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.next.quickstart": {
+      "text": "Быстрый старт",
+      "sourceHash": "893546674ad7a85c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.next.title": {
+      "text": "Куда дальше",
+      "sourceHash": "b8cd7e89cf206115",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.board": {
+      "text": "Какая работа существует: DOING, TODO, DONE, BLOCKED.",
+      "sourceHash": "ca26fb488f043639",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.knowledge": {
+      "text": "Долговечные и проверенные факты о проекте.",
+      "sourceHash": "dc03ba72c0a0b664",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.link": {
+      "text": "[Назначение каждого файла в .saipen/](/docs/concepts/project-memory/)",
+      "sourceHash": "f25b1f5139e594ab",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.log": {
+      "text": "Почему проект оказался здесь: граф событий, в который только добавляют записи.",
+      "sourceHash": "4057d164f114336f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.state": {
+      "text": "Что происходит сейчас — и единственное next_action.",
+      "sourceHash": "601c2a4be705d232",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.persists.title": {
+      "text": "Что сохраняется в .saipen/",
+      "sourceHash": "dfa00c009b73a170",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.practice.body": {
+      "text": "SAIPEN не проектировался для гипотетического набора агентов. Он вырос из работы над реальными проектами с разными моделями, поставщиками, сеансами и инструментами. Сбой повторялся: агент менялся, а проекту всё ещё нужно было точно помнить, что произошло и что делать дальше.",
+      "sourceHash": "cf5065aa1c1e8e27",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.practice.note": {
+      "text": "Этот сайт создаётся так же — [его собственная доска SAIPEN](/about/#dogfooding) находится на странице «О проекте».",
+      "sourceHash": "a7a88bf546c2944c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.practice.title": {
+      "text": "Создан на практике",
+      "sourceHash": "4358ec6b818d995b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.evidence.line": {
+      "text": "Для «готово» нужны VERIFY, REVIEW и записанные доказательства.",
+      "sourceHash": "873399121bf08f23",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.evidence.name": {
+      "text": "Доказательства вместо рассказов",
+      "sourceHash": "d335c12116fd1abf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.honest-stops.line": {
+      "text": "WAIT называет одну из семи реальных причин; без догадок и остановок из лени.",
+      "sourceHash": "ad0ff902eefd07dc",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.honest-stops.name": {
+      "text": "Честные остановки",
+      "sourceHash": "ef59ba546294dd05",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.local-first.line": {
+      "text": "Без сервера, демона, базы данных и учётной записи. Только стандартная библиотека Python.",
+      "sourceHash": "2153575f7a28c5de",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.local-first.name": {
+      "text": "Локальное прежде всего",
+      "sourceHash": "bdba41541e3e18fe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.model-independent.line": {
+      "text": "Любой совместимый агент, любой поставщик, те же файлы.",
+      "sourceHash": "f3accfbd308e9b70",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.model-independent.name": {
+      "text": "Независимость от модели",
+      "sourceHash": "5b290c98ed7e03d6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.next-action.line": {
+      "text": "Холодный агент выполняет записанный шаг вместо нового планирования.",
+      "sourceHash": "8caacfdfcee504aa",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.next-action.name": {
+      "text": "Одно следующее действие",
+      "sourceHash": "ea1dbfa056faa3f0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.plain-files.line": {
+      "text": "Состояние хранится в Markdown внутри проекта; его можно сравнивать и коммитить вместе с кодом.",
+      "sourceHash": "8128bc6e32fda168",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.plain-files.name": {
+      "text": "Обычные файлы",
+      "sourceHash": "8a0e29adb865b0e2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.principles.title": {
+      "text": "Принципы",
+      "sourceHash": "4b0ef415b6d4095d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.story.badge-note": {
+      "text": "наглядная симуляция из практикума — ничего не выполняется",
+      "sourceHash": "bf8a94e406212e85",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.story.read": {
+      "text": "Читать о прерванной работе",
+      "sourceHash": "61790cf2147f63b5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.story.step": {
+      "text": "Пройти по шагам",
+      "sourceHash": "1c9773dfe84bd2b6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    },
+    "home.story.title": {
+      "text": "Передача холодному агенту от начала до конца",
+      "sourceHash": "d53842e29bf35b9d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-06.json"
+    }
+  }
+}

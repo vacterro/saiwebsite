@@ -37,3 +37,6 @@ i18n-work/
 
 # Freebuff desktop agent workspace (tool-local identity, not project source).
 .freebuff/
+
+# Transient operator-operation lock. Never protocol memory or release content.
+.site-work/

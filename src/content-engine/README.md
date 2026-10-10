@@ -42,7 +42,9 @@ a component.
 
 Words on the pilot pages (home, about, pricing, search, 404, the shell and the
 docs chrome) live in `blocks/*.json` and are rendered through a translator, so
-one view renders every locale. Docs pages are translated as whole documents.
+one view renders every locale. Documentation titles, descriptions and stable
+body segments are independently hashed and translated; a paragraph edit stales
+only its segment's units. See `i18n/segments.mjs` and `i18n/TRANSLATING.md`.
 
 ## Commands
 
@@ -51,7 +53,7 @@ one view renders every locale. Docs pages are translated as whole documents.
 | `npm run site:doctor` | Health of sources, content, translations, derived outputs, contracts; exit 0 healthy, 1 broken, 2 stale; `--json` for agents | no |
 | `npm run site:impact -- <id>` | Pages, locales, units and gates affected by a source, page, family or block | no |
 | `npm run site:refresh` | Rewrite the inventory, source lock and content lock from the tree | manifests only |
-| `npm run site:sync -- [--source <id>] [--dry-run]` | Refresh upstream snapshots through their sync tools, then report impact | snapshots + manifests |
+| `npm run site:sync -- [--source <id>] [--dry-run]` | Stage and validate upstream snapshots, then report precise impact; source locks still require review | snapshots only |
 | `npm run site:drift` | Meaningful source and translation drift as a ready-to-file SAIPEN ticket | no |
 | `npm run validate:registry` | Registry schema, built routes, discovery flags, inventory; 14 red controls | no |
 | `npm run i18n:status` / `i18n:export` / `i18n:import` / `i18n:validate` / `i18n:memory` / `i18n:add` / `i18n:enable` | Translation workflow, see `i18n/TRANSLATING.md` | `src/locales/`, `locales.json` |
@@ -80,8 +82,12 @@ npm run site:doctor      # must end HEALTHY
 Locales are data in `i18n/locales.json`: `en` canonical; `qps-ploc` an
 internal pseudo-locale that proves routing, fallback, glyph coverage and
 layout stretch on every build; `et` and `ru` registered as pilot locales,
-disabled until translated. Locale routes are `/<locale>/…`. A locale page
+disabled pending genuine independent review of the prepared MACHINE_DRAFT pilot. Locale routes are `/<locale>/…`. A locale page
 exists only for pilot pages and for documents translated to a status the
 locale renders, so a translated page never links to one that was not built.
 The translation workflow is documented for translators in
 [`i18n/TRANSLATING.md`](i18n/TRANSLATING.md).
+
+For implemented block/section/page operations, safe synchronization, exact
+source acknowledgement, bounded translation packages, drift intake and release
+preparation, use the concise root [`OPERATOR.md`](../../OPERATOR.md).

@@ -31,7 +31,7 @@ export const AUTHORITIES = ['upstream', 'site'];
  *   package-version  only the `version` field of package.json
  *   volatile         changes on every checkpoint; reported, never locked
  */
-export const ADAPTERS = ['canonical', 'ecosystem', 'file', 'package-version', 'volatile'];
+export const ADAPTERS = ['canonical', 'canonical-reference', 'ecosystem', 'file', 'package-version', 'volatile'];
 export const NETWORK = ['none', 'sync-only'];
 export const FAILURE_POLICIES = ['keep-last-valid', 'fail-closed'];
 
@@ -87,7 +87,7 @@ export function validateSources(doc) {
     }
     if (source.network === 'sync-only' && source.refresh === null) problems.push(`[contract] ${where}: network sync-only needs a refresh command`);
     if (source.authority === 'site' && source.network !== 'none') problems.push(`[contract] ${where}: a site-local source never needs the network`);
-    if ((source.adapter === 'canonical' || source.adapter === 'ecosystem') && source.authority !== 'upstream') problems.push(`[contract] ${where}: the ${source.adapter} adapter is for upstream snapshots`);
+    if ((['canonical','canonical-reference','ecosystem'].includes(source.adapter)) && source.authority !== 'upstream') problems.push(`[contract] ${where}: the ${source.adapter} adapter is for upstream snapshots`);
   });
   return problems;
 }

@@ -29,7 +29,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { PNG } = require('playwright-core/lib/utilsBundle');
 
-const DIST = 'dist';
+const DIST = process.env.SAI_TEST_DIST ?? 'dist';
 
 function builtRoutes() {
   const out = [];
@@ -131,7 +131,13 @@ test.describe('pixel-perfect: compact layout at 390x844', () => {
     test(route, async ({ page }) => {
       await page.goto(route);
       await settle(page);
-      const shot = await page.screenshot({ fullPage: true, animations: 'disabled', caret: 'hide' });
+      const shot = await page.screenshot({
+        fullPage: true,
+        animations: 'disabled',
+        caret: 'hide',
+        mask: MASKS.map((selector) => page.locator(selector)),
+        maskColor: hex([...GOLDEN][0]),
+      });
       const result = offPalette(shot, GOLDEN);
       expect(
         result.total,

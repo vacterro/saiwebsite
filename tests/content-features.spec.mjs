@@ -88,6 +88,51 @@ test.describe('playground', () => {
     await expect(count).toHaveText(/^Step 1 of /);
   });
 
+  test('boundaries hold at first and last steps', async ({ page }) => {
+    await page.goto('/playground/provider-outage/');
+    const count = page.locator('[data-count]');
+    const total = Number((await count.textContent())?.match(/of (\d+)/)?.[1]);
+    for (let i = 1; i < total; i++) await page.locator('[data-next]').click();
+    await expect(count).toHaveText(new RegExp(`^Step ${total} of `));
+    await expect(page.locator('[data-next]')).toBeDisabled();
+    await expect(page.locator('[data-prev]')).toBeEnabled();
+    await page.locator('[data-prev]').click();
+    await expect(count).toHaveText(new RegExp(`^Step ${total - 1} of `));
+  });
+
+  test('invalid fragment clamps to a real step', async ({ page }) => {
+    await page.goto('/playground/provider-outage/#step-99');
+    const count = page.locator('[data-count]');
+    const total = Number((await count.textContent())?.match(/of (\d+)/)?.[1]);
+    await expect(count).toHaveText(new RegExp(`^Step ${total} of `));
+    await expect(page).toHaveURL(new RegExp(`#step-${total}$`));
+  });
+
+  test('keyboard-only operation keeps focus on the control', async ({ page }) => {
+    await page.goto('/playground/provider-outage/');
+    const next = page.locator('[data-next]');
+    await next.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[data-count]')).toHaveText(/^Step 2 of /);
+    await expect(next).toBeFocused();
+  });
+
+  test('step changes are announced through the live counter', async ({ page }) => {
+    await page.goto('/playground/provider-outage/');
+    const count = page.locator('[data-count]');
+    await expect(count).toHaveAttribute('aria-live', 'polite');
+    await page.locator('[data-next]').click();
+    await expect(count).toHaveText(/^Step 2 of \d+$/);
+  });
+
+  test('refresh with a step fragment restores that step', async ({ page }) => {
+    await page.goto('/playground/provider-outage/#step-3');
+    await expect(page.locator('[data-count]')).toHaveText(/^Step 3 of /);
+    await expect(page.locator('#step-3')).toBeVisible();
+    await page.reload();
+    await expect(page.locator('[data-count]')).toHaveText(/^Step 3 of /);
+  });
+
   test('without JavaScript every step is readable in order', async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
@@ -108,6 +153,54 @@ test.describe('search', () => {
     await expect(page.locator('[data-status]')).toHaveText(/\d+ results? for "checkpoint"/);
     const first = page.locator('.search__hit').first();
     await expect(first).toContainText(/Docs|Spec/);
+  });
+
+  test('empty query shows the prompt state', async ({ page }) => {
+    await page.goto('/search/');
+    await expect(page.locator('[data-status]')).not.toBeEmpty();
+    await expect(page.locator('.search__hit')).toHaveCount(0);
+  });
+
+  test('no results is announced truthfully', async ({ page }) => {
+    await page.goto('/search/?q=zzzqqqxxy-nothing-matches-this');
+    await expect(page.locator('[data-status]')).toHaveText(/No results for/);
+    await expect(page.locator('.search__hit')).toHaveCount(0);
+  });
+
+  test('failed index request shows the error state, not stale results', async ({ page }) => {
+    await page.route('**/search-index.json', (route) => route.abort());
+    await page.goto('/search/?q=checkpoint');
+    await expect(page.locator('[data-status]')).not.toBeEmpty();
+    await expect(page.locator('.search__hit')).toHaveCount(0);
+  });
+
+  test('malformed index response shows the error state', async ({ page }) => {
+    await page.route('**/search-index.json', (route) =>
+      route.fulfill({ status: 200, contentType: 'application/json', body: 'not json{{{' }),
+    );
+    await page.goto('/search/?q=checkpoint');
+    await expect(page.locator('[data-status]')).not.toBeEmpty();
+    await expect(page.locator('.search__hit')).toHaveCount(0);
+  });
+
+  test('long input with special characters is safe and answered', async ({ page }) => {
+    const q = 'checkpoint <img src=x onerror=alert(1)> "verify" & state (v8) — '.repeat(4);
+    await page.goto(`/search/?q=${encodeURIComponent(q)}`);
+    await expect(page.locator('[data-status]')).not.toBeEmpty();
+    await expect(page.locator('img')).toHaveCount(0);
+    const hits = await page.locator('.search__hit').count();
+    expect(hits).toBeLessThan(41);
+  });
+
+  test('results are keyboard reachable by Tab', async ({ page }) => {
+    await page.goto('/search/?q=checkpoint');
+    const first = page.locator('.search__hit a').first();
+    await expect(first).toBeVisible();
+    await page.locator('#q').focus();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    const focused = page.locator(':focus');
+    await expect(focused).toHaveAttribute('href', /checkpoint|verify|state|spec|docs/i);
   });
 
   test('Ctrl+K opens search from any page', async ({ page }) => {
@@ -142,5 +235,37 @@ test.describe('agent-readable files', () => {
     const res = await request.get('/404.html');
     expect(res.status()).toBe(200);
     expect(await res.text()).toContain('Page not found');
+  });
+});
+
+test.describe('downloads', () => {
+  test('verify commands are copyable without platform labels inside the command text', async ({ request }) => {
+    const res = await request.get('/downloads/');
+    expect(res.status()).toBe(200);
+    const html = await res.text();
+    const codeBlocks = [...html.matchAll(/<pre class="w-code"><code[^>]*>(.*?)<\/code><\/pre>/gs)].map((m) => m[1]);
+    expect(codeBlocks).toHaveLength(3);
+    expect(codeBlocks[0]).toBe('certutil -hashfile FastPrompter.exe SHA256');
+    expect(codeBlocks[1]).toBe('sha256sum FastPrompter.exe');
+    expect(codeBlocks[2]).toBe('shasum -a 256 FastPrompter.exe');
+    for (const block of codeBlocks) {
+      expect(block).not.toContain('(Windows)');
+      expect(block).not.toContain('(Linux)');
+      expect(block).not.toContain('(macOS)');
+    }
+  });
+
+  test('the scenario player announces step changes through the polite live counter and keeps the heading focusable', async ({ page }) => {
+    await page.goto('/playground/provider-outage/');
+    const count = page.locator('[data-count]');
+    const next = page.locator('[data-next]');
+    await expect(count).toHaveAttribute('aria-live', 'polite');
+    await expect(count).toHaveText(/^Step 1 of \d+$/);
+    const heading = page.locator('[data-step]:visible >> h2');
+    await expect(heading).toHaveAttribute('tabindex', '-1');
+    await next.click();
+    await expect(count).toHaveText(/^Step 2 of \d+$/);
+    await expect(count).toHaveAttribute('aria-live', 'polite');
+    await expect(page.locator('[data-step]:visible >> h2')).toHaveAttribute('tabindex', '-1');
   });
 });

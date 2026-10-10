@@ -9,6 +9,7 @@ import { SHORT_COMMIT, SPEC_VERSION, meta } from '../content-engine/models/proto
 import { SPEC_TOPICS } from '../lib/spec';
 import { SITE } from '../data/site';
 import { DOC_SECTIONS } from '../content.config';
+import { compositionEntries } from '../content-engine/compositions/catalog';
 
 export const GET: APIRoute = async () => {
   const docs = await allDocs();
@@ -22,6 +23,7 @@ export const GET: APIRoute = async () => {
     `(${meta.repository}): SPEC.md, saipen/CORE.md and saipen/REGISTRY.json. This build describes SAIPEN ${meta.version} @ ${SHORT_COMMIT}.`,
     'On any disagreement between this site and the repository, the repository wins.',
     '',
+    ...compositionEntries().filter((p)=>p.llmVisible).flatMap((p)=>[`- [${p.title}](${o}${p.url}): ${p.description}`,'']),
     ...DOC_SECTIONS.flatMap((section) => {
       const group = docs.filter((d) => d.data.section === section);
       if (!group.length) return [];

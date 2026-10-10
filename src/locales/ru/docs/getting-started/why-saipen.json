@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "document": "getting-started/why-saipen",
+  "units": {
+    "docs.getting-started.why-saipen.description": {
+      "text": "История чата, файлы инструкций и системы задач хранят каждый свою часть состояния проекта. SAIPEN хранит часть, нужную холодному агенту для продолжения.",
+      "sourceHash": "574123d3c919dbfe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.intro": {
+      "text": "SAIPEN решает один конкретный сбой: ИИ-агент программирования ничего не помнит после завершения сеанса. Другие инструменты и привычки покрывают часть проблемы.\n\n| Подход | Для чего полезен | Чего не хранит |\n|---|---|---|\n| История чата / память модели | Удобство, без настройки | Зависит от сеанса и поставщика и не хранится вместе с проектом, поэтому холодный агент её не видит. |\n| Статический `AGENTS.md` / файл инструкций | Постоянные правила и соглашения | Текущее состояние задачи, `next_action` или историю восстановления. |\n| Система задач / TODO | Управление задачами и очередью | Семантику продолжения: что холодный агент должен прочитать и выполнить при возобновлении. |\n| **SAIPEN** | Текущее состояние выполнения, очередь работы, историю событий, долговечные знания и машинно проверяемые правила продолжения в обычных файлах рядом с кодом | Ничего из этого списка; именно такое сочетание составляет контракт. |\n\nРазница не в отдельном файле. Шаг продолжения становится **машинно проверяемым**: первое действие холодного агента после `saipen continue` задаётся сохранённым `next_action` и проверяется валидатором, а не восстанавливается из памяти или длинного файла инструкций.",
+      "sourceHash": "d7a6c356713e92c0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.project-state-over-model-memory": {
+      "text": "## Состояние проекта выше памяти модели\n\nСпецификация прямо задаёт проектную цель: холодный агент без истории чата должен суметь выполнить `/saipen continue` и возобновить продуктивную работу в течение минуты, не прося пользователя повторить контекст.\n\nСхема меняется с `Project → Memory → LLM` на `Project → SAIPEN State → LLM`. Память принадлежит проекту. Сегодня одна модель, завтра другая, послезавтра третья — все работают с одним состоянием.",
+      "sourceHash": "74abeaff6532f594",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.the-litmus-test": {
+      "text": "## Решающий тест\n\nКаждое предлагаемое изменение протокола должно ответить на три вопроса:\n\n1. Делает ли оно переход между агентами надёжнее?\n2. Делает ли оно поведение разных моделей более единообразным?\n3. Снижает ли оно вероятность потери контекста?\n\nЕсли хотя бы два ответа — «нет», идею отклоняют. SAIPEN предпочитает дисциплину, воспроизводимость и надёжность новизне; поэтому этот сайт описывает только поведение, которое действительно есть в протоколе.",
+      "sourceHash": "44d50a57eb0fc014",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.title": {
+      "text": "Зачем SAIPEN",
+      "sourceHash": "d1fe2df2869da71d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    },
+    "docs.getting-started.why-saipen.who-it-is-for": {
+      "text": "## Для кого он полезен\n\nSAIPEN полезен, если вы работаете с несколькими агентами программирования, постоянно достигаете лимитов сеанса, меняете модели по цене или доступности, ведёте проекты дольше одного разговора либо хотите отличать «готово» от «доказано». Он основан на обычных файлах и обычном Git, поэтому полезен и тогда, когда вы просто не доверяете памяти чата.",
+      "sourceHash": "6aba37a3174c5957",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+    }
+  }
+}

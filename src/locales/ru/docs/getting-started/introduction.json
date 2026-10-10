@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "locale": "ru",
+  "document": "getting-started/introduction",
+  "units": {
+    "docs.getting-started.introduction.description": {
+      "text": "Что такое SAIPEN, что он сохраняет и какая одна команда позволяет другому агенту продолжить ваш проект без инструктажа.",
+      "sourceHash": "9f7d061e45347d9f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.intro": {
+      "text": "SAIPEN — **протокол продолжения для ИИ-агентов программирования**. Он хранит рабочую память проекта в обычных Markdown-файлах внутри проекта, в папке `.saipen/`. Любой совместимый агент — без истории чата и памяти сеанса — может открыть проект, выполнить одну команду и продолжить точно с места остановки предыдущего агента.\n\n```text\nsaipen continue\n```\n\nили целым сообщением просто `cc`.",
+      "sourceHash": "ef08cde3fa37e528",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.the-problem-it-solves": {
+      "text": "## Какую проблему он решает\n\nАгент программирования ничего не помнит после завершения сеанса. Он мог двадцать минут изучать архитектуру, отвергнуть три гипотезы и наполовину закончить исправление. Закройте окно, достигните лимита использования или смените модель — и всё исчезнет. Следующий агент начинает с нуля, а человек снова объясняет проект.\n\nSAIPEN переносит эту память из разговора в проект:\n\n> Агент забывает. Проект помнит.",
+      "sourceHash": "247fb1ff29562ee4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.title": {
+      "text": "Введение",
+      "sourceHash": "3ffba5ed45c656e6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-it-is-not": {
+      "text": "## Чем он не является\n\nSAIPEN — не модель, не IDE, не сетевая база памяти и не замена Git. Он не делает инженерные решения агента правильными. Он делает состояние работы явным, проверяемым и пригодным для продолжения, чтобы агентов можно было заменять.\n\nДалее: [Зачем SAIPEN](/docs/getting-started/why-saipen/) сравнивает его с историей чата, файлами инструкций и системами задач, а [Быстрый старт](/docs/getting-started/quickstart/) описывает установку.",
+      "sourceHash": "554e149a9d510d8d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-makes-it-a-protocol-not-a-habit": {
+      "text": "## Почему это протокол, а не привычка\n\n- **Фиксированный порядок контрольной точки.** Каждый переход фазы и каждая остановка записывают `LOG`, затем `BOARD` и `STATE` и перечитывают каждый файл. `STATE` — указатель фиксации контрольной точки.\n- **Строгий автомат состояний.** Работа проходит `INIT → PLAN → SCOUT → BUILD →\n  VERIFY → REVIEW → SHIP → DONE`, с честным выходом в `BLOCKED`. Нельзя объявить задачу завершённой после первого успешного теста.\n- **Валидатор.** Валидатор Python, использующий только стандартную библиотеку, проверяет файлы по машиночитаемому контракту: структуру STATE, допустимые переходы, граф зависимостей задач, граф событий и состояние восстановления.",
+      "sourceHash": "9051cddc4c37009c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    },
+    "docs.getting-started.introduction.what-persists": {
+      "text": "## Что сохраняется\n\nХолодный агент находит ответы на пять вопросов только в файлах:\n\n| Файл / поле | Ответ |\n|---|---|\n| `STATE.md` | Что происходит сейчас? Фаза, активная задача, режим, препятствие. |\n| `BOARD.md` | Какая работа существует? Задачи в DOING, TODO, DONE и BLOCKED. |\n| `LOG.md` | Почему проект пришёл к этому состоянию? Граф событий только с добавлением записей. |\n| `KNOWLEDGE/` | Какие долговечные факты должны пережить смену сеансов? |\n| `next_action` | Какое точное действие должен выполнить следующий агент? |\n\n`STATE` — текущее состояние, `BOARD` — работа, `LOG` — история, `KNOWLEDGE` — пригодные для повторного использования факты. `next_action`, поле в `STATE.md`, — сердце протокола: это всегда одно немедленно выполнимое действие, а не текст для толкования.",
+      "sourceHash": "88b0b791ce7d7ac9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/ru-batch-04.json"
+    }
+  }
+}

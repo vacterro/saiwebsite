@@ -180,7 +180,7 @@ function checkRouteKind(route, kind, where, problems) {
  * closed enums, ID/route/source syntax, uniqueness, family patterns and
  * static-versus-family ambiguity. Nothing here reads disk.
  */
-export function validateRegistry(registry, declaredSources = []) {
+export function validateRegistry(registry, declaredSources = [], {derivedSourceIds=[]} = {}) {
   const problems = [];
   if (!checkFields(registry, 'registry', TOP_FIELDS, [], problems)) return problems;
   if (registry.schemaVersion !== SCHEMA_VERSION) problems.push(`[schema-version] registry: schemaVersion ${registry.schemaVersion} is not ${SCHEMA_VERSION}`);
@@ -201,7 +201,9 @@ export function validateRegistry(registry, declaredSources = []) {
 
   registry.pages.forEach((page, i) => {
     const where = `pages[${i}]${page?.id ? ` ${page.id}` : ''}`;
-    if (!checkFields(page, where, PAGE_FIELDS, ['consumes'], problems)) return;
+    if (!checkFields(page, where, PAGE_FIELDS, ['consumes', 'composition', 'redirectTo'], problems)) return;
+    if (page.composition !== undefined && (!ID_PATTERN.test(page.composition) || !['editorial', 'mixed'].includes(page.owner))) problems.push(`[composition] ${where}: invalid composition name or ownership`);
+    if (page.redirectTo !== undefined && (page.kind !== 'alias' || !registry.pages.some((p) => p.id === page.redirectTo && p.kind !== 'alias') || page.redirectTo === page.id)) problems.push(`[redirect] ${where}: redirectTo must name another addressable page`);
     checkEntry(page, where, false, sourceIds, problems);
     claimId(page.id, where);
     if (!routeShape(page.route)) {
@@ -257,6 +259,7 @@ export function validateRegistry(registry, declaredSources = []) {
 
   // Every declared source is a dependency of something; an unused one is dead weight.
   const used = new Set([...registry.pages, ...registry.families].flatMap((entry) => (Array.isArray(entry?.sourceIds) ? entry.sourceIds : [])));
+  for (const id of derivedSourceIds) {if (!sourceIds.has(id)) problems.push(`[unknown-source] document reference ${id} is not registered`);else used.add(id);}
   for (const id of sourceIds) if (!used.has(id)) problems.push(`[unused-source] sources ${id}: no page or family depends on it`);
 
   // `consumes` names what a page is assembled from beyond its sources: every
@@ -291,8 +294,8 @@ export function validateRegistry(registry, declaredSources = []) {
 }
 
 /** Throws one error listing every problem. Used where an invalid registry must stop the build. */
-export function assertValidRegistry(registry, declaredSources, label = 'src/content-engine/registry/pages.json') {
-  const problems = validateRegistry(registry, declaredSources);
+export function assertValidRegistry(registry, declaredSources, label = 'src/content-engine/registry/pages.json', options = {}) {
+  const problems = validateRegistry(registry, declaredSources, options);
   if (problems.length) throw new Error(`${label} is invalid:\n  ${problems.join('\n  ')}`);
   return registry;
 }
@@ -397,7 +400,7 @@ export function buildInventory(registry, builtRoutes, variants = []) {
       localizable: false,
       searchable: v.searchable && base.searchable,
       llmVisible: v.llmVisible && base.llmVisible,
-      sitemap: audience === 'public' && base.sitemap,
+      sitemap: audience === 'public' && base.sitemap && v.sitemap!==false,
       ...(base.twinOf ? { twinOf: `${v.prefix}.${base.twinOf}` } : {}),
     });
   }

@@ -10,6 +10,7 @@ import { ERROR_CODES, PHASES, SPEC_VERSION } from '../content-engine/models/prot
 import { SPEC_TOPICS } from '../lib/spec';
 import { PHASE_PURPOSE } from '../data/phases';
 import { PROJECTS } from '../content-engine/models/ecosystem';
+import { compositionEntries } from '../content-engine/compositions/catalog';
 
 const plain = (md: string) =>
   md
@@ -24,6 +25,7 @@ export const GET: APIRoute = async () => {
   const docs = await allDocs();
   const posts = await allPosts();
   const entries = [
+    ...compositionEntries().filter((p)=>p.searchable).map((p)=>({url:p.url,title:p.title,kind:'Page',rank:2,text:`${p.description} ${plain(p.body).slice(0,900)}`})),
     ...docs.map((d) => ({
       url: `/docs/${d.id}/`,
       title: d.data.title,

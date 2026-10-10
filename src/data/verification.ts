@@ -1,9 +1,10 @@
 /**
- * The last recorded full verification of this website, as logged in this
- * repository's .saipen/LOG.md. Updated by hand when a release is verified;
- * the About page shows it as a dated record, never as a live claim.
+ * Preserved historical claim from manually recorded lifecycle history.
+ * Its counts are not a current verification receipt. The About page labels it
+ * as a historical claim; current execution evidence lives in reports/convergence.
  */
 export const LAST_VERIFICATION = {
+  recordKind: 'HISTORICAL_CLAIM',
   siteVersion: '1.4.0',
   date: '2026-10-07',
   pages: 85,

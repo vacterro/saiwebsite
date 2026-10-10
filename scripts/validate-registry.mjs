@@ -22,6 +22,7 @@ import { builtRoutes, checkDiscovery } from '../src/content-engine/inventory/bui
 import { buildInventory, validateRegistry } from '../src/content-engine/registry/schema.mjs';
 import { sourceIdsOf, validateSources } from '../src/content-engine/registry/sources.mjs';
 import { discoveryTargets, inventoryVariants, loadStore } from '../src/content-engine/i18n/store.mjs';
+import { referenceSources } from '../src/content-engine/sources/references.mjs';
 
 const REGISTRY = 'src/content-engine/registry/pages.json';
 const SOURCES = 'src/content-engine/registry/sources.json';
@@ -37,7 +38,7 @@ if (!existsSync(DIST)) {
 const records = (inventory) => [...inventory.public, ...inventory.internal];
 
 function audit(registry, routes) {
-  const problems = validateRegistry(registry, declared);
+  const problems = validateRegistry(registry, declared,{derivedSourceIds:referenceSources().filter((r)=>r.pages.length).map((r)=>r.id)});
   if (problems.length) return { problems };
   const store = loadStore({ registry, sourceIds: declared });
   if (store.problems.length) return { problems: store.problems };

@@ -22,6 +22,7 @@ import { blockHash, validateCatalog } from '../blocks/blocks.mjs';
 import { checkTranslation, enabledLocales, pseudoLocalize, STORED_STATUSES, uncoveredScripts, unitStatus, validateLocales, variantPlan } from './i18n.mjs';
 import { documentSegmentPrefix, parseDocument } from './segments.mjs';
 import { mergeCatalogs, pageLabelBlocks, unitsByLocale } from './units.mjs';
+import { pageBlockIds, pageIsApproved } from './readiness.mjs';
 
 export const PATHS = {
   blocks: 'src/content-engine/blocks',
@@ -56,7 +57,7 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
   const glossary = overrides.glossary ?? readJson(at(PATHS.glossary));
   problems.push(...validateLocales(localesDoc));
 
-  const catalogDocs = walk(at(PATHS.blocks), '.json').map((file) => ({ file, doc: readJson(file) }));
+  const catalogDocs = overrides.catalogDocs ?? walk(at(PATHS.blocks), '.json').map((file) => ({ file, doc: readJson(file) }));
   for (const { file, doc } of catalogDocs) problems.push(...validateCatalog(doc, file.slice(at('').length), sourceIds));
   let blocks = {};
   try {
@@ -111,7 +112,8 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
     }
   }
 
-  const store = { localesDoc, glossary, blocks, units, unitFiles, docs, docUnits, problems };
+  const compositions=overrides.compositions ?? walk(at('src/content-engine/compositions'),'.json').map((file)=>readJson(file));
+  const store = { localesDoc, glossary, blocks, units, unitFiles, docs, docUnits, problems, compositions, registry };
   store.plan = problems.length ? [] : variantPlan({ localesDoc, registry, docs, docUnits });
   return store;
 }
@@ -120,7 +122,9 @@ export function loadStore({ root = '.', registry, sourceIds = [], overrides = {}
 export function requiredUnits(store, locale) {
   const l = store.localesDoc.locales.find((x) => x.id === locale);
   const scope = l.scope === 'all' ? null : store.localesDoc.scopes[l.scope];
-  const blockIds = Object.entries(store.blocks).filter(([, b]) => !scope || scope.domains.includes(b.domain)).map(([id]) => id);
+  const ownedPages=new Set(store.compositions.filter((d)=>['page','slots'].includes(d.mode ?? 'page')).map((d)=>d.page));
+  const eligible=new Set([...ownedPages].flatMap((id)=>pageBlockIds(store,id)));
+  const blockIds = Object.entries(store.blocks).filter(([id,b]) => (!scope || scope.domains.includes(b.domain)) && (!b.usedBy.some((s)=>s.startsWith('page:') && ownedPages.has(s.slice(5))) || eligible.has(id))).map(([id]) => id);
   const docSlugs = Object.values(store.docs).filter((d) => !scope || scope.docSections.includes(d.section)).map((d) => d.slug);
   return { blockIds, docSlugs };
 }
@@ -190,12 +194,12 @@ export function validateTranslations(store, coverage = null, { forEnable = false
   for (const { file, doc } of store.unitFiles) {
     for (const [id, unit] of Object.entries(doc.units ?? {})) {
       const where = `${file} ${id}`;
-      for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer'].includes(key)) problems.push(`[unknown-field] ${where}: "${key}"`);
+      for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer', 'author', 'reviewReference', 'memoryFrom'].includes(key)) problems.push(`[unknown-field] ${where}: "${key}"`);
       if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${where}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
       if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${where}: sourceHash must be the 16-hex canonical hash from the work package`);
       const block = store.blocks[id];
       if (!block) continue;
-      problems.push(...checkTranslation({ id, type: block.type, en: block.text, text: unit.text, glossary, locale: doc.locale }));
+      if (unitStatus(unit, blockHash(block)) !== 'STALE') problems.push(...checkTranslation({ id, type: block.type, en: block.text, text: unit.text, glossary, locale: doc.locale }));
     }
   }
   // Document segment units: src/locales/<locale>/docs/<section>/<name>.json
@@ -207,17 +211,16 @@ export function validateTranslations(store, coverage = null, { forEnable = false
       if (entry.doc?.locale !== locale) problems.push(`[malformed] ${where}: locale "${entry.doc?.locale}" does not match its directory`);
       if (entry.doc?.document !== slug) problems.push(`[malformed] ${where}: document "${entry.doc?.document}" does not match its path`);
       if (!doc) {
-        problems.push(`[orphaned] ${where}: no canonical document "${slug}"`);
         continue;
       }
       for (const [id, unit] of Object.entries(entry.doc?.units ?? {})) {
         const at = `${where} ${id}`;
-        for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer'].includes(key)) problems.push(`[unknown-field] ${at}: "${key}"`);
+        for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer', 'author', 'reviewReference', 'memoryFrom'].includes(key)) problems.push(`[unknown-field] ${at}: "${key}"`);
         if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${at}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
         if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${at}: sourceHash must be the 16-hex segment hash from the work package`);
         const segment = doc.segmentsById[id];
         if (!segment) continue;
-        problems.push(...checkTranslation({ id, type: segment.kind, en: segment.text, text: unit.text, glossary, locale }));
+        if (unitStatus(unit, segment.hash) !== 'STALE') problems.push(...checkTranslation({ id, type: segment.kind, en: segment.text, text: unit.text, glossary, locale }));
       }
     }
   }
@@ -229,6 +232,10 @@ export function validateTranslations(store, coverage = null, { forEnable = false
     if (l.stage === 'pseudo' || !forEnable) continue;
     const missing = report.filter((r) => r.locale === l.id && !r.outOfScope && r.status !== 'ORPHANED' && !l.renderStatuses.includes(r.status));
     if (missing.length) problems.push(`[enable-blocked] locale ${l.id} is enabled but ${missing.length} required unit(s) are not renderable (${[...new Set(missing.map((m) => m.status))].join(', ')}) — finish them or set enabled: false`);
+    if (l.publication!=='internal') {
+      const unapproved=report.filter((r)=>r.locale===l.id && !r.outOfScope && r.status!=='ORPHANED' && (r.status!=='CURRENT' || !r.unit?.author?.trim() || !r.unit?.reviewer?.trim() || r.unit.author.trim().toLowerCase()===r.unit.reviewer.trim().toLowerCase()));
+      if (unapproved.length) problems.push(`[enable-blocked] locale ${l.id} requires independent review and CURRENT approval for ${unapproved.length} unit(s); use --preview for an internal, non-indexed rehearsal`);
+    }
   }
   if (coverage) {
     // Every locale name is drawn in the language selector.
@@ -290,11 +297,17 @@ export function inventoryVariants(store) {
   const out = [];
   for (const p of store.plan) {
     const l = store.localesDoc.locales.find((x) => x.id === p.locale);
-    const base = { locale: p.locale, prefix: p.prefix, internal: p.stage === 'pseudo', searchable: l.searchEnabled, llmVisible: l.llmsEnabled };
-    for (const x of p.pages) out.push({ ...base, route: x.variant, of: x.route });
+    const base = { locale: p.locale, prefix: p.prefix, internal: p.stage === 'pseudo' || l.publication==='internal', searchable: l.searchEnabled, llmVisible: l.llmsEnabled };
+    for (const x of p.pages) out.push({ ...base, route: x.variant, of: x.route, sitemap:pageIsApproved(store,store.registry,x.route,p.locale) });
     for (const d of p.docs) {
-      out.push({ ...base, route: d.variant, of: `/docs/${d.slug}/` });
-      out.push({ ...base, route: d.variant.replace(/\/$/, '.md'), of: `/docs/${d.slug}.md` });
+      const canonical=store.docs[d.slug];
+      const units=store.docUnits[p.locale]?.[d.slug]?.doc?.units ?? {};
+      const renders=(s)=>l.stage==='pseudo'||l.renderStatuses.includes(unitStatus(units[s.id],s.hash));
+      const title=canonical.segments.find((s)=>s.id.endsWith('.title'));
+      const searchable=base.searchable && renders(title) && canonical.segments.some((s)=>s.kind==='markdown'&&renders(s));
+      const sitemap=pageIsApproved(store,store.registry,`/docs/${d.slug}/`,p.locale);
+      out.push({ ...base, searchable, route: d.variant, of: `/docs/${d.slug}/`, sitemap });
+      out.push({ ...base, route: d.variant.replace(/\/$/, '.md'), of: `/docs/${d.slug}.md`, sitemap:false });
     }
     if (l.searchEnabled) out.push({ ...base, route: `/${p.prefix}/search-index.json`, of: '/search-index.json' });
     if (l.llmsEnabled) out.push({ ...base, route: `/${p.prefix}/llms.txt`, of: '/llms.txt' });

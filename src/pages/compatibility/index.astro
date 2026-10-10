@@ -41,7 +41,7 @@ const tone = (v?: string) =>
     <MaturityBadge level="stable" note={`generated from extensions/adapters/registry.json @ ${SHORT_COMMIT}`} />
   </p>
   <p>
-    SAIPEN works with any agent that can read files. What differs between hosts is how much of the protocol the host
+    An agent can read SAIPEN project memory from plain files. Governed lifecycle operations require access to the genuine runtime and a compatible host. What differs between hosts is how much of the protocol the host
     lets SAIPEN <em>enforce</em> rather than merely instruct. The adapter registry is the single list every SAIPEN
     consumer reads — installer, admission check, status reports — and this page renders it verbatim.
   </p>
@@ -50,8 +50,7 @@ const tone = (v?: string) =>
     <p class="callout__label">What a cell means</p>
     <p>
       These are <strong>declared</strong> capabilities of a healthy, current install. SAIPEN computes the effective
-      level at runtime, and it is never stronger than the installed state proves. A host that is not listed can still
-      follow SAIPEN by reading its files; it simply has no adapter.
+      level at runtime. Reading the project files alone does not establish runtime availability or effective enforcement. A host that is not listed has no declared adapter in this snapshot.
     </p>
   </aside>
 

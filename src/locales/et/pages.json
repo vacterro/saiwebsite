@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "pages",
+  "units": {
+    "pages.about.label": {
+      "text": "Projektist",
+      "sourceHash": "fe37bcec10be1fb6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.benchmarks.label": {
+      "text": "Mõõtmised",
+      "sourceHash": "f95c0f7dc8e36d7f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.blog.index.label": {
+      "text": "Blogi",
+      "sourceHash": "a3ee8f8b90026400",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.changelog.label": {
+      "text": "Muudatused",
+      "sourceHash": "39d622babfffe864",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.community.label": {
+      "text": "Kogukond",
+      "sourceHash": "fa37aee384e3435b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.compatibility.label": {
+      "text": "Ühilduvus",
+      "sourceHash": "4dbd5b96c88e117c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.docs.index.label": {
+      "text": "Dokumendid",
+      "sourceHash": "8fea662b7f12bdf9",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.downloads.label": {
+      "text": "Allalaadimised",
+      "sourceHash": "5c2ba95493513ad6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.ecosystem.label": {
+      "text": "Ökosüsteem",
+      "sourceHash": "8e024875b51a4c96",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.home.label": {
+      "text": "Avaleht",
+      "sourceHash": "3cca2d92785e90ad",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.playground.index.label": {
+      "text": "Katsetuskeskkond",
+      "sourceHash": "5b490ce615de5b37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.pricing.label": {
+      "text": "Hinnad",
+      "sourceHash": "f5a6d63235da45c7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.search.label": {
+      "text": "Otsing",
+      "sourceHash": "0513f386ac196ef0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.security.label": {
+      "text": "Turvalisus",
+      "sourceHash": "488757b076a1b873",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.spec.index.label": {
+      "text": "Spetsifikatsioon",
+      "sourceHash": "07aa3f681620012b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pages.status.label": {
+      "text": "Seis",
+      "sourceHash": "618c280a2430a712",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    }
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "home",
+  "units": {
+    "home.action.github": {
+      "text": "Ava GitHubis",
+      "sourceHash": "879425ce7334ed21",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.action.recovery": {
+      "text": "Katseta taastamist",
+      "sourceHash": "b24d3fee91f95200",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.action.spec": {
+      "text": "Loe spetsifikatsiooni",
+      "sourceHash": "4f9cf6bf47a4aca0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.action.start": {
+      "text": "Alusta",
+      "sourceHash": "12a37af454a94ea7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item1": {
+      "text": "seanss lõpeb ja kõik agendi õpitu kaob koos sellega",
+      "sourceHash": "913ab9dbe5521242",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item2": {
+      "text": "kasutus- või kontekstipiirang peatab töö poole ülesande pealt",
+      "sourceHash": "477d63b3e0b4901b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item3": {
+      "text": "vahetad mudelit või pakkujat ning uus alustab nullist",
+      "sourceHash": "127f6988bd8a8964",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item4": {
+      "text": "pakkuja teenus katkeb keset muudatust",
+      "sourceHash": "877a16c4444b2340",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item5": {
+      "text": "pooleli muudatus jääb tööpuusse ja keegi ei tea, kelle oma see on",
+      "sourceHash": "a6bac0d91617134d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.item6": {
+      "text": "„valmis” tähendab lõpuks vaid „käivitus ühe korra”",
+      "sourceHash": "156d64aa1455d62e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.note": {
+      "text": "Need pole mudeli vead. Need on oleku vead: tööl puudub püsiv ja kontrollitav kuju.",
+      "sourceHash": "20025ca7c160502e",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.breaks.title": {
+      "text": "Mis ilma selleta katkeb",
+      "sourceHash": "d01e799f680cf6f4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.description": {
+      "text": "{site} — {tagline} {motto} Projektiolek lihtfailides, millest iga ühilduv agent saab jätkata.",
+      "sourceHash": "de78a5f66b1a8760",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.body": {
+      "text": "SAIPEN haldab `.saipen/`. Selle ümber on tööriistad SAIPEN projektide käivitamiseks ja jälgimiseks ning agenditaristu vaatlemiseks, sõnumiteks, pakendamiseks ja taastamiseks — kokku {count} projekti.",
+      "sourceHash": "129f06ecc9ffe12d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.col.maturity": {
+      "text": "Valmidus",
+      "sourceHash": "e19167becbdcbfd0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.col.project": {
+      "text": "Projekt",
+      "sourceHash": "cef80e895a3f68b3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.col.role": {
+      "text": "Roll",
+      "sourceHash": "b417140452de0330",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.link": {
+      "text": "[Kogu ökosüsteem ja iga projekti seos SAIPEN projektiga](/ecosystem/)",
+      "sourceHash": "e21a080bf98bc77c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.eco.title": {
+      "text": "Ökosüsteem",
+      "sourceHash": "8e024875b51a4c96",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.hero.cmd-or": {
+      "text": "või lihtsalt:",
+      "sourceHash": "2c3e3af3d9586519",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.hero.lead": {
+      "text": "SAIPEN hoiab projekti töömälu projekti sees lihtfailides, nii et iga ühilduv agent saab ühe käsuga jätkata täpselt sealt, kus eelmine peatus — ilma vestlusajaloo või seansi mäluta.",
+      "sourceHash": "eab3ccbfc85edf0d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.hero.licence": {
+      "text": "MIT-litsentsiga. Protokoll {version}; sait kirjeldab commit'i {commit}.",
+      "sourceHash": "4b98229d0de8dc55",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.lifecycle.body": {
+      "text": "Igal ülesandel on sama olekumasin. Ülesanne ei saa vahele jätta VERIFY, REVIEW ega SHIP etappi ning iga etapp võib ausalt peatuda olekus BLOCKED.",
+      "sourceHash": "a779c3fecc8e7825",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.lifecycle.note": {
+      "text": "Iga kontrollpunkt kirjutab LOG, siis BOARD ja siis STATE ning loeb iga faili tagasi. [Uuri kogu olekumasinat]({lifecycle}).",
+      "sourceHash": "0d7efd9695857fc3",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.lifecycle.title": {
+      "text": "Kuidas töö liigub",
+      "sourceHash": "f2aca5f91721d67a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.next.community": {
+      "text": "Kogukond",
+      "sourceHash": "fa37aee384e3435b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.next.faq": {
+      "text": "KKK",
+      "sourceHash": "361f7af3eee40d49",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-05.json"
+    },
+    "home.next.hosts": {
+      "text": "Toetatud keskkonnad",
+      "sourceHash": "aaf1eeba4e414403",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.next.introduction": {
+      "text": "Sissejuhatus",
+      "sourceHash": "3ffba5ed45c656e6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.next.quickstart": {
+      "text": "Kiiralustus",
+      "sourceHash": "893546674ad7a85c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.next.title": {
+      "text": "Kuhu edasi",
+      "sourceHash": "b8cd7e89cf206115",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.board": {
+      "text": "Milline töö on olemas: DOING, TODO, DONE, BLOCKED.",
+      "sourceHash": "ca26fb488f043639",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.knowledge": {
+      "text": "Püsivad ja kontrollitud projektifaktid.",
+      "sourceHash": "dc03ba72c0a0b664",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.link": {
+      "text": "[Kõik failid kaustas .saipen/, lahti seletatult](/docs/concepts/project-memory/)",
+      "sourceHash": "f25b1f5139e594ab",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.log": {
+      "text": "Miks projekt on siin: ainult lisatav sündmuste graaf.",
+      "sourceHash": "4057d164f114336f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.state": {
+      "text": "Mis toimub praegu — ja ainus next_action.",
+      "sourceHash": "601c2a4be705d232",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.persists.title": {
+      "text": "Mis säilib kaustas .saipen/",
+      "sourceHash": "dfa00c009b73a170",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.practice.body": {
+      "text": "SAIPEN ei sündinud hüpoteetilise agendisüsteemi jaoks. See kasvas välja pärisprojektide arendamisest eri mudelite, pakkujate, seansside ja tööriistadega. Sama tõrge kordus: agent vahetus, aga projekt pidi täpselt mäletama, mis juhtus ja mis järgneb.",
+      "sourceHash": "cf5065aa1c1e8e27",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.practice.note": {
+      "text": "See veebisait valmib samamoodi — [selle enda SAIPEN tahvel](/about/#dogfooding) on lehel Projektist.",
+      "sourceHash": "a7a88bf546c2944c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.practice.title": {
+      "text": "Praktikast sündinud",
+      "sourceHash": "4358ec6b818d995b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.evidence.line": {
+      "text": "„Valmis” nõuab VERIFY, REVIEW ja salvestatud tõendeid.",
+      "sourceHash": "873399121bf08f23",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.evidence.name": {
+      "text": "Tõendid, mitte jutustus",
+      "sourceHash": "d335c12116fd1abf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.honest-stops.line": {
+      "text": "WAIT nimetab ühe seitsmest päris põhjusest; oletusi ega laisku peatusi pole.",
+      "sourceHash": "ad0ff902eefd07dc",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.honest-stops.name": {
+      "text": "Ausad peatused",
+      "sourceHash": "ef59ba546294dd05",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.local-first.line": {
+      "text": "Serverit, deemonit, andmebaasi ega kontot pole vaja. Ainult Pythoni standardteek.",
+      "sourceHash": "2153575f7a28c5de",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.local-first.name": {
+      "text": "Esmalt kohalik",
+      "sourceHash": "bdba41541e3e18fe",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.model-independent.line": {
+      "text": "Iga ühilduv agent, iga pakkuja, samad failid.",
+      "sourceHash": "f3accfbd308e9b70",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.model-independent.name": {
+      "text": "Mudelist sõltumatu",
+      "sourceHash": "5b290c98ed7e03d6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.next-action.line": {
+      "text": "Külm agent teeb kirjapandud sammu, selle asemel et uuesti plaanida.",
+      "sourceHash": "8caacfdfcee504aa",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.next-action.name": {
+      "text": "Üks järgmine tegevus",
+      "sourceHash": "ea1dbfa056faa3f0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.plain-files.line": {
+      "text": "Olek on projekti Markdown-failides, mida saab võrrelda ja koos koodiga commit'ida.",
+      "sourceHash": "8128bc6e32fda168",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.plain-files.name": {
+      "text": "Lihtfailid",
+      "sourceHash": "8a0e29adb865b0e2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.principles.title": {
+      "text": "Põhimõtted",
+      "sourceHash": "4b0ef415b6d4095d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.story.badge-note": {
+      "text": "illustreeriv simulatsioon katsetuskeskkonnast — midagi ei käivitata",
+      "sourceHash": "bf8a94e406212e85",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.story.read": {
+      "text": "Loe katkestatud tööst",
+      "sourceHash": "61790cf2147f63b5",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.story.step": {
+      "text": "Vaata sammhaaval",
+      "sourceHash": "1c9773dfe84bd2b6",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    },
+    "home.story.title": {
+      "text": "Külm üleandmine algusest lõpuni",
+      "sourceHash": "d53842e29bf35b9d",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-06.json"
+    }
+  }
+}

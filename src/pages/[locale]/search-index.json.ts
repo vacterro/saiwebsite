@@ -29,12 +29,15 @@ export const GET: APIRoute = async ({ props }) => {
   const entries = [];
   for (const { slug, variant } of plan.docs) {
     const page = await renderLocalizedDoc(slug, locale);
+    if (!page.translatedBody.trim() || page.lang!==locale) continue;
     entries.push({
       url: variant,
       title: page.title,
       kind: `${tx.text('pages.docs.index.label')} · ${tx.text(`docs-ui.section.${sections.get(slug)}`)}`,
       rank: 3,
-      text: `${page.description} ${page.body.match(/^#{2,3} .+$/gm)?.join(' ') ?? ''} ${plain(page.body).slice(0, 900)}`,
+      text: `${page.description} ${page.translatedBody.match(/^#{2,3} .+$/gm)?.join(' ') ?? ''} ${plain(page.translatedBody).slice(0, 900)}`,
+      translationStatus:page.fallbacks.length?'PARTIAL':plan.docs.find((d)=>d.slug===slug)?.status,
+      fallbackSegments:page.fallbacks,
     });
   }
   return new Response(JSON.stringify(entries), { headers: { 'content-type': 'application/json; charset=utf-8' } });

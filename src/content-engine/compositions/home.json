@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 2,
+  "page": "home",
+  "mode": "slots",
+  "note": "Native views own interactive/generated markup. This manifest owns section identity, visibility and order; ordinary paragraph/list/card sections use the shared renderer. Native slots supply their own model variables.",
+  "bindings": {},
+  "availableSlots": [
+    "hero",
+    "practice",
+    "breaks-and-memory",
+    "lifecycle",
+    "story",
+    "principles",
+    "eco",
+    "next"
+  ],
+  "sections": [
+    {
+      "id": "hero",
+      "owner": "home",
+      "order": 10,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ],
+        "required": true
+      },
+      "type": "slot",
+      "slot": "hero",
+      "blocks": [
+        "home.hero.lead",
+        "home.hero.cmd-or",
+        "home.action.start",
+        "home.action.spec",
+        "home.action.recovery",
+        "home.action.github",
+        "home.hero.licence"
+      ]
+    },
+    {
+      "id": "practice",
+      "owner": "home",
+      "order": 20,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "practice",
+      "blocks": [
+        "home.practice.title",
+        "home.practice.body",
+        "home.practice.note"
+      ]
+    },
+    {
+      "id": "breaks-and-memory",
+      "owner": "home",
+      "order": 30,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "breaks-and-memory",
+      "blocks": [
+        "home.breaks.title",
+        "home.breaks.item1",
+        "home.breaks.item2",
+        "home.breaks.item3",
+        "home.breaks.item4",
+        "home.breaks.item5",
+        "home.breaks.item6",
+        "home.breaks.note",
+        "home.persists.title",
+        "home.persists.state",
+        "home.persists.board",
+        "home.persists.log",
+        "home.persists.knowledge",
+        "home.persists.link"
+      ]
+    },
+    {
+      "id": "lifecycle",
+      "owner": "home",
+      "order": 40,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "lifecycle",
+      "blocks": [
+        "home.lifecycle.title",
+        "home.lifecycle.body",
+        "home.lifecycle.note"
+      ]
+    },
+    {
+      "id": "story",
+      "owner": "home",
+      "order": 50,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "story",
+      "blocks": [
+        "home.story.title",
+        "home.story.badge-note",
+        "home.story.step",
+        "home.story.read"
+      ]
+    },
+    {
+      "id": "principles",
+      "owner": "home",
+      "order": 60,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "principles",
+      "blocks": [
+        "home.principles.title",
+        "home.principles.plain-files.name",
+        "home.principles.plain-files.line",
+        "home.principles.next-action.name",
+        "home.principles.next-action.line",
+        "home.principles.evidence.name",
+        "home.principles.evidence.line",
+        "home.principles.model-independent.name",
+        "home.principles.model-independent.line",
+        "home.principles.local-first.name",
+        "home.principles.local-first.line",
+        "home.principles.honest-stops.name",
+        "home.principles.honest-stops.line"
+      ]
+    },
+    {
+      "id": "eco",
+      "owner": "home",
+      "order": 70,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "eco",
+      "blocks": [
+        "home.eco.title",
+        "home.eco.body",
+        "home.eco.col.project",
+        "home.eco.col.role",
+        "home.eco.col.maturity",
+        "home.eco.link"
+      ]
+    },
+    {
+      "id": "next",
+      "owner": "home",
+      "order": 80,
+      "visibility": "public",
+      "maturity": "preview",
+      "sourceIds": [
+        "site.identity",
+        "saipen.protocol.meta",
+        "saipen.hq.project-map",
+        "site.scenarios"
+      ],
+      "localizable": true,
+      "validation": {
+        "gates": [
+          "test:shell",
+          "test:i18n",
+          "validate:content"
+        ]
+      },
+      "type": "slot",
+      "slot": "next",
+      "blocks": [
+        "home.next.title",
+        "home.next.introduction",
+        "home.next.quickstart",
+        "home.next.hosts",
+        "home.next.faq",
+        "home.next.community"
+      ]
+    }
+  ],
+  "metadataBlocks": [
+    "home.description"
+  ]
+}

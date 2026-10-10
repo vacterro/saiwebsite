@@ -74,12 +74,21 @@ export function identify(source, root = '.') {
       const version = readJson(at(source.paths[0])).version ?? null;
       return { status: 'OK', ...base, version, sha256: sha256(`version\0${version}`), files: 1 };
     }
+    case 'canonical-reference': {
+      const meta=readJson(at('src/data/canonical/meta.json'));
+      const documentation=readJson(at(source.paths[0]));
+      const path=source.canonicalLocation.split('/blob/main/')[1];
+      const record=documentation.files?.[path];
+      if (!record || !/^[0-9a-f]{64}$/.test(record.sha256)) return {status:'FAILED',reason:`missing canonical reference ${path}`};
+      return {status:'OK',...base,sha256:record.sha256,files:1,version:meta.version,revision:meta.commit,revisionDate:meta.commitDate,syncTool:'scripts/sync-canonical.mjs'};
+    }
     case 'canonical': {
       const meta = readJson(at('src/data/canonical/meta.json'));
+      const identity=source.paths.length===1&&source.paths[0]==='src/data/canonical/meta.json'?(()=>{const facts=structuredClone(meta);delete facts.commitDate;return {sha256:sha256(serialize(facts)),files:1};})():tree(source.paths);
       return {
         status: 'OK',
         ...base,
-        ...tree(source.paths),
+        ...identity,
         version: meta.version ?? null,
         revision: meta.commit ?? null,
         revisionDate: meta.commitDate ?? null,
@@ -88,11 +97,12 @@ export function identify(source, root = '.') {
     }
     case 'ecosystem': {
       const snapshot = readJson(at(source.paths[0]));
+      const facts = structuredClone(snapshot);
+      delete facts.snapshot?.date;
       return {
         status: 'OK',
         ...base,
-        ...tree(source.paths),
-        revisionDate: snapshot.snapshot?.date ?? null,
+        sha256: sha256(serialize(facts)), files: 1,
         syncTool: 'scripts/sync-ecosystem.mjs',
       };
     }
@@ -106,7 +116,9 @@ export function computeLock(sourcesDoc, root = '.') {
   const sources = {};
   const failed = [];
   for (const source of [...sourcesDoc.sources].sort((a, b) => a.id.localeCompare(b.id))) {
-    const id = identify(source, root);
+    let id;
+    try { id = identify(source, root); }
+    catch (error) { id = {status:'FAILED',reason:`invalid snapshot: ${error.message}`}; }
     if (id.status === 'FAILED') {
       failed.push(`[source-failed] ${source.id}: ${id.reason}`);
       continue;
@@ -137,10 +149,11 @@ export function diffLock(committed, fresh) {
   for (const id of [...ids].sort()) {
     const was = committed?.sources?.[id];
     const now = fresh.sources[id];
-    if (!now) out.push({ id, state: 'REMOVED' });
+    if (!now) out.push({ id, state: 'REMOVED', was });
     else if (!now.locked) out.push({ id, state: 'VOLATILE' });
     else if (!was) out.push({ id, state: 'NEW', now });
-    else if (was.sha256 !== now.sha256 || was.version !== now.version || was.revision !== now.revision) out.push({ id, state: 'STALE', was, now });
+    else if (was.sha256 !== now.sha256 || was.version !== now.version) out.push({ id, state: 'STALE', was, now });
+    else if (was.revision !== now.revision) out.push({ id, state: 'PROVENANCE', was, now });
     else out.push({ id, state: 'CURRENT' });
   }
   return out;

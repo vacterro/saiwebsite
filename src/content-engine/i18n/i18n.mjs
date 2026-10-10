@@ -53,7 +53,7 @@ export function uncoveredScripts(locale, coverage) {
 }
 
 /** URL segment for a locale: lowercase, so /pt-br/ and /qps-ploc/ stay valid registry routes. */
-export const localePrefix = (id) => id.toLowerCase();
+export const localePrefix = (id) => String(id).toLowerCase();
 
 export function validateLocales(doc) {
   const problems = [];
@@ -62,16 +62,21 @@ export function validateLocales(doc) {
   if (!ids.has(doc.canonical)) problems.push(`[malformed] locales.json: canonical "${doc.canonical}" is not a declared locale`);
   const seen = new Set();
   for (const l of doc.locales) {
+    if(!l||typeof l!=='object'||Array.isArray(l)){problems.push('[malformed] locales.json: every locale must be an object');continue;}
     const where = `locale ${l?.id}`;
+    for(const key of ['displayName','nativeName'])if(typeof l[key]!=='string'||!l[key].trim())problems.push(`[malformed] ${where}: ${key} must be a nonempty string`);
+    for(const key of ['enabled','searchEnabled','llmsEnabled'])if(typeof l[key]!=='boolean')problems.push(`[malformed] ${where}: ${key} must be boolean`);
+    for(const key of ['scripts','renderStatuses'])if(!Array.isArray(l[key])||!l[key].length)problems.push(`[malformed] ${where}: ${key} must be a nonempty array`);
     for (const f of LOCALE_FIELDS) if (!(f in (l ?? {}))) problems.push(`[missing-field] ${where}: no "${f}"`);
-    for (const f of Object.keys(l ?? {})) if (!LOCALE_FIELDS.includes(f)) problems.push(`[unknown-field] ${where}: "${f}"`);
+    for (const f of Object.keys(l ?? {})) if (!LOCALE_FIELDS.includes(f) && f!=='publication') problems.push(`[unknown-field] ${where}: "${f}"`);
+    if (l.publication!==undefined && !['public','internal'].includes(l.publication)) problems.push(`[bad-enum] ${where}: publication must be public or internal`);
     if (!BCP47.test(l.id)) problems.push(`[bad-id] ${where}: not a BCP 47 tag`);
     if (seen.has(localePrefix(l.id))) problems.push(`[duplicate-id] ${where}: declared twice (case-insensitive)`);
     seen.add(localePrefix(l.id));
     if (!STAGES.includes(l.stage)) problems.push(`[bad-enum] ${where}: stage "${l.stage}"`);
     if (!['ltr', 'rtl'].includes(l.direction)) problems.push(`[bad-enum] ${where}: direction "${l.direction}"`);
-    for (const s of l.scripts ?? []) if (!SCRIPTS.includes(s)) problems.push(`[bad-enum] ${where}: script "${s}"`);
-    for (const s of l.renderStatuses ?? []) if (!STORED_STATUSES.includes(s)) problems.push(`[bad-enum] ${where}: renderStatuses "${s}"`);
+    for (const s of Array.isArray(l.scripts)?l.scripts:[]) if (!SCRIPTS.includes(s)) problems.push(`[bad-enum] ${where}: script "${s}"`);
+    for (const s of Array.isArray(l.renderStatuses)?l.renderStatuses:[]) if (!STORED_STATUSES.includes(s)) problems.push(`[bad-enum] ${where}: renderStatuses "${s}"`);
     if (l.scope !== 'all' && !(l.scope in (doc.scopes ?? {}))) problems.push(`[malformed] ${where}: scope "${l.scope}" is not declared in scopes`);
     if (l.id === doc.canonical) {
       if (l.stage !== 'canonical' || l.fallback !== null || !l.enabled) problems.push(`[contract] ${where}: the canonical locale is stage canonical, enabled, with no fallback`);
@@ -83,6 +88,7 @@ export function validateLocales(doc) {
   }
   // Fallback chains must end at the canonical locale.
   for (const l of doc.locales) {
+    if(!l||typeof l!=='object'||Array.isArray(l))continue;
     const seenChain = new Set();
     let cur = l;
     while (cur && cur.id !== doc.canonical) {
@@ -99,7 +105,7 @@ export function validateLocales(doc) {
 
 export const enabledLocales = (doc) => doc.locales.filter((l) => l.enabled && l.id !== doc.canonical);
 /** Locales visitors can reach: enabled, not the pseudo-locale. */
-export const publicLocales = (doc) => doc.locales.filter((l) => l.enabled && l.stage !== 'pseudo');
+export const publicLocales = (doc) => doc.locales.filter((l) => l.enabled && l.stage !== 'pseudo' && l.publication!=='internal');
 
 /** The kernel's verdict on one unit against the current canonical hash. */
 export function unitStatus(unit, canonicalHash) {
@@ -125,6 +131,10 @@ export function checkTranslation({ id, type, en, text, glossary, locale }) {
       const sigEn = type === 'inline' ? markupSignature(en) : markdownSignature(en);
       const sigTr = type === 'inline' ? markupSignature(text) : markdownSignature(text);
       if (sigEn !== sigTr) problems.push(`[markup] ${locale} ${id}: code spans, link targets and emphasis must match the English (${sigEn || 'none'})`);
+      if(type==='inline') {
+        const tags=(s)=>JSON.stringify([...s.replace(/`[^`]+`/g,'').matchAll(/<\/?[A-Za-z][^>]*>/g)].map((m)=>m[0]));
+        if(tags(en)!==tags(text))problems.push(`[markup] ${locale} ${id}: literal HTML tags must match the English`);
+      }
     } catch (error) {
       problems.push(`[markup] ${locale} ${id}: ${error.message}`);
     }
@@ -156,7 +166,11 @@ export function markdownSignature(md) {
   const code = [...rest.matchAll(/`([^`]+)`/g)].map((m) => m[1]);
   const links = [...rest.matchAll(/\]\(([^)\s]+)\)/g)].map((m) => m[1]);
   const headings = [...rest.matchAll(/^(#{1,6}) /gm)].map((m) => m[1].length);
-  return JSON.stringify({ fences, code: code.sort(), links: links.sort(), headings });
+  const prose = rest.replace(/`[^`]+`/g, '');
+  const html = [...prose.matchAll(/<\/?[A-Za-z][^>]*>/g)].map((m)=>m[0]);
+  const emphasis = [...prose.matchAll(/\*\*[^*]+\*\*/g)].length;
+  const lists = [...prose.matchAll(/^\s*(?:([-*]) |(\d+)\. |(>) )/gm)].map((m)=>m[1]?'unordered':m[2]?'ordered':'quote').filter((v,i,a)=>v!=='quote'||i===0||a[i-1]!=='quote');
+  return JSON.stringify({ fences, code: code.sort(), links: links.sort(), headings, html, emphasis, lists });
 }
 
 // ---------------------------------------------------------------------------
@@ -221,7 +235,8 @@ export function docSegmentStatus(doc, units, renderStatuses) {
   const body = doc.segments.filter((s) => s.kind === 'markdown');
   let rendered = 0;
   for (const s of body) if (renderStatuses.includes(unitStatus(units?.[s.id], s.hash))) rendered++;
-  return { status: rendered === 0 ? 'MISSING' : rendered === body.length ? 'CURRENT' : 'PARTIAL', rendered, total: body.length };
+  const states=doc.segments.map((s)=>unitStatus(units?.[s.id],s.hash));
+  return { status: rendered === 0 ? 'MISSING' : rendered < body.length || states.some((s)=>!renderStatuses.includes(s)) ? 'PARTIAL' : states.includes('MACHINE_DRAFT') ? 'MACHINE_DRAFT' : states.includes('REVIEWED') ? 'REVIEWED' : 'CURRENT', rendered, total: body.length };
 }
 
 /**

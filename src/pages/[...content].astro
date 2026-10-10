@@ -1,0 +1,18 @@
+---
+import registry from '../content-engine/registry/pages.json';
+import ComposedView from '../views/ComposedView.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+export function getStaticPaths() {
+  return registry.pages.filter((p) => 'composition' in p || 'redirectTo' in p).map((p) => ({
+    params: { content: p.route.slice(1, -1) || undefined }, props: { entry: p },
+  }));
+}
+const { entry } = Astro.props;
+const target = 'redirectTo' in entry ? registry.pages.find((p) => p.id === entry.redirectTo) : undefined;
+---
+{target ? (
+  <SiteLayout title={entry.label} canonicalPath={target.route} noindex>
+    <meta slot="head" http-equiv="refresh" content={`0;url=${target.route}`} />
+    <h1>{entry.label}</h1><p>This page moved to <a href={target.route}>{target.label}</a>.</p>
+  </SiteLayout>
+) : <ComposedView page={entry.id} />}

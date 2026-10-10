@@ -10,6 +10,7 @@ import MaturityBadge from '../../components/MaturityBadge.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { SHORT_COMMIT, meta } from '../../content-engine/models/protocol';
 import { MILESTONES } from '../../data/milestones';
+import { isDiagnosticRoute } from '../../data/site';
 import { ECOSYSTEM_SNAPSHOT } from '../../content-engine/models/ecosystem';
 
 const counts = {
@@ -67,7 +68,8 @@ const counts = {
               <td>
                 <span class={`w-badge ${m.state === 'delivered' ? 'w-badge--ok' : 'w-badge--info'}`}>{m.state}</span>
               </td>
-              <td>{m.where ? <a href={m.where}>{m.where}</a> : (m.note ?? '')}</td>
+              {/* Diagnostic benches are named, never linked: a public page must not hyperlink routes that a public candidate physically excludes. */}
+              <td>{m.where ? (isDiagnosticRoute(m.where.split('#')[0]) ? <span>{m.where}</span> : <a href={m.where}>{m.where}</a>) : (m.note ?? '')}</td>
             </tr>
           ))
         }

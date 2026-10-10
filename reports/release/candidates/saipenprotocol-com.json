@@ -1,0 +1,112 @@
+{
+  "tool": "release-candidate",
+  "verdict": "PASS",
+  "failedStage": null,
+  "origin": "https://saipenprotocol.com",
+  "slug": "saipenprotocol-com",
+  "git": {
+    "rev": "9f5c020adf816610dd58b10b75099a17552a14e6",
+    "dirty": true,
+    "dirtyFiles": 260
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "gates": [
+    {
+      "id": "site:doctor",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "lint-styles",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-themes",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-canonical",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-content",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-registry",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-baselines",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "audit-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "i18n",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "astro-build",
+      "ok": true,
+      "exit": 0
+    }
+  ],
+  "releaseVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "candidateVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "smoke": {
+    "verdict": "LOCAL_STATIC_HOST_PASS",
+    "failing": []
+  },
+  "projection": {
+    "removed": 20,
+    "scrubbed": [],
+    "files": 134
+  },
+  "candidate": {
+    "directory": ".site-work/release/candidates/saipenprotocol-com/current",
+    "files": 134,
+    "sha256": "441d8f78d9095ea1011f9cc14b573fa7567c6cfbf535670b5a542fd35f259cb5"
+  },
+  "previousPreserved": true,
+  "publicationAuthorized": false,
+  "external": [
+    "hosting",
+    "dns",
+    "https",
+    "redirects",
+    "search-indexing",
+    "publication-authorization",
+    "translation-approvals"
+  ]
+}

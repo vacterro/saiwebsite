@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "locale": "et",
+  "domain": "pricing",
+  "units": {
+    "pricing.badge-note": {
+      "text": "faktide kirjeldus, mitte hinnakiri",
+      "sourceHash": "779babee65974069",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.col.offering": {
+      "text": "Võimalus",
+      "sourceHash": "1f3e1cd1a9c48339",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.col.state": {
+      "text": "Olek",
+      "sourceHash": "59e0b648149a1938",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.col.today": {
+      "text": "Mida see praegu tähendab",
+      "sourceHash": "0785ebd2d92235d2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.description": {
+      "text": "SAIPEN on tasuta ja avatud. Praegu pole majutatud teenust ega tasulist paketti; see leht ütleb seda otse.",
+      "sourceHash": "9da09c441c7cd022",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.future.body": {
+      "text": "See võtaks tasu valikulise hallatud taristu eest — majutatud käitus, püsiv jagatud olek, vahendus, tõendite säilitamine, jälgitavus, organisatsioonihaldus ja tugi — mitte ligipääsu eest protokollile või spetsifikatsioonile. Kohalikku avatud võimalust ei nõrgestataks kellegi sellesse teenusesse suunamiseks. Kuni teenust pole, ei näita see leht kuutasu, kasutajakohtade arvu ega müügiga ühenduse võtmise nuppu.",
+      "sourceHash": "335f1f52ed698405",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.future.title": {
+      "text": "Kui majutatud teenus kunagi tekib",
+      "sourceHash": "69e078e35d2b1c7a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.hosted.name": {
+      "text": "Majutatud SAIPEN teenus",
+      "sourceHash": "99a32a99c3a49215",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.hosted.today": {
+      "text": "Pole olemas. Teenuse aadressi, kontot ega arveldusliidest pole.",
+      "sourceHash": "ed87b34410aa60dd",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.local.name": {
+      "text": "Kohalik ja isemajutatud kasutus",
+      "sourceHash": "581c2b17104bb519",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.local.today": {
+      "text": "Kõik töötab sinu masinas. Kasutusõiguse kontrolli pole ega ole plaanis.",
+      "sourceHash": "8f9418ddbd685e2a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.protocol.name": {
+      "text": "Protokoll, dokumendid ja spetsifikatsioon",
+      "sourceHash": "5c0c4424ed0f7d37",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.protocol.today": {
+      "text": "MIT-litsentsiga, [avalik GitHubis]({repository}). Kunagi ei nõua maksmist ega kontot.",
+      "sourceHash": "87bff1ff1f5204f0",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.state.free": {
+      "text": "tasuta",
+      "sourceHash": "ba15a6191ed9ee2b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.state.none": {
+      "text": "puudub",
+      "sourceHash": "9dcf59c454e4e80a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.bank": {
+      "text": "Pank",
+      "sourceHash": "ffeebbee69570532",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.bank-title": {
+      "text": "Pangaülekanne — EUR",
+      "sourceHash": "5e55910f22ca5e2f",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.body": {
+      "text": "Toetus on täiesti vabatahtlik. Annetus ei anna kasutusõigust, ei ava funktsioone, pole tellimus ega protokolli eest maksmine ning ei mõjuta ligipääsu SAIPEN-ile. Protokoll, dokumentatsioon ja kohalik kasutus jäävad tasuta.",
+      "sourceHash": "62c9bff4d42d1675",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.copied": {
+      "text": "Kopeeritud",
+      "sourceHash": "af00cf9025b78489",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.copy": {
+      "text": "Kopeeri",
+      "sourceHash": "7ade130deccc5a1b",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-07.json"
+    },
+    "pricing.support.crypto-title": {
+      "text": "Krüptoraha",
+      "sourceHash": "cd1f778f9be5d2cf",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.support.direct": {
+      "text": "Otseplatvormid",
+      "sourceHash": "f7b143ffdb9fe82c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.support.network-label": {
+      "text": "Võrk / varad:",
+      "sourceHash": "219a086998b3539c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.support.recipient": {
+      "text": "Saaja",
+      "sourceHash": "5daeb74d87b783f2",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.support.source": {
+      "text": "Kanooniline allikas: [SUPPORT.md GitHubis]({source}).",
+      "sourceHash": "836d9d0c57a7680a",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.support.title": {
+      "text": "Töö toetamine",
+      "sourceHash": "5c294f3a24d2a087",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.title": {
+      "text": "Hinnad",
+      "sourceHash": "f5a6d63235da45c7",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.tools.name": {
+      "text": "Ökosüsteemi tööriistad",
+      "sourceHash": "54e01ba98325d8a4",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    },
+    "pricing.tools.today": {
+      "text": "[Ökosüsteemi](/ecosystem/) projektid on avalikud hoidlad; vaata igaühe litsentsi.",
+      "sourceHash": "2a0a8af81316951c",
+      "status": "REVIEWED",
+      "author": "codex:T-20",
+      "reviewer": "buffy:independent-review",
+      "reviewReference": "reports/convergence/review/et-batch-08.json"
+    }
+  }
+}
