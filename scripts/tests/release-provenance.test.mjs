@@ -78,10 +78,24 @@ describe('dirtyTreeIdentity', () => {
   });
 
   it('live working tree resolves to a real identity (regression: untracked dirs broke it)', () => {
-    const porcelain = execSync('git -c core.quotePath=false status --porcelain', { cwd: ROOT, encoding: 'utf8', timeout: 30000 });
-    assert.ok(porcelain.trim().length > 0, 'test needs a dirty tree');
-    const id = dirtyTreeIdentity(porcelain);
-    assert.ok(id && /^[0-9a-f]{64}$/.test(id), 'real 300+ entry tree with untracked dirs must resolve');
+    // The regression was a real `git status --porcelain` payload carrying a
+    // large untracked directory. Build that condition instead of demanding an
+    // already-dirty worktree: a clean checkout must be able to run every gate.
+    // The pathspec keeps the payload scoped to this fixture, so an unrelated
+    // (or concurrently mutating) ambient tree can neither slow this down by
+    // thousands of entries nor break the walk mid-flight.
+    const dir = join(ROOT, 'sai-provenance-scale');
+    rmSync(dir, { recursive: true, force: true });
+    try {
+      mkdirSync(dir, { recursive: true });
+      for (let i = 0; i < 320; i++) writeFileSync(join(dir, `f${String(i).padStart(3, '0')}.txt`), `entry ${i}\n`);
+      const porcelain = execSync('git -c core.quotePath=false status --porcelain -- sai-provenance-scale', { cwd: ROOT, encoding: 'utf8', timeout: 30000 });
+      assert.ok(porcelain.trim().length > 0, 'the constructed 300+ entry tree is dirty');
+      const id = dirtyTreeIdentity(porcelain);
+      assert.ok(id && /^[0-9a-f]{64}$/.test(id), 'real 300+ entry tree with untracked dirs must resolve');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
     // No equality re-check here: determinism is proven on fixed input
     // above, and a live tree under parallel suites may legitimately change
     // between two hash passes (a changed tree MUST hash differently).
