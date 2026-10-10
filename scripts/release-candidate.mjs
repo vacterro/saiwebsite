@@ -12,7 +12,10 @@
  * 2. Requires source/content health (site:doctor exit 0).
  * 3. Refuses unreviewed upstream identity changes (doctor covers drift;
  *    protocol identity is re-checked by the verifier, never auto-accepted).
- * 4. Runs the required static validation gates.
+ * 4. Runs the required static validation gates. Gates that read the built
+ *    artifact (validate-content, validate-registry, audit-build) therefore
+ *    require a prior release-mode build of the same origin:
+ *      SAI_SITE_ORIGIN=<origin> SAI_RELEASE_BUILD=1 npm run build
  * 5. Builds for the explicitly configured target origin (release mode).
  * 6. Runs release-mode verification on the build.
  * 7. Projects the isolated public artifact (staging `next/` directory).
