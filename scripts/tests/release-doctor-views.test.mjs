@@ -11,6 +11,7 @@
 import { describe, it, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -242,6 +243,36 @@ describe('repairStores', () => {
       assert.equal(r.ok, true, 'a lock held elsewhere must not refuse this root');
     } finally {
       rmSync(other, { recursive: true, force: true });
+    }
+  });
+
+  it('a lock held in this root still refuses repair here', async () => {
+    healthyStore();
+    writeTree(root, { '.site-work/release/factory.lock/owner.json': JSON.stringify({ pid: process.pid, command: 'this-root', at: new Date().toISOString() }) });
+    const r = await repairStores(root);
+    assert.equal(r.ok, false, 'root isolation must not widen what a lock protects');
+    assert.match(r.refused, /factory lock is held/);
+  });
+
+  it('an abandoned lock stays detectable and still tolerates view repair', async () => {
+    healthyStore();
+    const ghost = spawnSync(process.execPath, ['-e', ''], { timeout: 30000 });
+    writeTree(root, { '.site-work/release/factory.lock/owner.json': JSON.stringify({ pid: ghost.pid, command: 'dead-owner', at: '2020-01-01T00:00:00.000Z' }) });
+    assert.equal(diagnose(root).lock.state, 'abandoned');
+    const r = await repairStores(root);
+    assert.equal(r.ok, true, 'a dead owner never blocks a view-only repair');
+    assert.equal(diagnose(root).lock.state, 'abandoned', 'repair never removes a foreign lock');
+  });
+
+  it('a lock with no readable owner grants nothing', async () => {
+    healthyStore();
+    writeTree(root, { '.site-work/release/factory.lock/owner.json': 'not json' });
+    const state = diagnose(root).lock.state;
+    assert.equal(state === 'unreadable' || state === 'absent', true, 'an unreadable lock is never permission to proceed');
+    const r = await repairStores(root);
+    if (state === 'unreadable') {
+      assert.equal(r.ok, false, 'an uncertain lock refuses repair, it does not authorize it');
+      assert.match(r.refused, /factory lock is unreadable/);
     }
   });
 });
