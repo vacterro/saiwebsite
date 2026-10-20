@@ -18,6 +18,7 @@
  *   node scripts/validate-registry.mjs --write    regenerate the inventory
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { builtRoutes, checkDiscovery } from '../src/content-engine/inventory/built.mjs';
 import { buildInventory, validateRegistry } from '../src/content-engine/registry/schema.mjs';
 import { sourceIdsOf, validateSources } from '../src/content-engine/registry/sources.mjs';
@@ -27,11 +28,13 @@ import { referenceSources } from '../src/content-engine/sources/references.mjs';
 const REGISTRY = 'src/content-engine/registry/pages.json';
 const SOURCES = 'src/content-engine/registry/sources.json';
 const INVENTORY = 'src/content-engine/inventory/pages.inventory.json';
-const DIST = 'dist';
+// The built artifact defaults to dist/, but the release factory points this
+// at the exact directory the current transaction built.
+const DIST = process.env.SAI_RELEASE_ARTIFACT_DIR ? resolve(process.env.SAI_RELEASE_ARTIFACT_DIR) : 'dist';
 const write = process.argv.includes('--write');
 
 if (!existsSync(DIST)) {
-  console.error('no dist/ — run `npm run build` first');
+  console.error(`no build artifact at ${DIST} — run \`npm run build\` first`);
   process.exit(2);
 }
 
@@ -60,7 +63,7 @@ const sourceDoc = JSON.parse(readFileSync(SOURCES, 'utf8'));
 const declared = sourceIdsOf(sourceDoc);
 const text = readFileSync(REGISTRY, 'utf8');
 const registry = JSON.parse(text);
-const routes = builtRoutes();
+const routes = builtRoutes(DIST);
 const clone = () => JSON.parse(text);
 const pageOf = (reg, id) => reg.pages.find((p) => p.id === id);
 

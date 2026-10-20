@@ -1,0 +1,23 @@
+# Pinned Python toolchain for the media pipeline
+# (scripts/media/build_media.py, scripts/media/check_media.py).
+#
+# Supported reproducibility boundary: byte-identical regeneration of the
+# approved assets in public/media/ is guaranteed only under this exact
+# toolchain (same Pillow + zlib + platform PNG encoder). Across other
+# toolchains the compressed PNG bytes may differ while decoding to
+# identical pixels; check_media.py proves pixel-level properties
+# (dimensions, format, first-frame identity) separately from byte hashes.
+#
+# Byte identity of the animated WebP derivation holds under this pin
+# (verified: isolated rebuild reproduces the checked-in WebP exactly).
+#
+# Windows developer workflow:
+#   py -m pip install -r requirements-media.txt
+#   npm run media:build
+#   npm run validate:media
+#
+# Linux CI installs the same file after actions/setup-python (see
+# .github/workflows/ci.yml). Manifest serialization is LF on every
+# platform (build_media.py opens the manifest with newline="\n"), so
+# manifest bytes are identical regardless of the checkout platform.
+Pillow==12.3.0

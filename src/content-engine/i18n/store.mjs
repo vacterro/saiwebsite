@@ -197,6 +197,8 @@ export function validateTranslations(store, coverage = null, { forEnable = false
       for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer', 'author', 'reviewReference', 'memoryFrom'].includes(key)) problems.push(`[unknown-field] ${where}: "${key}"`);
       if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${where}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
       if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${where}: sourceHash must be the 16-hex canonical hash from the work package`);
+      if (unit.status === 'MACHINE_DRAFT' && (unit.reviewer || unit.reviewReference))
+        problems.push(`[provenance] ${where}: MACHINE_DRAFT carries review evidence ("${unit.reviewer ?? ''}"${unit.reviewReference ? ` / ${unit.reviewReference}` : ''}) — a draft is unreviewed; review evidence belongs to the exact text a reviewer read`);
       const block = store.blocks[id];
       if (!block) continue;
       if (unitStatus(unit, blockHash(block)) !== 'STALE') problems.push(...checkTranslation({ id, type: block.type, en: block.text, text: unit.text, glossary, locale: doc.locale }));
@@ -218,6 +220,8 @@ export function validateTranslations(store, coverage = null, { forEnable = false
         for (const key of Object.keys(unit)) if (!['text', 'sourceHash', 'status', 'reviewer', 'author', 'reviewReference', 'memoryFrom'].includes(key)) problems.push(`[unknown-field] ${at}: "${key}"`);
         if (!STORED_STATUSES.includes(unit.status)) problems.push(`[bad-enum] ${at}: status "${unit.status}" is not ${STORED_STATUSES.join(' | ')}`);
         if (!/^[0-9a-f]{16}$/.test(unit.sourceHash ?? '')) problems.push(`[malformed] ${at}: sourceHash must be the 16-hex segment hash from the work package`);
+        if (unit.status === 'MACHINE_DRAFT' && (unit.reviewer || unit.reviewReference))
+          problems.push(`[provenance] ${at}: MACHINE_DRAFT carries review evidence ("${unit.reviewer ?? ''}"${unit.reviewReference ? ` / ${unit.reviewReference}` : ''}) — a draft is unreviewed; review evidence belongs to the exact text a reviewer read`);
         const segment = doc.segmentsById[id];
         if (!segment) continue;
         if (unitStatus(unit, segment.hash) !== 'STALE') problems.push(...checkTranslation({ id, type: segment.kind, en: segment.text, text: unit.text, glossary, locale }));

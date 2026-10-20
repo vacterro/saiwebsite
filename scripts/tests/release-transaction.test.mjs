@@ -88,20 +88,27 @@ const passSmoke = { verdict: 'LOCAL_STATIC_HOST_PASS', checks: [] };
 
 /**
  * Pre-build gate evidence as runFactory() would record it before the
- * locked phase (site health, static gates, dist-independent engine
- * suites, and the full-profile type check). The runLockedFactory seam
- * starts at the build stage, so seam tests aiming at a fully evidenced
- * run must carry these in — the seam never invents gate results.
+ * locked phase (site health, source-only static gates, dist-independent
+ * engine suites, and the full-profile type check). The runLockedFactory
+ * seam starts at the build stage and records the artifact gates itself
+ * (validate-content, validate-registry, audit-build) once this run's build
+ * exists, so they are deliberately absent here — the seam never invents
+ * gate results, but it does run ARTIFACT_GATES against the built artifact.
  */
 function preBuildGates() {
-  // Contract 4: the static set includes the mandatory semantic media gate
-  // (STATIC_GATES runs `npm run validate:media`, recorded under the
-  // `validate:media` gate id). A "complete" fixture without it must
-  // NOT attest FULL -- see the strict-decision refusal this guards.
+  // Contract 8: the source-only set includes the mandatory semantic media
+  // gate (SOURCE_GATES runs `npm run validate:media`, recorded under the
+  // `validate:media` gate id) and the SOURCE half of the licence gate
+  // (`validate-licenses:source`). The artifact gates — validate-content,
+  // validate-registry, the ARTIFACT half of the licence gate
+  // (`validate-licenses:artifact`) and audit-build — moved into the locked
+  // phase, so a "complete" pre-build fixture must NOT list them and must
+  // still NOT attest FULL on its own: the artifact gates and the strict
+  // decision supply the rest.
   return [
     'site:doctor', 'lint-styles', 'validate-themes', 'validate-canonical',
-    'validate-content', 'validate-registry', 'validate-baselines',
-    'validate-licenses', 'validate:media', 'audit-build', 'i18n', 'test:engine', 'check',
+    'validate-baselines', 'validate-licenses:source', 'validate:media', 'i18n',
+    'test:engine', 'check',
   ].map((id) => ({ id, ok: true, exit: 0 }));
 }
 
@@ -130,6 +137,27 @@ describe('A: precommit failures never move the authoritative pointer', () => {
     assert.equal(evidence.readiness, 'NOT_READY');
     assert.equal(readPointer(base, 'current').generation, gen);
     assert.equal(verifyDigest(join(base, 'generations', gen), sha), true);
+  });
+
+  it('artifact-gate failure after the build commits nothing (clean-checkout path)', async () => {
+    // Contract 7: validate-content/registry/audit-build run inside the lock,
+    // after this run's build. A failure there must preserve the committed
+    // generation and never advance the pointer.
+    const { base, gen, sha } = committedStore();
+    const root = tempDir();
+    const evidence = evidenceFor(root, 'full');
+    const deps = okDeps({
+      runGate: (cmd) => (/validate-content/.test(cmd)
+        ? { ok: false, exit: 1, tail: 'injected broken-link' }
+        : { ok: true, exit: 0 }),
+    });
+    await runLockedFactory({ evidence, origin: ORIGIN, buildEnv: process.env, base, profile: 'full', deps, root, builtDistDir: disposableArtifact() });
+    assert.equal(evidence.verdict, 'FAIL');
+    assert.equal(evidence.failedStage, 'artifact-gates');
+    assert.ok(evidence.gates.some((g) => g.id === 'validate-content' && g.ok === false), 'the failed artifact gate is recorded');
+    assert.equal(readPointer(base, 'current').generation, gen, 'authoritative pointer unmoved');
+    assert.equal(verifyDigest(join(base, 'generations', gen), sha), true, 'committed bytes intact');
+    assert.equal(evidence.readiness, 'NOT_READY');
   });
 
   it('release-verify failure names its gate and commits nothing', async () => {
@@ -839,5 +867,40 @@ describe('Stage B/C: injected full-profile runs stay independent of repository d
       /test-only artifact seam/,
     );
   });
+
+  it('artifact gates inspect THIS run build via SAI_RELEASE_ARTIFACT_DIR, never an inherited dist', async () => {
+    // Contract 7 seam contract: each artifact gate is handed
+    // SAI_RELEASE_ARTIFACT_DIR naming the directory this transaction built,
+    // so a stale repository dist/ can never be the thing validated.
+    const base = legacyStoreWithNext();
+    const built = disposableArtifact();
+    const root = tempDir();
+    const evidence = evidenceFor(root, 'full');
+    evidence.git = { rev: 'a'.repeat(40), dirty: false, dirtyFiles: 0, dirtyIdentity: null, provenance: 'head' };
+    evidence.package = '1.5.0';
+    evidence.packageVersion = '1.5.0';
+    evidence.protocol = { version: '8.1.0', commit: 'c'.repeat(40) };
+    evidence.gates = preBuildGates();
+    evidence.engineAccounting = structuredClone(engAcc);
+    const seen = {};
+    const deps = {
+      ...injectedDepsForArtifact(),
+      runGate: (cmd, env) => {
+        if (/validate-content|validate-registry|validate-licenses|audit-build/.test(cmd)) {
+          seen[cmd] = env?.SAI_RELEASE_ARTIFACT_DIR ?? null;
+        }
+        return { ok: true, exit: 0 };
+      },
+    };
+    await runLockedFactory({ evidence, origin: ORIGIN, buildEnv: process.env, base, profile: 'full', deps, root, builtDistDir: built });
+    assert.equal(evidence.verdict, 'PASS');
+    for (const cmd of ['node scripts/validate-content.mjs', 'node scripts/validate-registry.mjs', 'node scripts/validate-licenses.mjs --phase=artifact', 'node scripts/audit-build.mjs']) {
+      assert.equal(seen[cmd], built, `${cmd} received the built artifact dir, not repository dist/`);
+    }
+  });
+
+  function structuredClone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
 });
 

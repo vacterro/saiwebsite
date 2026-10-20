@@ -37,7 +37,7 @@ export function registerExtension(ext) {
   extensions.push(ext);
 }
 
-export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
+export function loadEngine({ root = '.', dist = 'dist', inspectBuilt = true, overrides = {} } = {}) {
   const at = (p) => join(root, p);
   const sourcesDoc = overrides.sourcesDoc ?? readJson(at(FILES.sources));
   const registry = overrides.registry ?? readJson(at(FILES.pages));
@@ -48,8 +48,13 @@ export function loadEngine({ root = '.', dist = 'dist', overrides = {} } = {}) {
   const contracts = [...validateSources(sourcesDoc), ...validateRegistry(registry, declared,{derivedSourceIds:referenceSources(root).filter((r)=>r.pages.length).map((r)=>r.id)}), ...validateGenerated(generatedDoc, declared)];
   if (sourcesDoc.sources.some((s)=>s.adapter==='canonical')) contracts.push(...validateCanonicalSnapshot(at('src/data/canonical')));
 
-  // Built site: inventory + discovery flags. Without dist/ these are UNKNOWN, not failures.
-  const hasDist = existsSync(at(dist));
+  // Built site: inventory + discovery flags. Without dist/ these are UNKNOWN,
+  // not failures. `inspectBuilt: false` forces the offline path even when a
+  // dist/ is present on disk: the release factory's pre-build health check
+  // must never validate (or trust) an inherited build from an earlier
+  // transaction — the built site is checked after this run's own build by the
+  // artifact gates. The committed inventory keeps the graph working offline.
+  const hasDist = inspectBuilt && existsSync(at(dist));
   const store = contracts.length ? null : loadStore({ root, registry, sourceIds: declared, overrides: overrides.store });
   if (store) contracts.push(...store.problems);
   let inventory = null;

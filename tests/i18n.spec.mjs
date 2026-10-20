@@ -23,8 +23,51 @@ const VARIANTS = [...inventory.public, ...inventory.internal].filter((r) => r.lo
 const RAW_KEY = /\b(?:ui|pages|home|about|pricing|search|notfound|docs-ui)\.[a-z0-9-]+\.[a-z0-9.-]+\b/;
 const WIDTHS = [320, 390, 640, 1280, 1920];
 
+/**
+ * Text the gate must scan: the page minus every `lang="en"` subtree. Those
+ * subtrees are canonical protocol data rendered verbatim on purpose — the
+ * About dogfooding table shows this repository's own BOARD ticket titles, and
+ * a ticket title may legitimately name a unit id (`home.hero.lead`). The leak
+ * this gate hunts is a raw key standing in for translated text, which by
+ * definition sits outside those subtrees. See src/views/AboutView.astro
+ * ("ticket titles, gate commands and model data stay canonical") and
+ * src/content-engine/i18n/TRANSLATING.md ("protocol vocabulary that appears as
+ * data ... stays canonical and is marked lang=\"en\" on translated pages").
+ */
+const scannedText = (page) =>
+  page.evaluate(() => {
+    document.querySelectorAll('[lang="en"]').forEach((el) => el.remove());
+    return document.body.innerText;
+  });
+
 test('the inventory registers locale variants to check', () => {
   expect(VARIANTS.length).toBeGreaterThan(0);
+});
+
+// Red control for the raw-key gate: it must still go red on a key leaked as
+// translated text, and must ignore the same key inside canonical `lang="en"`
+// data. Without both halves the scoped scan could silently pass everything.
+test('the raw-key gate still fails a key leaked outside lang="en"', async ({ page }) => {
+  await page.goto(VARIANTS[0].route);
+  const { outside, inside } = await page.evaluate(() => {
+    const read = () => {
+      document.querySelectorAll('[lang="en"]').forEach((el) => el.remove());
+      return document.body.innerText;
+    };
+    const leak = document.createElement('p');
+    leak.textContent = 'home.hero.lead';
+    document.body.append(leak);
+    const outsideText = read();
+    leak.remove();
+
+    const holder = document.createElement('p');
+    holder.setAttribute('lang', 'en');
+    holder.textContent = 'home.hero.lead';
+    document.body.append(holder);
+    return { outside: outsideText, inside: read() };
+  });
+  expect(outside, 'the scoped scan must still catch a leaked key').toMatch(RAW_KEY);
+  expect(inside, 'canonical lang="en" data is not a leak').not.toMatch(RAW_KEY);
 });
 
 for (const r of VARIANTS) {
@@ -33,7 +76,7 @@ for (const r of VARIANTS) {
       const response = await page.goto(r.route);
       expect(response.status()).toBe(200);
       await expect(page.locator('html')).toHaveAttribute('lang', r.locale);
-      const text = await page.locator('body').innerText();
+      const text = await scannedText(page);
       expect(text, 'a block ID leaked into the page').not.toMatch(RAW_KEY);
     });
 

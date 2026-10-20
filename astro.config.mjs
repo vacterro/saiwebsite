@@ -60,6 +60,10 @@ export default defineConfig({
     define: {
       __SAI_SITE_ORIGIN__: JSON.stringify(deployment.origin),
     },
+    // Vite's dependency cache belongs outside node_modules: a hermetic build
+    // sandbox copies node_modules as measured read-only context, and a cache
+    // write inside it would invalidate the very bytes under measurement.
+    cacheDir: '.vite-cache',
   },
   integrations: [releaseMetadata()],
   markdown: {

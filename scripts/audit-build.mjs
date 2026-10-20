@@ -10,7 +10,7 @@
 // placeholder is a dead `href="#"`.
 // Run after `npm run build`: node scripts/audit-build.mjs
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join, posix } from 'node:path';
+import { join, posix, resolve } from 'node:path';
 import { publicRoutes, readRegistry, readRoutes, readSources } from './route-registry.mjs';
 import { loadStore } from '../src/content-engine/i18n/store.mjs';
 
@@ -53,9 +53,11 @@ const ROADMAP_PUBLIC_ROUTES = [
   '/changelog/',
 ];
 
-const dist = 'dist';
+// The built artifact defaults to dist/, but the release factory points this
+// at the exact directory the current transaction built.
+const dist = process.env.SAI_RELEASE_ARTIFACT_DIR ? resolve(process.env.SAI_RELEASE_ARTIFACT_DIR) : 'dist';
 if (!existsSync(dist)) {
-  console.error('no dist/ — run `npm run build` first');
+  console.error(`no build artifact at ${dist} — run \`npm run build\` first`);
   process.exit(2);
 }
 
@@ -68,6 +70,17 @@ const pages = [];
   }
 })(dist);
 pages.sort();
+
+/**
+ * Path of a built page relative to the artifact root, POSIX-style. The root
+ * may be a plain `dist` or an absolute directory, so the prefix is derived
+ * from the resolved root rather than the literal string `dist/`.
+ */
+const DIST_PREFIX = dist.split('\\').join('/').replace(/\/$/, '') + '/';
+function relToDist(file) {
+  const p = file.split('\\').join('/');
+  return p.startsWith(DIST_PREFIX) ? p.slice(DIST_PREFIX.length) : p;
+}
 
 let failures = 0;
 const fail = (msg) => { failures++; console.log('  FAIL ' + msg); };
@@ -188,7 +201,7 @@ const PUBLIC_HREFS = publicRoutes().map((route) => route.href);
 
 /** `dist/status/index.html` -> `/status/`; `dist/index.html` -> `/`. */
 function pageHref(file) {
-  const rel = file.split('\\').join('/').replace(/^dist\//, '').replace(/index\.html$/, '');
+  const rel = relToDist(file).replace(/index\.html$/, '');
   return '/' + rel;
 }
 
@@ -312,7 +325,7 @@ function filesUnder(dir, ext) {
 // ---------------------------------------------------------------------------
 function auditIndexing() {
   console.log('\nINDEXING');
-  const rel = (p) => p.split('\\').join('/').replace(/^dist\//, '');
+  const rel = relToDist;
   const diagnostic = pages.filter((p) => rel(p).startsWith('debug/'));
   const pseudo = pages.filter((p) => rel(p).startsWith('qps-ploc/'));
   const unmarked = [...diagnostic, ...pseudo].filter((p) => !/<meta name="robots" content="noindex"/.test(readFileSync(p, 'utf8')));

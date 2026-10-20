@@ -13,12 +13,14 @@
  * Run after `npm run build`: node scripts/validate-content.mjs
  */
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { join, relative, resolve as pathResolve, sep } from 'node:path';
 import { verificationVersionProblems } from '../src/content-engine/verification.mjs';
 
-const DIST = 'dist';
+// The built artifact defaults to dist/, but the release factory points this
+// at the exact directory the current transaction built.
+const DIST = process.env.SAI_RELEASE_ARTIFACT_DIR ? pathResolve(process.env.SAI_RELEASE_ARTIFACT_DIR) : 'dist';
 if (!existsSync(DIST)) {
-  console.error('no dist/ — run `npm run build` first');
+  console.error(`no build artifact at ${DIST} — run \`npm run build\` first`);
   process.exit(2);
 }
 

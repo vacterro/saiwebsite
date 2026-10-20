@@ -26,8 +26,29 @@
  */
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { brotliDecompressSync } from 'node:zlib';
+
+// Phase selection (release factory contract 8). The licence gate has two
+// halves with different prerequisites:
+//   source   - approved font sources, manifests, fonts.css, social card and
+//              THIRD_PARTY_NOTICES. None of this reads a built artifact, so it
+//              runs before the build, on a clean checkout, without a dist/.
+//   artifact - the built site ships exactly the vouched-for fonts and card.
+//              This reads the build, so it runs AFTER the release build, under
+//              the factory lock, against SAI_RELEASE_ARTIFACT_DIR.
+// Both halves stay mandatory. With no --phase flag (standalone dev use) both
+// run and a missing artifact is a note, preserving the original behaviour.
+const PHASE = (process.argv.find((a) => a.startsWith('--phase=')) ?? '').slice('--phase='.length) || 'all';
+if (!['all', 'source', 'artifact'].includes(PHASE)) {
+  console.error(`unknown --phase=${PHASE} (expected source|artifact)`);
+  process.exit(2);
+}
+const runSource = PHASE === 'all' || PHASE === 'source';
+const runArtifact = PHASE === 'all' || PHASE === 'artifact';
+// The built artifact under test: the directory the current release transaction
+// built (SAI_RELEASE_ARTIFACT_DIR), or dist/ for standalone post-build use.
+const ARTIFACT_DIR = process.env.SAI_RELEASE_ARTIFACT_DIR ? resolve(process.env.SAI_RELEASE_ARTIFACT_DIR) : 'dist';
 
 const problems = [];
 const fail = (kind, msg) => problems.push(`[${kind}] ${msg}`);
@@ -196,7 +217,12 @@ else {
   else if (card.image && sha(CARD) !== card.image.sha256) fail('card', `${CARD} does not match its recorded provenance`);
 }
 
-// ── 7. the built site ships exactly these assets ──────────────────────────
+// ── 7. the built site ships exactly these assets (ARTIFACT phase) ─────────
+// Reads the built site, so it is the post-build half of the gate: it runs
+// against SAI_RELEASE_ARTIFACT_DIR (the current transaction's build) under the
+// factory lock, never an inherited dist/.
+const artifactProblems = [];
+const failArtifact = (kind, msg) => artifactProblems.push(`[${kind}] ${msg}`);
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
     const full = join(dir, name);
@@ -205,24 +231,39 @@ function walk(dir, out = []) {
   }
   return out;
 }
-let distNote = 'dist/ not built — run after npm run build to include it';
-if (existsSync('dist')) {
-  const files = walk('dist');
-  for (const f of files) {
-    if (FORBIDDEN.some((w) => f.toLowerCase().includes(w.toLowerCase()))) fail('lineage', `dist ships ${f}`);
+let distNote = `${ARTIFACT_DIR}/ not built — run after npm run build to include it`;
+// A missing artifact is a hard failure only when the build is REQUIRED: the
+// release factory's `--phase=artifact` call (post-build, under the lock) or any
+// run that explicitly names an artifact via SAI_RELEASE_ARTIFACT_DIR. Standalone
+// dev use (`--phase=all`, no env) keeps the original behaviour — with no dist/
+// the shipped-asset check is a note, not a failure — so a clean checkout can run
+// the licence gate without a build.
+const artifactRequired = PHASE === 'artifact' || Boolean(process.env.SAI_RELEASE_ARTIFACT_DIR);
+if (runArtifact && (existsSync(ARTIFACT_DIR) || artifactRequired)) {
+  const artFonts = join(ARTIFACT_DIR, 'fonts');
+  if (!existsSync(ARTIFACT_DIR)) {
+    failArtifact('dist', `no build artifact at ${ARTIFACT_DIR} — run \`npm run build\` first`);
+  } else if (!existsSync(artFonts)) {
+    failArtifact('dist', `${artFonts} is missing from the build`);
+  } else {
+    const files = walk(ARTIFACT_DIR);
+    for (const f of files) {
+      if (FORBIDDEN.some((w) => f.toLowerCase().includes(w.toLowerCase()))) failArtifact('lineage', `the build ships ${f}`);
+    }
+    for (const file of readdirSync(FONT_DIR)) {
+      const shipped = join(artFonts, file);
+      if (!existsSync(shipped)) failArtifact('dist', `${shipped} is missing from the build`);
+      else if (sha(shipped) !== sha(join(FONT_DIR, file))) failArtifact('dist', `${shipped} differs from ${FONT_DIR}/${file}`);
+    }
+    for (const f of walk(artFonts)) {
+      if (!existsSync(join(FONT_DIR, f.slice(artFonts.length + 1)))) failArtifact('dist', `${f} is in the build but not in ${FONT_DIR}`);
+    }
+    const builtCard = join(ARTIFACT_DIR, 'social', 'card.png');
+    if (existsSync(CARD) && (!existsSync(builtCard) || sha(builtCard) !== sha(CARD))) {
+      failArtifact('dist', `${builtCard} is missing or differs from ${CARD}`);
+    }
+    distNote = `${ARTIFACT_DIR}/ checked (${files.length} files)`;
   }
-  for (const file of readdirSync(FONT_DIR)) {
-    const shipped = join('dist/fonts', file);
-    if (!existsSync(shipped)) fail('dist', `${shipped} is missing from the build`);
-    else if (sha(shipped) !== sha(join(FONT_DIR, file))) fail('dist', `${shipped} differs from ${FONT_DIR}/${file}`);
-  }
-  for (const f of walk('dist/fonts')) {
-    if (!existsSync(join(FONT_DIR, f.slice('dist/fonts/'.length)))) fail('dist', `${f} is in the build but not in ${FONT_DIR}`);
-  }
-  if (existsSync(CARD) && (!existsSync('dist/social/card.png') || sha('dist/social/card.png') !== sha(CARD))) {
-    fail('dist', 'dist/social/card.png is missing or differs from public/social/card.png');
-  }
-  distNote = `dist/ checked (${files.length} files)`;
 }
 
 // ── 8. third-party notices ────────────────────────────────────────────────
@@ -238,11 +279,20 @@ if (existsSync(join(FONT_DIR, MONO_SUPPLEMENT.shippedLicence))) {
   }
 }
 
-if (problems.length) {
-  for (const p of problems) console.log(`  FAIL ${p}`);
-  console.log(`\nFAILED: ${problems.length} licence/provenance problem(s)`);
+// Report only the problems the selected phase owns. The source half (1-6, 8)
+// is computed above regardless, but a --phase=artifact run must not fail on,
+// or take credit for, source-side checks — and vice versa. Both halves remain
+// mandatory across the two phases the factory runs.
+const reported = [
+  ...(runSource ? problems : []),
+  ...(runArtifact ? artifactProblems : []),
+];
+if (reported.length) {
+  for (const p of reported) console.log(`  FAIL ${p}`);
+  console.log(`\nFAILED: ${reported.length} licence/provenance problem(s)`);
   process.exit(1);
 }
+const scope = PHASE === 'source' ? 'source provenance' : PHASE === 'artifact' ? 'built artifact' : 'source + built artifact';
 console.log(
-  `OK: ${REQUIRED_FACES.length} faces from approved sources (DejaVu Sans 2.37 for the UI, Spleen 6x12 2.2.0 primary + DejaVu Sans Mono 2.37 supplement for the code face), notices shipped, social card provenance intact, no forbidden lineage; ${distNote}`,
+  `OK [${scope}]: ${REQUIRED_FACES.length} faces from approved sources (DejaVu Sans 2.37 for the UI, Spleen 6x12 2.2.0 primary + DejaVu Sans Mono 2.37 supplement for the code face), notices shipped, social card provenance intact, no forbidden lineage; ${distNote}`,
 );

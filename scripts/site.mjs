@@ -27,6 +27,7 @@
  * dist/ they are reported UNKNOWN instead of failing.
  */
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { loadEngine } from '../src/content-engine/engine.mjs';
 import { buildGraph, findCycles, impact, resolveNode } from '../src/content-engine/graph/graph.mjs';
 import { checkIntegrity } from '../src/content-engine/generated/integrity.mjs';
@@ -53,7 +54,7 @@ function redControls(engine) {
   const someId = Object.keys(engine.lock.sources).find((id) => engine.lock.sources[id].locked);
   const tampered = JSON.parse(serialize(engine.lock));
   tampered.sources[someId].sha256 = '0'.repeat(64);
-  const drift = loadEngine({ root: engine.root, overrides: { committedLock: serialize(tampered) } }).sourceStates;
+  const drift = loadEngine({ root: engine.root, inspectBuilt: engine.hasDist, overrides: { committedLock: serialize(tampered) } }).sourceStates;
   check('source lock drift is reported STALE', drift.some((s) => s.id === someId && s.state === 'STALE'));
 
   // A dependency cycle must be found.
@@ -99,7 +100,16 @@ function redControls(engine) {
 }
 
 function doctor() {
-  const engine = loadEngine();
+  // `--source-only` runs the health report WITHOUT inspecting any built site:
+  // sources, locks, generated manifests, translations and red controls, but no
+  // dist/ inventory or discovery. The release factory uses it pre-build so the
+  // source-health gate can never validate (or trust) an inherited dist/ from an
+  // earlier transaction; the built site is checked after this run's own build
+  // by the artifact gates (validate-content / validate-registry) against
+  // SAI_RELEASE_ARTIFACT_DIR, inside the exclusive lock, before promotion.
+  const sourceOnly = args.includes('--source-only');
+  const dist = process.env.SAI_RELEASE_ARTIFACT_DIR ? resolve(process.env.SAI_RELEASE_ARTIFACT_DIR) : 'dist';
+  const engine = loadEngine({ dist, inspectBuilt: !sourceOnly });
   const controls = redControls(engine);
   const report=healthReport(engine,controls);
   const {broken,stale,translationWork:work,derived:{manifests}}=report;
