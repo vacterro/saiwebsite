@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-012:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "All existing foundational functionality is preserved."
+    }
+  },
+  "derived_at": "2026-10-08T01:19:43Z",
+  "derived_from": "SRC-012",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "76ac3de89daf091264b54e7f7f0da17fb575e5bd5f0efa1aba79fa04d9ed72e9"
+}

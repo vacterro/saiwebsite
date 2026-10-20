@@ -1,0 +1,47 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-09T07:48:18Z",
+  "evidence_class": "executed",
+  "findings_digest": "54f37157799eb16446c608a6cd665d65b15660036acdf25567166c4e69f7efe5",
+  "gate": "core",
+  "integrity_digest": "b73d1d9698848401",
+  "journal_op_id": "reverify.bda4583d802c",
+  "original_closure": {
+    "claim_time": "2026-10-08T02:00:00Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-172",
+    "owner": "saipen"
+  },
+  "own_problem_keys": [
+    "2a3a4a862046dc48"
+  ],
+  "problem_count": 5,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000047",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "source_tree_fingerprint": "git-delta-v1:135f6d41390772a27a0be0db7734fa01b1d22485092f12ecb835cf5d0ef0291a",
+  "verdict": "PASS_WITH_CARRIED_DEBT",
+  "verification": [
+    {
+      "command": "strict_gate:core",
+      "default_contract": true,
+      "executed": true,
+      "result": "PASS_WITH_CARRIED_DEBT"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "strict_gate:core"
+    ],
+    "findings_digest": "54f37157799eb16446c608a6cd665d65b15660036acdf25567166c4e69f7efe5",
+    "gate": "core"
+  },
+  "verification_contract_digest": "c8fe5ad87ab553f3",
+  "verifier": "saipen",
+  "warning_count": 2,
+  "work": "T-18"
+}

@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-018:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Unblock SAI_WEBSITE T-31 by restoring a legitimate machine-verifiable VERIFY-to-REVIEW lifecycle path"
+    }
+  },
+  "derived_at": "2026-10-14T01:10:38Z",
+  "derived_from": "SRC-018",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "8c94ddcb3b0b339bccb382fc0e33da1bd83a220c7d7f81c679e5d03efbd17e34"
+}

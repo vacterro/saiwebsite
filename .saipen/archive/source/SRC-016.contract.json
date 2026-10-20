@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-016:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "make release-candidate factory self-contained on clean checkout without manual prebuild"
+    }
+  },
+  "derived_at": "2026-10-13T22:22:51Z",
+  "derived_from": "SRC-016",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "5c8867a448f122984da53a84d7102c89dce63d1196f5ec2f5cef8d0bf75a97c6"
+}

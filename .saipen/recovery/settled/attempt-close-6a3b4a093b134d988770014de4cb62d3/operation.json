@@ -1,0 +1,38 @@
+{
+  "op_id": "attempt-close-6a3b4a093b134d988770014de4cb62d3",
+  "operation": "attempt-close",
+  "created_at": "2026-10-09T09:46:58Z",
+  "agent": "saipen",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "semantic_payload_hash": "a7fef8cc6cb6dc69",
+  "preconditions": {
+    ".saipen/STATE.md": "edc92a944db0b8c8",
+    ".saipen/LOG.md": "52ddd02e7fd67d1d"
+  },
+  "read_preconditions": {
+    ".saipen/BOARD.md": "3273def58e7953b0",
+    ".saipen/logs": "tree-missing-v1"
+  },
+  "verification_policy": "core_fast",
+  "status": "COMMITTED",
+  "progress_index": 2,
+  "targets": [
+    {
+      "path": ".saipen/LOG.md",
+      "role": "log",
+      "action": "write",
+      "before_hash": "52ddd02e7fd67d1d",
+      "after_hash": "780d4bb1963f8c32",
+      "applied": true
+    },
+    {
+      "path": ".saipen/STATE.md",
+      "role": "state",
+      "action": "write",
+      "before_hash": "edc92a944db0b8c8",
+      "after_hash": "466983b82feef7b4",
+      "applied": true
+    }
+  ]
+}

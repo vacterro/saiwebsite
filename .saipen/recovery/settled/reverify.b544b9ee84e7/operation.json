@@ -1,0 +1,26 @@
+{
+  "op_id": "reverify.b544b9ee84e7",
+  "operation": "reverify.work",
+  "created_at": "2026-10-08T02:19:23Z",
+  "agent": "saipen",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "semantic_payload_hash": "fb9beda2dfe5670d",
+  "preconditions": {
+    ".saipen/recovery/conformance/reverify/RV-000022.json": ""
+  },
+  "read_preconditions": {},
+  "verification_policy": "none",
+  "status": "COMMITTED",
+  "progress_index": 1,
+  "targets": [
+    {
+      "path": ".saipen/recovery/conformance/reverify/RV-000022.json",
+      "role": "report",
+      "action": "write",
+      "before_hash": "",
+      "after_hash": "9b6d78e0c6121973",
+      "applied": true
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "board_sha256": "f001d38223248910",
+  "bound_work": "T-34",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-13T21:55:08Z",
+  "findings_digest": "0ef0c2d4791da0716d7a0d45030bb6fbffc72b93247b30f189d71aa55a64c53a",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-96236e95a121",
+  "log_fingerprint": "f661fddec6cf62c4",
+  "problem_count": 5,
+  "problems": [
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "08886c31d44d83da",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-10",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "2a3a4a862046dc48",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-18",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "2d01562228f73296",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-19",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "8ef07216a69f7c43",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-8",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "ac8fe87afc1d71b8",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-9",
+      "subject_kind": "work",
+      "subject_ref": null
+    }
+  ],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-34",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000026",
+  "source_head": "92946d5b58e521a8a47512c85659ee5d2173283b",
+  "source_tree_fingerprint": "git-delta-v1:d445c6920748bf7186554753786c0f2d66e0b133ab47ca5b42278336d3d5446a",
+  "state_sha256": "5fa7852e42731b97",
+  "validator_protocol_version": "1",
+  "warning_count": 2,
+  "warnings": [
+    {
+      "category": "log-soft-cap",
+      "credential": false,
+      "detail": ".saipen/LOG.md is <n> / <n>, past the <n> / <n> cap -- `saipen transition CLEAN` seals it into the next .saipen/logs/LOG-<NNN>.md (phases/clean.md step 4)",
+      "detail_hash": "dfb4bf66467774ab",
+      "finding_key": "64be00fb9de17a5d",
+      "rule_id": "log_soft_cap",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}

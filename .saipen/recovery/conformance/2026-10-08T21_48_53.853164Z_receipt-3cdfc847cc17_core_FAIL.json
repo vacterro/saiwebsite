@@ -1,0 +1,97 @@
+{
+  "blocking_findings": {
+    "problem_count": 5,
+    "problems": [
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "08886c31d44d83da",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-10",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "2a3a4a862046dc48",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-18",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "2d01562228f73296",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-19",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "8ef07216a69f7c43",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-8",
+        "subject_kind": "work",
+        "subject_ref": null
+      },
+      {
+        "category": null,
+        "credential": false,
+        "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+        "detail_hash": "186e51123c0cc004",
+        "finding_key": "ac8fe87afc1d71b8",
+        "rule_id": "work_closure_evidence",
+        "severity": "problem",
+        "subject_id": "T-9",
+        "subject_kind": "work",
+        "subject_ref": null
+      }
+    ],
+    "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+    "ruleset_version": 1,
+    "status": "complete",
+    "warning_count": 3
+  },
+  "board_hash": "e31efcb75629ac6b",
+  "canonical_next_command": "saipen work reverify T-10",
+  "content_hash": "c52ba0ddb47e13bf",
+  "exit_code": 1,
+  "external_actions": [],
+  "gate": "core",
+  "install_fingerprint": "install-v1:ebd3e74609828957e6dee10802e1d59d95de224d4f5ae1c041a4be0430f798f1",
+  "install_home": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN",
+  "kind": "conformance_receipt",
+  "log_hash": "f1d2753dee4c50f0",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "receipt_id": "receipt-3cdfc847cc17",
+  "remediation_commands": [
+    "saipen work reverify T-10",
+    "saipen work reverify T-18",
+    "saipen work reverify T-19",
+    "saipen work reverify T-8",
+    "saipen work reverify T-9"
+  ],
+  "schema_version": 2,
+  "source_head": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "source_tree_fingerprint": "git-delta-v1:16743275a88386d518f9f02ae1e09879755425607364274fa608e4c78f94307c",
+  "state_hash": "bb32bffd7b6d6142",
+  "timestamp_utc": "2026-10-08T21:48:53.853164Z",
+  "validator_protocol_version": "1",
+  "verdict": "FAIL"
+}

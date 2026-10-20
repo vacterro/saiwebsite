@@ -1,0 +1,54 @@
+{
+  "clauses": {
+    "SRC-012:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "All existing foundational functionality is preserved."
+    },
+    "SRC-012:R002": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Canonical SAIPEN documentation and public claims are checked against verifiable source snapshots."
+    },
+    "SRC-012:R003": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Meaningful upstream changes produce precise deterministic impact reports."
+    },
+    "SRC-012:R004": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Content blocks and page sections can be added, edited, reordered and removed through a documented low-friction workflow."
+    },
+    "SRC-012:R005": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Stable IDs and source locks protect against accidental global invalidation."
+    },
+    "SRC-012:R006": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Segmented documentation translations remain independently versioned and stale-aware."
+    },
+    "SRC-012:R007": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "EN/ET/RU pilot translation work is genuinely completed as far as the available review and font requirements allow; unresolved approvals are truthfully reported."
+    },
+    "SRC-012:R008": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "The system can represent 33 or more language configurations without language-specific application branches."
+    },
+    "SRC-012:R009": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "The 10-locale scale fixture, 33-locale expansion plan and script/font readiness are tested and measured rather than merely described."
+    }
+  },
+  "derived_at": "2026-10-08T01:19:48Z",
+  "derived_from": "SRC-012",
+  "interpretation_revision": 9,
+  "schema_version": 1,
+  "source_sha256": "76ac3de89daf091264b54e7f7f0da17fb575e5bd5f0efa1aba79fa04d9ed72e9"
+}

@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-017:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-34 closed with verification evidence in LOG: review -> PASS [target: T-34] conf: high -- re-ran all nine owned suites independently 232 pass 0 fail, agrees with the VERIFY claim; no test, fixture or oracle moved; nothing rewritten, nothing published, no owner work stolen",
+      "text": "Converge the already implemented T-31/T-32/T-33 work into a reproducible, protocol-authorized source state without rewriting functioning infrastructure, stealing another owner\\x27s work, or publishing the website.",
+      "verification": "the Work this request created reached its own verification gate; see the T-34 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-34"
+    }
+  },
+  "schema_version": 1
+}

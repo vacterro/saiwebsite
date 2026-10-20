@@ -1,0 +1,43 @@
+{
+  "blocking_findings": {
+    "problem_count": 1,
+    "problems": [
+      {
+        "category": null,
+        "credential": false,
+        "detail": "cross-doc drift [root-file-set] -- file(s) at the repository root that the closed set does not name: ['clipboard_20261009_103741_1b03a663.png']. Both orphans removed alongside this check arrived that way, on a `git add -A` in a commit about something else, and neither was referenced by any document or tool -- so no other check here could ever see them. A deliberate new root file is a one-line addition to ROOT_ALLOWED in tools/validate.py; a scratch file belongs in .gitignore, which this check honours. Likely writer (HOST_HOOK_RUNS_PAYLOAD): host hook(s) C:\\Users\\vac34\\.claude\\settings.json PostToolUse/Read; C:\\Users\\vac34\\.claude\\settings.json PreToolUse/Grep|Glob; C:\\Users\\vac34\\.claude\\settings.json SessionStart/startup; C:\\Users\\vac34\\.claude\\settings.json SessionStart/resume and 3 more -- invoke the hook script or its executable directly (for example the `.cmd` path, or `<tool>.exe hook-augment`) instead of `cmd.exe /c`; under Git Bash a single-slash switch becomes a path, cmd.exe starts interactive and runs the hook payload -- text the agent read -- as commands",
+        "detail_hash": "21da78d37692f6d3",
+        "finding_key": "4141c15153e33942",
+        "rule_id": "cross_doc_drift",
+        "severity": "problem",
+        "subject_id": null,
+        "subject_kind": "global",
+        "subject_ref": null
+      }
+    ],
+    "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+    "ruleset_version": 1,
+    "status": "complete",
+    "warning_count": 2
+  },
+  "board_hash": "591392e842aabe67",
+  "canonical_next_command": null,
+  "content_hash": "2936b95eed56003f",
+  "exit_code": 1,
+  "external_actions": [],
+  "gate": "core",
+  "install_fingerprint": "install-v1:1904ba1200a591675a04a599dd955bfe7e194157a7bb06527ee74d6d4868fa9e",
+  "install_home": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN",
+  "kind": "conformance_receipt",
+  "log_hash": "fb1fb6220ae4abbc",
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "receipt_id": "receipt-fdea65eb91df",
+  "remediation_commands": [],
+  "schema_version": 2,
+  "source_head": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "source_tree_fingerprint": "git-delta-v1:135f6d41390772a27a0be0db7734fa01b1d22485092f12ecb835cf5d0ef0291a",
+  "state_hash": "4ebb6c6c3136a724",
+  "timestamp_utc": "2026-10-09T07:49:03.065263Z",
+  "validator_protocol_version": "1",
+  "verdict": "FAIL"
+}

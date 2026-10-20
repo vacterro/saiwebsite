@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-014:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "SAI_WEBSITE autonomous multi-stage execution: advance release candidate factory, local static host checks, maintenance corridor, docs consistency, regression hardening, SAIPEN continuity"
+    }
+  },
+  "derived_at": "2026-10-08T22:27:02Z",
+  "derived_from": "SRC-014",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "d516de4a7701cf79dc5c4a5d4ec6e516f71fe7fadb25f4fd47a86bcb3eb1c0ae"
+}

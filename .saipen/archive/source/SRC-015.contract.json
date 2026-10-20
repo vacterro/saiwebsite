@@ -1,0 +1,14 @@
+{
+  "clauses": {
+    "SRC-015:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "text": "Repair release-pipeline regressions: engine gate cwd, hermetic transaction tests, artifact digest identity, restore hermetic FULL verification"
+    }
+  },
+  "derived_at": "2026-10-13T22:39:18Z",
+  "derived_from": "SRC-015",
+  "interpretation_revision": 1,
+  "schema_version": 1,
+  "source_sha256": "2485d52d7604903e58ae7e9faa681866af47d22482b830de973f505eab3ae0a3"
+}

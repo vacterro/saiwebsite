@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-018:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-35 closed with verification evidence in LOG: review -> PASS [target: T-35] conf: high -- re-ran node --test scripts/tests/release-checklist.test.mjs 48 pass 0 fail, agrees with the VERIFY claim; the measured pair record and contract still load intact (before exit 1 / after exit 0); SRC-018's requested change is present: saipen work regression recorded a machine-verifiable pair and T-31 crossed VERIFY to REVIEW on it",
+      "text": "Unblock SAI_WEBSITE T-31 by restoring a legitimate machine-verifiable VERIFY-to-REVIEW lifecycle path",
+      "verification": "the Work this request created reached its own verification gate; see the T-35 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-35"
+    }
+  },
+  "schema_version": 1
+}

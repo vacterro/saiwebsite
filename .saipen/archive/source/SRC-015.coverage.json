@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-015:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-32 closed with verification evidence in LOG: review -> PASS [target: T-32] conf: high -- independent re-run in REVIEW, no disagreement with VERIFY: promoted FULL candidate bytes recomputed from the sandbox generation -- 137 files sha256 95a4957b99c003c1 equals the receipt, DIGEST MATCH; release-doctor on the same store reports HEALTHY with gen=g-95a4957b99c003c1 selected and lock absent; the receipt's 18-gate set matches the REQUIRED_FULL_GA",
+      "text": "Repair release-pipeline regressions: engine gate cwd, hermetic transaction tests, artifact digest identity, restore hermetic FULL verification",
+      "verification": "the Work this request created reached its own verification gate; see the T-32 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-32"
+    }
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,38 @@
+{
+  "board_sha256": "f608e9a45e8abe4f",
+  "bound_work": "T-46",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-14T13:15:23Z",
+  "findings_digest": "c168bddf1d1d8528788e76c1f0c812277ac5c0996879db710cb6ebbfe8d9b865",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-d572e2e4636a",
+  "log_fingerprint": "a200ebef0872eaf0",
+  "problem_count": 0,
+  "problems": [],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-46",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000044",
+  "source_head": "92946d5b58e521a8a47512c85659ee5d2173283b",
+  "source_tree_fingerprint": "git-delta-v1:0fca782c44e3591861f0f146226e5ff41db71dd743b5669e052e1a7b669041b5",
+  "state_sha256": "a92fcd1f42ac80d2",
+  "validator_protocol_version": "1",
+  "warning_count": 1,
+  "warnings": [
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}

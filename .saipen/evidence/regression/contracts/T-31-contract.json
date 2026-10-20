@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "command": ["node", "scripts/regression-pair-driver.mjs"],
+  "format": "playwright-json",
+  "context": [
+    "src",
+    "tests",
+    "public",
+    "scripts",
+    "package.json",
+    "astro.config.mjs",
+    "tsconfig.json",
+    "playwright.config.mjs",
+    "node_modules"
+  ],
+  "oracle_files": ["scripts/regression-pair-driver.mjs"],
+  "subject_files": ["src/views/PricingView.astro"],
+  "before": {
+    "src/views/PricingView.astro": ".saipen/evidence/regression/pre/T-31-PricingView.astro"
+  },
+  "timeout": 2400
+}

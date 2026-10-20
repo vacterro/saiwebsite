@@ -1,0 +1,74 @@
+{
+  "agent": "saipen",
+  "created_at": "2026-10-08T02:21:05Z",
+  "evidence_class": "executed",
+  "findings_digest": "58fce54f35325f726d20d5beaac4f2faf7bed5a1fcdb818610f72e5a150bd006",
+  "gate": "core",
+  "integrity_digest": "46086cb3b97bd112",
+  "journal_op_id": "reverify.f3cf341e6144",
+  "original_closure": {
+    "claim_time": "2026-10-07T07:15:00Z",
+    "closure_mode": "own_patch",
+    "last_ticket_event": "E-102",
+    "owner": "saipen",
+    "source_receipts": "SRC-009"
+  },
+  "own_problem_keys": [
+    "08886c31d44d83da"
+  ],
+  "problem_count": 7,
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "receipt_id": "RV-000023",
+  "ruleset_fingerprint": "82e5e183ae8f0fd909be3fa3627f00489cacaab813d942186c832db02a05a1c1",
+  "ruleset_version": 1,
+  "schema_version": 1,
+  "source_head": "9f5c020adf816610dd58b10b75099a17552a14e6",
+  "source_tree_fingerprint": "git-delta-v1:0f20585049823806fcd3a8c59f63341a5b8d6896d9104e072f766a64fac26e83",
+  "verdict": "PASS_WITH_CARRIED_DEBT",
+  "verification": [
+    {
+      "command": "npm.cmd run fonts:compare",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 1807,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 2051,
+      "output_digest": "7fc94a0b96538e17",
+      "result": "PASS"
+    },
+    {
+      "command": "npm.cmd run test:support",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 5567,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 1370,
+      "output_digest": "5c33f9cc196bdc26",
+      "result": "PASS"
+    },
+    {
+      "command": "npm.cmd run validate:licenses",
+      "cwd": "V:\\___VAC\\__K\\__CODE\\_HTML\\_SAI_WEBSITE",
+      "duration_ms": 292,
+      "executed": true,
+      "exit_code": 0,
+      "output_bytes": 343,
+      "output_digest": "b4f2d7b584672fe0",
+      "result": "PASS"
+    }
+  ],
+  "verification_contract": {
+    "commands": [
+      "npm.cmd run fonts:compare",
+      "npm.cmd run test:support",
+      "npm.cmd run validate:licenses"
+    ],
+    "findings_digest": "58fce54f35325f726d20d5beaac4f2faf7bed5a1fcdb818610f72e5a150bd006",
+    "gate": "core"
+  },
+  "verification_contract_digest": "3f1a6f59da90620d",
+  "verifier": "saipen",
+  "warning_count": 3,
+  "work": "T-10"
+}

@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-016:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-33 closed with verification evidence in LOG: review -> PASS [target: T-33] conf: high -- independent re-run in REVIEW, no disagreement with VERIFY: scripts/tests/release-transaction.test.mjs 43 tests, 43 pass, 0 fail, 0 skipped (clean-checkout artifact-gate failure control, SAI_RELEASE_ARTIFACT_DIR seam, NOT_COMMITTED/POSTCOMMIT_DEGRADED recovery all re-proven); promoted candidate bytes independently recomputed from the sandbox generation --",
+      "text": "make release-candidate factory self-contained on clean checkout without manual prebuild",
+      "verification": "the Work this request created reached its own verification gate; see the T-33 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-33"
+    }
+  },
+  "schema_version": 1
+}
