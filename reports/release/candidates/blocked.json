@@ -9,15 +9,15 @@
   "migratedFrom": null,
   "profile": "candidate",
   "readinessClaim": "candidate-only",
-  "gateContract": "6",
+  "gateContract": "8",
   "engineSkips": [],
   "git": {
-    "rev": "4e97918073ca23e0a29cac916b377dcde8082e74",
+    "rev": "92946d5b58e521a8a47512c85659ee5d2173283b",
     "dirty": true,
-    "dirtyFiles": 415,
-    "dirtyIdentity": "26e14386a22962affff885a549f41c5f184cd45dcc5d79e1987ff8bea44a02bb",
-    "provenance": "head+dirty-manifest",
-    "provenanceDetail": null
+    "dirtyFiles": 1113,
+    "dirtyIdentity": null,
+    "provenance": "limited",
+    "provenanceDetail": "unresolvable path: \"R  .saipen/intake/contracts/SRC-001.json -> .saipen/archive/source/SRC-001.contract.json\""
   },
   "package": "1.5.0",
   "protocol": {

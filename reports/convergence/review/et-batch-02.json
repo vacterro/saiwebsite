@@ -1,0 +1,208 @@
+{
+  "batch": "et-02",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-02.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.gates.test-content",
+      "decision": "CORRECTED",
+      "note": "playground aligned to katsetuskeskkond per scope.body terminology"
+    },
+    {
+      "id": "about.gates.test-pixel",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.test-runtime",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.test-shell",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.test-visual",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.validate-baselines",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.validate-canonical",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.validate-content",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.validate-themes",
+      "decision": "CORRECTED",
+      "note": "loanword partitive without apostrophe: tokenit"
+    },
+    {
+      "id": "about.motto.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.motto.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.perf.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.perf.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.automate.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.automate.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.control.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.control.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.degrade.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.degrade.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.evidence.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.evidence.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.local-first.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.local-first.name",
+      "decision": "CORRECTED",
+      "note": "Local-first principle name was rendered as Kohalik töö (local work); corrected to Esmalt kohalik"
+    },
+    {
+      "id": "about.principles.no-account.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.no-account.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.note",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.open-core.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.open-core.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.visible-state.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.principles.visible-state.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.scope.authority",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.scope.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.scope.not-engine",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.scope.not-protocol",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    }
+  ]
+}

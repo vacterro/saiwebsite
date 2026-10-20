@@ -1,0 +1,439 @@
+{
+  "tool": "release-candidate",
+  "verdict": "PASS",
+  "failedStage": null,
+  "origin": "https://saipenprotocol.com",
+  "slug": "saipenprotocol-com",
+  "storeId": "saipenprotocol-com-6dc40565e4",
+  "storeKind": "store",
+  "migratedFrom": null,
+  "profile": "candidate",
+  "readinessClaim": "candidate-only",
+  "gateContract": "8",
+  "engineSkips": [],
+  "git": {
+    "rev": "92946d5b58e521a8a47512c85659ee5d2173283b",
+    "dirty": true,
+    "dirtyFiles": 495,
+    "dirtyIdentity": "79f08a0d2724da00c0b2338410c095efe9ab90e87d3ba62f38264258458dcc1d",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "gates": [
+    {
+      "id": "site:doctor",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "lint-styles",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-themes",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-canonical",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-baselines",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses:source",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate:media",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "i18n",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "astro-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-content",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-registry",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses:artifact",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "audit-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine-build",
+      "ok": true,
+      "exit": 0
+    }
+  ],
+  "releaseVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "candidateVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "smoke": {
+    "verdict": "LOCAL_STATIC_HOST_PASS",
+    "failing": []
+  },
+  "projection": {
+    "removed": 20,
+    "scrubbed": [],
+    "files": 137
+  },
+  "candidate": {
+    "directory": ".site-work/release/candidates/saipenprotocol-com-6dc40565e4/current",
+    "generation": "g-bf067c7b2ee7cfdd",
+    "store": ".site-work/release/candidates/saipenprotocol-com-6dc40565e4",
+    "files": 137,
+    "sha256": "bf067c7b2ee7cfddf6b97f8a1884c10e9405a4ab6f810e257dff510ed8d03370"
+  },
+  "previousPreserved": true,
+  "publicationAuthorized": false,
+  "external": [
+    "hosting",
+    "dns",
+    "https",
+    "redirects",
+    "search-indexing",
+    "publication-authorization",
+    "translation-approvals"
+  ],
+  "engineAccounting": {
+    "files": [
+      {
+        "file": "scripts/tests/baseline-registry.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/contrast-math.test.mjs",
+        "total": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/drift.test.mjs",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/engine.test.mjs",
+        "total": 8,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/font-controls.test.mjs",
+        "total": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-controls.test.mjs",
+        "total": 4,
+        "pass": 4,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-provenance.test.mjs",
+        "total": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-safety.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-browser-accounting.test.mjs",
+        "total": 44,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-candidate.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-checklist.test.mjs",
+        "total": 48,
+        "pass": 48,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-checklist-cli.test.mjs",
+        "total": 35,
+        "pass": 35,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-doctor-views.test.mjs",
+        "total": 20,
+        "pass": 20,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-package-attestation.test.mjs",
+        "total": 46,
+        "pass": 46,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-provenance.test.mjs",
+        "total": 10,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-hardening.test.mjs",
+        "total": 36,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-origin.test.mjs",
+        "total": 46,
+        "pass": 46,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-skip-accounting.test.mjs",
+        "total": 27,
+        "pass": 27,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-smoke.test.mjs",
+        "total": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-transaction.test.mjs",
+        "total": 43,
+        "pass": 43,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/render.test.mjs",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      }
+    ],
+    "totals": {
+      "tests": 423,
+      "pass": 423,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "skips": []
+  },
+  "engineBuildAccounting": {
+    "files": [
+      {
+        "file": "scripts/tests/release-public.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      }
+    ],
+    "totals": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "skips": []
+  },
+  "stagedDigest": {
+    "files": 137,
+    "sha256": "bf067c7b2ee7cfddf6b97f8a1884c10e9405a4ab6f810e257dff510ed8d03370"
+  },
+  "commitState": "COMMITTED",
+  "readiness": "CANDIDATE_ONLY",
+  "generationReceipt": {
+    "path": "reports/release/candidates/saipenprotocol-com-6dc40565e4/g-bf067c7b2ee7cfdd.json",
+    "preserved": false
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "batch": "ru-01",
+  "locale": "ru",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/ru-batch-01.json",
+  "decisions": [
+    {
+      "id": "about.a11y.colour",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.focus",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.landmarks",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.motion",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.nojs",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.text",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.a11y.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.author.body1",
+      "decision": "CORRECTED",
+      "note": "arrangement mistranslated as device; corrected to uklad"
+    },
+    {
+      "id": "about.author.body2",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.author.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.beyond.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.beyond.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.deploy.aliases",
+      "decision": "CORRECTED",
+      "note": "alias mistranslated as address; corrected to psevdonimy"
+    },
+    {
+      "id": "about.deploy.generated",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.deploy.links",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.deploy.static",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.deploy.status",
+      "decision": "CORRECTED",
+      "note": "deploy root aligned to publikatsiya per deploy.title/gates.build; was razvyornut"
+    },
+    {
+      "id": "about.deploy.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.description",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.design.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.design.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.col.state",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.col.ticket",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.col.work",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.events",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.events-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.last",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.last-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.none",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.red",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.dogfooding.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.audit-build",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.build",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.check",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.col.command",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.col.fails",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "about.gates.lint",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    }
+  ]
+}

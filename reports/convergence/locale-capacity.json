@@ -1,0 +1,506 @@
+{
+  "status": "PASS",
+  "purpose": "PROPOSED_NOT_OPERATOR_APPROVED",
+  "productionRegistryChanged": false,
+  "proposedNaturalLocales": 33,
+  "capacityControlNaturalLocales": 34,
+  "stressFixture": {
+    "purpose": "ENGINEERING_FIXTURE_NOT_PRODUCTION_LANGUAGE_SELECTION",
+    "locales": [
+      "en",
+      "et",
+      "ru",
+      "de",
+      "fr",
+      "es",
+      "pt-BR",
+      "pl",
+      "tr",
+      "sv"
+    ]
+  },
+  "configuredUnits": 9568,
+  "pilotUnitsPerLocale": 299,
+  "fullUnitsPerLocale": 505,
+  "sourceWordsPerPilot": 4086,
+  "estimatedPilotTranslationUnits": 9568,
+  "estimatedFullTranslationUnits": 16160,
+  "perLocaleMaintenance": {
+    "initialDraftUnits": 299,
+    "independentReviewUnits": 299,
+    "oneChangedParagraph": 1,
+    "sharedFontBytesIncrement": 0,
+    "reviewHoursPlanningRange": [
+      2.49,
+      4.98
+    ],
+    "reviewRateAssumption": "60 to 120 bounded units/hour; planning assumption, not measured reviewer work",
+    "monetaryCost": "provider/reviewer rate not selected; no service or expenditure committed",
+    "reviewApproval": "REQUIRED; not estimated as performed"
+  },
+  "operatorDecisions": [
+    "Approve the actual production 10- and 33-language sets; proposal and stress fixture are not that approval",
+    "Assign real independent ET/RU reviewers and approve publication only after their review",
+    "Approve source/licence/native-size/budget/shaping contracts for selected uncovered scripts",
+    "Choose hosting and authorize publication; DNS/monitoring/analytics are separate gates"
+  ],
+  "metrics": {
+    "loadMilliseconds": 88.92,
+    "invalidationMilliseconds": 49.51,
+    "staleUnits": 32,
+    "unaffectedNeighborUnits": 32
+  },
+  "matrix": [
+    {
+      "locale": "en",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "et",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "ru",
+      "scripts": [
+        "Cyrl",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "de",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "fr",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "es",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "it",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "pt-BR",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "nl",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "sv",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "da",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "nb",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "fi",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "pl",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "cs",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "sk",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "hu",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "ro",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [
+        "U+0219",
+        "U+021B",
+        "U+0218",
+        "U+021A"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "tr",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "uk",
+      "scripts": [
+        "Cyrl",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [
+        "U+0490",
+        "U+0491"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "bg",
+      "scripts": [
+        "Cyrl",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "el",
+      "scripts": [
+        "Grek",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Grek"
+      ],
+      "glyphGaps": [
+        "U+0395",
+        "U+03BB",
+        "U+03B7",
+        "U+03BD",
+        "U+03B9",
+        "U+03BA",
+        "U+03AC",
+        "U+0386",
+        "U+0388",
+        "U+0389",
+        "U+038A",
+        "U+038C",
+        "U+038E",
+        "U+038F",
+        "U+03AD",
+        "U+03AE",
+        "U+03AF",
+        "U+03CC",
+        "U+03CD",
+        "U+03CE"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "ar",
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "direction": "rtl",
+      "scriptGaps": [
+        "Arab"
+      ],
+      "glyphGaps": [
+        "U+0627",
+        "U+0644",
+        "U+0639",
+        "U+0631",
+        "U+0628",
+        "U+064A",
+        "U+0629"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "he",
+      "scripts": [
+        "Hebr",
+        "Latn"
+      ],
+      "direction": "rtl",
+      "scriptGaps": [
+        "Hebr"
+      ],
+      "glyphGaps": [
+        "U+05E2",
+        "U+05D1",
+        "U+05E8",
+        "U+05D9",
+        "U+05EA"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "ja",
+      "scripts": [
+        "Jpan",
+        "Hani",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Jpan",
+        "Hani"
+      ],
+      "glyphGaps": [
+        "U+65E5",
+        "U+672C",
+        "U+8A9E",
+        "U+3042",
+        "U+3044",
+        "U+3046",
+        "U+30A2",
+        "U+30A4",
+        "U+30A6"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "ko",
+      "scripts": [
+        "Kore",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Kore"
+      ],
+      "glyphGaps": [
+        "U+D55C",
+        "U+AD6D",
+        "U+C5B4"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "zh-Hans",
+      "scripts": [
+        "Hani",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Hani"
+      ],
+      "glyphGaps": [
+        "U+7B80",
+        "U+4F53",
+        "U+4E2D",
+        "U+6587"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "zh-Hant",
+      "scripts": [
+        "Hani",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Hani"
+      ],
+      "glyphGaps": [
+        "U+7E41",
+        "U+9AD4",
+        "U+4E2D",
+        "U+6587"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "hi",
+      "scripts": [
+        "Deva",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Deva"
+      ],
+      "glyphGaps": [
+        "U+0939",
+        "U+093F",
+        "U+0928",
+        "U+094D",
+        "U+0926",
+        "U+0940"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "th",
+      "scripts": [
+        "Thai",
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [
+        "Thai"
+      ],
+      "glyphGaps": [
+        "U+0E44",
+        "U+0E17",
+        "U+0E22",
+        "U+0E20",
+        "U+0E32",
+        "U+0E29"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "id",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    },
+    {
+      "locale": "vi",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [
+        "U+1EBF",
+        "U+1EC7",
+        "U+01A1",
+        "U+01B0",
+        "U+1EDD",
+        "U+1EF1"
+      ],
+      "fontReadiness": "BLOCKED_FOR_FONT"
+    },
+    {
+      "locale": "lt",
+      "scripts": [
+        "Latn"
+      ],
+      "direction": "ltr",
+      "scriptGaps": [],
+      "glyphGaps": [],
+      "fontReadiness": "SAMPLE_COVERED_NOT_FULL_TRANSLATION_PROOF"
+    }
+  ],
+  "problems": []
+}

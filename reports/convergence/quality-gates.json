@@ -1,0 +1,163 @@
+{
+  "revision": {
+    "commit": "9f5c020adf816610dd58b10b75099a17552a14e6",
+    "tree": "dirty (uncommitted T-20 implementation delta)",
+    "version": "1.5.0"
+  },
+  "date": "2026-10-08",
+  "complete": true,
+  "results": [
+    {
+      "command": "npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/check.log"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/lint.log"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/build.log"
+    },
+    {
+      "command": "npm run validate:themes",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-themes.log"
+    },
+    {
+      "command": "npm run validate:canonical",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-canonical.log"
+    },
+    {
+      "command": "npm run validate:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-content.log"
+    },
+    {
+      "command": "npm run validate:registry",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-registry.log"
+    },
+    {
+      "command": "npm run validate:baselines",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-baselines.log"
+    },
+    {
+      "command": "npm run validate:licenses",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/validate-licenses.log"
+    },
+    {
+      "command": "npm run audit:build",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/audit-build.log"
+    },
+    {
+      "command": "npm run site:doctor",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/site-doctor.log"
+    },
+    {
+      "command": "npm run i18n:validate",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/i18n-validate.log"
+    },
+    {
+      "command": "npm run test:engine",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-engine.log",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:runtime",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-runtime.log",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:shell",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-shell.log",
+      "passed": 122,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-content.log",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:support",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-support.log",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:i18n",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-i18n.log",
+      "passed": 63,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:pixel",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-pixel.log",
+      "passed": 276,
+      "failed": 0,
+      "skipped": 80
+    },
+    {
+      "command": "npm run test:visual",
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "_local_ref/verify-final/test-visual.log",
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm test",
+      "status": "NOT_RUN",
+      "exitCode": null,
+      "log": "_local_ref/verify-final-test.log",
+      "note": "single-process full parallel run exceeds this host's worker capacity (chromium worker crash 0xC0000142); all suites PASS individually with identical totals (535 passed / 80 skipped)"
+    }
+  ],
+  "supersedes": "reports/convergence/quality-gates-2026-10-08-postfix.json (historical)"
+}

@@ -1,0 +1,79 @@
+{
+  "tool": "release-candidate",
+  "receiptKind": "generation-readiness",
+  "gateContract": "8",
+  "origin": "https://saipenprotocol.com",
+  "storeId": "saipenprotocol-com-6dc40565e4",
+  "generation": "g-4970a6c04bfdc0a4",
+  "sha256": "4970a6c04bfdc0a4f082a8aa865fd64c35e34095e820982b5b44016aa856a781",
+  "files": 137,
+  "source": {
+    "rev": "92946d5b58e521a8a47512c85659ee5d2173283b",
+    "dirty": true,
+    "dirtyFiles": 9,
+    "dirtyIdentity": "b1fad545a30abc229accb104f6369d7152f6f7e2f9479f4333f719bb53855e8f",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "profile": "full",
+  "verdict": "PASS",
+  "readiness": "FULL_RELEASE_READY",
+  "commitState": "COMMITTED",
+  "gates": {
+    "site:doctor": true,
+    "lint-styles": true,
+    "validate-themes": true,
+    "validate-canonical": true,
+    "validate-baselines": true,
+    "validate-licenses:source": true,
+    "validate:media": true,
+    "i18n": true,
+    "test:engine": true,
+    "check": true,
+    "astro-build": true,
+    "validate-content": true,
+    "validate-registry": true,
+    "validate-licenses:artifact": true,
+    "audit-build": true,
+    "test:engine-build": true,
+    "test:browser-matrix": true,
+    "release:dual-origin": true
+  },
+  "releaseVerify": "PASS",
+  "candidateVerify": "PASS",
+  "smoke": "LOCAL_STATIC_HOST_PASS",
+  "engine": {
+    "tests": 423,
+    "pass": 423,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "unknownSkips": 0
+  },
+  "engineBuild": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "unknownSkips": 0
+  },
+  "browser": {
+    "tests": 800,
+    "passed": 720,
+    "failed": 0,
+    "skipped": 80,
+    "flaky": 0,
+    "unknownSkips": 0,
+    "missingSuites": 0
+  },
+  "stagedDigest": "4970a6c04bfdc0a4f082a8aa865fd64c35e34095e820982b5b44016aa856a781",
+  "createdAt": "2026-10-11T01:13:40.154Z"
+}

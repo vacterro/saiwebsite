@@ -1,0 +1,18 @@
+{
+  "available": true,
+  "code": "SAIPEN_CLI_AVAILABLE",
+  "launcher": "V:\\___VAC\\__K\\__CODE\\_AI_STUFF_AGENTIC\\_SAIPEN\\bin\\saipen.cmd",
+  "version": "8.1.0",
+  "executionCapable": true,
+  "hostAdmission": {
+    "host": null,
+    "known": false,
+    "mutation_admitted": true
+  },
+  "degraded": [
+    "no_canonical_path_launcher"
+  ],
+  "boundHome": "V:/___VAC/__K/__CODE/_AI_STUFF_AGENTIC/_SAIPEN",
+  "transport": "DIRECT_LAUNCHER",
+  "attempts": []
+}

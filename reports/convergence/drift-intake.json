@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "meaningful": false,
+  "identity": "b550cacd50b0f7c0",
+  "marker": "site-drift:b550cacd50b0f7c0",
+  "sources": [],
+  "translationWork": [],
+  "verification": "npm run site:doctor ends HEALTHY; npm run build and npm test pass",
+  "publication": "REPORT_ONLY",
+  "intake": {
+    "status": "NO_DRIFT",
+    "ticket": null
+  }
+}

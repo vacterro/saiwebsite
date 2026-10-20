@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "code": "COMMITTED",
+  "op_id": "cycle-6d10c9a45bbd48c398151c8bf162b0a0",
+  "changed_files": [
+    ".saipen/improve/imp-vacterro-saiwebsite-20261007-1/MANIFEST.md"
+  ],
+  "recovery_required": false,
+  "preserved_reports": [
+    "saipen-01/saipen_improve_SAIPEN.md"
+  ],
+  "draftPreservedSha256": "e2eb4984485d3fbfb59f9abb7bb3582ae5200330045690663310fa525ee6e929",
+  "reason": "Obsolete active draft references another Git revision; supported abort archives it as incomplete and byte-preserves the draft, without marking findings implemented."
+}

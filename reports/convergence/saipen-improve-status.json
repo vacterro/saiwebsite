@@ -1,0 +1,419 @@
+{
+  "ok": true,
+  "code": "IMPROVE_STATUS",
+  "cycles": [
+    {
+      "cycle": "imp-vacterro-saiwebsite-20261007-1",
+      "cycle_status": "archived",
+      "seats": [
+        {
+          "seat": "saipen-01",
+          "role": "core",
+          "availability": "expected",
+          "report_status": "draft",
+          "visible": "draft",
+          "swept": false,
+          "disposed": [],
+          "missing": []
+        }
+      ],
+      "invalid": false,
+      "manifest_errors": [],
+      "sweep_errors": [],
+      "bookkeeping": {
+        "status": "PENDING",
+        "persisted": false,
+        "changed": [
+          {
+            "status": " M",
+            "path": ".saipen/BOARD.md"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/LOG.md"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/STATE.md"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/improve/imp-vacterro-saiwebsite-20261007-1/MANIFEST.md"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/intake/index.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/active.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/head.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/17ca9cba8d833363.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/3027a33406d805e0.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/42af43e3616eba4a.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/42c4bfb5c0684bac.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/47320987f9a49d5b.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/6c45cb72a36e63d5.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/70dd37c11434d9c5.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/9dd4cfba18937830.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/d75905bb23329bf4.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/dd1b3c312cf7d816.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/e7d3d58ad0c31353.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/loc/ff346823fbbfa5ac.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/rec/active.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/rec/seg-0000.json"
+          },
+          {
+            "status": " M",
+            "path": ".saipen/recovery/settled-index/seg-0000.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/active/SRC-012.md"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/active/SRC-012.meta.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r001.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r002.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r003.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r004.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r005.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r006.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r007.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r008.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r009.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r010.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r011.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r012.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r013.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r014.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r015.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r016.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r017.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r018.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r019.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/contracts/SRC-012.r020.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/intake/coverage/SRC-012.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T00_01_00.868438Z_receipt-4b40707cd311_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T02_14_25.263617Z_receipt-eb61138f787d_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T02_16_38.458198Z_receipt-3448cccf9580_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T02_20_56.681248Z_receipt-ae4ae3779899_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T02_22_20.977491Z_receipt-d8721d367d6f_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/2026-10-08T02_26_04.575560Z_receipt-b87c8c72a04f_core_FAIL.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/debt/DEBT-000013.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/reverify/RV-000021.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/reverify/RV-000022.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/reverify/RV-000023.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/reverify/RV-000024.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/conformance/reverify/RV-000025.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled-index/loc/c501935a6b2b247d.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/checkpoint-1e8e12a87e15482084345d39a5ec9996/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/checkpoint-c54a968bb671491eab9770df07c8f3a1/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/claim-a30fe669183d47519e284c3760515478/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/cycle-6d10c9a45bbd48c398151c8bf162b0a0/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/debt.snapshot-844f98e35f32/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/reverify.33006937f7bd/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/reverify.4319af0afb92/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/reverify.74c3dcb5615e/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/reverify.b544b9ee84e7/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/reverify.f3cf341e6144/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-0df4dffabd54480ba4ee6ceca5ea1e07/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-191d515ae5db47cd8a20e43089c27132/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-253ff29691ff49a4a2cfa6c657fdf891/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-2fb71e16f89e4e57ba496b58efed49f6/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-458700d7e424421f930f8b4d0ec77ac9/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-5bee3f8f100742718a21d43959d7ed0d/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-66f0669be06e4e15aadd5270ce713b40/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-76b0bd396a394f61ae1926b2583b56ea/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-77997ad22a714df79cdf9300f9d05380/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-93089720d55b41298b593fb7939a6b7f/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-9ca240b39108463aa2b4cd88f6f7d85c/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-a0adc66ad73044fcaedc99a6e4347e05/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-a1ac06be7a41489ba9f56912e00a97cf/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-af13e53a4c514cdf87c398cb0be116e0/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-b98bbfd75d4443c69a1f88fc569c51cc/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-c9197f84818445f48462c6252760ed31/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-cb6ea0d54f2542e5a8e54058eef273a5/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-d44f299263114035b23df4f119d564aa/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-ea9d79f38dd24394a47e335b93f3f64d/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/source.requirement_add-ff39942eec9e490ba5e63ddb29a0a58d/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/ticket-e5d66fdce4fd4611bb0b0737aad9e72a/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/ticket-fcb6ba783d3d43668afe96350e7d8172/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/transition-77acda2530274044b89bcbc6b5140031/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/transition-c07196a523dd4304acedd09e054597ca/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/transition-d75110bd07ae495da2bf9b909e69232c/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/transition-f2e5a557f78e4d019bd4bcab5789cf91/operation.json"
+          },
+          {
+            "status": "??",
+            "path": ".saipen/recovery/settled/userreq-868e0a8eaad84bd4bb57442baa6521c8/operation.json"
+          }
+        ],
+        "untracked_history": [],
+        "next_action": "Review listed protocol files; explicitly stage approved paths (including ignored history when appropriate), then git commit --only -- <those exact paths>. Keep unrelated staged changes outside that commit; ship is a release operation.",
+        "review_command": "git status --short --untracked-files=all -- .saipen",
+        "automatic_commit": false
+      }
+    }
+  ]
+}

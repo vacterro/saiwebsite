@@ -1,0 +1,208 @@
+{
+  "batch": "et-06",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-06.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "home.next.hosts",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.next.introduction",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.next.quickstart",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.next.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.board",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.knowledge",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.link",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.log",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.state",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.persists.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.practice.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.practice.note",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.practice.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.evidence.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.evidence.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.honest-stops.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.honest-stops.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.local-first.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.local-first.name",
+      "decision": "CORRECTED",
+      "note": "same EN term corrected to Esmalt kohalik in about.principles.local-first.name (et-02); terminology consistency"
+    },
+    {
+      "id": "home.principles.model-independent.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.model-independent.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.next-action.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.next-action.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.plain-files.line",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.plain-files.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.principles.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.story.badge-note",
+      "decision": "CORRECTED",
+      "note": "playground aligned to katsetuskeskkond per scope.body terminology"
+    },
+    {
+      "id": "home.story.read",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.story.step",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "home.story.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.action.docs",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.action.home",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.action.search",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.crumb",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.description",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.panel.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "notfound.panel.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    }
+  ]
+}

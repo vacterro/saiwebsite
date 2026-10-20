@@ -1,0 +1,208 @@
+{
+  "batch": "et-05",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-05.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "docs.getting-started.quickstart.intro",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.title",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.try-it-without-installing",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.uninstall",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.description",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.intro",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.project-state-over-model-memory",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.the-litmus-test",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.title",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.why-saipen.who-it-is-for",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.action.github",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.action.recovery",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.action.spec",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.action.start",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item1",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item2",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item3",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item4",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item5",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.item6",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.note",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.breaks.title",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.description",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.body",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.col.maturity",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.col.project",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.col.role",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.link",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.eco.title",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.hero.cmd-or",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.hero.lead",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.hero.licence",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.lifecycle.body",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.lifecycle.note",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.lifecycle.title",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.next.community",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "home.next.faq",
+      "decision": "APPROVE",
+      "note": "semantics, Markdown/table/code structure, links, placeholders and glossary verified against EN"
+    }
+  ]
+}

@@ -1,0 +1,1018 @@
+{
+  "tool": "release-candidate",
+  "verdict": "PASS",
+  "failedStage": null,
+  "origin": "https://saipenprotocol.com",
+  "slug": "saipenprotocol-com",
+  "storeId": "saipenprotocol-com-6dc40565e4",
+  "storeKind": "fresh",
+  "migratedFrom": null,
+  "profile": "full",
+  "readinessClaim": "full-readiness",
+  "gateContract": "8",
+  "engineSkips": [],
+  "git": {
+    "rev": "92946d5b58e521a8a47512c85659ee5d2173283b",
+    "dirty": true,
+    "dirtyFiles": 512,
+    "dirtyIdentity": "41b29ed402809e5ed4700add0ae1e20cda1fcf6ca94524a1b80493c5c1563ed0",
+    "provenance": "head+dirty-manifest",
+    "provenanceDetail": null
+  },
+  "package": "1.5.0",
+  "protocol": {
+    "version": "8.1.0",
+    "commit": "55f278cde46fb8f279de05d76e8a7ae401339a6a"
+  },
+  "gates": [
+    {
+      "id": "site:doctor",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "lint-styles",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-themes",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-canonical",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-baselines",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses:source",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate:media",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "i18n",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "check",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "astro-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-content",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-registry",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "validate-licenses:artifact",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "audit-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:engine-build",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "test:browser-matrix",
+      "ok": true,
+      "exit": 0
+    },
+    {
+      "id": "release:dual-origin",
+      "ok": true,
+      "exit": 0
+    }
+  ],
+  "releaseVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "candidateVerify": {
+    "verdict": "PASS",
+    "failing": []
+  },
+  "smoke": {
+    "verdict": "LOCAL_STATIC_HOST_PASS",
+    "failing": []
+  },
+  "projection": {
+    "removed": 20,
+    "scrubbed": [],
+    "files": 137
+  },
+  "candidate": {
+    "directory": ".site-work/release/candidates/saipenprotocol-com-6dc40565e4/current",
+    "generation": "g-95a4957b99c003c1",
+    "store": ".site-work/release/candidates/saipenprotocol-com-6dc40565e4",
+    "files": 137,
+    "sha256": "95a4957b99c003c148d56b850db7f93e1041bec29c5cb9ae268ef922ef61ba71"
+  },
+  "previousPreserved": false,
+  "publicationAuthorized": false,
+  "external": [
+    "hosting",
+    "dns",
+    "https",
+    "redirects",
+    "search-indexing",
+    "publication-authorization",
+    "translation-approvals"
+  ],
+  "engineAccounting": {
+    "files": [
+      {
+        "file": "scripts/tests/baseline-registry.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/contrast-math.test.mjs",
+        "total": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/drift.test.mjs",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/engine.test.mjs",
+        "total": 8,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/font-controls.test.mjs",
+        "total": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-controls.test.mjs",
+        "total": 4,
+        "pass": 4,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-provenance.test.mjs",
+        "total": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/i18n-safety.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-browser-accounting.test.mjs",
+        "total": 44,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-candidate.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-checklist.test.mjs",
+        "total": 48,
+        "pass": 48,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-checklist-cli.test.mjs",
+        "total": 35,
+        "pass": 35,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-doctor-views.test.mjs",
+        "total": 20,
+        "pass": 20,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-package-attestation.test.mjs",
+        "total": 46,
+        "pass": 46,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-provenance.test.mjs",
+        "total": 10,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-hardening.test.mjs",
+        "total": 36,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-origin.test.mjs",
+        "total": 46,
+        "pass": 46,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-skip-accounting.test.mjs",
+        "total": 27,
+        "pass": 27,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-smoke.test.mjs",
+        "total": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/release-transaction.test.mjs",
+        "total": 43,
+        "pass": 43,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      },
+      {
+        "file": "scripts/tests/render.test.mjs",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      }
+    ],
+    "totals": {
+      "tests": 423,
+      "pass": 423,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "skips": []
+  },
+  "engineBuildAccounting": {
+    "files": [
+      {
+        "file": "scripts/tests/release-public.test.mjs",
+        "total": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "complete": true,
+        "consistent": true,
+        "unknownSkips": []
+      }
+    ],
+    "totals": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "skips": []
+  },
+  "stagedDigest": {
+    "files": 137,
+    "sha256": "95a4957b99c003c148d56b850db7f93e1041bec29c5cb9ae268ef922ef61ba71"
+  },
+  "matrixDist": {
+    "sha256": "d77c286a49086f31ab67211fae03b2703f578909ea0395bbd32123d719a64fa0"
+  },
+  "browserAccounting": {
+    "matrix": {
+      "complete": true,
+      "parseError": null,
+      "stats": {
+        "expected": 717,
+        "skipped": 80,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "statsComplete": true,
+      "statsConsistent": true,
+      "totals": {
+        "tests": 797,
+        "passed": 717,
+        "failed": 0,
+        "skipped": 80,
+        "flaky": 0
+      },
+      "files": [
+        "content-features.spec.mjs",
+        "docs-journey.spec.mjs",
+        "i18n.spec.mjs",
+        "media-delivery.spec.mjs",
+        "pixel-perfect.spec.mjs",
+        "secondary-journey.spec.mjs",
+        "site-shell.spec.mjs",
+        "support.spec.mjs",
+        "theme-contrast.spec.mjs",
+        "theme-runtime.spec.mjs",
+        "visual-baseline.spec.mjs",
+        "zoom-reflow.spec.mjs"
+      ],
+      "missingSuites": [],
+      "failedTests": [],
+      "skips": [
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /about/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /benchmarks/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /blog/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /blog/a-gate-must-prove-it-can-fail/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /blog/how-saipen-is-built/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /blog/memory-beside-the-project/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /blog/no-antialiasing-on-the-web/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /changelog/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /community/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /compatibility/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /debug/components/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /debug/content/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /debug/fonts/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /debug/rendering/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /debug/themes/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/board-and-tickets/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/claims-and-ownership/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/knowledge/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/log-and-events/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/modes-and-capabilities/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/project-memory/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/state-and-next-action/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/concepts/work-and-attempts/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/evidence/guarantees/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/evidence/overview/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/getting-started/introduction/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/getting-started/mental-model/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/getting-started/quickstart/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/getting-started/why-saipen/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/operation/commands/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/operation/hosts-and-install/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/checkpointing/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/concurrency/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/goal-mode-and-maintenance/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/lifecycle/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/routing/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/verification/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/protocol/wait-boundaries/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/recovery/corrupt-state/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/recovery/interrupted-work/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/recovery/overview/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/reference/faq/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /docs/reference/glossary/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /downloads/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /ecosystem/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /playground/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /playground/destructive-op/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /playground/interrupted-checkpoint/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /playground/provider-outage/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /playground/verification-fails/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /pricing/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/404/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/about/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/docs/getting-started/introduction/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/docs/getting-started/mental-model/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/docs/getting-started/quickstart/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/docs/getting-started/why-saipen/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/pricing/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /qps-ploc/search/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /search/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /security/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/board/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/commands/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/errors/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/lifecycle/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/limits/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/next-action/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/routing/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /spec/v8/state/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > /status/",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > face pairing: every text element uses the face drawn for its size > control: a 16px paragraph on the 12px face is caught",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "chromium",
+          "title": "pixel-perfect.spec.mjs > pixel-perfect: instrument controls > text shifted half a pixel is detected where the engine smooths text",
+          "reason": "WebKit smooths a sub-pixel-transformed text run; Chromium on a host with system smoothing off does not."
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > mono coverage: the code face draws every required glyph > specimen: ASCII, punctuation, arrows, extended Latin, box drawing",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > mono coverage: the code face draws every required glyph > every code point the coverage metadata records as supplemented is really drawn",
+          "reason": "computed-style check; one engine is enough"
+        },
+        {
+          "file": "pixel-perfect.spec.mjs",
+          "project": "webkit",
+          "title": "pixel-perfect.spec.mjs > mono coverage: the code face draws every required glyph > control: a code point the code face does not map is reported",
+          "reason": "computed-style check; one engine is enough"
+        }
+      ],
+      "unknownSkips": [],
+      "runnerErrors": []
+    },
+    "candidateHost": {
+      "complete": true,
+      "parseError": null,
+      "stats": {
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "statsComplete": true,
+      "statsConsistent": true,
+      "totals": {
+        "tests": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "files": [
+        "candidate-host.spec.mjs"
+      ],
+      "missingSuites": [],
+      "failedTests": [],
+      "skips": [],
+      "unknownSkips": [],
+      "runnerErrors": []
+    },
+    "distSha": "d77c286a49086f31ab67211fae03b2703f578909ea0395bbd32123d719a64fa0",
+    "totals": {
+      "tests": 800,
+      "passed": 720,
+      "failed": 0,
+      "skipped": 80,
+      "flaky": 0
+    }
+  },
+  "distLeftAs": "dual-origin work area (rebuild to restore the development artifact)",
+  "commitState": "COMMITTED",
+  "readiness": "FULL_RELEASE_READY",
+  "attestation": {
+    "status": "FULL",
+    "reason": null
+  },
+  "generationReceipt": {
+    "path": "reports/release/candidates/saipenprotocol-com-6dc40565e4/g-95a4957b99c003c1.json",
+    "preserved": false
+  }
+}

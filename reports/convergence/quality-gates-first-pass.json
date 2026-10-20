@@ -1,0 +1,140 @@
+{
+  "complete": false,
+  "results": [
+    {
+      "command": "npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 7.972,
+      "log": "_local_ref/final-gates/check.log"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.23,
+      "log": "_local_ref/final-gates/lint.log"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 4.71,
+      "log": "_local_ref/final-gates/build.log"
+    },
+    {
+      "command": "npm run validate:themes",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.223,
+      "log": "_local_ref/final-gates/validate-themes.log"
+    },
+    {
+      "command": "npm run validate:canonical",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.448,
+      "log": "_local_ref/final-gates/validate-canonical.log"
+    },
+    {
+      "command": "npm run validate:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.291,
+      "log": "_local_ref/final-gates/validate-content.log"
+    },
+    {
+      "command": "npm run validate:registry",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.656,
+      "log": "_local_ref/final-gates/validate-registry.log"
+    },
+    {
+      "command": "npm run validate:baselines",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.203,
+      "log": "_local_ref/final-gates/validate-baselines.log"
+    },
+    {
+      "command": "npm run validate:licenses",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.22,
+      "log": "_local_ref/final-gates/validate-licenses.log"
+    },
+    {
+      "command": "npm run audit:build",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.6,
+      "log": "_local_ref/final-gates/audit-build.log"
+    },
+    {
+      "command": "npm run site:doctor",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.793,
+      "log": "_local_ref/final-gates/site-doctor.log"
+    },
+    {
+      "command": "npm run i18n:validate",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.965,
+      "log": "_local_ref/final-gates/i18n-validate.log"
+    },
+    {
+      "command": "npm run test:engine",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 19.624,
+      "log": "_local_ref/final-gates/test-engine.log",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:runtime",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 7.158,
+      "log": "_local_ref/final-gates/test-runtime.log",
+      "passed": 18
+    },
+    {
+      "command": "npm run test:shell",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 19.948,
+      "log": "_local_ref/final-gates/test-shell.log",
+      "passed": 122
+    },
+    {
+      "command": "npm run test:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 5.512,
+      "log": "_local_ref/final-gates/test-content.log",
+      "passed": 18
+    },
+    {
+      "command": "npm run test:support",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 4.588,
+      "log": "_local_ref/final-gates/test-support.log",
+      "passed": 5
+    },
+    {
+      "command": "npm run test:i18n",
+      "status": "FAIL",
+      "exitCode": 1,
+      "seconds": 12.581,
+      "log": "_local_ref/final-gates/test-i18n.log",
+      "passed": 62,
+      "failed": 1
+    }
+  ]
+}

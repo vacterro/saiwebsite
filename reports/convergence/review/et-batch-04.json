@@ -1,0 +1,208 @@
+{
+  "batch": "et-04",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-04.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "docs-ui.pager.prev",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.raw.note",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.concepts",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.evidence",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.getting-started",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.operation",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.protocol",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.recovery",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.section.reference",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.sources.note",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.sources.title",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.toc.title",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.translation.note",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.label",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.search",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.spec",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.spec-index",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.state-machine",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs-ui.tree.title",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.description",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.intro",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.the-problem-it-solves",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.title",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.what-it-is-not",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.what-makes-it-a-protocol-not-a-habit",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.introduction.what-persists",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.description",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.how-a-session-looks",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.intro",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.three-ideas-carry-everything",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.three-layers",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.mental-model.title",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.adopt-a-project",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.clone-once",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.commit-the-memory-once",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.description",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    },
+    {
+      "id": "docs.getting-started.quickstart.install-once-per-machine",
+      "decision": "APPROVE",
+      "note": "segment/block semantics, Markdown structure, code spans, links, placeholders and glossary verified against EN"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "batch": "et-08",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-08.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "pricing.support.crypto-title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.direct",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.network-label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.recipient",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.source",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.tools.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "pricing.tools.today",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.badge-note",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.description",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.field.help",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.field.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.field.submit",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.status.error",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.status.many",
+      "decision": "CORRECTED",
+      "note": "ET quotes aligned to „...“ used across et (was «...»)"
+    },
+    {
+      "id": "search.status.nojs",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.status.none",
+      "decision": "CORRECTED",
+      "note": "ET quotes aligned to „...“"
+    },
+    {
+      "id": "search.status.one",
+      "decision": "CORRECTED",
+      "note": "ET quotes aligned to „...“"
+    },
+    {
+      "id": "search.status.prompt",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.status.searching",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "search.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.crumbs.debug",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.crumbs.home",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.crumbs.label",
+      "decision": "CORRECTED",
+      "note": "breadcrumb aligned to asukohariba per test-shell terminology; was Asukoht"
+    },
+    {
+      "id": "ui.crumbs.page",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.lang.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.nav.compact-label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.nav.main-label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.nav.more",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.nav.navigate",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.site.description",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.skip-link",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.theme.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    },
+    {
+      "id": "ui.theme.note",
+      "decision": "CORRECTED",
+      "note": "stored locally aligned to kohalik-root (kohalikult); was kohapeal"
+    },
+    {
+      "id": "ui.title.suffix",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN"
+    }
+  ]
+}

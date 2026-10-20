@@ -1,0 +1,128 @@
+{
+  "reviewer": "buffy:independent-review",
+  "batches": {
+    "et-01": {
+      "APPROVE": 37,
+      "CORRECTED": 1,
+      "BLOCKED": 2
+    },
+    "et-02": {
+      "BLOCKED": 3,
+      "CORRECTED": 3,
+      "APPROVE": 34
+    },
+    "et-03": {
+      "BLOCKED": 3,
+      "APPROVE": 37
+    },
+    "et-04": {
+      "BLOCKED": 3,
+      "APPROVE": 37
+    },
+    "et-05": {
+      "BLOCKED": 3,
+      "APPROVE": 37
+    },
+    "et-06": {
+      "BLOCKED": 3,
+      "APPROVE": 35,
+      "CORRECTED": 2
+    },
+    "et-07": {
+      "BLOCKED": 3,
+      "APPROVE": 36,
+      "CORRECTED": 1
+    },
+    "et-08": {
+      "BLOCKED": 3,
+      "APPROVE": 31,
+      "CORRECTED": 5
+    },
+    "ru-01": {
+      "APPROVE": 35,
+      "CORRECTED": 3,
+      "BLOCKED": 2
+    },
+    "ru-02": {
+      "BLOCKED": 3,
+      "CORRECTED": 3,
+      "APPROVE": 34
+    },
+    "ru-03": {
+      "BLOCKED": 3,
+      "APPROVE": 36,
+      "CORRECTED": 1
+    },
+    "ru-04": {
+      "BLOCKED": 3,
+      "APPROVE": 35,
+      "CORRECTED": 2
+    },
+    "ru-05": {
+      "BLOCKED": 3,
+      "APPROVE": 36,
+      "CORRECTED": 1
+    },
+    "ru-06": {
+      "BLOCKED": 3,
+      "APPROVE": 36,
+      "CORRECTED": 1
+    },
+    "ru-07": {
+      "BLOCKED": 3,
+      "APPROVE": 33,
+      "CORRECTED": 4
+    },
+    "ru-08": {
+      "BLOCKED": 3,
+      "APPROVE": 36
+    }
+  },
+  "totals": {
+    "all": {
+      "APPROVE": 565,
+      "CORRECTED": 27,
+      "BLOCKED": 46
+    },
+    "et": {
+      "APPROVE": 284,
+      "CORRECTED": 12,
+      "BLOCKED": 23
+    },
+    "ru": {
+      "APPROVE": 281,
+      "CORRECTED": 15,
+      "BLOCKED": 23
+    },
+    "note": "APPROVE+CORRECTED are unique units (592 = 296 et + 296 ru). BLOCKED log entries (46) repeat the same 6 no-author units across batches since they remain MACHINE_DRAFT; unique BLOCKED units: 6."
+  },
+  "store": {
+    "et": {
+      "REVIEWED": 296,
+      "MACHINE_DRAFT": 3
+    },
+    "ru": {
+      "REVIEWED": 296,
+      "MACHINE_DRAFT": 3
+    }
+  },
+  "blocked_no_author": [
+    "et/about.json::about.dogfooding.body",
+    "et/about.json::about.dogfooding.closed",
+    "et/about.json::about.principles.independence.line",
+    "ru/about.json::about.dogfooding.body",
+    "ru/about.json::about.dogfooding.closed",
+    "ru/about.json::about.principles.independence.line"
+  ],
+  "incidents": [
+    "E-REV-01 in ru-batch-02.json: erroneous REVIEWED approval of ru about.principles.independence.line with assumed author reverted to byte-faithful MACHINE_DRAFT; hash restored to canonical 96af36a14366d86a"
+  ],
+  "publication_readiness": "NOT READY: 6 units await second-reviewer approval; operator publication approval outstanding; locales remain disabled",
+  "unique_reviewed": {
+    "et_approve": 284,
+    "et_corrected": 12,
+    "ru_approve": 281,
+    "ru_corrected": 15
+  },
+  "six_units": "fresh MACHINE_DRAFT authorship by buffy:provenance-reauthor (2026-10-08 provenance-closure session); awaiting a genuinely different reviewer per six-unit-handoff.json"
+}

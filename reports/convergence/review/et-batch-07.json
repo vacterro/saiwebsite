@@ -1,0 +1,208 @@
+{
+  "batch": "et-07",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-07.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "notfound.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.about.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.benchmarks.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.blog.index.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.changelog.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.community.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.compatibility.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.docs.index.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.downloads.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.ecosystem.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.home.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.playground.index.label",
+      "decision": "CORRECTED",
+      "note": "playground aligned to katsetuskeskkond per scope.body terminology; was Katsetused"
+    },
+    {
+      "id": "pages.pricing.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.search.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.security.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.spec.index.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pages.status.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.badge-note",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.col.offering",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.col.state",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.col.today",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.description",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.future.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.future.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.hosted.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.hosted.today",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.local.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.local.today",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.protocol.name",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.protocol.today",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.state.free",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.state.none",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.bank",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.bank-title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.body",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.copied",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    },
+    {
+      "id": "pricing.support.copy",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, links and glossary verified against EN"
+    }
+  ]
+}

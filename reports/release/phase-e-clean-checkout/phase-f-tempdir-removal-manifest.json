@@ -1,0 +1,16 @@
+{
+  "assessedAt": "2026-10-11T01:18:52Z",
+  "location": "%TEMP% (a literal directory in the project root — an unexpanded Windows %TEMP% token that a tool wrote verbatim instead of resolving)",
+  "classification": "project-owned disposable clean-checkout reproduction trees",
+  "recoveryDependency": "none — .saipen/recovery/settled-index holds no reference to sai-clean-repro",
+  "referencedBy": "reports/SAI_WEBSITE-SHIFT-2026-10-10-source-convergence.md only, where they are logged as an archive-boundary classification that was deliberately 'not touched'; no live process consumes them",
+  "uniqueEvidence": "none — BOOTSTRAP_REPORT.md is byte-identical to the project-root BOOTSTRAP_REPORT.md; the single non-working-tree file (public/robots.txt) is reproducible output of src/pages/robots.txt.ts",
+  "trees": [
+    { "name": "sai-clean-repro-1791621900", "files": 720 },
+    { "name": "sai-clean-repro-1791621927", "files": 720 }
+  ],
+  "totalFiles": 1440,
+  "decision": "remove — project-owned, unreferenced by any live process or recovery index, no unique evidence lost; disposable repro trees must not live inside the audited project root",
+  "preventFuture": ".gitignore now ignores /%TEMP%/ and the sai-clean-repro-/sai-site-fixture-/sai-phaseE- temp prefixes so disposable worktrees cannot re-enter the project root unnoticed; reproduction clones are made under os.tmpdir() (external to the project) instead",
+  "audapackPolicy": "unchanged — AUDAPACK collector exclusions were not modified; this manifest only records a project-root cleanup"
+}

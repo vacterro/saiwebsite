@@ -1,0 +1,165 @@
+{
+  "complete": true,
+  "results": [
+    {
+      "command": "npm run check",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 8.648,
+      "log": "_local_ref/final-gates/check.log"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.277,
+      "log": "_local_ref/final-gates/lint.log"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 4.843,
+      "log": "_local_ref/final-gates/build.log"
+    },
+    {
+      "command": "npm run validate:themes",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.26,
+      "log": "_local_ref/final-gates/validate-themes.log"
+    },
+    {
+      "command": "npm run validate:canonical",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.542,
+      "log": "_local_ref/final-gates/validate-canonical.log"
+    },
+    {
+      "command": "npm run validate:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.297,
+      "log": "_local_ref/final-gates/validate-content.log"
+    },
+    {
+      "command": "npm run validate:registry",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.731,
+      "log": "_local_ref/final-gates/validate-registry.log"
+    },
+    {
+      "command": "npm run validate:baselines",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.244,
+      "log": "_local_ref/final-gates/validate-baselines.log"
+    },
+    {
+      "command": "npm run validate:licenses",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.281,
+      "log": "_local_ref/final-gates/validate-licenses.log"
+    },
+    {
+      "command": "npm run audit:build",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.659,
+      "log": "_local_ref/final-gates/audit-build.log"
+    },
+    {
+      "command": "npm run site:doctor",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 0.884,
+      "log": "_local_ref/final-gates/site-doctor.log"
+    },
+    {
+      "command": "npm run i18n:validate",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 1.026,
+      "log": "_local_ref/final-gates/i18n-validate.log"
+    },
+    {
+      "command": "npm run test:engine",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 22.1,
+      "log": "_local_ref/final-gates/test-engine.log",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "npm run test:runtime",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 7.829,
+      "log": "_local_ref/final-gates/test-runtime.log",
+      "passed": 18
+    },
+    {
+      "command": "npm run test:shell",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 21.958,
+      "log": "_local_ref/final-gates/test-shell.log",
+      "passed": 122
+    },
+    {
+      "command": "npm run test:content",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 5.8,
+      "log": "_local_ref/final-gates/test-content.log",
+      "passed": 18
+    },
+    {
+      "command": "npm run test:support",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 4.595,
+      "log": "_local_ref/final-gates/test-support.log",
+      "passed": 5
+    },
+    {
+      "command": "npm run test:i18n",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 13.153,
+      "log": "_local_ref/final-gates/test-i18n.log",
+      "passed": 63
+    },
+    {
+      "command": "npm run test:pixel",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 152.085,
+      "log": "_local_ref/final-gates/test-pixel.log",
+      "passed": 276,
+      "skipped": 80
+    },
+    {
+      "command": "npm run test:visual",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 11.706,
+      "log": "_local_ref/final-gates/test-visual.log",
+      "passed": 33
+    },
+    {
+      "command": "npm run test",
+      "status": "PASS",
+      "exitCode": 0,
+      "seconds": 188.654,
+      "log": "_local_ref/final-gates/test.log",
+      "passed": 535,
+      "skipped": 80
+    }
+  ]
+}

@@ -9,15 +9,15 @@
   "migratedFrom": null,
   "profile": "candidate",
   "readinessClaim": "candidate-only",
-  "gateContract": "6",
+  "gateContract": "8",
   "engineSkips": [],
   "git": {
-    "rev": "d376f6c6d780a6d06d2c2dc9a8978571fc703903",
+    "rev": "92946d5b58e521a8a47512c85659ee5d2173283b",
     "dirty": true,
-    "dirtyFiles": 415,
-    "dirtyIdentity": "88f9d219035ccdac866c9b65ca916a9247f7fa0b14227dba199728cb103b65fd",
-    "provenance": "head+dirty-manifest",
-    "provenanceDetail": null
+    "dirtyFiles": 1113,
+    "dirtyIdentity": null,
+    "provenance": "limited",
+    "provenanceDetail": "unresolvable path: \"R  .saipen/intake/contracts/SRC-001.json -> .saipen/archive/source/SRC-001.contract.json\""
   },
   "package": "1.5.0",
   "protocol": {
@@ -46,32 +46,17 @@
       "exit": 0
     },
     {
-      "id": "validate-content",
-      "ok": true,
-      "exit": 0
-    },
-    {
-      "id": "validate-registry",
-      "ok": true,
-      "exit": 0
-    },
-    {
       "id": "validate-baselines",
       "ok": true,
       "exit": 0
     },
     {
-      "id": "validate-licenses",
+      "id": "validate-licenses:source",
       "ok": true,
       "exit": 0
     },
     {
       "id": "validate:media",
-      "ok": true,
-      "exit": 0
-    },
-    {
-      "id": "audit-build",
       "ok": true,
       "exit": 0
     },

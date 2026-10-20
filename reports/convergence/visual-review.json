@@ -1,0 +1,177 @@
+{
+  "reference": "Chromium DPR1; thresholds unchanged; actual screenshots inspected before updating these nine baselines",
+  "unchangedBaselines": 24,
+  "changed": [
+    {
+      "baseline": "compatibility.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 129416,
+      "bounds": [
+        116,
+        150,
+        1164,
+        720
+      ],
+      "reason": "Pinned source commit; reading files distinguished from runtime access and declared enforcement"
+    },
+    {
+      "baseline": "home.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 118,
+      "bounds": [
+        458,
+        389,
+        499,
+        397
+      ],
+      "reason": "118 pixels confined to the pinned commit text in the hero"
+    },
+    {
+      "baseline": "home-dracula.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 118,
+      "bounds": [
+        458,
+        389,
+        499,
+        397
+      ],
+      "reason": "118 pixels confined to the pinned commit text in the hero"
+    },
+    {
+      "baseline": "home-mobile.png",
+      "beforeSize": [
+        390,
+        844
+      ],
+      "afterSize": [
+        390,
+        844
+      ],
+      "differentPixels": 118,
+      "bounds": [
+        40,
+        494,
+        81,
+        502
+      ],
+      "reason": "118 pixels confined to the pinned commit text in the hero"
+    },
+    {
+      "baseline": "playground.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 1550,
+      "bounds": [
+        740,
+        686,
+        1155,
+        706
+      ],
+      "reason": "Pinned source commit/date and release candidate version text"
+    },
+    {
+      "baseline": "security.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 66931,
+      "bounds": [
+        102,
+        150,
+        1176,
+        720
+      ],
+      "reason": "Pinned source commit and bounded runtime/security wording; no assertion of absent signatures"
+    },
+    {
+      "baseline": "spec.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 3848,
+      "bounds": [
+        276,
+        150,
+        1155,
+        686
+      ],
+      "reason": "Pinned source commit/date and release candidate version text"
+    },
+    {
+      "baseline": "spec-lifecycle.png",
+      "beforeSize": [
+        1280,
+        720
+      ],
+      "afterSize": [
+        1280,
+        720
+      ],
+      "differentPixels": 530,
+      "bounds": [
+        670,
+        150,
+        867,
+        160
+      ],
+      "reason": "Pinned source commit/date and release candidate version text"
+    },
+    {
+      "baseline": "status-mobile.png",
+      "beforeSize": [
+        390,
+        844
+      ],
+      "afterSize": [
+        390,
+        844
+      ],
+      "differentPixels": 194,
+      "bounds": [
+        213,
+        332,
+        362,
+        363
+      ],
+      "reason": "Release candidate version and pinned protocol commit only"
+    }
+  ]
+}

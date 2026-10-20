@@ -1,0 +1,208 @@
+{
+  "batch": "et-03",
+  "locale": "et",
+  "reviewer": "buffy:independent-review",
+  "evidence": "i18n-work/review/et-batch-03.json",
+  "decisions": [
+    {
+      "id": "about.dogfooding.body",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.dogfooding.closed",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.principles.independence.line",
+      "decision": "BLOCKED",
+      "note": "no original-author metadata in store; provenance must be established before any approval"
+    },
+    {
+      "id": "about.scope.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.design",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.design-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.ecosystem",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.ecosystem-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.protocol",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.protocol-value",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.sources.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.why.body1",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.why.body2",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.why.body3",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.why.quote",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.why.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.agent",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.and",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.audit",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.comma",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.handoff",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.idea",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.next",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.target",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.title",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.tools",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "about.workflow.verify",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.authority.engineering",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.authority.explanation",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.authority.reference",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.concepts",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.evidence",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.getting-started",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.operation",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.protocol",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.recovery",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.lead.reference",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.pager.label",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    },
+    {
+      "id": "docs-ui.pager.next",
+      "decision": "APPROVE",
+      "note": "semantics, placeholders, markup and glossary verified against EN; Agent/Audit loanwords confirmed correct ET per translatable-glossary terms"
+    }
+  ]
+}

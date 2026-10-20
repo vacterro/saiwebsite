@@ -1,0 +1,682 @@
+{
+  "status": "HEALTHY",
+  "sources": {
+    "counts": {
+      "CURRENT": 29,
+      "VOLATILE": 1,
+      "FAILED": 0
+    },
+    "states": [
+      {
+        "id": "github.vacterro.releases",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "ecosystem",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": "scripts/sync-ecosystem.mjs",
+          "sha256": "910adcb20f7a9b343d62ca40f1053d27c6ae8d462614c8a3bf00cea945e4c7a2",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.hq.project-map",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "0ae2a7cefc43ba0bcf625f0724b0c2d33a11a17885ca4fe47be73d476bbd4300",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.protocol.adapters",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "c3a421abed66f762f54dced1dac72931d81321a680b97b8d2b10296399989cc6",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.protocol.meta",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "c29e24aed90e442f878ac020f79c1e65ba4aa927dcae406e34975d7f02741059",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.protocol.registry",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "fb92c221e715fdf0e6c144b9e40f332da2e5b1b42ea0652b3784f25dada12485",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.protocol.state-schema",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "ba45bfbdd972a31364d4037ec59247ad3afbbf246123a29f3b79b13b80f5afcb",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.brochure.en",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.changelog",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.guide",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.license",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.readme",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "c356c84376835666fb16f6c94f27cee650972515d3ea7cd2ff6ca6988e789a28",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.saipen.commands",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.saipen.core",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.saipen.maintenance",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.saipen.phases.verify",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.security",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "saipen.reference.spec",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "canonical-reference",
+          "version": "8.1.0",
+          "revision": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+          "revisionDate": "2026-10-07T08:07:00Z",
+          "syncTool": "scripts/sync-canonical.mjs",
+          "sha256": "2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.content.blog",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "6d131af65869c915936e43790f36916d5608e734e9d38235527c46af28f7301d",
+          "files": 4,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.content.changelog",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "8d2a7f74f15da987bbaf6b23fa654db501d2ac4f5a430405f2cbf717b5ef7d91",
+          "files": 7,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.content.docs",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "6dcac46c2765467b30d3d1e7092187ded2ef8568868a258cc157c19ad7af05aa",
+          "files": 28,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.fonts",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "13f6512adec26e5f724b6f3de5ffe49ee47380aba1624c681c4e455388eb2e29",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.identity",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "19d509db8e1fb0105f672c1433e686a81620fe477ef1e6cf0aac45b624f86a9e",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.milestones",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "f8efab10eed49cd8e2e9ac4f76396320226f962cd543e626cbbaf31d5048d8e3",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.package",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "package-version",
+          "version": "1.5.0",
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "dd9ed692c18208b79ec4baeacfc0cc942c3c65740c32e7979eba8bc05f3a367b",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.phases",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "aa8896076ece2fff739c451898c565e618115f02c486bf6fc0505a978a529dbf",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.project-memory",
+        "state": "VOLATILE",
+        "identity": {
+          "adapter": "volatile",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": null,
+          "files": null,
+          "locked": false
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.scenarios",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "e315a51a6f6ad9fce52444015a872ef93599037f9df94e3558f65abafe22b115",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "site.verification",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "9a624c5fe8d35bace101221ead1726ed47b9fac36f59128baeb4459ad0b23ffd",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "vacterro.support.public",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "6f84ae40438a5e36a0ce4ca6fa32565216e185676f700b91003b456b2c6f40a9",
+          "files": 1,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      },
+      {
+        "id": "wintage.theme-packs",
+        "state": "CURRENT",
+        "identity": {
+          "adapter": "file",
+          "version": null,
+          "revision": null,
+          "revisionDate": null,
+          "syncTool": null,
+          "sha256": "01b52957081ba12733538f949e83e1b3cfd684c69351cb0f62cd0df7b576f42d",
+          "files": 16,
+          "locked": true
+        },
+        "reviewToken": null,
+        "impact": null,
+        "freshness": "LOCAL_VERIFIED_SNAPSHOT; remote freshness requires site:sync --dry-run"
+      }
+    ]
+  },
+  "content": {
+    "dist": true,
+    "pages": 127,
+    "blocks": {
+      "blocks": 300,
+      "documents": 28,
+      "segments": 149,
+      "domains": 10
+    },
+    "pagesByMaturity": {
+      "preview": 14,
+      "stable": 43,
+      "draft": 6,
+      "per-entry": 64
+    }
+  },
+  "translations": {
+    "et": {
+      "MACHINE_DRAFT": 299
+    },
+    "ru": {
+      "MACHINE_DRAFT": 299
+    }
+  },
+  "locales": [
+    {
+      "locale": "en",
+      "configured": true,
+      "enabled": true,
+      "publication": "public",
+      "stage": "canonical",
+      "requiredUnits": 505,
+      "renderedUnits": 505,
+      "approvedUnits": 505,
+      "completion": 100,
+      "publicationCompletion": 100,
+      "fontGaps": [],
+      "blockers": [],
+      "productionReady": true
+    },
+    {
+      "locale": "qps-ploc",
+      "configured": true,
+      "enabled": true,
+      "publication": "internal",
+      "stage": "pseudo",
+      "requiredUnits": 0,
+      "renderedUnits": 0,
+      "approvedUnits": 0,
+      "completion": 100,
+      "publicationCompletion": 100,
+      "fontGaps": [],
+      "blockers": [],
+      "productionReady": false
+    },
+    {
+      "locale": "et",
+      "configured": true,
+      "enabled": false,
+      "publication": "public",
+      "stage": "pilot",
+      "requiredUnits": 299,
+      "renderedUnits": 299,
+      "approvedUnits": 0,
+      "completion": 100,
+      "publicationCompletion": 0,
+      "fontGaps": [],
+      "blockers": [
+        "INDEPENDENT_REVIEW_REQUIRED"
+      ],
+      "productionReady": false
+    },
+    {
+      "locale": "ru",
+      "configured": true,
+      "enabled": false,
+      "publication": "public",
+      "stage": "pilot",
+      "requiredUnits": 299,
+      "renderedUnits": 299,
+      "approvedUnits": 0,
+      "completion": 100,
+      "publicationCompletion": 0,
+      "fontGaps": [],
+      "blockers": [
+        "INDEPENDENT_REVIEW_REQUIRED"
+      ],
+      "productionReady": false
+    }
+  ],
+  "derived": {
+    "manifests": [
+      {
+        "id": "content-engine.source-lock",
+        "path": "src/content-engine/manifests/source-lock.json",
+        "state": "CURRENT"
+      },
+      {
+        "id": "content-engine.inventory",
+        "path": "src/content-engine/inventory/pages.inventory.json",
+        "state": "CURRENT"
+      },
+      {
+        "id": "content-engine.content-lock",
+        "path": "src/content-engine/manifests/content-lock.json",
+        "state": "CURRENT"
+      }
+    ],
+    "generatedArtifacts": 11,
+    "integrityProblems": 0
+  },
+  "redControls": [
+    {
+      "name": "source lock drift is reported STALE",
+      "fired": true
+    },
+    {
+      "name": "graph cycle is detected",
+      "fired": true
+    },
+    {
+      "name": "support source impacts exactly pricing HTML and its variants",
+      "fired": true
+    },
+    {
+      "name": "one block change touches only its own units",
+      "fired": true
+    },
+    {
+      "name": "support source recommends test:support",
+      "fired": true
+    },
+    {
+      "name": "protocol registry impact leaves /about/ alone",
+      "fired": true
+    },
+    {
+      "name": "composition with an unknown block is refused",
+      "fired": true
+    },
+    {
+      "name": "generated file with a wrong recorded hash is drift",
+      "fired": true
+    }
+  ],
+  "broken": [],
+  "stale": [],
+  "translationWork": [],
+  "actions": [
+    {
+      "reason": "INDEPENDENT_REVIEW_REQUIRED",
+      "locale": "et",
+      "command": "npm run i18n:review -- --locale et"
+    },
+    {
+      "reason": "INDEPENDENT_REVIEW_REQUIRED",
+      "locale": "ru",
+      "command": "npm run i18n:review -- --locale ru"
+    }
+  ]
+}

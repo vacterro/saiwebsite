@@ -1,0 +1,8 @@
+npm notice run sai-website@1.5.0 release:candidate
+npm notice run node scripts/release-candidate.mjs
+release-candidate: PASS
+origin: https://saipenprotocol.com
+readiness: CANDIDATE_ONLY
+candidate: .site-work/release/candidates/saipenprotocol-com-6dc40565e4/current (137 files, sha256 bf067c7b2ee7cfdd…)
+evidence: reports/release/candidates/saipenprotocol-com-6dc40565e4.json
+publicationAuthorized: false (operator decision; no remote action performed)

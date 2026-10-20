@@ -1,0 +1,101 @@
+{
+  "previousCommit": "55bde0f71f0ba1c886092e30212b4212af780759",
+  "currentCommit": "55f278cde46fb8f279de05d76e8a7ae401339a6a",
+  "source": "public immutable GitHub raw commit URLs",
+  "machineSourceBytesChanged": false,
+  "documents": [
+    {
+      "path": "BROCHURE_EN.md",
+      "was": "7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35",
+      "now": "7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "GUIDE.md",
+      "was": "b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784",
+      "now": "b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "LICENSE",
+      "was": "f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94",
+      "now": "f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "README.md",
+      "was": "82cf372048351c86b57f5f726da2fd7b68249f51d91c40e6da29aaf27a126c4c",
+      "now": "c356c84376835666fb16f6c94f27cee650972515d3ea7cd2ff6ca6988e789a28",
+      "changed": true,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "saipen/COMMANDS.md",
+      "was": "ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8",
+      "now": "ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "saipen/CORE.md",
+      "was": "6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761",
+      "now": "6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "saipen/MAINTENANCE.md",
+      "was": "1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5",
+      "now": "1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "saipen/phases/verify.md",
+      "was": "46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd",
+      "now": "46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "SECURITY.md",
+      "was": "a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265",
+      "now": "a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "SPEC.md",
+      "was": "2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873",
+      "now": "2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873",
+      "changed": false,
+      "verifiedPinnedHash": true
+    },
+    {
+      "path": "CHANGELOG.md",
+      "was": "f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c",
+      "now": "f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c",
+      "changed": false,
+      "verifiedPinnedHash": true
+    }
+  ],
+  "acknowledgedIdentities": [
+    "github.vacterro.releases@910adcb20f7a9b343d62ca40f1053d27c6ae8d462614c8a3bf00cea945e4c7a2",
+    "saipen.protocol.meta@c29e24aed90e442f878ac020f79c1e65ba4aa927dcae406e34975d7f02741059",
+    "saipen.reference.brochure.en@7f8c83e887709ec9827641a38b49b3030dee689861c492d10bce8c0d3edecd35",
+    "saipen.reference.changelog@f679b1cd81cc260c9062dafce00c45cd7716a61fd0d7f9b5fcbb29ec6f63351c",
+    "saipen.reference.guide@b5d21f6c1dd4e422ad31c9f98f1d34c0f13b53a19f0568afd3ff18df2c0dc784",
+    "saipen.reference.license@f8c5d9a0fe5d7212c5bc31f5ce9b8dbfb19bb25accc932f775dd0d894c16ed94",
+    "saipen.reference.readme@c356c84376835666fb16f6c94f27cee650972515d3ea7cd2ff6ca6988e789a28",
+    "saipen.reference.saipen.commands@ba3fab08f853c19b99155054ea33c14b7dc43529617f77bf6bb37d49e10833b8",
+    "saipen.reference.saipen.core@6e501d7a043e7a8d629360332f39a4b9487385aa8fd34965e340daf355b9e761",
+    "saipen.reference.saipen.maintenance@1ff3276ccd36421f6a37abb48cebce6c75fd0abf3d3e3b8673f542c0a99fa2c5",
+    "saipen.reference.saipen.phases.verify@46a8c8a737bde74512152cfceb09bed6549d5dbe868a661c97b6a6f17a4ffbfd",
+    "saipen.reference.security@a456565d1c932485e3add5aa6279d96180c1592ce7ce5a98c81b0c14974f8265",
+    "saipen.reference.spec@2782ffbe120e00122b8dddd90c71ca503907e30e4bf372c4bb4ccaa5d66cb873"
+  ],
+  "reviewConclusion": "Machine files are byte-identical to the prior pin. Referenced documents are unchanged except README presentation/summary wording; protocol installation and continuation semantics remain unchanged. Release snapshot facts are unchanged; its lock migration removes timestamp churn. All new document identities are pinned to public immutable source URLs."
+}

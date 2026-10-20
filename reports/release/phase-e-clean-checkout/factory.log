@@ -1,0 +1,6 @@
+release-candidate: PASS
+origin: https://saipenprotocol.com
+readiness: FULL_RELEASE_READY
+candidate: .site-work/release/candidates/saipenprotocol-com-6dc40565e4/current (137 files, sha256 4970a6c04bfdc0a4…)
+evidence: reports/release/candidates/saipenprotocol-com-6dc40565e4.json
+publicationAuthorized: false (operator decision; no remote action performed)
