@@ -40,3 +40,18 @@ i18n-work/
 
 # Transient operator-operation lock. Never protocol memory or release content.
 .site-work/
+
+# Disposable clean-checkout reproduction / fixture worktrees. These belong in
+# os.tmpdir(), never the project root; the literal "%TEMP%" directory is an
+# unexpanded Windows token a tool wrote verbatim. Ignored so a stray repro tree
+# can never re-enter the audited root unnoticed.
+/%TEMP%/
+sai-clean-repro-*/
+sai-site-fixture-*/
+sai-phaseE-*/
+
+# Vite dependency cache (astro.config.mjs cacheDir); build output, never source.
+.vite-cache/
+
+# Content-layer data store (regression-pair driver cacheDir); sandbox scratch.
+.build-cache/

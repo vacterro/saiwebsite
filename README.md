@@ -150,9 +150,9 @@ node scripts/browser-matrix.mjs  # Mandatory FULL browser matrix from the single
 npm run release:verify      # Artifact contract verification (JSON verdict: PASS / FAIL / BLOCKED)
 npm run release:dual-origin # Two-origin build plus stale-origin mutation control
 npm run release:candidate   # One-command public release candidate: build, verify, project, smoke, snapshot, evidence
-                             # Prerequisite: the dist-reading gates (validate-content, validate-registry,
-                             # audit-build) run BEFORE its own build, so build with the target origin first:
-                             #   SAI_SITE_ORIGIN=<origin> SAI_RELEASE_BUILD=1 npm run build
+                             # Self-contained on a clean checkout: source-only gates run first, then the factory
+                             # builds dist/ under its lock and runs the dist-reading gates (validate-content,
+                             # validate-registry, audit-build) against that build. No manual pre-build required.
 npm run release:doctor      # Read-only candidate-store health + recovery choices (never modifies)
 npm run release:package     # Deterministic offline deployment ZIP + separate receipt (never uploads)
 npm run release:smoke       # Local static-host smoke probe over a candidate directory
