@@ -12,11 +12,14 @@
  * 2. Requires source/content health (site:doctor exit 0).
  * 3. Refuses unreviewed upstream identity changes (doctor covers drift;
  *    protocol identity is re-checked by the verifier, never auto-accepted).
- * 4. Runs the required static validation gates. Gates that read the built
- *    artifact (validate-content, validate-registry, audit-build) therefore
- *    require a prior release-mode build of the same origin:
- *      SAI_SITE_ORIGIN=<origin> SAI_RELEASE_BUILD=1 npm run build
- * 5. Builds for the explicitly configured target origin (release mode).
+ * 4. Runs the source-only static gates. Nothing here reads a built
+ *    artifact, so a clean checkout runs end to end with no prior build.
+ * 5. Builds for the explicitly configured target origin (release mode),
+ *    then runs the artifact gates (validate-content, validate-registry,
+ *    audit-build) on that build. They run inside the exclusive factory
+ *    lock and before any promotion, and every command receives
+ *    SAI_RELEASE_ARTIFACT_DIR so it inspects the artifact this transaction
+ *    produced -- never an inherited stale dist/.
  * 6. Runs release-mode verification on the build.
  * 7. Projects the isolated public artifact (staging `next/` directory).
  * 8. Verifies the isolated candidate under the public contract.
@@ -639,14 +642,44 @@ function releaseFactoryLock(lockDir) {
  * the compatibility/status/downloads/benchmarks/security pages.
  * Version-5 receipts stay readable as history but cannot attest FULL
  * under contract 6; only a genuine contract-6 verification mints it.
+ *
+ * Contract 7 makes the factory self-contained on a clean checkout by
+ * splitting the static set by artifact dependency: the source-only gates
+ * (SOURCE_GATES) run before the lock, and the artifact gates
+ * (ARTIFACT_GATES: validate-content, validate-registry, audit-build) run
+ * inside the lock right after this run's release build, each handed
+ * SAI_RELEASE_ARTIFACT_DIR pointing at the artifact of the current
+ * transaction. The mandatory gate identities and count are unchanged, but
+ * the stage order moved, so a FULL receipt is only valid under this
+ * contract. Version-6 receipts stay readable as history but cannot attest
+ * FULL under contract 7; only a genuine contract-7 verification mints it.
+ *
+ * Contract 8 removes the last stale-dist dependency from the pre-build
+ * phase. The licence/provenance gate is split by artifact dependency into
+ * two distinct mandatory identities: `validate-licenses:source` (approved
+ * sources, WOFF2 lineage, production faces, fonts.css, social-card
+ * provenance, THIRD_PARTY_NOTICES) runs source-only before the lock, and
+ * `validate-licenses:artifact` (the shipped build's fonts and social card)
+ * runs inside the lock against SAI_RELEASE_ARTIFACT_DIR after this run's
+ * build. The pre-build source-health gate (`site:doctor --source-only`) no
+ * longer inspects a built site, so no pre-build gate can validate or trust
+ * an inherited dist/. The single `validate-licenses` identity becomes two
+ * (net +1 mandatory gate), so a Version-7 receipt — which has neither
+ * phase-qualified id — can never attest FULL under contract 8; only a
+ * genuine contract-8 verification mints it.
  */
-export const GATE_CONTRACT_VERSION = '6';
+export const GATE_CONTRACT_VERSION = '8';
 
-/** Gate ids that must each report ok for a FULL verdict to mean anything. */
+/** Gate ids that must each report ok for a FULL verdict to mean anything.
+ * The licence gate is two phase-qualified identities (`:source` pre-build,
+ * `:artifact` post-build): both are mandatory and neither can satisfy the
+ * other, so a missing half fails readiness instead of hiding behind a shared
+ * id. */
 export const REQUIRED_FULL_GATES = [
   'site:doctor', 'lint-styles', 'validate-themes', 'validate-canonical',
   'validate-content', 'validate-registry', 'validate-baselines',
-  'validate-licenses', 'validate:media', 'audit-build', 'i18n', 'test:engine', 'check',
+  'validate-licenses:source', 'validate-licenses:artifact',
+  'validate:media', 'audit-build', 'i18n', 'test:engine', 'check',
   'astro-build', 'test:engine-build', 'test:browser-matrix', 'release:dual-origin',
 ];
 
@@ -1490,17 +1523,45 @@ export function runEngineGate(env, files, { registry = ENGINE_SUITE_FILES, distD
   return { ok: true, exit: 0, skips: skips.map((s) => `${s.name} # SKIP ${s.reason}`), accounting: { files: perFile, totals, skips } };
 }
 
-const STATIC_GATES = [
+/** Gate identity recorded in evidence: command -> stable gate id.
+ * A `--phase=<p>` validator keeps a phase-qualified id (`validate-licenses:source`
+ * vs `validate-licenses:artifact`) so the pre-build and post-build halves of a
+ * split gate are distinct mandatory identities — a missing half can never hide
+ * behind the other under one shared id. */
+export function gateId(cmd) {
+  const phase = (cmd.match(/--phase=([a-z]+)/) ?? [])[1];
+  const base = cmd.replace(/^node scripts\//, '').replace(/^npm run /, '').replace(/\.mjs.*$/, '');
+  return phase ? `${base}:${phase}` : base;
+}
+
+/**
+ * Source-only static gates. None of these reads a built artifact, so they
+ * are safe on a clean checkout (no dist/) and, being read-only, safe before
+ * the exclusive factory lock is taken.
+ */
+export const SOURCE_GATES = [
   'node scripts/lint-styles.mjs',
   'node scripts/validate-themes.mjs',
   'node scripts/validate-canonical.mjs',
+  'node scripts/validate-baselines.mjs',
+  'node scripts/validate-licenses.mjs --phase=source',
+  'npm run validate:media',
+  'node scripts/i18n.mjs validate',
+];
+
+/**
+ * Artifact gates: these consume the release build. They run inside the
+ * locked factory, immediately after this run's release-mode build and
+ * before any projection or promotion, so a clean checkout needs no manual
+ * pre-build and no gate can inspect an inherited dist/ from an earlier
+ * transaction. Each command is handed SAI_RELEASE_ARTIFACT_DIR naming the
+ * exact directory the current transaction built.
+ */
+export const ARTIFACT_GATES = [
   'node scripts/validate-content.mjs',
   'node scripts/validate-registry.mjs',
-  'node scripts/validate-baselines.mjs',
-  'node scripts/validate-licenses.mjs',
-  'npm run validate:media',
+  'node scripts/validate-licenses.mjs --phase=artifact',
   'node scripts/audit-build.mjs',
-  'node scripts/i18n.mjs validate',
 ];
 
 async function main(argv) {
@@ -1579,7 +1640,13 @@ async function main(argv) {
 
 async function runFactory(argv, { evidence, origin, buildEnv, base, profile }) {
   // ---- 1-2. source/content health (refuse drift) -------------------------------
-  const doctor = runGate('node scripts/site.mjs doctor', process.env);
+  // Pre-build, source-only: the doctor inspects sources, locks, generated
+  // manifests and red controls, but NOT a built site. It must never validate
+  // or trust an inherited dist/ from an earlier transaction. The built site is
+  // checked after this run's own build by the artifact gates
+  // (validate-content / validate-registry) against SAI_RELEASE_ARTIFACT_DIR,
+  // inside the lock, before promotion.
+  const doctor = runGate('node scripts/site.mjs doctor --source-only', process.env);
   evidence.gates.push({ id: 'site:doctor', ...doctor });
   if (!doctor.ok) {
     evidence.failedStage = 'source-health';
@@ -1587,10 +1654,12 @@ async function runFactory(argv, { evidence, origin, buildEnv, base, profile }) {
     return finish(evidence, `FAIL at source-health: site:doctor exit ${doctor.exit}; refusing to build on drift`);
   }
 
-  // ---- 3. static validation ----------------------------------------------------
-  for (const cmd of STATIC_GATES) {
+  // ---- 3. source-only static validation ----------------------------------------
+  // Nothing here reads a built artifact, so a clean checkout (no dist/)
+  // passes these before the lock is taken and before anything is built.
+  for (const cmd of SOURCE_GATES) {
     const r = runGate(cmd, process.env);
-    evidence.gates.push({ id: cmd.replace(/^node scripts\//, '').replace(/^npm run /, '').replace(/\.mjs.*$/, ''), ...r });
+    evidence.gates.push({ id: gateId(cmd), ...r });
     if (!r.ok) {
       evidence.failedStage = 'static-gates';
       evidence.verdict = 'FAIL';
@@ -1696,8 +1765,26 @@ export async function runLockedFactory({ evidence, origin, buildEnv, base, profi
     return finish(evidence, `FAIL at build: astro build exit ${built.exit}: ${built.tail}`, root);
   }
 
-  // ---- 5. release-mode verification ----------------------------------------------
+  // ---- 4b. artifact gates (this transaction's build, inside the lock) ----------
+  // validate-content / validate-registry / audit-build read the BUILT site.
+  // They run after this run's build and before any projection or promotion,
+  // under the exclusive lock, so a clean checkout needs no manual pre-build
+  // and no gate can inspect an inherited dist/. SAI_RELEASE_ARTIFACT_DIR
+  // names the exact directory this transaction built (ROOT/dist in a real
+  // run, the injected disposable artifact in tests).
   const dist = builtDistDir ?? join(ROOT, 'dist');
+  const artifactEnv = { ...buildEnv, SAI_RELEASE_ARTIFACT_DIR: dist };
+  for (const cmd of ARTIFACT_GATES) {
+    const r = D.runGate(cmd, artifactEnv);
+    evidence.gates.push({ id: gateId(cmd), ...r });
+    if (!r.ok) {
+      evidence.failedStage = 'artifact-gates';
+      evidence.verdict = 'FAIL';
+      return finish(evidence, `FAIL at artifact-gates: ${cmd} exit ${r.exit}: ${r.tail} (committed generation untouched)`, root);
+    }
+  }
+
+  // ---- 5. release-mode verification ----------------------------------------------
   const releaseResult = await D.verifyRelease({ dist, env: buildEnv, release: true, root });
   evidence.releaseVerify = { verdict: releaseResult.verdict, failing: releaseResult.checks.filter((c) => c.status !== 'PASS').map((c) => c.id) };
   if (releaseResult.verdict !== 'PASS') {
