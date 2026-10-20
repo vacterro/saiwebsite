@@ -281,10 +281,16 @@ function importPackage() {
       return `[provenance] ${l.id} ${id}: no stored author — ${status} promotion on newly asserted authorship is refused; establish provenance first, never invent it`;
     return null;
   };
+  // Review evidence belongs to the exact text a reviewer read. A MACHINE_DRAFT
+  // import states the text is a draft, so it must not inherit the stored
+  // reviewer/reference of a previous version — that would assert a review of
+  // text nobody reviewed. Only an explicit --reviewer/--review-reference on a
+  // REVIEWED/CURRENT import records a review.
+  const carryReview = status !== 'MACHINE_DRAFT';
   const effectiveMeta = (stored) => ({
     ...((stored?.author ?? author) ? { author: stored?.author ?? author } : {}),
-    ...((reviewer ?? stored?.reviewer) ? { reviewer: reviewer ?? stored?.reviewer } : {}),
-    ...((flag('review-reference') ?? stored?.reviewReference) ? { reviewReference: flag('review-reference') ?? stored?.reviewReference } : {}),
+    ...((reviewer ?? (carryReview ? stored?.reviewer : undefined)) ? { reviewer: reviewer ?? (carryReview ? stored?.reviewer : undefined) } : {}),
+    ...((flag('review-reference') ?? (carryReview ? stored?.reviewReference : undefined)) ? { reviewReference: flag('review-reference') ?? (carryReview ? stored?.reviewReference : undefined) } : {}),
   });
   for (const u of pkg.units ?? []) {
     if (seen.has(u.id)) {refused.push(`[duplicate-id] ${u.id}: repeated in the package`);continue;}

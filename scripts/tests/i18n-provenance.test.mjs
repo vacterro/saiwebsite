@@ -124,7 +124,7 @@ test('provenance 7: existing no-author draft plus genuinely new text records new
   } finally { removeSiteFixture(f.root); }
 });
 
-test('provenance 6: MACHINE_DRAFT re-import preserves genuine authorship instead of wiping it', () => {
+test('provenance 6: MACHINE_DRAFT re-import preserves genuine authorship but drops the inherited review evidence', () => {
   const f = setup();
   try {
     f.setUnit({ author: 'author-A', reviewer: 'reviewer-one', status: 'REVIEWED' });
@@ -133,8 +133,13 @@ test('provenance 6: MACHINE_DRAFT re-import preserves genuine authorship instead
     f.fillAndWrite(pkg, 'p6.json', f.originalText);
     assert.equal(f.run('import', 'p6.json', '--status', 'MACHINE_DRAFT').status, 0);
     const unit = f.readDoc().units[UID];
+    // The author is genuine provenance and survives the re-import. The review
+    // evidence does not: a draft is unreviewed and review evidence belongs to
+    // the exact text a reviewer read, so store.mjs validateTranslations
+    // refuses a MACHINE_DRAFT that carries a reviewer.
     assert.equal(unit.author, 'author-A');
-    assert.equal(unit.reviewer, 'reviewer-one');
+    assert.equal(unit.reviewer, undefined);
+    assert.equal(unit.reviewReference, undefined);
     assert.equal(unit.status, 'MACHINE_DRAFT');
     assert.notEqual(readFileSync(f.domainPath, 'utf8'), before);
   } finally { removeSiteFixture(f.root); }
