@@ -100,12 +100,10 @@
       "reviewReference": "reports/convergence/review/et-batch-05.json"
     },
     "home.description": {
-      "text": "{site} — {tagline} {motto} Projektiolek lihtfailides, millest iga ühilduv agent saab jätkata.",
-      "sourceHash": "de78a5f66b1a8760",
-      "status": "REVIEWED",
-      "author": "codex:T-20",
-      "reviewer": "buffy:independent-review",
-      "reviewReference": "reports/convergence/review/et-batch-05.json"
+      "text": "{site} — {tagline} {motto} Projektiolek lihtfailides, millest ühilduv agent saab jätkata.",
+      "sourceHash": "5cdca6122e7b1a9b",
+      "status": "MACHINE_DRAFT",
+      "author": "codex:T-20"
     },
     "home.eco.body": {
       "text": "SAIPEN haldab `.saipen/`. Selle ümber on tööriistad SAIPEN projektide käivitamiseks ja jälgimiseks ning agenditaristu vaatlemiseks, sõnumiteks, pakendamiseks ja taastamiseks — kokku {count} projekti.",
@@ -164,12 +162,10 @@
       "reviewReference": "reports/convergence/review/et-batch-05.json"
     },
     "home.hero.lead": {
-      "text": "SAIPEN hoiab projekti töömälu projekti sees lihtfailides, nii et iga ühilduv agent saab ühe käsuga jätkata täpselt sealt, kus eelmine peatus — ilma vestlusajaloo või seansi mäluta.",
-      "sourceHash": "eab3ccbfc85edf0d",
-      "status": "REVIEWED",
-      "author": "codex:T-20",
-      "reviewer": "buffy:independent-review",
-      "reviewReference": "reports/convergence/review/et-batch-05.json"
+      "text": "SAIPEN hoiab projekti töömälu projekti sees lihtfailides, nii et ühilduv agent — ilma vestlusajaloo ja ilma seansi mäluta — saab ühe käsuga jätkata kirja pandud olekust. Protokoll määrab üleandmise; kui usaldusväärselt konkreetne agent seda järgib, sõltub agendist, keskkonnast ja käituskeskkonnast.",
+      "sourceHash": "1d2c8b96a1d7fb87",
+      "status": "MACHINE_DRAFT",
+      "author": "codex:T-20"
     },
     "home.hero.licence": {
       "text": "MIT-litsentsiga. Protokoll {version}; sait kirjeldab commit'i {commit}.",

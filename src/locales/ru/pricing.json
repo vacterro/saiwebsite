@@ -163,6 +163,12 @@
       "reviewer": "buffy:independent-review",
       "reviewReference": "reports/convergence/review/ru-batch-07.json"
     },
+    "pricing.support.copy-failed": {
+      "text": "Не удалось скопировать — адрес не скопирован",
+      "sourceHash": "cdfc3407ba6f5ddd",
+      "status": "MACHINE_DRAFT",
+      "author": "saipen-agent"
+    },
     "pricing.support.crypto-title": {
       "text": "Криптовалюта",
       "sourceHash": "cd1f778f9be5d2cf",

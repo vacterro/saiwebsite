@@ -100,12 +100,10 @@
       "reviewReference": "reports/convergence/review/ru-batch-05.json"
     },
     "home.description": {
-      "text": "{site} — {tagline} {motto} Состояние проекта в обычных файлах, из которого может продолжить любой совместимый агент.",
-      "sourceHash": "de78a5f66b1a8760",
-      "status": "REVIEWED",
-      "author": "codex:T-20",
-      "reviewer": "buffy:independent-review",
-      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+      "text": "{site} — {tagline} {motto} Состояние проекта в обычных файлах, с которого совместимый агент может продолжить.",
+      "sourceHash": "5cdca6122e7b1a9b",
+      "status": "MACHINE_DRAFT",
+      "author": "codex:T-20"
     },
     "home.eco.body": {
       "text": "SAIPEN управляет `.saipen/`. Вокруг него — инструменты запуска и наблюдения за проектами SAIPEN и инфраструктура агентов для наблюдения, сообщений, упаковки и восстановления; всего {count} проектов.",
@@ -164,12 +162,10 @@
       "reviewReference": "reports/convergence/review/ru-batch-05.json"
     },
     "home.hero.lead": {
-      "text": "SAIPEN хранит рабочую память проекта в обычных файлах внутри проекта. Любой совместимый агент может одной командой продолжить точно с места остановки предыдущего — без истории чата и памяти сеанса.",
-      "sourceHash": "eab3ccbfc85edf0d",
-      "status": "REVIEWED",
-      "author": "codex:T-20",
-      "reviewer": "buffy:independent-review",
-      "reviewReference": "reports/convergence/review/ru-batch-05.json"
+      "text": "SAIPEN хранит рабочую память проекта в обычных файлах внутри проекта, так что совместимый агент — без истории чата и без памяти сеанса — может одной командой продолжить с записанного состояния. Протокол задаёт передачу; насколько надёжно конкретный агент её соблюдает, зависит от агента, среды и окружения.",
+      "sourceHash": "1d2c8b96a1d7fb87",
+      "status": "MACHINE_DRAFT",
+      "author": "codex:T-20"
     },
     "home.hero.licence": {
       "text": "Лицензия MIT. Протокол {version}; сайт описывает коммит {commit}.",

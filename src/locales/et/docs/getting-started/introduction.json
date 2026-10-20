@@ -12,12 +12,10 @@
       "reviewReference": "reports/convergence/review/et-batch-04.json"
     },
     "docs.getting-started.introduction.intro": {
-      "text": "SAIPEN on **jätkamisprotokoll AI-koodiagentidele**. See hoiab projekti töömälu projekti sees lihtsates Markdown-failides kaustas `.saipen/`. Iga ühilduv agent — ilma vestlusajaloo ja seansi mäluta — saab projekti avada, käivitada ühe käsu ja jätkata täpselt sealt, kus eelmine agent peatus.\n\n```text\nsaipen continue\n```\n\nvõi terve sõnumina lihtsalt `cc`.",
-      "sourceHash": "ef08cde3fa37e528",
-      "status": "REVIEWED",
-      "author": "codex:T-20",
-      "reviewer": "buffy:independent-review",
-      "reviewReference": "reports/convergence/review/et-batch-04.json"
+      "text": "SAIPEN on **jätkamisprotokoll AI-koodiagentidele**. See hoiab projekti töömälu projekti sees lihtsates Markdown-failides kaustas `.saipen/`, nii et ühilduv agent — ilma vestlusajaloo ja ilma seansi mäluta — saab projekti avada, käivitada ühe käsu ja jätkata kirja pandud olekust. Protokoll määrab, mida järgmine agent peab lugema ja tegema; kui usaldusväärselt konkreetne agent seda järgib, sõltub agendist ja selle keskkonnast — vaata [Ühilduvus](/compatibility/).\n\n```text\nsaipen continue\n```\n\nvõi terve sõnumina lihtsalt `cc`.",
+      "sourceHash": "5ddcd0b2eaa70814",
+      "status": "MACHINE_DRAFT",
+      "author": "codex:T-20"
     },
     "docs.getting-started.introduction.the-problem-it-solves": {
       "text": "## Millise probleemi see lahendab\n\nKoodiagent ei mäleta pärast seansi lõppu midagi. Ta võis kakskümmend minutit arhitektuuri õppida, kolm oletust välistada ja paranduse pooleldi valmis teha. Sule aken, jõua kasutuspiirini või vaheta mudelit ning see kõik kaob. Järgmine agent alustab nullist ja inimene seletab projekti uuesti.\n\nSAIPEN viib selle mälu vestlusest projekti:\n\n> Agent unustab. Projekt mäletab.",
