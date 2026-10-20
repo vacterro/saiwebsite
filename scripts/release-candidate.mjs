@@ -873,6 +873,7 @@ export const ENGINE_SUITE_FILES = [
   'scripts/tests/engine.test.mjs',
   'scripts/tests/font-controls.test.mjs',
   'scripts/tests/i18n-controls.test.mjs',
+  'scripts/tests/i18n-m51-statistics.test.mjs',
   'scripts/tests/i18n-provenance.test.mjs',
   'scripts/tests/i18n-safety.test.mjs',
   'scripts/tests/release-browser-accounting.test.mjs',
