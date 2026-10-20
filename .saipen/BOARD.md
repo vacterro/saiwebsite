@@ -27,11 +27,11 @@
      write that field name next to a concrete id anywhere in this file. -->
 
 ## DOING
-- [/] T-51 [P2] publish the current branch to https://gitlab.com/vacuum34/sai_website | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-020 | owner: saipen | claim_time: 2026-10-20T18:26:18Z
 
 ## TODO
 
 ## DONE
+- [x] T-51 [P2] publish the current branch to https://gitlab.com/vacuum34/sai_website | verify: the requested change is present and demonstrated against the user own description of it | request_witness: model_supplied | source_receipts: SRC-020 | owner: saipen | claim_time: 2026-10-20T18:36:19Z | closure_mode: own_patch
 - [x] T-46 [P3] AUDAPACK inclusion policy from T-40 Work G: the Wintage source inventory at _src_unpack/wintage/.audapack/manifest.json includes 1187 .saipen/** paths of a nested foreign protocol tree (STATE/BOARD/LOG, recovery/log-detail, archive/source, intake/). Fix belongs to AUDAPACK authority. | verify: a regenerated AUDAPACK inventory of the Wintage source no longer includes .saipen/** protocol memory | owner: saipen | claim_time: 2026-10-14T13:18:53Z | closure_mode: finding_invalidated | implementation_delta: none | invalidation_evidence: E-621
 - [x] T-50 [P3] saipen host: T-37 and T-38 are closed own_patch asserting installed-host behaviour the live host does not have, and the blocker they cite (an external restorer that reverts host writes) is stale -- T-39's patch from the same batch is present and stable | verify: saipen continue --json for an assigned improve cycle reports that cycle's age and draft/no-RUN state; closing a no-delta ticket as own_patch without --paths is refused naming inherited_verified/cohort; saipen checkpoint --help prints the closed taxonomy set | owner: saipen | claim_time: 2026-10-14T12:32:42Z | closure_mode: own_patch
 - [x] T-47 [P2] ET/RU M47 residual: three stale segments in each pilot locale whose English changed in the release factory commit (intro paragraph, home meta description, home hero lead). Draft the current English. | verify: npm run i18n:status shows et and ru with zero STALE units and i18n:validate prints 19 red controls OK | owner: saipen | claim_time: 2026-10-14T12:03:04Z | closure_mode: finding_invalidated | implementation_delta: none | invalidation_evidence: E-601

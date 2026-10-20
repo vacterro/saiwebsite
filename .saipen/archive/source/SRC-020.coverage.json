@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "SRC-020:R001": {
+      "actionable": true,
+      "class": "requirement",
+      "disposition": "VERIFIED",
+      "evidence": "T-51 closed with verification evidence in LOG: verify -> PASS [target: T-51] conf: high -- git ls-remote gitlab reports refs/heads/main 43bb6366c17eb37d667541ac5d8ec333b57d2cb6, which is the pushed HEAD, and the GitLab API reports the same commit id as the main head with the parents d7ad20b (our tree) and dc4009b (the placeholder). The trees are identical: git rev-parse HEAD^{tree} and git rev-parse gitlab/main^{tree} both equal 84afd615e4431f",
+      "text": "publish the current branch to https://gitlab.com/vacuum34/sai_website",
+      "verification": "the Work this request created reached its own verification gate; see the T-51 VERIFY cycle in .saipen/LOG.md",
+      "work": "T-51"
+    }
+  },
+  "schema_version": 1
+}

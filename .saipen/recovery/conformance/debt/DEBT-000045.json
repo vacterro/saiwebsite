@@ -1,0 +1,123 @@
+{
+  "board_sha256": "80e940417b5d8a2e",
+  "bound_work": "T-51",
+  "bound_work_phase": "SCOUT",
+  "created_at": "2026-10-20T18:36:04Z",
+  "findings_digest": "24ad3c198f5cdf826f953775458d8b95142db36b9ab686cca70128c249a9a157",
+  "gate": "core",
+  "journal_op_id": "debt.snapshot-d11bf17a7db3",
+  "log_fingerprint": "a16c881621cc6c8c",
+  "problem_count": 5,
+  "problems": [
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "08886c31d44d83da",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-10",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "2a3a4a862046dc48",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-18",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "2d01562228f73296",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-19",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "8ef07216a69f7c43",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-8",
+      "subject_kind": "work",
+      "subject_ref": null
+    },
+    {
+      "category": null,
+      "credential": false,
+      "detail": "no current-cycle VERIFY boundary; reverify: no current-tree PASS re-verification receipt",
+      "detail_hash": "186e51123c0cc004",
+      "finding_key": "ac8fe87afc1d71b8",
+      "rule_id": "work_closure_evidence",
+      "severity": "problem",
+      "subject_id": "T-9",
+      "subject_kind": "work",
+      "subject_ref": null
+    }
+  ],
+  "project_identity": "v:\\___vac\\__k\\__code\\_html\\_sai_website",
+  "project_lineage": "lineage-a39aeeaeb2fb4e29a827bfee6f7974f7",
+  "reason": "pre-BUILD debt baseline for T-51",
+  "ruleset_fingerprint": "d682e4a0e542976ddfe3e5518a2b4f8bc81d7eea1e4bbdcd8642a8d5c7fefc5c",
+  "ruleset_version": 2,
+  "schema_version": 1,
+  "snapshot_id": "DEBT-000045",
+  "source_head": "43bb6366c17eb37d667541ac5d8ec333b57d2cb6",
+  "source_tree_fingerprint": "git-delta-v1:c66baf69a8306f3b95dfc7badb5f72b088f8de8408e933efadc4d149721a1195",
+  "state_sha256": "ef6556eca87a7fdf",
+  "validator_protocol_version": "1",
+  "warning_count": 3,
+  "warnings": [
+    {
+      "category": "board-soft-cap",
+      "credential": false,
+      "detail": "BOARD.md is <n>, of which <n> is 39 closed record(s) nothing pins (soft cap <n> of such text) -- `saipen transition CLEAN` scrubs them into .saipen/recovery/board-scrub/ (phases/clean.md step 1)",
+      "detail_hash": "e5fc5f42b1fd5756",
+      "finding_key": "d9e04d79f2247ae7",
+      "rule_id": "board_soft_cap",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "log-soft-cap",
+      "credential": false,
+      "detail": ".saipen/LOG.md is <n> / <n>, past the <n> / <n> cap -- `saipen transition CLEAN` seals it into the next .saipen/logs/LOG-<NNN>.md (phases/clean.md step 4)",
+      "detail_hash": "dfb4bf66467774ab",
+      "finding_key": "64be00fb9de17a5d",
+      "rule_id": "log_soft_cap",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    },
+    {
+      "category": "translation-stale",
+      "credential": false,
+      "detail": "32 locale README(s) carry a source digest that no longer matches README.md's normalised content (ar, bg, cs, da, de, ded, el, es, et, fi, fr, he, hi, hr, hu, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sv, th, tr, uk, vi, zh) -- the English prose moved and the translation did not follow. Version strings are normalised out, so a badge bump can never cause this",
+      "detail_hash": "4726dfd364c7de07",
+      "finding_key": "1ffac976cd5d2937",
+      "rule_id": "translation_stale",
+      "severity": "warning",
+      "subject_id": null,
+      "subject_kind": "global",
+      "subject_ref": null
+    }
+  ]
+}
