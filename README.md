@@ -232,7 +232,7 @@ saiwebsite/
 
 <!-- VACTERRO_SUPPORT:BEGIN -->
 ---
-<sub>If SAIPEN and its documentation are useful to you, optional support: [Buy Me a Coffee](https://buymeacoffee.com/vacuum34) · [Boosty](https://boosty.to/vacuum34/donate) · [PayPal](https://paypal.me/AlexNelin) · [other ways](https://github.com/vacterro/vacterro/blob/main/SUPPORT.md)</sub>
+<sub>If SAIPEN and its documentation are useful to you, optional support: [Buy Me a Coffee](https://buymeacoffee.com/vacuum34) · [Boosty](https://boosty.to/vacuum34/donate) · [PayPal](https://paypal.me/AlexNelin) · [Revolut](https://revolut.me/alexnf7xb) · [other ways](https://github.com/vacterro/vacterro/blob/main/SUPPORT.md)</sub>
 <!-- VACTERRO_SUPPORT:END -->
 
 Maintenance: see [OPERATOR.md](OPERATOR.md) for implemented content, source, translation, drift and release-preparation workflows. Current execution evidence is in [reports/convergence](reports/convergence); external publication and production locale approval remain gated.
